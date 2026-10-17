@@ -1,0 +1,5 @@
+# Only client and server are pushed
+/*
+!/.gitignore
+!/client/
+!/server/

@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmit": true
+  },
+  "include": [
+    "scripts/migrate-sqlite-to-postgres.ts",
+    "scripts/sync-service-seed.ts",
+    "scripts/sync-article-seed.ts",
+    "src/**/*.entity.ts",
+    "src/service/service.seed.ts",
+    "src/service/dto/service.dto.ts",
+    "src/article/article.seed.ts",
+    "src/article/dto/article.dto.ts"
+  ]
+}
