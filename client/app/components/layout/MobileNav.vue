@@ -75,7 +75,7 @@ onBeforeUnmount(() => {
         <button
           v-if="open"
           type="button"
-          class="fixed inset-0 z-50 bg-ink/40"
+          class="fixed inset-0 z-50 bg-band/40"
           aria-label="بستن منو"
           @click="emit('close')"
         />
@@ -154,7 +154,7 @@ onBeforeUnmount(() => {
                     <span>{{ link.label }}</span>
                   </NuxtLink>
                   <button
-                    class="me-1 inline-flex size-10 items-center justify-center rounded-lg text-ink-muted transition-colors duration-100 ease-out hover:bg-white"
+                    class="me-1 inline-flex size-10 items-center justify-center rounded-lg text-ink-muted transition-colors duration-100 ease-out hover:bg-panel"
                     type="button"
                     :aria-expanded="practiceOpen"
                     aria-label="نمایش خدمات"
@@ -189,11 +189,11 @@ onBeforeUnmount(() => {
                         @click="emit('close')"
                       >
                         <span
-                          class="inline-flex size-8 shrink-0 items-center justify-center rounded-lg bg-mist"
+                          class="inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-mist"
                           aria-hidden="true"
                         >
                           <span
-                            class="inline-block size-4 bg-green-deep"
+                            class="inline-block size-6 bg-green-deep"
                             :style="{
                               maskImage: `url(${mediaSrc(item.icon)})`,
                               WebkitMaskImage: `url(${mediaSrc(item.icon)})`,
@@ -254,7 +254,7 @@ onBeforeUnmount(() => {
           <div class="shrink-0 border-t border-mist p-4">
             <NuxtLink
               to="/consultation"
-              class="flex w-full items-center justify-center rounded-xl bg-green-deep px-4 py-3 text-sm font-semibold text-ink transition-colors duration-100 ease-out hover:bg-green-deep/90"
+              class="flex w-full items-center justify-center rounded-xl bg-green-deep px-4 py-3.5 text-sm font-bold tracking-wide text-on-primary shadow-[0_8px_22px_rgba(15,118,110,0.35)] ring-1 ring-white/20 transition hover:brightness-110"
               @click="emit('close')"
             >
               رزرو نوبت

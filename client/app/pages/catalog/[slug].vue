@@ -83,14 +83,14 @@ useSchemaOrg([
 
 <template>
   <!-- Dossier / library character -->
-  <article class="bg-white" itemscope itemtype="https://schema.org/CollectionPage">
+  <article class="bg-surface" itemscope itemtype="https://schema.org/CollectionPage">
     <meta itemprop="name" :content="item.title">
     <meta itemprop="description" :content="item.displaySeoDescription">
 
     <SiteReveal variant="fade" delay="0ms">
-      <header class="relative overflow-hidden bg-[#f4f6f5]">
+      <header class="relative overflow-hidden bg-mist">
         <div
-          class="pointer-events-none absolute -left-20 top-16 size-[24rem] rounded-full bg-ink/10 blur-3xl"
+          class="pointer-events-none absolute -left-20 top-16 size-[24rem] rounded-full bg-band/10 blur-3xl"
           aria-hidden="true"
         />
         <div class="relative mx-auto grid max-w-7xl items-center gap-10 px-4 py-12 sm:px-6 sm:py-16 lg:grid-cols-12 lg:gap-12 lg:px-8 lg:py-20">
@@ -100,7 +100,7 @@ useSchemaOrg([
                 to="/catalog"
                 class="inline-flex items-center gap-2 text-sm font-medium text-ink-muted transition hover:text-ink"
               >
-                <span class="inline-flex size-9 items-center justify-center rounded-full bg-white text-lg leading-none ring-1 ring-mist-deep">←</span>
+                <span class="inline-flex size-9 items-center justify-center rounded-full bg-panel text-lg leading-none ring-1 ring-mist-deep">←</span>
                 همه کاتالوگ‌ها
               </NuxtLink>
             </SiteReveal>
@@ -129,18 +129,18 @@ useSchemaOrg([
 
             <SiteReveal variant="soft" delay="220ms">
               <div class="mt-7 flex flex-wrap gap-2">
-                <span class="rounded-2xl bg-white px-3.5 py-2 text-[12px] font-medium text-ink ring-1 ring-mist-deep">
+                <span class="rounded-2xl bg-panel px-3.5 py-2 text-[12px] font-medium text-ink ring-1 ring-mist-deep">
                   {{ item.readingMinutes }} دقیقه
                 </span>
                 <span
                   v-if="item.galleryCount"
-                  class="rounded-2xl bg-white px-3.5 py-2 text-[12px] font-medium text-ink ring-1 ring-mist-deep"
+                  class="rounded-2xl bg-panel px-3.5 py-2 text-[12px] font-medium text-ink ring-1 ring-mist-deep"
                 >
                   {{ item.galleryCount }} تصویر
                 </span>
                 <span
                   v-if="item.pdfs.length"
-                  class="rounded-2xl bg-ink px-3.5 py-2 text-[12px] font-medium text-gold"
+                  class="rounded-2xl bg-band px-3.5 py-2 text-[12px] font-medium text-gold"
                 >
                   {{ item.pdfs.length }} PDF
                 </span>
@@ -153,7 +153,7 @@ useSchemaOrg([
               <!-- Dossier cover frame -->
               <div class="absolute -inset-2 rounded-[1.4rem] border border-gold/35" aria-hidden="true" />
               <div class="absolute -left-3 -top-3 size-10 rounded-br-[1.25rem] bg-gold/80" aria-hidden="true" />
-              <div class="relative overflow-hidden rounded-[1.25rem] bg-ink shadow-[0_28px_70px_rgba(6,54,55,0.22)]">
+              <div class="relative overflow-hidden rounded-[1.25rem] bg-band shadow-[0_28px_70px_rgba(6,54,55,0.22)]">
                 <div class="relative aspect-[4/5] sm:aspect-[5/6] lg:aspect-[16/12]">
                   <img
                     :src="mediaSrc(item.primaryImage)"
@@ -163,10 +163,10 @@ useSchemaOrg([
                     width="900"
                     height="720"
                   >
-                  <div class="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-transparent" />
+                  <div class="absolute inset-0 bg-gradient-to-t from-band via-transparent to-transparent" />
                   <div class="absolute inset-x-0 bottom-0 p-5 sm:p-6">
                     <p class="text-[11px] tracking-[0.18em] text-gold">جلد کاتالوگ</p>
-                    <p class="mt-1 text-base font-semibold text-white">{{ item.title }}</p>
+                    <p class="mt-1 text-base font-semibold text-on-band">{{ item.title }}</p>
                   </div>
                 </div>
               </div>
@@ -181,7 +181,7 @@ useSchemaOrg([
       <aside class="hidden lg:col-span-3 lg:block">
         <div class="sticky top-24 space-y-4">
           <SiteReveal variant="right" delay="80ms">
-            <nav class="rounded-[1.4rem] bg-[#f4f6f5] p-5 ring-1 ring-mist-deep" aria-label="فهرست مطالب">
+            <nav class="rounded-[1.4rem] bg-mist p-5 ring-1 ring-mist-deep" aria-label="فهرست مطالب">
               <p class="reveal-item reveal-item-fade text-[11px] font-semibold tracking-[0.16em] text-gold" style="--reveal-i: 0">
                 فهرست مطالب
               </p>
@@ -194,7 +194,7 @@ useSchemaOrg([
                 >
                   <a
                     :href="`#${link.id}`"
-                    class="flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-ink-muted transition hover:bg-white hover:text-ink"
+                    class="flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-ink-muted transition hover:bg-panel hover:text-ink"
                   >
                     <span class="font-mono text-[10px] text-gold">{{ String(index + 1).padStart(2, '0') }}</span>
                     {{ link.label }}
@@ -205,23 +205,23 @@ useSchemaOrg([
           </SiteReveal>
 
           <SiteReveal variant="zoom" delay="140ms">
-            <div class="rounded-[1.4rem] bg-ink p-5 text-white">
+            <div class="rounded-[1.4rem] bg-band p-5 text-on-band">
               <p class="reveal-item reveal-item-fade text-[11px] font-semibold tracking-[0.14em] text-gold" style="--reveal-i: 0">
                 قدم بعد
               </p>
-              <p class="reveal-item reveal-item-drop mt-3 text-sm leading-7 text-white/75" style="--reveal-i: 1">
+              <p class="reveal-item reveal-item-drop mt-3 text-sm leading-7 text-on-band/75" style="--reveal-i: 1">
                 اگر این کاتالوگ به نیاز شما نزدیک است، نوبت معاینه را رزرو کنید.
               </p>
               <NuxtLink
                 to="/consultation"
-                class="reveal-item reveal-item-scale mt-5 inline-flex w-full items-center justify-center rounded-2xl bg-green-deep px-4 py-3 text-sm font-semibold text-ink transition hover:bg-white"
+                class="reveal-item reveal-item-scale mt-5 inline-flex w-full items-center justify-center rounded-2xl bg-green-deep px-4 py-3 text-sm font-semibold text-on-primary transition hover:bg-panel hover:text-ink"
                 style="--reveal-i: 2"
               >
                 رزرو نوبت
               </NuxtLink>
               <NuxtLink
                 to="/contact"
-                class="reveal-item reveal-item-scale mt-2 inline-flex w-full items-center justify-center rounded-2xl px-4 py-3 text-sm font-medium text-white ring-1 ring-white/25 transition hover:bg-white/10"
+                class="reveal-item reveal-item-scale mt-2 inline-flex w-full items-center justify-center rounded-2xl px-4 py-3 text-sm font-medium text-on-band ring-1 ring-white/25 transition hover:bg-white/10"
                 style="--reveal-i: 3"
               >
                 تماس با دفتر
@@ -233,7 +233,7 @@ useSchemaOrg([
 
       <div class="min-w-0 space-y-10 lg:col-span-9">
         <SiteReveal :variant="shell[0]" delay="40ms">
-          <section id="overview" class="scroll-mt-28 rounded-[1.5rem] bg-[#f4f6f5] p-6 ring-1 ring-mist-deep sm:p-8">
+          <section id="overview" class="scroll-mt-28 rounded-[1.5rem] bg-mist p-6 ring-1 ring-mist-deep sm:p-8">
             <p class="reveal-item reveal-item-fade text-[11px] font-semibold tracking-[0.18em] text-gold" style="--reveal-i: 0">
               معرفی
             </p>
@@ -267,7 +267,7 @@ useSchemaOrg([
               <li
                 v-for="(point, index) in item.highlights"
                 :key="point"
-                class="reveal-item flex gap-3 rounded-[1.25rem] bg-white px-4 py-4 text-[14px] leading-7 text-ink ring-1 ring-mist-deep"
+                class="reveal-item flex gap-3 rounded-[1.25rem] bg-panel px-4 py-4 text-[14px] leading-7 text-ink ring-1 ring-mist-deep"
                 :class="index % 2 === 0 ? 'reveal-item-left' : 'reveal-item-right'"
                 :style="{ '--reveal-i': index + 2 }"
               >
@@ -322,7 +322,7 @@ useSchemaOrg([
         >
           <section
             id="pdfs"
-            class="scroll-mt-28 overflow-hidden rounded-[1.5rem] bg-ink text-white"
+            class="scroll-mt-28 overflow-hidden rounded-[1.5rem] bg-band text-on-band"
           >
             <div class="border-b border-white/10 px-5 py-5 sm:px-7">
               <p class="reveal-item reveal-item-fade text-[11px] font-semibold tracking-[0.16em] text-gold" style="--reveal-i: 0">
@@ -336,7 +336,7 @@ useSchemaOrg([
                   as="span"
                 />
               </h2>
-              <p class="reveal-item reveal-item-right mt-2 text-[13px] leading-7 text-white/65" style="--reveal-i: 2">
+              <p class="reveal-item reveal-item-right mt-2 text-[13px] leading-7 text-on-band/65" style="--reveal-i: 2">
                 مناسب ارائه به خانواده یا مرور قبل از ویزیت.
               </p>
             </div>
@@ -352,7 +352,7 @@ useSchemaOrg([
                   :href="mediaSrc(file.url)"
                   target="_blank"
                   rel="noopener"
-                  class="flex items-center justify-between gap-3 rounded-2xl bg-white/5 px-4 py-3.5 text-sm font-medium text-white ring-1 ring-white/15 transition hover:bg-green-deep hover:text-ink hover:ring-green-deep"
+                  class="flex items-center justify-between gap-3 rounded-2xl bg-white/5 px-4 py-3.5 text-sm font-medium text-on-band ring-1 ring-white/15 transition hover:bg-green-deep hover:text-on-primary hover:ring-green-deep"
                 >
                   <span>دریافت {{ file.title }}</span>
                   <span aria-hidden="true">↓</span>
@@ -363,7 +363,7 @@ useSchemaOrg([
         </SiteReveal>
 
         <SiteReveal variant="slide" delay="40ms">
-          <section class="flex flex-col gap-4 rounded-[1.5rem] bg-[#f4f6f5] px-6 py-8 ring-1 ring-mist-deep sm:flex-row sm:items-center sm:justify-between sm:px-8">
+          <section class="flex flex-col gap-4 rounded-[1.5rem] bg-mist px-6 py-8 ring-1 ring-mist-deep sm:flex-row sm:items-center sm:justify-between sm:px-8">
             <div class="max-w-xl">
               <p class="reveal-item reveal-item-fade text-[11px] font-semibold tracking-[0.16em] text-gold" style="--reveal-i: 0">
                 آماده اقدام؟
@@ -375,14 +375,14 @@ useSchemaOrg([
             <div class="flex flex-col gap-2 sm:flex-row">
               <NuxtLink
                 to="/consultation"
-                class="reveal-item reveal-item-scale inline-flex items-center justify-center rounded-2xl bg-ink px-5 py-3 text-sm font-semibold text-white transition hover:bg-green-deep hover:text-ink"
+                class="reveal-item reveal-item-scale inline-flex items-center justify-center rounded-2xl bg-band px-5 py-3 text-sm font-semibold text-on-band transition hover:bg-green-deep hover:text-on-primary"
                 style="--reveal-i: 2"
               >
                 رزرو نوبت
               </NuxtLink>
               <NuxtLink
                 to="/practice-areas"
-                class="reveal-item reveal-item-drop inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-medium text-ink ring-1 ring-mist-deep transition hover:bg-white"
+                class="reveal-item reveal-item-drop inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-medium text-ink ring-1 ring-mist-deep transition hover:bg-panel"
                 style="--reveal-i: 3"
               >
                 خدمات
@@ -412,7 +412,7 @@ useSchemaOrg([
               >
                 <NuxtLink
                   :to="entry.href"
-                  class="group flex h-full flex-col overflow-hidden rounded-[1.25rem] bg-[#f4f6f5] ring-1 ring-mist-deep transition hover:-translate-y-1 hover:bg-white hover:ring-gold/35"
+                  class="group flex h-full flex-col overflow-hidden rounded-[1.25rem] bg-mist ring-1 ring-mist-deep transition hover:-translate-y-1 hover:bg-panel hover:ring-gold/35"
                 >
                   <div class="relative aspect-[16/10] overflow-hidden bg-mist">
                     <img

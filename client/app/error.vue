@@ -33,7 +33,7 @@ function goHome() {
       {{ error?.statusMessage || description }}
     </p>
     <button
-      class="mt-8 inline-flex rounded-xl bg-green-deep px-5 py-3 text-sm font-semibold text-ink"
+      class="mt-8 inline-flex rounded-xl bg-green-deep px-5 py-3 text-sm font-semibold text-on-primary"
       type="button"
       @click="goHome"
     >

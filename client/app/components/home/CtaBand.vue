@@ -3,7 +3,7 @@ import { siteContact } from '~/data/site-contact'
 </script>
 
 <template>
-  <section class="cta-band relative isolate overflow-hidden bg-ink">
+  <section class="cta-band relative isolate overflow-hidden bg-band">
     <div class="home-glow-dark pointer-events-none absolute inset-0" aria-hidden="true" />
     <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-l from-transparent via-gold to-transparent" />
     <div class="cta-ring pointer-events-none absolute -left-20 top-1/2 size-96 -translate-y-1/2 rounded-full border border-gold/20" aria-hidden="true" />
@@ -14,10 +14,10 @@ import { siteContact } from '~/data/site-contact'
         <p class="reveal-item reveal-item-fade text-[11px] font-medium tracking-[0.18em] text-gold" style="--reveal-i: 0">
           قدم اول
         </p>
-        <h2 class="reveal-item mt-3 text-3xl font-semibold leading-tight tracking-tight text-white sm:text-4xl" style="--reveal-i: 1">
+        <h2 class="reveal-item mt-3 text-3xl font-semibold leading-tight tracking-tight text-on-band sm:text-4xl" style="--reveal-i: 1">
           لبخند شما، با نگاه تخصصی بررسی می‌شود
         </h2>
-        <p class="reveal-item reveal-item-fade mt-4 text-[15px] leading-8 text-white/70" style="--reveal-i: 2">
+        <p class="reveal-item reveal-item-fade mt-4 text-[15px] leading-8 text-on-band/70" style="--reveal-i: 2">
           نوبت اولیه را رزرو کنید یا مستقیم تماس بگیرید. طرح درمان را با شما مرور می‌کنیم.
         </p>
       </div>
@@ -25,14 +25,14 @@ import { siteContact } from '~/data/site-contact'
       <div class="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
         <NuxtLink
           to="/consultation"
-          class="reveal-item reveal-item-scale inline-flex items-center justify-center rounded-xl bg-gold px-7 py-3.5 text-sm font-semibold text-ink transition duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_14px_34px_rgba(176,141,87,0.35)]"
+          class="reveal-item reveal-item-scale inline-flex items-center justify-center rounded-xl bg-green-deep px-7 py-3.5 text-sm font-bold tracking-wide text-on-primary shadow-[0_10px_28px_rgba(15,118,110,0.4)] ring-1 ring-white/25 transition duration-300 hover:-translate-y-0.5 hover:brightness-110"
           style="--reveal-i: 3"
         >
           رزرو نوبت
         </NuxtLink>
         <a
           :href="siteContact.phoneHref"
-          class="reveal-item reveal-item-slide inline-flex items-center justify-center gap-2 rounded-xl px-7 py-3.5 text-sm font-medium text-white ring-1 ring-white/30 transition duration-300 hover:-translate-y-0.5 hover:bg-white/10 hover:ring-gold"
+          class="reveal-item reveal-item-slide inline-flex items-center justify-center gap-2 rounded-xl px-7 py-3.5 text-sm font-medium text-on-band ring-1 ring-white/30 transition duration-300 hover:-translate-y-0.5 hover:bg-white/10 hover:ring-gold"
           style="--reveal-i: 4"
         >
           <span class="size-1.5 rounded-full bg-green-deep" aria-hidden="true" />

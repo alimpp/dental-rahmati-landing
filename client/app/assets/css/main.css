@@ -11,11 +11,30 @@
   --color-gold: #22d3ee;
   --color-ink: #0f172a;
   --color-ink-muted: #475569;
+  /* متن روی رنگ‌های پر — با apply-theme به‌روز می‌شود */
+  --color-on-ink: #f8fafc;
+  --color-on-primary: #f8fafc;
+  --color-on-accent: #0f172a;
+  /* باند کنتراست + پنل کارت — برای سازگاری تم تیره */
+  --color-band: #0f172a;
+  --color-on-band: #f8fafc;
+  --color-panel: #ffffff;
+  --color-on-panel: #0f172a;
   --font-sans: "Vazirmatn Variable", "Vazirmatn", ui-sans-serif, sans-serif;
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+html.theme-switching,
+html.theme-switching * {
+  transition:
+    background-color 280ms ease,
+    color 280ms ease,
+    border-color 280ms ease,
+    fill 280ms ease,
+    stroke 280ms ease !important;
 }
 
 body {

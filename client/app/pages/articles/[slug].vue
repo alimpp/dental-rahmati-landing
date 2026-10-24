@@ -79,7 +79,7 @@ useSchemaOrg([
 
 <template>
   <!-- Magazine / reading-room character -->
-  <article class="bg-[#f4f6f5]">
+  <article class="bg-mist">
     <SiteReveal variant="fade" delay="0ms">
       <header class="relative overflow-hidden">
         <div
@@ -94,7 +94,7 @@ useSchemaOrg([
                 to="/articles"
                 class="inline-flex items-center gap-2 text-sm font-medium text-ink-muted transition hover:text-ink"
               >
-                <span class="inline-flex size-9 items-center justify-center rounded-full bg-white text-lg leading-none ring-1 ring-mist-deep">←</span>
+                <span class="inline-flex size-9 items-center justify-center rounded-full bg-panel text-lg leading-none ring-1 ring-mist-deep">←</span>
                 بازگشت به مقالات
               </NuxtLink>
             </SiteReveal>
@@ -104,12 +104,12 @@ useSchemaOrg([
                 <span class="rounded-full bg-gold/15 px-3 py-1 font-semibold text-gold ring-1 ring-gold/25">
                   {{ article.category }}
                 </span>
-                <span class="rounded-full bg-white px-3 py-1 text-ink-muted ring-1 ring-mist-deep">
+                <span class="rounded-full bg-panel px-3 py-1 text-ink-muted ring-1 ring-mist-deep">
                   {{ article.readingMinutes }} دقیقه مطالعه
                 </span>
                 <span
                   v-if="article.displayDate"
-                  class="rounded-full bg-white px-3 py-1 text-ink-muted ring-1 ring-mist-deep"
+                  class="rounded-full bg-panel px-3 py-1 text-ink-muted ring-1 ring-mist-deep"
                 >
                   {{ article.displayDate }}
                 </span>
@@ -142,8 +142,8 @@ useSchemaOrg([
 
           <SiteReveal variant="left" delay="100ms" class="lg:col-span-5">
             <figure class="relative">
-              <div class="absolute -inset-3 rounded-[1.75rem] bg-gradient-to-tr from-ink/10 to-green-deep/15 blur-2xl" aria-hidden="true" />
-              <div class="relative overflow-hidden rounded-[1.5rem] bg-white shadow-[0_24px_60px_rgba(6,54,55,0.14)] ring-1 ring-mist-deep">
+              <div class="absolute -inset-3 rounded-[1.75rem] bg-gradient-to-tr from-band/10 to-green-deep/15 blur-2xl" aria-hidden="true" />
+              <div class="relative overflow-hidden rounded-[1.5rem] bg-panel shadow-[0_24px_60px_rgba(6,54,55,0.14)] ring-1 ring-mist-deep">
                 <div class="aspect-[4/5] sm:aspect-[5/6]">
                   <img
                     :src="mediaSrc(article.coverImage)"
@@ -153,7 +153,7 @@ useSchemaOrg([
                     height="900"
                   >
                 </div>
-                <figcaption class="flex items-center justify-between gap-3 border-t border-mist-deep bg-white px-4 py-3">
+                <figcaption class="flex items-center justify-between gap-3 border-t border-mist-deep bg-panel px-4 py-3">
                   <span class="text-[11px] tracking-[0.16em] text-gold">مقاله امیر رحمتی</span>
                   <span class="truncate text-xs text-ink-muted">{{ article.category }}</span>
                 </figcaption>
@@ -175,7 +175,7 @@ useSchemaOrg([
             :delay="`${32 + (idx % 4) * 32}ms`"
           >
             <section
-              class="scroll-mt-28 overflow-hidden rounded-[1.4rem] bg-white p-6 ring-1 ring-mist-deep sm:p-8"
+              class="scroll-mt-28 overflow-hidden rounded-[1.4rem] bg-panel p-6 ring-1 ring-mist-deep sm:p-8"
               :class="idx % 2 === 1 ? 'border-s-4 border-s-gold' : ''"
             >
               <p
@@ -223,7 +223,7 @@ useSchemaOrg([
                   :class="i % 2 === 0 ? 'reveal-item-left' : 'reveal-item-drop'"
                   :style="{ '--reveal-i': i + 2 }"
                 >
-                  <span class="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-full bg-[#f4f6f5] font-mono text-xs font-bold text-ink ring-1 ring-mist-deep">
+                  <span class="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-full bg-mist font-mono text-xs font-bold text-ink ring-1 ring-mist-deep">
                     {{ i + 1 }}
                   </span>
                   <span class="pt-1">{{ entry }}</span>
@@ -245,7 +245,7 @@ useSchemaOrg([
                 >
                 <figcaption
                   v-if="section.caption"
-                  class="bg-[#f4f6f5] px-5 py-3 text-sm text-ink-muted"
+                  class="bg-mist px-5 py-3 text-sm text-ink-muted"
                 >
                   {{ section.caption }}
                 </figcaption>
@@ -255,7 +255,7 @@ useSchemaOrg([
         </template>
 
         <SiteReveal variant="slide" delay="40ms">
-          <aside class="overflow-hidden rounded-[1.5rem] bg-ink p-6 text-white sm:p-8">
+          <aside class="overflow-hidden rounded-[1.5rem] bg-band p-6 text-on-band sm:p-8">
             <p class="reveal-item reveal-item-fade text-[11px] font-semibold tracking-[0.2em] text-gold" style="--reveal-i: 0">
               ادامه مسیر
             </p>
@@ -267,12 +267,12 @@ useSchemaOrg([
                 as="span"
               />
             </h3>
-            <p class="reveal-item reveal-item-right mt-3 text-sm leading-7 text-white/70" style="--reveal-i: 2">
+            <p class="reveal-item reveal-item-right mt-3 text-sm leading-7 text-on-band/70" style="--reveal-i: 2">
               اگر مقاله به وضعیت شما نزدیک است، از رزرو نوبت شروع کنید.
             </p>
             <NuxtLink
               to="/consultation"
-              class="reveal-item reveal-item-scale mt-6 inline-flex rounded-2xl bg-green-deep px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white"
+              class="reveal-item reveal-item-scale mt-6 inline-flex rounded-2xl bg-green-deep px-5 py-3 text-sm font-semibold text-on-primary transition hover:bg-panel hover:text-ink"
               style="--reveal-i: 3"
             >
               رزرو نوبت
@@ -285,7 +285,7 @@ useSchemaOrg([
       <aside class="lg:col-span-4">
         <div class="sticky top-24 space-y-4">
           <SiteReveal variant="zoom" delay="120ms">
-            <div class="rounded-[1.5rem] bg-white p-5 ring-1 ring-mist-deep sm:p-6">
+            <div class="rounded-[1.5rem] bg-panel p-5 ring-1 ring-mist-deep sm:p-6">
               <p class="reveal-item reveal-item-fade text-[11px] font-semibold tracking-[0.18em] text-gold" style="--reveal-i: 0">
                 مشخصات مقاله
               </p>
@@ -313,7 +313,7 @@ useSchemaOrg([
               </dl>
               <NuxtLink
                 to="/consultation"
-                class="reveal-item reveal-item-scale mt-6 inline-flex w-full items-center justify-center rounded-2xl bg-ink px-5 py-3 text-sm font-semibold text-white transition hover:bg-green-deep hover:text-ink"
+                class="reveal-item reveal-item-scale mt-6 inline-flex w-full items-center justify-center rounded-2xl bg-band px-5 py-3 text-sm font-semibold text-on-band transition hover:bg-green-deep hover:text-on-primary"
                 style="--reveal-i: 5"
               >
                 رزرو نوبت
@@ -322,7 +322,7 @@ useSchemaOrg([
           </SiteReveal>
 
           <SiteReveal v-if="related.length" variant="up" delay="160ms">
-            <div class="rounded-[1.5rem] bg-white p-5 ring-1 ring-mist-deep sm:p-6">
+            <div class="rounded-[1.5rem] bg-panel p-5 ring-1 ring-mist-deep sm:p-6">
               <p class="reveal-item reveal-item-fade text-[11px] font-semibold tracking-[0.18em] text-gold" style="--reveal-i: 0">
                 مقالات مرتبط
               </p>
@@ -336,7 +336,7 @@ useSchemaOrg([
                 >
                   <NuxtLink
                     :to="item.href"
-                    class="block rounded-xl px-3 py-2.5 transition hover:bg-[#f4f6f5]"
+                    class="block rounded-xl px-3 py-2.5 transition hover:bg-mist"
                   >
                     <span class="line-clamp-2 text-sm font-medium text-ink">{{ item.title }}</span>
                     <span class="mt-1 block text-[11px] text-ink-muted">{{ item.category }}</span>

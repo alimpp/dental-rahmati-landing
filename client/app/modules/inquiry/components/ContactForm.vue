@@ -41,8 +41,8 @@ function fieldClass(name: keyof typeof form) {
   return [
     'w-full border-0 text-sm text-ink outline-none transition placeholder:text-ink-muted/70',
     props.compact
-      ? 'rounded-xl bg-mist/70 px-3.5 py-2.5 ring-1 focus:bg-white'
-      : 'rounded-2xl bg-[#f4f6f5] px-4 py-3 ring-1 focus:bg-white',
+      ? 'rounded-xl bg-mist/70 px-3.5 py-2.5 ring-1 focus:bg-panel'
+      : 'rounded-2xl bg-mist px-4 py-3 ring-1 focus:bg-panel',
     invalid ? 'ring-red-400 focus:ring-red-400' : 'ring-mist-deep focus:ring-gold/45',
   ]
 }
@@ -161,7 +161,7 @@ async function onSubmit() {
     </p>
     <p
       v-if="success"
-      class="rounded-2xl bg-green-deep/15 px-4 py-3 text-sm text-ink ring-1 ring-green-deep/25"
+      class="rounded-2xl bg-green-deep/15 px-4 py-3 text-sm text-on-primary ring-1 ring-green-deep/25"
     >
       درخواست شما ثبت شد. به‌زودی برای هماهنگی وقت با شما تماس می‌گیریم.
     </p>
@@ -172,8 +172,8 @@ async function onSubmit() {
       class="inline-flex w-full items-center justify-center text-sm font-semibold transition disabled:cursor-wait disabled:opacity-70"
       :class="
         compact
-          ? 'rounded-xl bg-green-deep px-5 py-3 text-ink hover:bg-gold hover:text-ink'
-          : 'rounded-2xl bg-ink px-5 py-3.5 text-white hover:bg-green-deep hover:text-ink'
+          ? 'rounded-xl bg-green-deep px-5 py-3 font-bold tracking-wide text-on-primary shadow-[0_8px_22px_rgba(15,118,110,0.3)] hover:brightness-110'
+          : 'rounded-2xl bg-green-deep px-5 py-3.5 font-bold tracking-wide text-on-primary shadow-[0_8px_22px_rgba(15,118,110,0.3)] hover:brightness-110'
       "
     >
       {{ submitting ? 'در حال ارسال...' : 'ارسال درخواست نوبت' }}

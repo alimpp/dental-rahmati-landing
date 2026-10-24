@@ -60,7 +60,7 @@ watch(
 
 <template>
   <section
-    class="relative overflow-hidden bg-[#f4f6f5]"
+    class="relative overflow-hidden bg-mist"
     @mouseenter="isHovered = true"
     @mouseleave="isHovered = false"
   >
@@ -69,7 +69,7 @@ watch(
       aria-hidden="true"
     />
     <div
-      class="pointer-events-none absolute -right-20 bottom-0 size-[22rem] rounded-full bg-ink/10 blur-3xl"
+      class="pointer-events-none absolute -right-20 bottom-0 size-[22rem] rounded-full bg-band/10 blur-3xl"
       aria-hidden="true"
     />
 
@@ -124,21 +124,21 @@ watch(
             <NuxtLink
               v-if="active.hasButton1"
               :to="active.button1Link!"
-              class="inline-flex items-center justify-center rounded-2xl bg-ink px-5 py-3 text-sm font-semibold text-white transition hover:bg-green-deep hover:text-ink"
+              class="inline-flex items-center justify-center rounded-2xl bg-band px-5 py-3 text-sm font-semibold text-on-band transition hover:bg-green-deep hover:text-on-primary"
             >
               {{ active.button1Text }}
             </NuxtLink>
             <NuxtLink
               v-if="active.hasButton2"
               :to="active.button2Link!"
-              class="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-semibold text-ink ring-1 ring-ink/15 transition hover:bg-white"
+              class="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-semibold text-ink ring-1 ring-band/15 transition hover:bg-panel"
             >
               {{ active.button2Text }}
             </NuxtLink>
             <NuxtLink
               v-else-if="active.link && !active.hasButton1"
               :to="active.link"
-              class="inline-flex items-center justify-center rounded-2xl bg-ink px-5 py-3 text-sm font-semibold text-white transition hover:bg-green-deep hover:text-ink"
+              class="inline-flex items-center justify-center rounded-2xl bg-band px-5 py-3 text-sm font-semibold text-on-band transition hover:bg-green-deep hover:text-on-primary"
             >
               بیشتر بدانید
             </NuxtLink>
@@ -151,7 +151,7 @@ watch(
             <div class="flex items-center gap-2">
               <button
                 type="button"
-                class="inline-flex size-11 items-center justify-center rounded-full bg-white text-2xl leading-none text-ink shadow-sm ring-1 ring-mist-deep transition hover:bg-ink hover:text-white"
+                class="inline-flex size-11 items-center justify-center rounded-full bg-panel text-2xl leading-none text-ink shadow-sm ring-1 ring-mist-deep transition hover:bg-band hover:text-on-band"
                 aria-label="اسلاید قبلی"
                 @click="prev"
               >
@@ -159,7 +159,7 @@ watch(
               </button>
               <button
                 type="button"
-                class="inline-flex size-11 items-center justify-center rounded-full bg-white text-2xl leading-none text-ink shadow-sm ring-1 ring-mist-deep transition hover:bg-ink hover:text-white"
+                class="inline-flex size-11 items-center justify-center rounded-full bg-panel text-2xl leading-none text-ink shadow-sm ring-1 ring-mist-deep transition hover:bg-band hover:text-on-band"
                 aria-label="اسلاید بعدی"
                 @click="next"
               >
@@ -172,7 +172,7 @@ watch(
                 :key="`dot-${slide.id}`"
                 type="button"
                 class="h-1.5 rounded-full transition-all"
-                :class="index === activeIndex ? 'w-8 bg-ink' : 'w-2.5 bg-ink/25 hover:bg-ink/50'"
+                :class="index === activeIndex ? 'w-8 bg-band' : 'w-2.5 bg-band/25 hover:bg-band/50'"
                 :aria-label="`رفتن به اسلاید ${index + 1}`"
                 @click="goTo(index)"
               />
@@ -187,8 +187,8 @@ watch(
 
         <!-- Media -->
         <div class="relative lg:col-span-7">
-          <div class="absolute -inset-3 rounded-[2rem] bg-gradient-to-bl from-green-deep/25 via-transparent to-ink/10 blur-2xl" aria-hidden="true" />
-          <div class="relative overflow-hidden rounded-[1.75rem] bg-ink shadow-[0_30px_80px_rgba(6,54,55,0.22)] ring-1 ring-ink/10 sm:rounded-[2rem]">
+          <div class="absolute -inset-3 rounded-[2rem] bg-gradient-to-bl from-green-deep/25 via-transparent to-band/10 blur-2xl" aria-hidden="true" />
+          <div class="relative overflow-hidden rounded-[1.75rem] bg-band shadow-[0_30px_80px_rgba(6,54,55,0.22)] ring-1 ring-band/10 sm:rounded-[2rem]">
             <div class="relative aspect-[4/5] overflow-hidden sm:aspect-[5/4] lg:aspect-[16/11]">
               <Transition name="home-slide" mode="out-in">
                 <div
@@ -204,11 +204,11 @@ watch(
                     loading="eager"
                   >
 
-                  <div class="absolute inset-0 bg-gradient-to-b from-ink/55 via-ink/10 to-ink/60" />
+                  <div class="absolute inset-0 bg-gradient-to-b from-band/55 via-band/10 to-band/60" />
 
                   <!-- Chip on top of image (no longer clipped below the frame) -->
                   <div class="absolute inset-x-0 top-0 z-[1] p-4 sm:p-6">
-                    <div class="inline-flex max-w-[min(100%,20rem)] flex-col rounded-2xl bg-white px-4 py-3 shadow-[0_12px_30px_rgba(6,54,55,0.18)] sm:px-5">
+                    <div class="inline-flex max-w-[min(100%,20rem)] flex-col rounded-2xl bg-panel px-4 py-3 shadow-[0_12px_30px_rgba(6,54,55,0.18)] sm:px-5">
                       <p class="text-[11px] font-medium text-ink-muted">
                         مسیر روشن درمان
                       </p>
@@ -223,11 +223,11 @@ watch(
                       <p class="text-[11px] font-medium tracking-[0.18em] text-gold">
                         کلینیک دندان‌پزشکی امیر رحمتی
                       </p>
-                      <p class="mt-2 line-clamp-2 text-base font-semibold text-white sm:text-lg">
+                      <p class="mt-2 line-clamp-2 text-base font-semibold text-on-band sm:text-lg">
                         {{ active.displayTitle }}
                       </p>
                     </div>
-                    <span class="hidden rounded-full bg-white/15 px-3 py-1.5 text-[11px] font-medium text-white backdrop-blur sm:inline-flex">
+                    <span class="hidden rounded-full bg-white/15 px-3 py-1.5 text-[11px] font-medium text-on-band backdrop-blur sm:inline-flex">
                       مراقبت تخصصی
                     </span>
                   </div>

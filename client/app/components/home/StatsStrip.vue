@@ -21,7 +21,7 @@ function maskStyle(icon: string) {
 </script>
 
 <template>
-  <section v-if="items.length" class="bg-ink py-14 sm:py-16">
+  <section v-if="items.length" class="bg-band py-14 sm:py-16">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <ul class="grid grid-cols-2 gap-6 lg:grid-cols-4 lg:gap-8">
         <li
@@ -33,14 +33,14 @@ function maskStyle(icon: string) {
           <div class="flex h-full flex-col border-t border-white/15 pt-5">
             <span
               v-if="stat.icon"
-              class="mb-4 inline-block size-5 bg-gold"
+              class="mb-4 inline-block size-7 bg-gold"
               :style="maskStyle(stat.icon)"
               aria-hidden="true"
             />
-            <p class="stat-value text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            <p class="stat-value text-3xl font-bold tracking-tight text-on-band sm:text-4xl">
               {{ stat.value }}
             </p>
-            <p class="mt-3 text-sm leading-7 text-white/65">
+            <p class="mt-3 text-sm leading-7 text-on-band/65">
               {{ stat.label }}
             </p>
           </div>

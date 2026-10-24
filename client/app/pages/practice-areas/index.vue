@@ -22,16 +22,16 @@ usePageSeo({
 </script>
 
 <template>
-  <div class="bg-white">
+  <div class="bg-surface">
     <!-- Split hero -->
     <SiteReveal variant="fade">
-      <section class="relative overflow-hidden bg-[#f4f6f5]">
+      <section class="relative overflow-hidden bg-mist">
         <div
           class="pointer-events-none absolute -left-24 top-0 size-[24rem] rounded-full bg-green-deep/15 blur-3xl"
           aria-hidden="true"
         />
         <div
-          class="pointer-events-none absolute -right-16 bottom-0 size-[18rem] rounded-full bg-ink/8 blur-3xl"
+          class="pointer-events-none absolute -right-16 bottom-0 size-[18rem] rounded-full bg-band/8 blur-3xl"
           aria-hidden="true"
         />
 
@@ -48,18 +48,18 @@ usePageSeo({
               هر درمان با توجه به نیاز شما برنامه‌ریزی می‌شود — برای سلامت دهان، زیبایی لبخند و آرامش در ویزیت.
             </p>
             <div class="mt-8 flex flex-wrap gap-3">
-              <span class="rounded-2xl bg-white px-4 py-2 text-sm font-medium text-ink ring-1 ring-mist-deep">
+              <span class="rounded-2xl bg-panel px-4 py-2 text-sm font-medium text-ink ring-1 ring-mist-deep">
                 {{ items.length }} خدمت فعال
               </span>
               <NuxtLink
                 to="/consultation"
-                class="rounded-2xl bg-ink px-4 py-2 text-sm font-semibold text-white transition hover:bg-green-deep hover:text-ink"
+                class="rounded-2xl bg-band px-4 py-2 text-sm font-semibold text-on-band transition hover:bg-green-deep hover:text-on-primary"
               >
                 رزرو نوبت
               </NuxtLink>
               <NuxtLink
                 to="/catalog"
-                class="rounded-2xl px-4 py-2 text-sm font-medium text-ink ring-1 ring-mist-deep transition hover:bg-white"
+                class="rounded-2xl px-4 py-2 text-sm font-medium text-ink ring-1 ring-mist-deep transition hover:bg-panel"
               >
                 کاتالوگ خدمات
               </NuxtLink>
@@ -67,8 +67,8 @@ usePageSeo({
           </div>
 
           <div class="relative lg:col-span-6">
-            <div class="absolute -inset-3 rounded-[2rem] bg-gradient-to-bl from-green-deep/20 to-ink/10 blur-2xl" aria-hidden="true" />
-            <div class="relative overflow-hidden rounded-[1.75rem] bg-ink shadow-[0_30px_80px_rgba(6,54,55,0.22)]">
+            <div class="absolute -inset-3 rounded-[2rem] bg-gradient-to-bl from-green-deep/20 to-band/10 blur-2xl" aria-hidden="true" />
+            <div class="relative overflow-hidden rounded-[1.75rem] bg-band shadow-[0_30px_80px_rgba(6,54,55,0.22)]">
               <div class="relative aspect-[16/11]">
                 <img
                   src="/services/hero.jpg"
@@ -77,16 +77,16 @@ usePageSeo({
                   width="960"
                   height="660"
                 >
-                <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/25 to-transparent" />
+                <div class="absolute inset-0 bg-gradient-to-t from-band via-band/25 to-transparent" />
                 <div class="absolute inset-x-0 top-0 p-5 sm:p-6">
-                  <div class="inline-flex flex-col rounded-2xl bg-white px-4 py-3 shadow-[0_12px_30px_rgba(6,54,55,0.16)]">
+                  <div class="inline-flex flex-col rounded-2xl bg-panel px-4 py-3 shadow-[0_12px_30px_rgba(6,54,55,0.16)]">
                     <p class="text-[11px] font-medium text-ink-muted">تخصص واقعی</p>
                     <p class="mt-0.5 text-sm font-semibold text-ink">هر خدمت، با برنامه درمانی شفاف</p>
                   </div>
                 </div>
                 <div class="absolute inset-x-0 bottom-0 p-6 sm:p-7">
                   <p class="text-[11px] tracking-[0.18em] text-gold">امیر رحمتی</p>
-                  <p class="mt-2 max-w-sm text-lg font-semibold text-white">
+                  <p class="mt-2 max-w-sm text-lg font-semibold text-on-band">
                     از معاینه و ترمیم تا زیبایی و ایمپلنت
                   </p>
                 </div>
@@ -105,7 +105,7 @@ usePageSeo({
 
         <div
           v-else-if="!items.length"
-          class="rounded-[1.5rem] bg-[#f4f6f5] px-6 py-16 text-center text-ink-muted"
+          class="rounded-[1.5rem] bg-mist px-6 py-16 text-center text-ink-muted"
         >
           خدمتی برای نمایش وجود ندارد.
         </div>
@@ -125,9 +125,9 @@ usePageSeo({
           <NuxtLink
             v-if="lead"
             :to="lead.href"
-            class="group mb-6 grid overflow-hidden rounded-[1.75rem] bg-ink shadow-[0_24px_60px_rgba(6,54,55,0.16)] lg:grid-cols-12"
+            class="group mb-6 grid overflow-hidden rounded-[1.75rem] bg-band shadow-[0_24px_60px_rgba(6,54,55,0.16)] lg:grid-cols-12"
           >
-            <div class="relative aspect-[16/11] overflow-hidden lg:col-span-5 lg:aspect-auto lg:min-h-[18rem]">
+            <div class="relative aspect-[16/11] overflow-hidden lg:col-span-5 lg:aspect-auto lg:min-h-[14rem]">
               <img
                 :src="mediaSrc(lead.coverImage || '/services/hero.jpg')"
                 :alt="lead.title"
@@ -135,16 +135,16 @@ usePageSeo({
                 width="800"
                 height="560"
               >
-              <div class="absolute inset-0 bg-gradient-to-l from-ink/80 via-transparent to-transparent max-lg:hidden" />
-              <div class="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent lg:hidden" />
+              <div class="absolute inset-0 bg-gradient-to-l from-band/80 via-transparent to-transparent max-lg:hidden" />
+              <div class="absolute inset-0 bg-gradient-to-t from-band/70 via-transparent to-transparent lg:hidden" />
             </div>
             <div class="flex flex-col justify-center p-7 sm:p-9 lg:col-span-7">
               <span
-                class="mb-5 inline-flex size-12 items-center justify-center rounded-2xl bg-white/10"
+                class="mb-5 inline-flex size-14 items-center justify-center rounded-2xl bg-white/10"
                 aria-hidden="true"
               >
                 <span
-                  class="inline-block size-6 bg-gold"
+                  class="inline-block size-8 bg-gold"
                   :style="{
                     maskImage: `url(${mediaSrc(lead.icon)})`,
                     WebkitMaskImage: `url(${mediaSrc(lead.icon)})`,
@@ -158,10 +158,10 @@ usePageSeo({
                 />
               </span>
               <p class="text-[11px] font-medium tracking-[0.16em] text-gold">خدمت ویژه</p>
-              <h2 class="mt-2 text-2xl font-bold text-white sm:text-3xl">
+              <h2 class="mt-2 text-2xl font-bold text-on-band sm:text-3xl">
                 {{ lead.title }}
               </h2>
-              <p class="mt-4 max-w-xl text-sm leading-8 text-white/70">
+              <p class="mt-4 max-w-xl text-sm leading-8 text-on-band/70">
                 {{ lead.description }}
               </p>
               <span class="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-green-deep">
@@ -181,15 +181,15 @@ usePageSeo({
             >
               <NuxtLink
                 :to="item.href"
-                class="group grid overflow-hidden rounded-[1.5rem] bg-[#f4f6f5] ring-1 ring-mist-deep transition hover:bg-white hover:shadow-[0_22px_50px_rgba(6,54,55,0.1)] hover:ring-gold/35 md:grid-cols-12"
+                class="group grid overflow-hidden rounded-[1.5rem] bg-mist ring-1 ring-mist-deep transition hover:bg-panel hover:shadow-[0_22px_50px_rgba(6,54,55,0.1)] hover:ring-gold/35 md:grid-cols-12"
               >
                 <div class="flex items-center gap-4 border-b border-mist-deep/70 p-5 md:col-span-4 md:border-b-0 md:border-l md:border-mist-deep/70 md:p-6">
                   <span
-                    class="inline-flex size-12 shrink-0 items-center justify-center rounded-2xl bg-white ring-1 ring-mist-deep transition group-hover:bg-ink"
+                    class="inline-flex size-14 shrink-0 items-center justify-center rounded-2xl bg-panel ring-1 ring-mist-deep transition group-hover:bg-band"
                     aria-hidden="true"
                   >
                     <span
-                      class="inline-block size-6 bg-ink transition group-hover:bg-gold"
+                      class="inline-block size-8 bg-ink transition group-hover:bg-gold"
                       :style="{
                         maskImage: `url(${mediaSrc(item.icon)})`,
                         WebkitMaskImage: `url(${mediaSrc(item.icon)})`,
@@ -218,7 +218,7 @@ usePageSeo({
                   </p>
                   <span class="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-ink">
                     مشاهده
-                    <span class="inline-flex size-10 items-center justify-center rounded-full bg-ink text-xl leading-none text-white transition group-hover:bg-green-deep group-hover:text-ink">
+                    <span class="inline-flex size-10 items-center justify-center rounded-full bg-band text-xl leading-none text-on-band transition group-hover:bg-green-deep group-hover:text-on-primary">
                       ←
                     </span>
                   </span>
@@ -228,26 +228,26 @@ usePageSeo({
           </ul>
 
           <!-- CTA band -->
-          <div class="mt-14 grid gap-6 overflow-hidden rounded-[1.75rem] bg-ink p-8 text-white sm:p-10 lg:grid-cols-12 lg:items-center">
+          <div class="mt-14 grid gap-6 overflow-hidden rounded-[1.75rem] bg-band p-8 text-on-band sm:p-10 lg:grid-cols-12 lg:items-center">
             <div class="lg:col-span-8">
               <p class="text-[11px] font-semibold tracking-[0.2em] text-gold">مطمئن نیستید کدام خدمت؟</p>
               <h2 class="mt-3 text-2xl font-bold sm:text-3xl">
                 در ویزیت اول، مسیر درست را مشخص می‌کنیم
               </h2>
-              <p class="mt-4 max-w-xl text-sm leading-8 text-white/70">
+              <p class="mt-4 max-w-xl text-sm leading-8 text-on-band/70">
                 اگر بین چند گزینه مردد هستید، کافی است علائم را کوتاه بگویید تا خدمت و گام بعدی روشن شود.
               </p>
             </div>
             <div class="flex flex-wrap gap-3 lg:col-span-4 lg:justify-end">
               <NuxtLink
                 to="/consultation"
-                class="inline-flex rounded-2xl bg-green-deep px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white"
+                class="inline-flex rounded-2xl bg-green-deep px-5 py-3 text-sm font-semibold text-on-primary transition hover:bg-panel hover:text-ink"
               >
                 رزرو نوبت
               </NuxtLink>
               <NuxtLink
                 to="/guides"
-                class="inline-flex rounded-2xl px-5 py-3 text-sm font-medium text-white ring-1 ring-white/25 transition hover:bg-white/10"
+                class="inline-flex rounded-2xl px-5 py-3 text-sm font-medium text-on-band ring-1 ring-white/25 transition hover:bg-white/10"
               >
                 راهنماها
               </NuxtLink>

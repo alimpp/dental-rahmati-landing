@@ -13,7 +13,7 @@ function toggle(id: string) {
 </script>
 
 <template>
-  <section v-if="items.length" class="relative overflow-hidden bg-white">
+  <section v-if="items.length" class="relative overflow-hidden bg-surface">
     <div class="pointer-events-none absolute -right-24 bottom-10 size-72 rounded-full bg-green-soft/40 blur-3xl" />
 
     <div class="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
@@ -30,7 +30,7 @@ function toggle(id: string) {
           </p>
           <NuxtLink
             to="/consultation"
-            class="reveal-item reveal-item-scale mt-6 inline-flex items-center rounded-xl bg-ink px-5 py-3 text-sm font-semibold text-white transition hover:bg-gold hover:text-ink"
+            class="reveal-item reveal-item-scale mt-6 inline-flex items-center rounded-xl bg-green-deep px-5 py-3 text-sm font-bold tracking-wide text-on-primary shadow-[0_8px_22px_rgba(15,118,110,0.35)] ring-1 ring-white/20 transition hover:brightness-110"
             style="--reveal-i: 3"
           >
             رزرو نوبت
@@ -43,8 +43,8 @@ function toggle(id: string) {
             :key="item.id"
             class="reveal-item reveal-item-left faq-item overflow-hidden rounded-2xl ring-1 transition duration-300"
             :class="openId === item.id
-              ? 'bg-white shadow-[0_16px_40px_rgba(43,48,54,0.09)] ring-gold/45'
-              : 'bg-mist/40 ring-mist-deep hover:bg-white hover:ring-gold/30'"
+              ? 'bg-panel shadow-[0_16px_40px_rgba(43,48,54,0.09)] ring-gold/45'
+              : 'bg-mist/40 ring-mist-deep hover:bg-panel hover:ring-gold/30'"
             :style="{ '--reveal-i': index + 4 }"
           >
             <h3>
@@ -58,7 +58,7 @@ function toggle(id: string) {
                 <span
                   class="inline-flex size-8 shrink-0 items-center justify-center rounded-lg text-xs font-bold ring-1 transition duration-300"
                   :class="openId === item.id
-                    ? 'bg-gold text-ink ring-gold'
+                    ? 'bg-gold text-on-accent ring-gold'
                     : 'bg-gold/10 text-gold ring-gold/25'"
                   aria-hidden="true"
                 >
@@ -71,7 +71,7 @@ function toggle(id: string) {
                   class="faq-plus relative block size-8 shrink-0 rounded-full ring-1 transition duration-300"
                   :class="openId === item.id
                     ? 'is-open bg-green-deep ring-green-deep'
-                    : 'bg-white ring-mist-deep'"
+                    : 'bg-panel ring-mist-deep'"
                   aria-hidden="true"
                 />
               </button>

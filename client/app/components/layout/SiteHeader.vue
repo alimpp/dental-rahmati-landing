@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { serviceModule } from '~/modules'
+import { useSiteTheme } from '~/composables/useSiteTheme'
 import type { NavLink } from './MobileNav.vue'
 
 const route = useRoute()
+const { openPicker } = useSiteTheme()
 const menuOpen = ref(false)
 const practiceItems = computed(() => serviceModule.store.getVisibleItems)
 /** Header/mega/mobile menu: first 6 only; full list lives on /practice-areas */
@@ -21,6 +23,7 @@ onMounted(loadPracticeAreas)
 
 const links: NavLink[] = [
   { label: 'خانه', to: '/', icon: '/icons/home.svg' },
+  { label: 'کلینیک ما', to: '/clinic', icon: '/icons/about.svg' },
   { label: 'خدمات', to: '/practice-areas', icon: '/icons/practice.svg' },
   { label: 'مقالات', to: '/articles', icon: '/icons/articles.svg' },
   { label: 'کاتالوگ', to: '/catalog', icon: '/icons/catalog.svg' },
@@ -36,6 +39,8 @@ function isActive(path: string) {
 
 const headerHidden = ref(false)
 const megaOpen = ref(false)
+/** در صفحه کلینیک هدر همیشه ثابت بماند */
+const keepHeaderPinned = computed(() => route.path.startsWith('/clinic'))
 let lastY = 0
 let ticking = false
 
@@ -53,6 +58,13 @@ function onMegaOpen(isOpen: boolean) {
 }
 
 function updateHeaderVisibility() {
+  if (keepHeaderPinned.value) {
+    headerHidden.value = false
+    lastY = Math.max(0, window.scrollY)
+    ticking = false
+    return
+  }
+
   const y = Math.max(0, window.scrollY)
   const delta = y - lastY
 
@@ -60,7 +72,6 @@ function updateHeaderVisibility() {
     headerHidden.value = false
   }
   else if (delta < -2) {
-    // Any clear upward scroll → show header
     headerHidden.value = false
   }
   else if (delta > 8) {
@@ -85,6 +96,10 @@ watch(
   },
 )
 
+watch(keepHeaderPinned, (pinned) => {
+  if (pinned) headerHidden.value = false
+})
+
 watch(menuOpen, (open) => {
   if (open) headerHidden.value = false
 })
@@ -101,7 +116,7 @@ onBeforeUnmount(() => {
 
 <template>
   <header
-    class="sticky top-0 z-40 border-b border-mist bg-surface shadow-[0_4px_18px_rgba(15,118,110,0.10)] transition-transform duration-200 ease-out will-change-transform"
+    class="sticky top-0 z-40 border-b border-mist bg-surface shadow-[0_4px_18px_rgba(15,118,110,0.10)] transition-[transform] duration-200 ease-out"
     :class="headerHidden ? '-translate-y-full pointer-events-none' : 'translate-y-0'"
   >
     <!-- Mobile: logo+text right · hamburger left · no CTA -->
@@ -113,7 +128,7 @@ onBeforeUnmount(() => {
         @click="closeMenu"
       >
         <img
-          src="/images/logo.svg"
+          src="/images/logo.svg?v=2"
           alt="لوگوی کلینیک دندان‌پزشکی امیر رحمتی"
           class="size-10 shrink-0 rounded-xl"
           width="40"
@@ -129,6 +144,8 @@ onBeforeUnmount(() => {
         </div>
       </NuxtLink>
 
+      <div class="flex shrink-0 items-center gap-1">
+        <ThemeIconButton @click="openPicker" />
       <button
         type="button"
         class="inline-flex size-11 shrink-0 items-center justify-center rounded-md text-ink transition-colors duration-100 ease-out hover:bg-mist"
@@ -152,6 +169,7 @@ onBeforeUnmount(() => {
           aria-hidden="true"
         />
       </button>
+      </div>
     </div>
 
     <!-- Desktop -->
@@ -162,7 +180,7 @@ onBeforeUnmount(() => {
         aria-label="صفحه اصلی کلینیک امیر رحمتی"
       >
         <img
-          src="/images/logo.svg"
+          src="/images/logo.svg?v=2"
           alt="لوگوی کلینیک دندان‌پزشکی امیر رحمتی"
           class="size-10 rounded-xl 2xl:size-11"
           width="44"
@@ -203,12 +221,18 @@ onBeforeUnmount(() => {
         </ul>
       </nav>
 
-      <NuxtLink
-        to="/consultation"
-        class="inline-flex shrink-0 items-center justify-center rounded-md bg-green-deep px-3 py-2 text-sm font-semibold text-ink shadow-sm transition-colors duration-100 ease-out hover:bg-green-deep/90 2xl:px-4 2xl:py-2.5"
-      >
-        رزرو نوبت
-      </NuxtLink>
+      <div class="flex shrink-0 items-center gap-2">
+        <ThemeIconButton
+          class="border border-mist bg-panel hover:border-green-deep/40"
+          @click="openPicker"
+        />
+        <NuxtLink
+          to="/consultation"
+          class="inline-flex shrink-0 items-center justify-center rounded-xl bg-green-deep px-3.5 py-2.5 text-sm font-bold tracking-wide text-on-primary shadow-[0_8px_22px_rgba(15,118,110,0.35)] ring-1 ring-white/25 transition duration-150 ease-out hover:-translate-y-0.5 hover:brightness-110 2xl:px-5 2xl:py-2.5"
+        >
+          رزرو نوبت
+        </NuxtLink>
+      </div>
     </div>
 
     <LayoutMobileNav

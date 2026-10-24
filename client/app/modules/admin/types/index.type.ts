@@ -15,6 +15,7 @@ export const ADMIN_MODULES = [
   'admins',
   'history',
   'reports',
+  'themes',
 ] as const
 
 export const PERMISSION_ACTIONS = ['view', 'create', 'edit', 'delete'] as const
@@ -155,6 +156,7 @@ export const MODULE_LABELS: Record<AdminModuleKey, string> = {
   admins: 'ادمین‌ها',
   history: 'تاریخچه',
   reports: 'گزارش بازدید',
+  themes: 'تم‌ها',
 }
 
 export const MODULE_ICONS: Record<AdminModuleKey, string> = {
@@ -174,6 +176,7 @@ export const MODULE_ICONS: Record<AdminModuleKey, string> = {
   admins: '/icons/admin-shield.svg',
   history: '/icons/clock.svg',
   reports: '/icons/admin-report.svg',
+  themes: '/icons/admin-banner.svg',
 }
 
 export const ACTION_ICONS: Record<PermissionAction, string> = {

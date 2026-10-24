@@ -69,7 +69,7 @@ useSchemaOrg([
 </script>
 
 <template>
-  <article class="bg-[#f4f6f5]">
+  <article class="bg-mist">
     <!-- Split editorial hero -->
     <SiteReveal variant="fade" delay="0ms">
       <header class="relative overflow-hidden">
@@ -78,7 +78,7 @@ useSchemaOrg([
           aria-hidden="true"
         />
         <div
-          class="pointer-events-none absolute -right-20 bottom-0 size-[18rem] rounded-full bg-ink/10 blur-3xl"
+          class="pointer-events-none absolute -right-20 bottom-0 size-[18rem] rounded-full bg-band/10 blur-3xl"
           aria-hidden="true"
         />
 
@@ -89,7 +89,7 @@ useSchemaOrg([
                 to="/practice-areas"
                 class="inline-flex items-center gap-2 text-sm font-medium text-ink-muted transition hover:text-ink"
               >
-                <span class="inline-flex size-9 items-center justify-center rounded-full bg-white text-lg leading-none ring-1 ring-mist-deep">←</span>
+                <span class="inline-flex size-9 items-center justify-center rounded-full bg-panel text-lg leading-none ring-1 ring-mist-deep">←</span>
                 بازگشت به خدمات
               </NuxtLink>
             </SiteReveal>
@@ -97,11 +97,11 @@ useSchemaOrg([
             <SiteReveal variant="right" delay="90ms">
               <div class="mt-7 flex items-center gap-4">
                 <span
-                  class="inline-flex size-14 shrink-0 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-mist-deep"
+                  class="inline-flex size-16 shrink-0 items-center justify-center rounded-2xl bg-panel shadow-sm ring-1 ring-mist-deep"
                   aria-hidden="true"
                 >
                   <span
-                    class="inline-block size-7 bg-ink"
+                    class="inline-block size-9 bg-ink"
                     :style="{
                       maskImage: `url(${mediaSrc(service.icon)})`,
                       WebkitMaskImage: `url(${mediaSrc(service.icon)})`,
@@ -140,13 +140,13 @@ useSchemaOrg([
               <div class="mt-8 flex flex-wrap gap-3">
                 <NuxtLink
                   to="/consultation"
-                  class="inline-flex rounded-2xl bg-ink px-5 py-3 text-sm font-semibold text-white transition hover:bg-green-deep hover:text-ink"
+                  class="inline-flex rounded-2xl bg-band px-5 py-3 text-sm font-semibold text-on-band transition hover:bg-green-deep hover:text-on-primary"
                 >
                   رزرو نوبت
                 </NuxtLink>
                 <NuxtLink
                   to="/guides"
-                  class="inline-flex rounded-2xl bg-white px-5 py-3 text-sm font-medium text-ink ring-1 ring-mist-deep transition hover:bg-mist"
+                  class="inline-flex rounded-2xl bg-panel px-5 py-3 text-sm font-medium text-ink ring-1 ring-mist-deep transition hover:bg-mist"
                 >
                   راهنماهای مرتبط
                 </NuxtLink>
@@ -156,8 +156,8 @@ useSchemaOrg([
 
           <SiteReveal variant="left" delay="110ms" class="lg:col-span-6">
             <div class="relative">
-              <div class="absolute -inset-3 rounded-[2rem] bg-gradient-to-bl from-green-deep/20 to-ink/10 blur-2xl" aria-hidden="true" />
-              <div class="relative overflow-hidden rounded-[1.75rem] bg-ink shadow-[0_30px_80px_rgba(6,54,55,0.22)]">
+              <div class="absolute -inset-3 rounded-[2rem] bg-gradient-to-bl from-green-deep/20 to-band/10 blur-2xl" aria-hidden="true" />
+              <div class="relative overflow-hidden rounded-[1.75rem] bg-band shadow-[0_30px_80px_rgba(6,54,55,0.22)]">
                 <div class="relative aspect-[16/11]">
                   <img
                     :src="mediaSrc(service.coverImage || '/services/hero.jpg')"
@@ -166,16 +166,16 @@ useSchemaOrg([
                     width="960"
                     height="660"
                   >
-                  <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/20 to-transparent" />
+                  <div class="absolute inset-0 bg-gradient-to-t from-band via-band/20 to-transparent" />
                   <div class="absolute inset-x-0 top-0 p-5 sm:p-6">
-                    <div class="inline-flex flex-col rounded-2xl bg-white px-4 py-3 shadow-[0_12px_30px_rgba(6,54,55,0.16)]">
+                    <div class="inline-flex flex-col rounded-2xl bg-panel px-4 py-3 shadow-[0_12px_30px_rgba(6,54,55,0.16)]">
                       <p class="text-[11px] font-medium text-ink-muted">دکتر امیر رحمتی</p>
                       <p class="mt-0.5 text-sm font-semibold text-ink">همین خدمت، طرح درمان شفاف</p>
                     </div>
                   </div>
                   <div class="absolute inset-x-0 bottom-0 p-6 sm:p-7">
                     <p class="text-[11px] tracking-[0.18em] text-gold">امیر رحمتی</p>
-                    <p class="mt-2 text-lg font-semibold text-white">{{ service.title }}</p>
+                    <p class="mt-2 text-lg font-semibold text-on-band">{{ service.title }}</p>
                   </div>
                 </div>
               </div>
@@ -200,10 +200,10 @@ useSchemaOrg([
               class="scroll-mt-28 overflow-hidden"
               :class="
                 idx % 3 === 1
-                  ? 'rounded-[1.6rem] bg-ink p-6 text-white sm:p-8'
+                  ? 'rounded-[1.6rem] bg-band p-6 text-on-band sm:p-8'
                   : idx % 3 === 2
-                    ? 'grid gap-6 rounded-[1.6rem] bg-white p-6 ring-1 ring-mist-deep sm:grid-cols-12 sm:p-8'
-                    : 'rounded-[1.6rem] bg-white p-6 ring-1 ring-mist-deep sm:p-8'
+                    ? 'grid gap-6 rounded-[1.6rem] bg-panel p-6 ring-1 ring-mist-deep sm:grid-cols-12 sm:p-8'
+                    : 'rounded-[1.6rem] bg-panel p-6 ring-1 ring-mist-deep sm:p-8'
               "
             >
               <div :class="idx % 3 === 2 ? 'sm:col-span-4' : ''">
@@ -218,7 +218,7 @@ useSchemaOrg([
                 <h2
                   v-if="section.title"
                   class="reveal-item mt-3 text-xl font-bold sm:text-2xl"
-                  :class="idx % 3 === 1 ? 'text-white' : 'text-ink'"
+                  :class="idx % 3 === 1 ? 'text-on-band' : 'text-ink'"
                   :style="{ '--reveal-i': 1 }"
                 >
                   <SiteTypeText
@@ -238,7 +238,7 @@ useSchemaOrg([
                   class="reveal-item whitespace-pre-line text-[15px] leading-8"
                   :class="
                     idx % 3 === 1
-                      ? 'reveal-item-fade text-white/75'
+                      ? 'reveal-item-fade text-on-band/75'
                       : idx % 2 === 0
                         ? 'reveal-item-left text-ink-muted'
                         : 'reveal-item-right text-ink-muted'
@@ -257,7 +257,7 @@ useSchemaOrg([
                     :key="i"
                     class="reveal-item flex gap-3 text-[15px] leading-7"
                     :class="[
-                      idx % 3 === 1 ? 'text-white' : 'text-ink',
+                      idx % 3 === 1 ? 'text-on-band' : 'text-ink',
                       i % 2 === 0 ? 'reveal-item-left' : 'reveal-item-right',
                     ]"
                     :style="{ '--reveal-i': i + 2 }"
@@ -267,7 +267,7 @@ useSchemaOrg([
                       :class="
                         idx % 3 === 1
                           ? 'bg-white/10 text-gold ring-white/15'
-                          : 'bg-[#f4f6f5] text-ink ring-mist-deep'
+                          : 'bg-mist text-ink ring-mist-deep'
                       "
                     >
                       {{ String(i + 1).padStart(2, '0') }}
@@ -286,7 +286,7 @@ useSchemaOrg([
           variant="bloom"
           delay="60ms"
         >
-          <section class="overflow-hidden rounded-[1.6rem] bg-ink p-6 text-white sm:p-8">
+          <section class="overflow-hidden rounded-[1.6rem] bg-band p-6 text-on-band sm:p-8">
             <p class="reveal-item reveal-item-fade text-[11px] font-semibold tracking-[0.2em] text-gold" style="--reveal-i: 0">
               مسیر درمان
             </p>
@@ -301,13 +301,13 @@ useSchemaOrg([
             </h2>
             <p
               v-if="service.casePathDescription"
-              class="reveal-item reveal-item-right mt-4 max-w-2xl text-[15px] leading-8 text-white/75"
+              class="reveal-item reveal-item-right mt-4 max-w-2xl text-[15px] leading-8 text-on-band/75"
               style="--reveal-i: 2"
             >
               {{ service.casePathDescription }}
             </p>
             <div class="reveal-item reveal-item-scale mt-7 h-px w-full bg-gradient-to-l from-transparent via-gold/50 to-transparent" style="--reveal-i: 3" aria-hidden="true" />
-            <p class="reveal-item reveal-item-slide mt-5 text-sm text-white/55" style="--reveal-i: 4">
+            <p class="reveal-item reveal-item-slide mt-5 text-sm text-on-band/55" style="--reveal-i: 4">
               از ارزیابی اولیه تا اقدام عملی — مسیر را شفاف جلو می‌بریم.
             </p>
           </section>
@@ -319,7 +319,7 @@ useSchemaOrg([
           variant="rise"
           delay="80ms"
         >
-          <section class="overflow-hidden rounded-[1.6rem] bg-white p-6 ring-1 ring-mist-deep sm:p-8">
+          <section class="overflow-hidden rounded-[1.6rem] bg-panel p-6 ring-1 ring-mist-deep sm:p-8">
             <div class="flex flex-wrap items-end justify-between gap-4">
               <div>
                 <p class="reveal-item reveal-item-fade text-[11px] font-semibold tracking-[0.2em] text-gold" style="--reveal-i: 0">
@@ -344,7 +344,7 @@ useSchemaOrg([
               <li
                 v-for="(doc, i) in service.requiredDocuments"
                 :key="i"
-                class="reveal-item flex items-start gap-3 rounded-2xl bg-[#f4f6f5] px-4 py-3.5 text-[15px] leading-7 text-ink"
+                class="reveal-item flex items-start gap-3 rounded-2xl bg-mist px-4 py-3.5 text-[15px] leading-7 text-ink"
                 :class="i % 2 === 0 ? 'reveal-item-left' : 'reveal-item-right'"
                 :style="{ '--reveal-i': i + 3 }"
               >
@@ -360,26 +360,26 @@ useSchemaOrg([
       <aside class="lg:col-span-4">
         <div class="sticky top-24 space-y-4">
           <SiteReveal variant="zoom" delay="120ms">
-            <div class="overflow-hidden rounded-[1.6rem] bg-ink p-6 text-white shadow-[0_24px_55px_rgba(6,54,55,0.2)] sm:p-7">
+            <div class="overflow-hidden rounded-[1.6rem] bg-band p-6 text-on-band shadow-[0_24px_55px_rgba(6,54,55,0.2)] sm:p-7">
               <p class="reveal-item reveal-item-fade text-[11px] font-semibold tracking-[0.18em] text-gold" style="--reveal-i: 0">
                 مراقبت تخصصی
               </p>
               <h3 class="reveal-item reveal-item-drop mt-3 text-xl font-bold leading-8" style="--reveal-i: 1">
                 درمان «{{ service.title }}» را با هماهنگی نوبت شروع کنید
               </h3>
-              <p class="reveal-item reveal-item-fade mt-3 text-sm leading-7 text-white/70" style="--reveal-i: 2">
+              <p class="reveal-item reveal-item-fade mt-3 text-sm leading-7 text-on-band/70" style="--reveal-i: 2">
                 جلسه اول برای بررسی اولیه و پیشنهاد مسیر در نظر گرفته می‌شود.
               </p>
               <NuxtLink
                 to="/consultation"
-                class="reveal-item reveal-item-scale mt-6 inline-flex w-full items-center justify-center rounded-2xl bg-green-deep px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white"
+                class="reveal-item reveal-item-scale mt-6 inline-flex w-full items-center justify-center rounded-2xl bg-green-deep px-5 py-3 text-sm font-semibold text-on-primary transition hover:bg-panel hover:text-ink"
                 style="--reveal-i: 3"
               >
                 رزرو نوبت
               </NuxtLink>
               <NuxtLink
                 to="/contact"
-                class="reveal-item reveal-item-scale mt-3 inline-flex w-full items-center justify-center rounded-2xl px-5 py-3 text-sm font-medium text-white ring-1 ring-white/25 transition hover:bg-white/10"
+                class="reveal-item reveal-item-scale mt-3 inline-flex w-full items-center justify-center rounded-2xl px-5 py-3 text-sm font-medium text-on-band ring-1 ring-white/25 transition hover:bg-white/10"
                 style="--reveal-i: 4"
               >
                 تماس با دفتر
@@ -392,7 +392,7 @@ useSchemaOrg([
             variant="up"
             delay="160ms"
           >
-            <div class="rounded-[1.5rem] bg-white p-5 ring-1 ring-mist-deep sm:p-6">
+            <div class="rounded-[1.5rem] bg-panel p-5 ring-1 ring-mist-deep sm:p-6">
               <p class="reveal-item reveal-item-fade text-[11px] font-semibold tracking-[0.18em] text-gold" style="--reveal-i: 0">
                 خدمات دیگر
               </p>
@@ -406,7 +406,7 @@ useSchemaOrg([
                 >
                   <NuxtLink
                     :to="item.href"
-                    class="flex items-center justify-between gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-ink transition hover:bg-[#f4f6f5]"
+                    class="flex items-center justify-between gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-ink transition hover:bg-mist"
                   >
                     <span class="truncate">{{ item.title }}</span>
                     <span class="text-lg leading-none text-gold">←</span>
@@ -422,7 +422,7 @@ useSchemaOrg([
     <!-- Bottom CTA -->
     <SiteReveal variant="slide" delay="40ms">
       <section class="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
-        <div class="grid gap-6 overflow-hidden rounded-[1.75rem] bg-white p-8 ring-1 ring-mist-deep sm:p-10 lg:grid-cols-12 lg:items-center">
+        <div class="grid gap-6 overflow-hidden rounded-[1.75rem] bg-panel p-8 ring-1 ring-mist-deep sm:p-10 lg:grid-cols-12 lg:items-center">
           <div class="lg:col-span-8">
             <p class="reveal-item reveal-item-fade text-[11px] font-semibold tracking-[0.2em] text-gold" style="--reveal-i: 0">
               گام بعدی
@@ -442,14 +442,14 @@ useSchemaOrg([
           <div class="flex flex-wrap gap-3 lg:col-span-4 lg:justify-end">
             <NuxtLink
               to="/consultation"
-              class="reveal-item reveal-item-scale inline-flex rounded-2xl bg-ink px-5 py-3 text-sm font-semibold text-white transition hover:bg-green-deep hover:text-ink"
+              class="reveal-item reveal-item-scale inline-flex rounded-2xl bg-band px-5 py-3 text-sm font-semibold text-on-band transition hover:bg-green-deep hover:text-on-primary"
               style="--reveal-i: 3"
             >
               رزرو نوبت
             </NuxtLink>
             <NuxtLink
               to="/catalog"
-              class="reveal-item reveal-item-drop inline-flex rounded-2xl px-5 py-3 text-sm font-medium text-ink ring-1 ring-mist-deep transition hover:bg-[#f4f6f5]"
+              class="reveal-item reveal-item-drop inline-flex rounded-2xl px-5 py-3 text-sm font-medium text-ink ring-1 ring-mist-deep transition hover:bg-mist"
               style="--reveal-i: 4"
             >
               کاتالوگ خدمات

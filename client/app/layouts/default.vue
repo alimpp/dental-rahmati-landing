@@ -1,7 +1,14 @@
 <script setup lang="ts">
 import { siteContact } from '~/data/site-contact'
+import { useSiteTheme } from '~/composables/useSiteTheme'
+import ThemePicker from '~/components/theme/ThemePicker.vue'
 
 const siteUrl = useRuntimeConfig().public.siteUrl as string
+const { initSiteTheme } = useSiteTheme()
+
+onMounted(() => {
+  void initSiteTheme()
+})
 
 useSchemaOrg([
   defineWebSite({
@@ -76,10 +83,14 @@ useSchemaOrg([
     <LayoutScrollProgress />
     <LayoutSiteTopBar />
     <LayoutSiteHeader />
-    <main class="overflow-x-clip">
+    <!-- مهم: overflow روی ancestor باعث شکستن sticky سکشن کلینیک می‌شود -->
+    <main>
       <slot />
-      <LayoutSiteGuidesFaq />
+      <div class="overflow-x-clip">
+        <LayoutSiteGuidesFaq />
+      </div>
     </main>
     <LayoutSiteFooter />
+    <ThemePicker />
   </div>
 </template>

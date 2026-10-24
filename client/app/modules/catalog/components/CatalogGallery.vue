@@ -105,7 +105,7 @@ watch(active, (value) => {
           >
           <span
             v-if="image.caption"
-            class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/80 to-transparent px-3 pb-3 pt-8 text-right text-[11px] leading-5 text-white opacity-0 transition group-hover:opacity-100"
+            class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-band/80 to-transparent px-3 pb-3 pt-8 text-right text-[11px] leading-5 text-on-band opacity-0 transition group-hover:opacity-100"
           >
             {{ image.caption }}
           </span>
@@ -117,7 +117,7 @@ watch(active, (value) => {
       <Transition name="gallery-overlay">
         <div
           v-if="activeImage"
-          class="fixed inset-0 z-[90] flex items-center justify-center bg-ink/90 p-4 backdrop-blur-sm"
+          class="fixed inset-0 z-[90] flex items-center justify-center bg-band/90 p-4 backdrop-blur-sm"
           role="dialog"
           aria-modal="true"
           aria-label="نمایش بزرگ تصویر"
@@ -125,7 +125,7 @@ watch(active, (value) => {
         >
           <button
             type="button"
-            class="absolute left-4 top-4 z-10 rounded-xl bg-white/10 px-3 py-2 text-sm text-white ring-1 ring-white/20 transition hover:bg-white/20"
+            class="absolute left-4 top-4 z-10 rounded-xl bg-on-band/10 px-3 py-2 text-sm text-on-band ring-1 ring-on-band/20 transition hover:bg-on-band/20"
             @click="close"
           >
             بستن
@@ -133,20 +133,20 @@ watch(active, (value) => {
           <!-- Right side: next — arrow points outward (right) -->
           <button
             type="button"
-            class="absolute right-4 top-1/2 z-10 flex size-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white ring-1 ring-white/20 transition hover:bg-white/20"
+            class="absolute right-4 top-1/2 z-10 flex size-12 -translate-y-1/2 items-center justify-center rounded-full bg-on-band/10 text-on-band ring-1 ring-on-band/20 transition hover:bg-on-band/20"
             aria-label="تصویر بعدی"
             @click="next"
           >
-            <span class="inline-block size-6 bg-white" :style="chevronStyle('right')" aria-hidden="true" />
+            <span class="inline-block size-6 bg-panel" :style="chevronStyle('right')" aria-hidden="true" />
           </button>
           <!-- Left side: prev — arrow points outward (left) -->
           <button
             type="button"
-            class="absolute left-4 top-1/2 z-10 flex size-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white ring-1 ring-white/20 transition hover:bg-white/20"
+            class="absolute left-4 top-1/2 z-10 flex size-12 -translate-y-1/2 items-center justify-center rounded-full bg-on-band/10 text-on-band ring-1 ring-on-band/20 transition hover:bg-on-band/20"
             aria-label="تصویر قبلی"
             @click="prev"
           >
-            <span class="inline-block size-6 bg-white" :style="chevronStyle('left')" aria-hidden="true" />
+            <span class="inline-block size-6 bg-panel" :style="chevronStyle('left')" aria-hidden="true" />
           </button>
           <figure class="relative max-h-[85vh] max-w-5xl overflow-hidden">
             <Transition :name="slideDir === 'next' ? 'gallery-slide-next' : 'gallery-slide-prev'" mode="out-in">
@@ -158,7 +158,7 @@ watch(active, (value) => {
                 >
                 <figcaption
                   v-if="activeImage.caption"
-                  class="mt-4 text-center text-sm text-white/80"
+                  class="mt-4 text-center text-sm text-on-band/80"
                 >
                   {{ activeImage.caption }}
                 </figcaption>

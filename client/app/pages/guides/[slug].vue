@@ -42,7 +42,7 @@ useSchemaOrg([
 </script>
 
 <template>
-  <article class="bg-white">
+  <article class="bg-surface">
     <SiteReveal variant="zoom">
       <header class="relative isolate overflow-hidden">
         <div class="relative min-h-[min(48vh,460px)] w-full">
@@ -53,20 +53,23 @@ useSchemaOrg([
             width="1600"
             height="900"
           >
-          <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/20" />
+          <div class="absolute inset-0 bg-gradient-to-t from-band via-band/55 to-band/20" />
           <div class="absolute inset-x-0 bottom-0 mx-auto max-w-3xl px-4 pb-10 sm:px-6 lg:px-8">
             <div class="flex flex-wrap gap-2 text-[11px]">
-              <span v-if="item.category" class="rounded-full bg-white/15 px-3 py-1 text-white ring-1 ring-white/20">
+              <span
+                v-if="item.category"
+                class="rounded-md bg-on-band/10 px-3 py-1 text-on-band ring-1 ring-on-band/20"
+              >
                 {{ item.category }}
               </span>
-              <span class="rounded-full bg-gold/20 px-3 py-1 text-gold ring-1 ring-gold/30">
+              <span class="rounded-md bg-gold/20 px-3 py-1 text-gold ring-1 ring-gold/30">
                 {{ item.readingMinutes }} دقیقه مطالعه
               </span>
             </div>
-            <h1 class="mt-4 text-3xl font-semibold leading-tight tracking-tight text-white sm:text-4xl">
+            <h1 class="mt-4 text-3xl font-semibold leading-tight tracking-tight text-on-band sm:text-4xl">
               {{ item.title }}
             </h1>
-            <p class="mt-4 max-w-2xl text-[15px] leading-8 text-white/75">
+            <p class="mt-4 max-w-2xl text-[15px] leading-8 text-on-band/75">
               {{ item.excerpt }}
             </p>
           </div>
@@ -84,9 +87,11 @@ useSchemaOrg([
 
         <aside
           v-if="item.takeaways.length"
-          class="mt-10 rounded-[1.4rem] bg-[#f7faf8] p-6 ring-1 ring-mist-deep"
+          class="mt-10 rounded-2xl bg-mist p-6 ring-1 ring-mist-deep"
         >
-          <p class="text-[11px] font-medium tracking-[0.16em] text-gold">جمع‌بندی کوتاه</p>
+          <p class="text-[11px] font-medium tracking-[0.16em] text-gold">
+            جمع‌بندی کوتاه
+          </p>
           <ul class="mt-4 space-y-3">
             <li
               v-for="point in item.takeaways"
@@ -99,10 +104,10 @@ useSchemaOrg([
           </ul>
         </aside>
 
-        <div class="mt-12 flex flex-wrap gap-3 border-t border-mist pt-8">
+        <div class="mt-12 flex flex-wrap gap-3 border-t border-mist-deep pt-8">
           <NuxtLink
             to="/consultation"
-            class="inline-flex rounded-xl bg-green-deep px-5 py-3 text-sm font-semibold text-ink transition hover:bg-ink"
+            class="inline-flex rounded-xl bg-green-deep px-5 py-3 text-sm font-bold tracking-wide text-on-primary transition hover:brightness-110"
           >
             رزرو نوبت
           </NuxtLink>

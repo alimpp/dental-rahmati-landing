@@ -8,7 +8,7 @@ await processStepModule.controller.getList()
 </script>
 
 <template>
-  <section v-if="steps.length" class="bg-white py-16 sm:py-20 lg:py-24">
+  <section v-if="steps.length" class="bg-panel py-16 sm:py-20 lg:py-24">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="grid items-end gap-8 lg:grid-cols-12">
         <div class="lg:col-span-5">
@@ -32,7 +32,7 @@ await processStepModule.controller.getList()
           :style="{ '--reveal-i': index + 3 }"
         >
           <div class="flex items-center gap-4 sm:col-span-3">
-            <span class="inline-flex size-10 items-center justify-center rounded-full bg-[#f4f6f5] font-mono text-sm font-bold text-ink ring-1 ring-mist-deep transition group-hover:bg-ink group-hover:text-gold">
+            <span class="inline-flex size-10 items-center justify-center rounded-full bg-mist font-mono text-sm font-bold text-ink ring-1 ring-mist-deep transition group-hover:bg-band group-hover:text-gold">
               {{ String(index + 1).padStart(2, '0') }}
             </span>
             <span class="hidden h-px flex-1 bg-mist-deep sm:block" aria-hidden="true" />

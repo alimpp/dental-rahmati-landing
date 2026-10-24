@@ -11,7 +11,7 @@ usePageSeo({
 </script>
 
 <template>
-  <div class="bg-white">
+  <div class="bg-surface">
     <SiteReveal variant="fade">
       <HomeContactSection />
     </SiteReveal>

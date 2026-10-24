@@ -8,7 +8,7 @@ await promiseModule.controller.getList()
 </script>
 
 <template>
-  <section v-if="items.length" class="bg-[#f4f6f5] py-16 sm:py-20 lg:py-24">
+  <section v-if="items.length" class="bg-mist py-16 sm:py-20 lg:py-24">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="grid gap-10 lg:grid-cols-12 lg:gap-14">
         <div class="lg:col-span-4 lg:sticky lg:top-28 lg:self-start">
@@ -27,7 +27,7 @@ await promiseModule.controller.getList()
           <li
             v-for="(item, index) in items"
             :key="item.id"
-            class="reveal-item reveal-item-left group relative overflow-hidden rounded-[1.5rem] bg-white p-6 shadow-[0_10px_30px_rgba(6,54,55,0.04)] ring-1 ring-mist-deep transition hover:-translate-y-0.5 hover:shadow-[0_20px_44px_rgba(6,54,55,0.1)] hover:ring-gold/35 sm:p-7"
+            class="reveal-item reveal-item-left group relative overflow-hidden rounded-[1.5rem] bg-panel p-6 shadow-[0_10px_30px_rgba(6,54,55,0.04)] ring-1 ring-mist-deep transition hover:-translate-y-0.5 hover:shadow-[0_20px_44px_rgba(6,54,55,0.1)] hover:ring-gold/35 sm:p-7"
             :style="{ '--reveal-i': index + 3 }"
           >
             <div class="flex flex-col gap-5 sm:flex-row sm:items-start sm:gap-7">

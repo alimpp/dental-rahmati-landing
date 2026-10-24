@@ -39,10 +39,10 @@ const roleParts = profile.roles.split('|').map((part) => part.trim())
 <template>
   <section
     id="about"
-    class="relative scroll-mt-24 overflow-hidden bg-white"
+    class="relative scroll-mt-24 overflow-hidden bg-panel"
   >
     <!-- Rich top band — no portrait -->
-    <div class="relative isolate overflow-hidden bg-ink">
+    <div class="relative isolate overflow-hidden bg-band">
       <div class="home-glow-dark pointer-events-none absolute inset-0" aria-hidden="true" />
       <div class="pointer-events-none absolute -left-24 top-10 size-80 rounded-full bg-green-deep/25 blur-3xl" aria-hidden="true" />
       <div class="pointer-events-none absolute -right-16 bottom-0 size-72 rounded-full bg-gold/20 blur-3xl" aria-hidden="true" />
@@ -60,19 +60,19 @@ const roleParts = profile.roles.split('|').map((part) => part.trim())
           </p>
           <component
             :is="full ? 'h1' : 'p'"
-            class="reveal-item mt-4 text-4xl font-semibold leading-tight tracking-tight text-white sm:text-5xl lg:text-[3.4rem]"
+            class="reveal-item mt-4 text-4xl font-semibold leading-tight tracking-tight text-on-band sm:text-5xl lg:text-[3.4rem]"
             style="--reveal-i: 1"
           >
             {{ profile.name }}
           </component>
           <component
             :is="full ? 'p' : 'h2'"
-            class="reveal-item mt-4 max-w-xl text-xl font-medium leading-9 text-white/90 sm:text-2xl"
+            class="reveal-item mt-4 max-w-xl text-xl font-medium leading-9 text-on-band/90 sm:text-2xl"
             style="--reveal-i: 2"
           >
             مراقبت دندانپزشکی که بتوان به آن اعتماد کرد
           </component>
-          <p class="reveal-item reveal-item-fade mt-5 max-w-2xl text-[15px] leading-8 text-white/70" style="--reveal-i: 3">
+          <p class="reveal-item reveal-item-fade mt-5 max-w-2xl text-[15px] leading-8 text-on-band/70" style="--reveal-i: 3">
             از معاینه اولیه تا تکمیل درمان، مسیر مراقبت را با دقت، شفافیت و تخصص پیش می‌بریم —
             برای شما و خانواده‌ای که به لبخندی سالم و تجربه‌ای آرام نیاز دارید.
           </p>
@@ -81,7 +81,7 @@ const roleParts = profile.roles.split('|').map((part) => part.trim())
             <li
               v-for="(role, index) in roleParts"
               :key="role"
-              class="reveal-item reveal-item-scale rounded-full bg-white/10 px-3.5 py-1.5 text-[12px] font-medium text-white ring-1 ring-white/20"
+              class="reveal-item reveal-item-scale rounded-full bg-white/10 px-3.5 py-1.5 text-[12px] font-medium text-on-band ring-1 ring-white/20"
               :style="{ '--reveal-i': index + 4 }"
             >
               {{ role }}
@@ -104,7 +104,7 @@ const roleParts = profile.roles.split('|').map((part) => part.trim())
               <dt class="text-xl font-semibold text-gold sm:text-2xl">
                 {{ stat.value }}
               </dt>
-              <dd class="mt-1.5 text-[10px] leading-4 text-white/65 sm:text-[11px]">
+              <dd class="mt-1.5 text-[10px] leading-4 text-on-band/65 sm:text-[11px]">
                 {{ stat.label }}
               </dd>
             </div>
@@ -117,10 +117,10 @@ const roleParts = profile.roles.split('|').map((part) => part.trim())
               <p class="text-[11px] font-medium tracking-[0.16em] text-gold">
                 کلینیک دندان‌پزشکی امیر رحمتی
               </p>
-              <p class="mt-3 text-lg font-semibold text-white">
+              <p class="mt-3 text-lg font-semibold text-on-band">
                 {{ profile.location }}
               </p>
-              <p class="mt-2 text-[13px] leading-7 text-white/70">
+              <p class="mt-2 text-[13px] leading-7 text-on-band/70">
                 {{ profile.bar }}
               </p>
               <ul class="mt-6 space-y-3">
@@ -129,10 +129,10 @@ const roleParts = profile.roles.split('|').map((part) => part.trim())
                   :key="item.title"
                   class="border-t border-white/10 pt-3"
                 >
-                  <p class="text-sm font-medium leading-7 text-white/90">
+                  <p class="text-sm font-medium leading-7 text-on-band/90">
                     {{ item.title }}
                   </p>
-                  <p v-if="item.detail" class="mt-1 text-[12px] text-white/55">
+                  <p v-if="item.detail" class="mt-1 text-[12px] text-on-band/55">
                     {{ item.detail }}
                   </p>
                 </li>
@@ -140,7 +140,7 @@ const roleParts = profile.roles.split('|').map((part) => part.trim())
             </div>
             <a
               :href="`mailto:${profile.email}`"
-              class="mt-8 inline-flex items-center justify-center rounded-xl bg-gold px-4 py-3 text-sm font-semibold text-ink transition hover:bg-white"
+              class="mt-8 inline-flex items-center justify-center rounded-xl bg-gold px-4 py-3 text-sm font-semibold text-ink transition hover:bg-panel"
             >
               {{ profile.email }}
             </a>
@@ -155,7 +155,7 @@ const roleParts = profile.roles.split('|').map((part) => part.trim())
         <span
           v-for="(item, index) in focusAreas"
           :key="item"
-          class="reveal-item reveal-item-fade rounded-full bg-white px-3.5 py-1.5 text-[12px] font-medium text-ink ring-1 ring-mist-deep"
+          class="reveal-item reveal-item-fade rounded-full bg-panel px-3.5 py-1.5 text-[12px] font-medium text-ink ring-1 ring-mist-deep"
           :style="{ '--reveal-i': index }"
         >
           {{ item }}
@@ -206,7 +206,7 @@ const roleParts = profile.roles.split('|').map((part) => part.trim())
             </ul>
           </div>
 
-          <div class="reveal-item reveal-item-left rounded-[1.5rem] bg-ink p-6 text-white" style="--reveal-i: 6">
+          <div class="reveal-item reveal-item-left rounded-[1.5rem] bg-band p-6 text-on-band" style="--reveal-i: 6">
             <p class="text-[11px] font-medium tracking-[0.16em] text-gold">
               عضویت حرفه‌ای
             </p>
@@ -220,7 +220,7 @@ const roleParts = profile.roles.split('|').map((part) => part.trim())
                 <p class="text-sm font-semibold leading-7">
                   {{ item.title }}
                 </p>
-                <p v-if="item.detail" class="mt-1 text-[12px] text-white/60">
+                <p v-if="item.detail" class="mt-1 text-[12px] text-on-band/60">
                   {{ item.detail }}
                 </p>
               </li>
@@ -231,7 +231,7 @@ const roleParts = profile.roles.split('|').map((part) => part.trim())
 
       <!-- Education + experience -->
       <div class="relative mt-16 grid gap-8 lg:grid-cols-2">
-        <div class="reveal-item rounded-[1.5rem] bg-white p-6 ring-1 ring-mist-deep sm:p-7" style="--reveal-i: 0">
+        <div class="reveal-item rounded-[1.5rem] bg-panel p-6 ring-1 ring-mist-deep sm:p-7" style="--reveal-i: 0">
           <p class="text-[11px] font-medium tracking-[0.16em] text-gold">
             سوابق تحصیلی
           </p>
@@ -261,7 +261,7 @@ const roleParts = profile.roles.split('|').map((part) => part.trim())
           <article
             v-for="(job, index) in profile.experience"
             :key="job.title"
-            class="reveal-item reveal-item-left rounded-[1.5rem] bg-white p-6 ring-1 ring-mist-deep sm:p-7"
+            class="reveal-item reveal-item-left rounded-[1.5rem] bg-panel p-6 ring-1 ring-mist-deep sm:p-7"
             :style="{ '--reveal-i': index + 1 }"
           >
             <p class="text-[11px] font-medium tracking-[0.16em] text-gold">
@@ -313,7 +313,7 @@ const roleParts = profile.roles.split('|').map((part) => part.trim())
           <li
             v-for="(item, index) in profile.honors"
             :key="item"
-            class="reveal-item rounded-2xl bg-white px-5 py-4 text-[13px] leading-7 text-ink ring-1 ring-mist-deep"
+            class="reveal-item rounded-2xl bg-panel px-5 py-4 text-[13px] leading-7 text-ink ring-1 ring-mist-deep"
             :style="{ '--reveal-i': index + 1 }"
           >
             <span class="me-2 inline-block size-1.5 rounded-full bg-gold align-middle" aria-hidden="true" />
@@ -363,7 +363,7 @@ const roleParts = profile.roles.split('|').map((part) => part.trim())
         <NuxtLink
           v-if="!full"
           to="/about"
-          class="reveal-item reveal-item-scale inline-flex items-center rounded-xl bg-ink px-5 py-3 text-sm font-semibold text-white transition hover:bg-gold hover:text-ink"
+          class="reveal-item reveal-item-scale inline-flex items-center rounded-xl bg-band px-5 py-3 text-sm font-semibold text-on-band transition hover:bg-gold hover:text-ink"
           style="--reveal-i: 0"
         >
           صفحه کامل درباره ما
@@ -371,7 +371,7 @@ const roleParts = profile.roles.split('|').map((part) => part.trim())
         <NuxtLink
           v-else
           to="/consultation"
-          class="reveal-item reveal-item-scale inline-flex items-center rounded-xl bg-ink px-5 py-3 text-sm font-semibold text-white transition hover:bg-gold hover:text-ink"
+          class="reveal-item reveal-item-scale inline-flex items-center rounded-xl bg-green-deep px-5 py-3 text-sm font-bold tracking-wide text-on-primary shadow-[0_8px_22px_rgba(15,118,110,0.35)] ring-1 ring-white/20 transition hover:brightness-110"
           style="--reveal-i: 0"
         >
           رزرو نوبت

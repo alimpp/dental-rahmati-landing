@@ -49,6 +49,15 @@ export const ADMIN_PAGE_META: AdminPageMeta[] = [
     module: 'banners',
   },
   {
+    path: '/admin/themes',
+    title: MODULE_LABELS.themes,
+    description: 'رنگ‌بندی سایت و پنل؛ تم پیش‌فرض برای کل صفحات.',
+    group: 'content',
+    groupLabel: GROUP_LABELS.content,
+    icon: MODULE_ICONS.themes,
+    module: 'themes',
+  },
+  {
     path: '/admin/services',
     title: MODULE_LABELS.services,
     description: 'خدمات دندانپزشکی نمایش‌داده‌شده در سایت و صفحه اصلی.',

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- Editorial modern: از بنر تا نظرات -->
     <SiteReveal variant="fade" delay="0ms">
       <BannerSlider />
     </SiteReveal>
@@ -14,6 +13,9 @@
       <ServicesSection />
     </SiteReveal>
     <SiteReveal variant="fade" delay="30ms">
+      <ClinicInviteSection />
+    </SiteReveal>
+    <SiteReveal variant="fade" delay="30ms">
       <HomeStatsStrip />
     </SiteReveal>
     <SiteReveal variant="up" delay="40ms">
@@ -23,7 +25,6 @@
       <TestimonialsSection />
     </SiteReveal>
 
-    <!-- مقالات و پایین‌تر: بدون تغییر -->
     <SiteReveal variant="up" delay="0ms">
       <ArticlesPreview />
     </SiteReveal>
@@ -48,6 +49,7 @@ import HomeContactSection from '~/components/home/ContactSection.vue'
 import ArticlesPreview from '~/modules/article/components/ArticlesPreview.vue'
 import CatalogPreview from '~/modules/catalog/components/CatalogPreview.vue'
 import TestimonialsSection from '~/modules/testimonial/components/TestimonialsSection.vue'
+import ClinicInviteSection from '~/components/clinic/ClinicInviteSection.vue'
 
 usePageSeo({
   title: 'دندانپزشکی در کرج | بهترین کلینیک امیر رحمتی جهانشهر',

@@ -18,6 +18,7 @@ import { FaqModule } from './faq/faq.module';
 import { PromiseModule } from './promise/promise.module';
 import { GuideModule } from './guide/guide.module';
 import { AppointmentModule } from './appointment/appointment.module';
+import { ThemeModule } from './theme/theme.module';
 
 @Module({
   imports: [
@@ -55,6 +56,7 @@ import { AppointmentModule } from './appointment/appointment.module';
     FaqModule,
     GuideModule,
     AppointmentModule,
+    ThemeModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -41,11 +41,11 @@ useSchemaOrg([
 </script>
 
 <template>
-  <div class="bg-white">
+  <div class="bg-surface">
     <!-- Split hero -->
     <SiteReveal variant="fade">
-      <section class="relative overflow-hidden bg-[#f4f6f5]">
-        <div class="pointer-events-none absolute -right-20 top-10 size-[22rem] rounded-full bg-ink/8 blur-3xl" aria-hidden="true" />
+      <section class="relative overflow-hidden bg-mist">
+        <div class="pointer-events-none absolute -right-20 top-10 size-[22rem] rounded-full bg-band/8 blur-3xl" aria-hidden="true" />
         <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-12 sm:px-6 sm:py-16 lg:grid-cols-12 lg:px-8 lg:py-20">
           <div class="lg:col-span-6">
             <SiteReveal variant="right" delay="40ms">
@@ -66,15 +66,15 @@ useSchemaOrg([
             </SiteReveal>
             <SiteReveal variant="soft" delay="200ms">
               <div class="mt-8 flex flex-wrap gap-3">
-                <span class="rounded-2xl bg-white px-4 py-2 text-sm font-medium text-ink ring-1 ring-mist-deep">
+                <span class="rounded-2xl bg-panel px-4 py-2 text-sm font-medium text-ink ring-1 ring-mist-deep">
                   {{ items.length }} کاتالوگ
                 </span>
-                <span class="rounded-2xl bg-ink px-4 py-2 text-sm font-medium text-gold">
+                <span class="rounded-2xl bg-band px-4 py-2 text-sm font-medium text-gold">
                   گالری + PDF
                 </span>
                 <NuxtLink
                   to="/consultation"
-                  class="rounded-2xl bg-green-deep px-4 py-2 text-sm font-semibold text-ink transition hover:bg-ink hover:text-gold"
+                  class="rounded-2xl bg-green-deep px-4 py-2 text-sm font-semibold text-on-primary transition hover:bg-band hover:text-gold"
                 >
                   رزرو نوبت
                 </NuxtLink>
@@ -83,11 +83,11 @@ useSchemaOrg([
           </div>
 
           <SiteReveal variant="left" delay="100ms" class="relative lg:col-span-6">
-            <div class="absolute -inset-3 rounded-[2rem] bg-gradient-to-bl from-green-deep/20 to-ink/10 blur-2xl" aria-hidden="true" />
+            <div class="absolute -inset-3 rounded-[2rem] bg-gradient-to-bl from-green-deep/20 to-band/10 blur-2xl" aria-hidden="true" />
             <div class="absolute -left-2 -top-2 size-9 rounded-br-2xl bg-gold/80" aria-hidden="true" />
             <div
               v-if="lead"
-              class="relative overflow-hidden rounded-[1.75rem] bg-ink shadow-[0_30px_80px_rgba(6,54,55,0.22)] ring-1 ring-gold/25"
+              class="relative overflow-hidden rounded-[1.75rem] bg-band shadow-[0_30px_80px_rgba(6,54,55,0.22)] ring-1 ring-gold/25"
             >
               <div class="relative aspect-[16/11]">
                 <img
@@ -97,10 +97,10 @@ useSchemaOrg([
                   width="900"
                   height="620"
                 >
-                <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/20 to-transparent" />
+                <div class="absolute inset-0 bg-gradient-to-t from-band via-band/20 to-transparent" />
                 <div class="absolute inset-x-0 bottom-0 p-6 sm:p-7">
                   <p class="text-[11px] tracking-[0.16em] text-gold">جلد ویژه</p>
-                  <p class="mt-2 text-xl font-bold text-white">{{ lead.title }}</p>
+                  <p class="mt-2 text-xl font-bold text-on-band">{{ lead.title }}</p>
                   <NuxtLink
                     :to="lead.href"
                     class="mt-4 inline-flex text-sm font-semibold text-green-deep transition hover:text-gold"
@@ -139,7 +139,7 @@ useSchemaOrg([
               :class="index % 2 === 0 ? 'reveal-item-left' : 'reveal-item-right'"
               :style="{ '--reveal-i': index }"
             >
-              <article class="group grid overflow-hidden rounded-[1.6rem] bg-[#f4f6f5] ring-1 ring-mist-deep transition hover:bg-white hover:shadow-[0_24px_55px_rgba(6,54,55,0.1)] hover:ring-gold/35 lg:grid-cols-12">
+              <article class="group grid overflow-hidden rounded-[1.6rem] bg-mist ring-1 ring-mist-deep transition hover:bg-panel hover:shadow-[0_24px_55px_rgba(6,54,55,0.1)] hover:ring-gold/35 lg:grid-cols-12">
                 <NuxtLink
                   :to="item.href"
                   class="relative overflow-hidden bg-mist lg:col-span-5"
@@ -158,11 +158,11 @@ useSchemaOrg([
                   <div class="absolute inset-x-0 bottom-0 flex flex-wrap gap-2 p-3">
                     <span
                       v-if="item.galleryCount"
-                      class="rounded-full bg-white/95 px-2.5 py-1 text-[11px] font-medium text-ink"
+                      class="rounded-full bg-panel/95 px-2.5 py-1 text-[11px] font-medium text-ink"
                     >
                       {{ item.galleryCount }} تصویر
                     </span>
-                    <span class="rounded-full bg-ink/85 px-2.5 py-1 text-[11px] font-medium text-gold">
+                    <span class="rounded-full bg-band/85 px-2.5 py-1 text-[11px] font-medium text-gold">
                       {{ item.readingMinutes }} دقیقه
                     </span>
                   </div>
@@ -189,7 +189,7 @@ useSchemaOrg([
                       <li
                         v-for="point in item.highlights.slice(0, 3)"
                         :key="point"
-                        class="rounded-full bg-white px-3 py-1 text-[11px] text-ink-muted ring-1 ring-mist-deep"
+                        class="rounded-full bg-panel px-3 py-1 text-[11px] text-ink-muted ring-1 ring-mist-deep"
                       >
                         {{ point }}
                       </li>
@@ -199,7 +199,7 @@ useSchemaOrg([
                   <div class="mt-5 flex shrink-0 flex-wrap gap-2 lg:mt-0 lg:flex-col">
                     <NuxtLink
                       :to="item.href"
-                      class="inline-flex items-center justify-center rounded-2xl bg-ink px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-green-deep hover:text-ink"
+                      class="inline-flex items-center justify-center rounded-2xl bg-band px-5 py-2.5 text-sm font-semibold text-on-band transition hover:bg-green-deep hover:text-on-primary"
                     >
                       مطالعه کامل
                     </NuxtLink>
@@ -209,7 +209,7 @@ useSchemaOrg([
                       :href="mediaSrc(file.url)"
                       target="_blank"
                       rel="noopener"
-                      class="inline-flex items-center justify-center rounded-2xl px-5 py-2.5 text-sm font-medium text-ink ring-1 ring-mist-deep transition hover:bg-[#f4f6f5]"
+                      class="inline-flex items-center justify-center rounded-2xl px-5 py-2.5 text-sm font-medium text-ink ring-1 ring-mist-deep transition hover:bg-mist"
                     >
                       دانلود PDF
                     </a>
@@ -219,26 +219,26 @@ useSchemaOrg([
             </li>
           </ul>
 
-          <div class="mt-14 grid gap-6 overflow-hidden rounded-[1.75rem] bg-ink p-8 text-white sm:p-10 lg:grid-cols-12 lg:items-center">
+          <div class="mt-14 grid gap-6 overflow-hidden rounded-[1.75rem] bg-band p-8 text-on-band sm:p-10 lg:grid-cols-12 lg:items-center">
             <div class="lg:col-span-8">
               <p class="text-[11px] font-semibold tracking-[0.2em] text-gold">بعد از مطالعه</p>
               <h2 class="mt-3 text-2xl font-bold sm:text-3xl">
                 نیاز درمانی‌تان را با نگاه تخصصی مرور کنیم
               </h2>
-              <p class="mt-4 max-w-xl text-sm leading-8 text-white/70">
+              <p class="mt-4 max-w-xl text-sm leading-8 text-on-band/70">
                 اگر کاتالوگ‌ها را خواندید و هنوز سؤال دارید، معاینه اولیه مسیر را روشن می‌کند.
               </p>
             </div>
             <div class="flex flex-wrap gap-3 lg:col-span-4 lg:justify-end">
               <NuxtLink
                 to="/consultation"
-                class="inline-flex rounded-2xl bg-green-deep px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white"
+                class="inline-flex rounded-2xl bg-green-deep px-5 py-3 text-sm font-semibold text-on-primary transition hover:bg-panel hover:text-ink"
               >
                   رزرو نوبت
               </NuxtLink>
               <NuxtLink
                 to="/practice-areas"
-                class="inline-flex rounded-2xl px-5 py-3 text-sm font-medium text-white ring-1 ring-white/25 transition hover:bg-white/10"
+                class="inline-flex rounded-2xl px-5 py-3 text-sm font-medium text-on-band ring-1 ring-white/25 transition hover:bg-white/10"
               >
                 خدمات
               </NuxtLink>

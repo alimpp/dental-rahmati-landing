@@ -44,7 +44,7 @@ const tips = [
 <template>
   <section
     id="contact"
-    class="relative scroll-mt-24 overflow-hidden bg-white"
+    class="relative scroll-mt-24 overflow-hidden bg-panel"
   >
     <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-l from-transparent via-gold to-transparent" />
     <div class="pointer-events-none absolute -left-24 top-20 size-72 rounded-full bg-green-soft/40 blur-3xl" aria-hidden="true" />
@@ -92,11 +92,11 @@ const tips = [
             </p>
           </article>
 
-          <ul class="space-y-3 rounded-[1.4rem] bg-ink px-5 py-5 text-white">
+          <ul class="space-y-3 rounded-[1.4rem] bg-band px-5 py-5 text-on-band">
             <li
               v-for="(tip, index) in tips"
               :key="tip"
-              class="reveal-item reveal-item-fade flex gap-3 text-[13px] leading-7 text-white/75"
+              class="reveal-item reveal-item-fade flex gap-3 text-[13px] leading-7 text-on-band/75"
               :style="{ '--reveal-i': channels.length + 3 + index }"
             >
               <span class="mt-2 size-1.5 shrink-0 rounded-full bg-gold" aria-hidden="true" />
@@ -109,7 +109,7 @@ const tips = [
           class="reveal-item reveal-item-scale lg:col-span-7"
           :style="{ '--reveal-i': channels.length + tips.length + 3 }"
         >
-          <div class="rounded-[1.6rem] bg-white p-5 shadow-[0_24px_60px_rgba(43,48,54,0.08)] ring-1 ring-mist-deep sm:p-8">
+          <div class="rounded-[1.6rem] bg-panel p-5 shadow-[0_24px_60px_rgba(43,48,54,0.08)] ring-1 ring-mist-deep sm:p-8">
             <p class="text-[11px] font-medium tracking-[0.16em] text-gold">
               فرم تماس
             </p>
@@ -143,7 +143,7 @@ const tips = [
             :href="mapLink"
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center rounded-xl bg-ink px-4 py-2.5 text-xs font-semibold text-white transition hover:bg-gold hover:text-ink"
+            class="inline-flex items-center rounded-xl bg-band px-4 py-2.5 text-xs font-semibold text-on-band transition hover:bg-gold hover:text-ink"
           >
             باز کردن نقشه بزرگ
           </a>

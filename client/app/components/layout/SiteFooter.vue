@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import { siteContact } from '~/data/site-contact'
+import { useSiteTheme } from '~/composables/useSiteTheme'
 
 const year = new Date().getFullYear()
+const { openPicker } = useSiteTheme()
 
 const columns = [
   {
     title: 'کلینیک',
     links: [
       { label: 'خانه', to: '/' },
+      { label: 'کلینیک ما', to: '/clinic' },
       { label: 'درباره ما', to: '/about' },
       { label: 'راهنماها', to: '/guides' },
       { label: 'کاتالوگ', to: '/catalog' },
@@ -26,7 +29,7 @@ const columns = [
 </script>
 
 <template>
-  <footer class="relative overflow-hidden bg-ink text-white">
+  <footer class="relative overflow-hidden bg-band text-on-band">
     <SiteReveal variant="up">
     <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-l from-transparent via-gold to-transparent" />
     <div class="pointer-events-none absolute -left-20 bottom-0 size-72 rounded-full bg-green-deep/20 blur-3xl" />
@@ -37,15 +40,15 @@ const columns = [
           <p class="text-[11px] font-medium tracking-[0.2em] text-gold">
             {{ siteContact.name }}
           </p>
-          <p class="mt-4 max-w-md text-[15px] leading-8 text-white/75">
+          <p class="mt-4 max-w-md text-[15px] leading-8 text-on-band/75">
             مراقبت دندانپزشکی با رویکرد دقیق و آرام؛ از معاینه و پیشگیری تا ترمیم، زیبایی و ایمپلنت — همراه شما تا لبخندی سالم.
           </p>
-          <p class="mt-5 text-sm leading-7 text-white/70">
+          <p class="mt-5 text-sm leading-7 text-on-band/70">
             {{ siteContact.bar }}
           </p>
           <NuxtLink
             to="/consultation"
-            class="mt-7 inline-flex rounded-xl bg-gold px-5 py-2.5 text-sm font-semibold text-ink transition hover:bg-white"
+            class="mt-7 inline-flex rounded-xl bg-green-deep px-5 py-2.5 text-sm font-bold tracking-wide text-on-primary shadow-[0_8px_22px_rgba(15,118,110,0.35)] ring-1 ring-white/20 transition hover:brightness-110"
           >
             رزرو نوبت
           </NuxtLink>
@@ -60,7 +63,7 @@ const columns = [
               <li v-for="link in col.links" :key="link.to">
                 <NuxtLink
                   :to="link.to"
-                  class="text-sm text-white/75 transition hover:text-gold"
+                  class="text-sm text-on-band/75 transition hover:text-gold"
                 >
                   {{ link.label }}
                 </NuxtLink>
@@ -73,7 +76,7 @@ const columns = [
           <p class="text-xs font-semibold tracking-wide text-gold">
             ارتباط
           </p>
-          <ul class="mt-4 space-y-3 text-sm leading-7 text-white/75">
+          <ul class="mt-4 space-y-3 text-sm leading-7 text-on-band/75">
             <li>{{ siteContact.address }}</li>
             <li>
               <a :href="siteContact.phoneHref" class="transition hover:text-gold">{{ siteContact.phone }}</a>
@@ -86,9 +89,17 @@ const columns = [
         </div>
       </div>
 
-      <div class="mt-12 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-6 text-[11px] text-white/45">
+      <div class="mt-12 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-6 text-[11px] text-on-band/45">
         <p>© {{ year }} {{ siteContact.name }}. همه حقوق محفوظ است.</p>
-        <p>کرج · جهانشهر · کسری شمالی</p>
+        <div class="flex items-center gap-4">
+          <ThemeIconButton
+            tone="on-band"
+            label="تغییر تم سایت"
+            class="size-9 rounded-full"
+            @click="openPicker"
+          />
+          <p>کرج · جهانشهر · کسری شمالی</p>
+        </div>
       </div>
     </div>
     </SiteReveal>

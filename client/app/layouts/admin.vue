@@ -28,6 +28,7 @@ const links: {
   { to: '/admin', key: 'home', label: 'داشبورد', icon: '/icons/admin-dashboard.svg', group: 'main' },
   { to: '/admin/reports', key: 'reports', label: MODULE_LABELS.reports, icon: MODULE_ICONS.reports, group: 'main' },
   { to: '/admin/banners', key: 'banners', label: MODULE_LABELS.banners, icon: MODULE_ICONS.banners, group: 'content' },
+  { to: '/admin/themes', key: 'themes', label: MODULE_LABELS.themes, icon: MODULE_ICONS.themes, group: 'content' },
   { to: '/admin/services', key: 'services', label: MODULE_LABELS.services, icon: MODULE_ICONS.services, group: 'content' },
   { to: '/admin/articles', key: 'articles', label: MODULE_LABELS.articles, icon: MODULE_ICONS.articles, group: 'content' },
   { to: '/admin/guides', key: 'guides', label: MODULE_LABELS.guides, icon: MODULE_ICONS.guides, group: 'content' },
@@ -127,9 +128,12 @@ function refreshClock() {
 
 let clockTimer: ReturnType<typeof setInterval> | undefined
 
+const { initSiteTheme } = useSiteTheme()
+
 onMounted(() => {
   refreshClock()
   clockTimer = setInterval(refreshClock, 60_000)
+  void initSiteTheme()
 })
 
 onBeforeUnmount(() => {
@@ -157,7 +161,7 @@ useHead({
       <div class="border-b border-mist px-4 pb-4 pt-5">
         <div class="flex items-center gap-3">
           <div class="relative">
-            <img src="/images/logo.svg" alt="" class="size-11 rounded-2xl ring-1 ring-mist" width="44" height="44">
+            <img src="/images/logo.svg?v=2" alt="" class="size-11 rounded-2xl ring-1 ring-mist" width="44" height="44">
             <span class="absolute -bottom-0.5 -left-0.5 size-2.5 rounded-full bg-green-deep ring-2 ring-white" aria-hidden="true" />
           </div>
           <div class="min-w-0">

@@ -15,7 +15,7 @@ await testimonialModule.controller.getList()
 </script>
 
 <template>
-  <section v-if="items.length" class="bg-[#f4f6f5] py-16 sm:py-20 lg:py-24">
+  <section v-if="items.length" class="bg-mist py-16 sm:py-20 lg:py-24">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="max-w-2xl">
         <p class="reveal-item reveal-item-fade text-[11px] font-semibold tracking-[0.2em] text-gold" style="--reveal-i: 0">
@@ -29,11 +29,11 @@ await testimonialModule.controller.getList()
       <div class="mt-12 grid gap-5 lg:grid-cols-12 lg:gap-6">
         <article
           v-if="lead"
-          class="reveal-item reveal-item-scale rounded-[1.75rem] bg-ink p-7 text-white sm:p-9 lg:col-span-5"
+          class="reveal-item reveal-item-scale rounded-[1.75rem] bg-band p-7 text-on-band sm:p-9 lg:col-span-5"
           style="--reveal-i: 2"
         >
           <span class="testimonial-quote !bg-gold" aria-hidden="true" />
-          <p class="mt-8 text-lg leading-9 text-white/90 sm:text-xl sm:leading-10">
+          <p class="mt-8 text-lg leading-9 text-on-band/90 sm:text-xl sm:leading-10">
             {{ lead.quote }}
           </p>
           <div class="mt-8 flex items-center gap-3 border-t border-white/15 pt-6">
@@ -65,7 +65,7 @@ await testimonialModule.controller.getList()
           <li
             v-for="(item, index) in rest"
             :key="item.id"
-            class="reveal-item reveal-item-left flex flex-col rounded-[1.4rem] bg-white p-6 ring-1 ring-mist-deep"
+            class="reveal-item reveal-item-left flex flex-col rounded-[1.4rem] bg-panel p-6 ring-1 ring-mist-deep"
             :style="{ '--reveal-i': index + 3 }"
           >
             <p class="flex-1 text-[15px] leading-8 text-ink">
@@ -83,7 +83,7 @@ await testimonialModule.controller.getList()
               >
               <span
                 v-else
-                class="inline-flex size-10 items-center justify-center rounded-full bg-[#f4f6f5] text-xs font-semibold text-ink"
+                class="inline-flex size-10 items-center justify-center rounded-full bg-mist text-xs font-semibold text-ink"
               >
                 {{ item.initials }}
               </span>

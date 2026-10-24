@@ -149,7 +149,7 @@ onBeforeUnmount(() => {
           @mouseenter="show"
           @mouseleave="hide"
         >
-          <div class="practice-mega-panel overflow-hidden rounded-[1.6rem] border border-mist bg-white shadow-[0_28px_70px_rgba(43,48,54,0.16)]">
+          <div class="practice-mega-panel overflow-hidden rounded-[1.6rem] border border-mist bg-panel shadow-[0_28px_70px_rgba(43,48,54,0.16)]">
             <div class="h-1.5 w-full bg-gradient-to-l from-gold via-green-deep to-green-soft" />
             <div class="bg-[radial-gradient(ellipse_at_top_right,rgba(201,235,216,0.45),transparent_55%)] p-3.5">
               <div class="mb-2 flex items-center justify-between px-2">
@@ -172,12 +172,12 @@ onBeforeUnmount(() => {
                     @click="open = false"
                   >
                     <span
-                      class="inline-flex size-10 shrink-0 items-center justify-center rounded-xl transition-colors duration-100 ease-out"
-                      :class="isChildActive(item.href) ? 'bg-white' : 'bg-mist group-hover:bg-green-soft'"
+                      class="inline-flex size-12 shrink-0 items-center justify-center rounded-xl transition-colors duration-100 ease-out"
+                      :class="isChildActive(item.href) ? 'bg-panel' : 'bg-mist group-hover:bg-green-soft'"
                       aria-hidden="true"
                     >
                       <span
-                        class="inline-block size-5 bg-green-deep"
+                        class="inline-block size-7 bg-green-deep"
                         :style="{
                           maskImage: `url(${mediaSrc(item.icon)})`,
                           WebkitMaskImage: `url(${mediaSrc(item.icon)})`,
