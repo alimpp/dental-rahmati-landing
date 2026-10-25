@@ -16,6 +16,7 @@ const PAGE_LABELS: Record<string, string> = {
   '/articles': 'مقالات',
   '/guides': 'راهنماها',
   '/catalog': 'کاتالوگ',
+  '/portfolio': 'نمونه کارها',
   '/contact': 'تماس',
   '/consultation': 'مشاوره',
   '/practice-areas': 'حوزه‌های تخصصی',
@@ -261,6 +262,10 @@ export class AnalyticsService {
     if (path.startsWith('/catalog/')) {
       const slug = decodeURIComponent(path.slice('/catalog/'.length));
       return labels.catalog.get(slug) || `کاتالوگ ${slug}`;
+    }
+    if (path.startsWith('/portfolio/')) {
+      const slug = decodeURIComponent(path.slice('/portfolio/'.length));
+      return `نمونه کار ${slug}`;
     }
     if (path.startsWith('/practice-areas/')) {
       const slug = decodeURIComponent(path.slice('/practice-areas/'.length));

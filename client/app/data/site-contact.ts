@@ -15,6 +15,8 @@ export const siteContact = {
   lat: 35.8294,
   lng: 50.9972,
   mapZoom: 17,
+  instagramHandle: 'dentalrahmati',
+  instagramUrl: 'https://www.instagram.com/dentalrahmati/',
 } as const
 
 export function siteContactMapEmbedUrl() {

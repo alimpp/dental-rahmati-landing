@@ -32,7 +32,7 @@ await processStepModule.controller.getList()
           :style="{ '--reveal-i': index + 3 }"
         >
           <div class="flex items-center gap-4 sm:col-span-3">
-            <span class="inline-flex size-10 items-center justify-center rounded-full bg-mist font-mono text-sm font-bold text-ink ring-1 ring-mist-deep transition group-hover:bg-band group-hover:text-gold">
+            <span class="inline-flex size-10 items-center justify-center rounded-full bg-mist font-mono text-sm font-bold text-ink ring-1 ring-mist-deep transition duration-500 group-hover:scale-110 group-hover:bg-band group-hover:text-gold group-hover:shadow-[0_0_0_6px_rgba(6,54,55,0.08)]">
               {{ String(index + 1).padStart(2, '0') }}
             </span>
             <span class="hidden h-px flex-1 bg-mist-deep sm:block" aria-hidden="true" />

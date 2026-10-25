@@ -12,6 +12,7 @@ import { TestimonialModule } from './testimonial'
 import { FaqModule } from './faq'
 import { PromiseModule } from './promise'
 import { GuideModule } from './guide'
+import { PortfolioModule } from './portfolio'
 
 export class AppModules {
   private static instance: AppModules | null = null
@@ -41,6 +42,7 @@ export class AppModules {
     const faqMissing = !registry.has('faq')
     const promiseMissing = !registry.has('promise')
     const guideMissing = !registry.has('guide')
+    const portfolioMissing = !registry.has('portfolio')
 
     if (
       !AppModules.instance
@@ -55,6 +57,7 @@ export class AppModules {
       || faqMissing
       || promiseMissing
       || guideMissing
+      || portfolioMissing
     ) {
       if (articleStale) {
         ArticleModule.reset()
@@ -86,6 +89,9 @@ export class AppModules {
       if (guideMissing) {
         GuideModule.reset()
       }
+      if (portfolioMissing) {
+        PortfolioModule.reset()
+      }
       AppModules.instance = new AppModules([
         BannerModule.create(),
         ServiceModule.create(),
@@ -99,6 +105,7 @@ export class AppModules {
         TestimonialModule.create(),
         FaqModule.create(),
         GuideModule.create(),
+        PortfolioModule.create(),
       ])
     }
     return AppModules.instance
@@ -119,3 +126,4 @@ export const testimonialModule = TestimonialModule.getInstance()
 export const faqModule = FaqModule.getInstance()
 export const promiseModule = PromiseModule.getInstance()
 export const guideModule = GuideModule.getInstance()
+export const portfolioModule = PortfolioModule.getInstance()

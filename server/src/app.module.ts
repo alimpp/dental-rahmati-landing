@@ -19,6 +19,7 @@ import { PromiseModule } from './promise/promise.module';
 import { GuideModule } from './guide/guide.module';
 import { AppointmentModule } from './appointment/appointment.module';
 import { ThemeModule } from './theme/theme.module';
+import { PortfolioModule } from './portfolio/portfolio.module';
 
 @Module({
   imports: [
@@ -57,6 +58,7 @@ import { ThemeModule } from './theme/theme.module';
     GuideModule,
     AppointmentModule,
     ThemeModule,
+    PortfolioModule,
   ],
   controllers: [AppController],
   providers: [AppService],

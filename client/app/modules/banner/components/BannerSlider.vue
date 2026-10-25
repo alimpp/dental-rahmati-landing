@@ -198,7 +198,7 @@ watch(
                   <img
                     :src="mediaSrc(active.image)"
                     :alt="active.title"
-                    class="home-media-shift size-full object-cover"
+                    class="banner-kenburns size-full object-cover"
                     width="1200"
                     height="825"
                     loading="eager"
