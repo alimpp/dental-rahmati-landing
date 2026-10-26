@@ -4,7 +4,6 @@ import { BannerModule } from './banner'
 import { ServiceModule } from './service'
 import { ArticleModule } from './article'
 import { InquiryModule } from './inquiry'
-import { CatalogModule } from './catalog'
 import { AdminModule } from './admin'
 import { StatModule } from './stat'
 import { ProcessStepModule } from './process-step'
@@ -34,7 +33,6 @@ export class AppModules {
       article && typeof article.controller.getArticleCategories !== 'function',
     )
     const inquiryMissing = !registry.has('inquiry')
-    const catalogMissing = !registry.has('catalog')
     const adminMissing = !registry.has('admin')
     const statMissing = !registry.has('stat')
     const processStepMissing = !registry.has('process-step')
@@ -49,7 +47,6 @@ export class AppModules {
       || !article
       || articleStale
       || inquiryMissing
-      || catalogMissing
       || adminMissing
       || statMissing
       || processStepMissing
@@ -64,9 +61,6 @@ export class AppModules {
       }
       if (inquiryMissing) {
         InquiryModule.reset()
-      }
-      if (catalogMissing) {
-        CatalogModule.reset()
       }
       if (adminMissing) {
         AdminModule.reset()
@@ -97,7 +91,6 @@ export class AppModules {
         ServiceModule.create(),
         ArticleModule.create(),
         InquiryModule.create(),
-        CatalogModule.create(),
         AdminModule.create(),
         StatModule.create(),
         PromiseModule.create(),
@@ -118,7 +111,6 @@ export const bannerModule = BannerModule.getInstance()
 export const serviceModule = ServiceModule.getInstance()
 export const articleModule = ArticleModule.getInstance()
 export const inquiryModule = InquiryModule.getInstance()
-export const catalogModule = CatalogModule.getInstance()
 export const adminModule = AdminModule.getInstance()
 export const statModule = StatModule.getInstance()
 export const processStepModule = ProcessStepModule.getInstance()

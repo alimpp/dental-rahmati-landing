@@ -18,7 +18,6 @@ import { Banner } from '../src/banner/entities/banner.entity'
 import { Service } from '../src/service/entities/service.entity'
 import { Article, type ArticleSection } from '../src/article/entities/article.entity'
 import { TeamMember } from '../src/team/entities/team-member.entity'
-import { CatalogItem } from '../src/catalog/entities/catalog-item.entity'
 import { Inquiry } from '../src/inquiry/entities/inquiry.entity'
 import { PageView } from '../src/analytics/entities/page-view.entity'
 
@@ -91,7 +90,6 @@ const sqliteEntities = [
   Service,
   SqliteArticle,
   TeamMember,
-  CatalogItem,
   Inquiry,
   AuditLog,
   PageView,
@@ -103,7 +101,6 @@ const postgresEntities = [
   Service,
   Article,
   TeamMember,
-  CatalogItem,
   Inquiry,
   AuditLog,
   PageView,

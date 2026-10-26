@@ -82,7 +82,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
   excerpt: "راهنمای کامل ایمپلنت در جهانشهر: ارزیابی استخوان، جراحی، دوره جوش‌خوردن و تاج نهایی در کلینیک کسری شمالی.",
   category: "ایمپلنت",
   author,
-  coverImage: "/services/insurance.jpg",
+  coverImage: "/services/dental-ops.jpg",
   featured: true,
   sort: 2,
   readingMinutes: 14,
@@ -96,7 +96,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
       "چرا ساکنان جهانشهر به کلینیک نزد خانه نیاز دارند؟",
       "ترافیک کرج و شلوغی مراکز درمانی مرکز شهر باعث می‌شود بسیاری از بیماران ترجیح دهند در محله خود معاینه و درمان را پیگیری کنند.\n\nکلینیک در جهانشهر دسترسی ساده‌تر از کسری شمالی دارد و برای خانواده‌ها زمان کمتری در راه صرف می‌شود.",
     ),
-    image("/services/insurance.jpg", "ایمپلنت در کلینیک کرج", "ارزیابی و جراحی در جهانشهر."),
+    image("/services/dental-ops.jpg", "ایمپلنت در کلینیک کرج", "ارزیابی و جراحی در جهانشهر."),
     list(
       "مراحل ایمپلنت در کرج",
       [
@@ -128,7 +128,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
   seoTitle: "ایمپلنت دندان در کرج | کلینیک امیر رحمتی جهانشهر",
   seoDescription: "مراحل ایمپلنت، هزینه تقریبی و مراقبت بعد از جراحی در کرج — کلینیک دندان‌پزشکی امیر رحمتی کوچه غزال.",
   seoKeywords: "ایمپلنت دندان کرج, ایمپلنت جهانشهر, هزینه ایمپلنت کرج, کلینیک امیر رحمتی",
-  ogImage: "/services/insurance.jpg",
+  ogImage: "/services/dental-ops.jpg",
   isActive: true,
 },
 {
@@ -191,7 +191,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
   excerpt: "معیارهای انتخاب پزشک در جهانشهر: تخصص، تجهیزات، شفافیت هزینه و نظرات بیماران کرج.",
   category: "راهنما",
   author,
-  coverImage: "/services/hero.jpg",
+  coverImage: "/clinic/03-reception.jpg",
   featured: true,
   sort: 4,
   readingMinutes: 11,
@@ -205,7 +205,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
       "چرا ساکنان جهانشهر به کلینیک نزد خانه نیاز دارند؟",
       "ترافیک کرج و شلوغی مراکز درمانی مرکز شهر باعث می‌شود بسیاری از بیماران ترجیح دهند در محله خود معاینه و درمان را پیگیری کنند.\n\nکلینیک در جهانشهر دسترسی ساده‌تر از کسری شمالی دارد و برای خانواده‌ها زمان کمتری در راه صرف می‌شود.",
     ),
-    image("/services/hero.jpg", "معاینه در کلینیک کرج", "انتخاب آگاهانه در کسری شمالی."),
+    image("/clinic/03-reception.jpg", "معاینه در کلینیک کرج", "انتخاب آگاهانه در کسری شمالی."),
     list(
       "معیارهای انتخاب در کرج",
       [
@@ -236,7 +236,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
   seoTitle: "بهترین دندانپزشک کرج را چطور انتخاب کنیم | کلینیک امیر رحمتی جهانشهر",
   seoDescription: "معیارهای انتخاب پزشک در جهانشهر: تخصص، تجهیزات، شفافیت هزینه و نظرات بیماران کرج.",
   seoKeywords: "انتخاب دندانپزشک کرج, best dentist karaj, جهانشهر, کلینیک امیر رحمتی",
-  ogImage: "/services/hero.jpg",
+  ogImage: "/clinic/03-reception.jpg",
   isActive: true,
 },
 {
@@ -245,7 +245,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
   excerpt: "تحلیل خط لبخند، رنگ و فرم دندان با دیجیتال در کلینیک کوچه غزال — نتیجه هماهنگ با چهره.",
   category: "زیبایی",
   author,
-  coverImage: "/services/commercial.jpg",
+  coverImage: "/portfolio/smile-after-02.jpg",
   featured: true,
   sort: 5,
   readingMinutes: 11,
@@ -259,7 +259,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
       "چرا ساکنان جهانشهر به کلینیک نزد خانه نیاز دارند؟",
       "ترافیک کرج و شلوغی مراکز درمانی مرکز شهر باعث می‌شود بسیاری از بیماران ترجیح دهند در محله خود معاینه و درمان را پیگیری کنند.\n\nکلینیک در جهانشهر دسترسی ساده‌تر از کسری شمالی دارد و برای خانواده‌ها زمان کمتری در راه صرف می‌شود.",
     ),
-    image("/services/commercial.jpg", "طراحی لبخند کرج", "مشاوره در جهانشهر."),
+    image("/portfolio/smile-after-02.jpg", "طراحی لبخند کرج", "مشاوره در جهانشهر."),
     list(
       "اجزای طراحی لبخند",
       [
@@ -290,7 +290,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
   seoTitle: "طراحی لبخند در کرج جهانشهر | کلینیک امیر رحمتی جهانشهر",
   seoDescription: "تحلیل خط لبخند، رنگ و فرم دندان با دیجیتال در کلینیک کوچه غزال — نتیجه هماهنگ با چهره.",
   seoKeywords: "طراحی لبخند کرج, smile design karaj, جهانشهر, کلینیک امیر رحمتی",
-  ogImage: "/services/commercial.jpg",
+  ogImage: "/portfolio/smile-after-02.jpg",
   isActive: true,
 },
 {
@@ -299,7 +299,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
   excerpt: "سفید کردن کنترل‌شده در کلینیک جهانشهر در مقابل کیت خانگی — ایمنی برای لثه کرج.",
   category: "زیبایی",
   author,
-  coverImage: "/services/commercial.jpg",
+  coverImage: "/portfolio/smile-after-02.jpg",
   featured: false,
   sort: 6,
   readingMinutes: 11,
@@ -313,7 +313,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
       "چرا ساکنان جهانشهر به کلینیک نزد خانه نیاز دارند؟",
       "ترافیک کرج و شلوغی مراکز درمانی مرکز شهر باعث می‌شود بسیاری از بیماران ترجیح دهند در محله خود معاینه و درمان را پیگیری کنند.\n\nکلینیک در جهانشهر دسترسی ساده‌تر از کسری شمالی دارد و برای خانواده‌ها زمان کمتری در راه صرف می‌شود.",
     ),
-    image("/services/commercial.jpg", "بلیچینگ کرج", "لبخند روشن‌تر در کلینیک."),
+    image("/portfolio/smile-after-02.jpg", "بلیچینگ کرج", "لبخند روشن‌تر در کلینیک."),
     list(
       "نکات بلیچینگ در کرج",
       [
@@ -344,7 +344,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
   seoTitle: "بلیچینگ دندان در کرج | کلینیک امیر رحمتی جهانشهر",
   seoDescription: "سفید کردن کنترل‌شده در کلینیک جهانشهر در مقابل کیت خانگی — ایمنی برای لثه کرج.",
   seoKeywords: "بلیچینگ دندان کرج, bleaching karaj, جهانشهر, کلینیک امیر رحمتی",
-  ogImage: "/services/commercial.jpg",
+  ogImage: "/portfolio/smile-after-02.jpg",
   isActive: true,
 },
 {
@@ -353,7 +353,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
   excerpt: "مرتب‌سازی دندان برای نوجوانان و بزرگسالان ساکن جهانشهر — زمان، هزینه و بهداشت.",
   category: "ارتودنسی",
   author,
-  coverImage: "/services/labor.jpg",
+  coverImage: "/services/dental-ortho.jpg",
   featured: false,
   sort: 7,
   readingMinutes: 11,
@@ -367,7 +367,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
       "چرا ساکنان جهانشهر به کلینیک نزد خانه نیاز دارند؟",
       "ترافیک کرج و شلوغی مراکز درمانی مرکز شهر باعث می‌شود بسیاری از بیماران ترجیح دهند در محله خود معاینه و درمان را پیگیری کنند.\n\nکلینیک در جهانشهر دسترسی ساده‌تر از کسری شمالی دارد و برای خانواده‌ها زمان کمتری در راه صرف می‌شود.",
     ),
-    image("/services/labor.jpg", "ارتودنسی کرج", "براکت در کلینیک جهانشهر."),
+    image("/services/dental-ortho.jpg", "ارتودنسی کرج", "براکت در کلینیک جهانشهر."),
     list(
       "گزینه‌های ارتودنسی کرج",
       [
@@ -398,7 +398,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
   seoTitle: "ارتودنسی در کرج | کلینیک امیر رحمتی جهانشهر",
   seoDescription: "مرتب‌سازی دندان برای نوجوانان و بزرگسالان ساکن جهانشهر — زمان، هزینه و بهداشت.",
   seoKeywords: "ارتودنسی کرج, orthodontics karaj, جهانشهر, کلینیک امیر رحمتی",
-  ogImage: "/services/labor.jpg",
+  ogImage: "/services/dental-ortho.jpg",
   isActive: true,
 },
 {
@@ -407,7 +407,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
   excerpt: "scaling و پولیش حرفه‌ای در کسری شمالی — پیشگیری از بیماری لثه برای خانواده‌های کرج.",
   category: "پیشگیری",
   author,
-  coverImage: "/services/hero.jpg",
+  coverImage: "/clinic/03-reception.jpg",
   featured: false,
   sort: 8,
   readingMinutes: 11,
@@ -421,7 +421,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
       "چرا ساکنان جهانشهر به کلینیک نزد خانه نیاز دارند؟",
       "ترافیک کرج و شلوغی مراکز درمانی مرکز شهر باعث می‌شود بسیاری از بیماران ترجیح دهند در محله خود معاینه و درمان را پیگیری کنند.\n\nکلینیک در جهانشهر دسترسی ساده‌تر از کسری شمالی دارد و برای خانواده‌ها زمان کمتری در راه صرف می‌شود.",
     ),
-    image("/services/hero.jpg", "جرم‌گیری کرج", "پیشگیری در جهانشهر."),
+    image("/clinic/03-reception.jpg", "جرم‌گیری کرج", "پیشگیری در جهانشهر."),
     list(
       "فواصل جرم‌گیری",
       [
@@ -452,7 +452,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
   seoTitle: "جرم‌گیری دندان در کرج | کلینیک امیر رحمتی جهانشهر",
   seoDescription: "scaling و پولیش حرفه‌ای در کسری شمالی — پیشگیری از بیماری لثه برای خانواده‌های کرج.",
   seoKeywords: "جرم‌گیری کرج, scaling karaj, جهانشهر, کلینیک امیر رحمتی",
-  ogImage: "/services/hero.jpg",
+  ogImage: "/clinic/03-reception.jpg",
   isActive: true,
 },
 {
@@ -461,7 +461,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
   excerpt: "درمان ریشه با بی‌حسی در کلینیک امیر رحمتی — علائم، مراحل و مراقبت بعد در جهانشهر.",
   category: "درمان",
   author,
-  coverImage: "/services/banking.jpg",
+  coverImage: "/services/dental-closeup.jpg",
   featured: false,
   sort: 9,
   readingMinutes: 11,
@@ -475,7 +475,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
       "چرا ساکنان جهانشهر به کلینیک نزد خانه نیاز دارند؟",
       "ترافیک کرج و شلوغی مراکز درمانی مرکز شهر باعث می‌شود بسیاری از بیماران ترجیح دهند در محله خود معاینه و درمان را پیگیری کنند.\n\nکلینیک در جهانشهر دسترسی ساده‌تر از کسری شمالی دارد و برای خانواده‌ها زمان کمتری در راه صرف می‌شود.",
     ),
-    image("/services/banking.jpg", "عصب‌کشی کرج", "حفظ دندان طبیعی."),
+    image("/services/dental-closeup.jpg", "عصب‌کشی کرج", "حفظ دندان طبیعی."),
     list(
       "مراحل عصب‌کشی",
       [
@@ -506,7 +506,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
   seoTitle: "عصب‌کشی دندان در کرج | کلینیک امیر رحمتی جهانشهر",
   seoDescription: "درمان ریشه با بی‌حسی در کلینیک امیر رحمتی — علائم، مراحل و مراقبت بعد در جهانشهر.",
   seoKeywords: "عصب‌کشی کرج, root canal karaj, جهانشهر, کلینیک امیر رحمتی",
-  ogImage: "/services/banking.jpg",
+  ogImage: "/services/dental-closeup.jpg",
   isActive: true,
 },
 {
@@ -515,7 +515,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
   excerpt: "معاینه دوره‌ای در کوچه غزال — پوسیدگی پنهان، لثه و ایمپلنت برای ساکنان جهانشهر.",
   category: "پیشگیری",
   author,
-  coverImage: "/services/medical.jpg",
+  coverImage: "/services/dental-exam.jpg",
   featured: false,
   sort: 10,
   readingMinutes: 11,
@@ -529,7 +529,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
       "چرا ساکنان جهانشهر به کلینیک نزد خانه نیاز دارند؟",
       "ترافیک کرج و شلوغی مراکز درمانی مرکز شهر باعث می‌شود بسیاری از بیماران ترجیح دهند در محله خود معاینه و درمان را پیگیری کنند.\n\nکلینیک در جهانشهر دسترسی ساده‌تر از کسری شمالی دارد و برای خانواده‌ها زمان کمتری در راه صرف می‌شود.",
     ),
-    image("/services/medical.jpg", "چکاپ کرج", "معاینه دوره‌ای."),
+    image("/services/dental-exam.jpg", "چکاپ کرج", "معاینه دوره‌ای."),
     list(
       "موارد بررسی در چکاپ",
       [
@@ -560,7 +560,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
   seoTitle: "چکاپ دندان در کرج | کلینیک امیر رحمتی جهانشهر",
   seoDescription: "معاینه دوره‌ای در کوچه غزال — پوسیدگی پنهان، لثه و ایمپلنت برای ساکنان جهانشهر.",
   seoKeywords: "چکاپ دندان کرج, dental checkup karaj, جهانشهر, کلینیک امیر رحمتی",
-  ogImage: "/services/medical.jpg",
+  ogImage: "/services/dental-exam.jpg",
   isActive: true,
 },
 {
@@ -569,7 +569,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
   excerpt: "۲۴ ساعت اول، غذا، سیگار و کنترل — پس از جراحی ایمپلنت در کلینیک جهانشهر.",
   category: "ایمپلنت",
   author,
-  coverImage: "/services/insurance.jpg",
+  coverImage: "/services/dental-ops.jpg",
   featured: false,
   sort: 11,
   readingMinutes: 11,
@@ -614,7 +614,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
   seoTitle: "مراقبت بعد از ایمپلنت در کرج | کلینیک امیر رحمتی جهانشهر",
   seoDescription: "۲۴ ساعت اول، غذا، سیگار و کنترل — پس از جراحی ایمپلنت در کلینیک جهانشهر.",
   seoKeywords: "مراقبت بعد از ایمپلنت کرج, implant aftercare karaj, جهانشهر, کلینیک امیر رحمتی",
-  ogImage: "/services/insurance.jpg",
+  ogImage: "/services/dental-ops.jpg",
   isActive: true,
 },
 {
@@ -623,7 +623,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
   excerpt: "اولین ویزیت بدون ترس، فیشورسیلانت و فلوراید در کلینیک خانواده جهانشهر.",
   category: "کودکان",
   author,
-  coverImage: "/services/enforcement.jpg",
+  coverImage: "/services/dental-kids.jpg",
   featured: false,
   sort: 12,
   readingMinutes: 11,
@@ -637,7 +637,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
       "چرا ساکنان جهانشهر به کلینیک نزد خانه نیاز دارند؟",
       "ترافیک کرج و شلوغی مراکز درمانی مرکز شهر باعث می‌شود بسیاری از بیماران ترجیح دهند در محله خود معاینه و درمان را پیگیری کنند.\n\nکلینیک در جهانشهر دسترسی ساده‌تر از کسری شمالی دارد و برای خانواده‌ها زمان کمتری در راه صرف می‌شود.",
     ),
-    image("/services/enforcement.jpg", "دندانپزشکی کودک کرج", "فضای آرام."),
+    image("/services/dental-kids.jpg", "دندانپزشکی کودک کرج", "فضای آرام."),
     list(
       "خدمات کودکان",
       [
@@ -668,7 +668,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
   seoTitle: "دندانپزشکی کودکان در کرج | کلینیک امیر رحمتی جهانشهر",
   seoDescription: "اولین ویزیت بدون ترس، فیشورسیلانت و فلوراید در کلینیک خانواده جهانشهر.",
   seoKeywords: "دندانپزشکی کودکان کرج, pediatric dentistry karaj, جهانشهر, کلینیک امیر رحمتی",
-  ogImage: "/services/enforcement.jpg",
+  ogImage: "/services/dental-kids.jpg",
   isActive: true,
 },
 {
@@ -677,7 +677,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
   excerpt: "چه زمانی فوراً به کلینیک کسری شمالی مراجعه کنیم و تا رسیدن چه کار کنیم.",
   category: "اورژانس",
   author,
-  coverImage: "/services/medical.jpg",
+  coverImage: "/services/dental-exam.jpg",
   featured: false,
   sort: 13,
   readingMinutes: 11,
@@ -691,7 +691,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
       "چرا ساکنان جهانشهر به کلینیک نزد خانه نیاز دارند؟",
       "ترافیک کرج و شلوغی مراکز درمانی مرکز شهر باعث می‌شود بسیاری از بیماران ترجیح دهند در محله خود معاینه و درمان را پیگیری کنند.\n\nکلینیک در جهانشهر دسترسی ساده‌تر از کسری شمالی دارد و برای خانواده‌ها زمان کمتری در راه صرف می‌شود.",
     ),
-    image("/banners/court-waiting.jpg", "اورژانس کرج", "تماس با کلینیک جهانشهر."),
+    image("/clinic/03-reception.jpg", "پذیرش اورژانس دندان در کرج", "تماس سریع با کلینیک جهانشهر."),
     list(
       "علائم اورژانس",
       [
@@ -722,7 +722,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
   seoTitle: "اورژانس دندان در کرج | کلینیک امیر رحمتی جهانشهر",
   seoDescription: "چه زمانی فوراً به کلینیک کسری شمالی مراجعه کنیم و تا رسیدن چه کار کنیم.",
   seoKeywords: "اورژانس دندان کرج, dental emergency karaj, جهانشهر, کلینیک امیر رحمتی",
-  ogImage: "/services/medical.jpg",
+  ogImage: "/services/dental-exam.jpg",
   isActive: true,
 },
 {
@@ -731,7 +731,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
   excerpt: "قند پنهان، چای پررنگ و میان‌وعده — عادت‌های رایج در کرج و تأثیر بر پوسیدگی.",
   category: "پیشگیری",
   author,
-  coverImage: "/services/family.jpg",
+  coverImage: "/portfolio/smile-after-04.jpg",
   featured: false,
   sort: 14,
   readingMinutes: 11,
@@ -745,7 +745,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
       "چرا ساکنان جهانشهر به کلینیک نزد خانه نیاز دارند؟",
       "ترافیک کرج و شلوغی مراکز درمانی مرکز شهر باعث می‌شود بسیاری از بیماران ترجیح دهند در محله خود معاینه و درمان را پیگیری کنند.\n\nکلینیک در جهانشهر دسترسی ساده‌تر از کسری شمالی دارد و برای خانواده‌ها زمان کمتری در راه صرف می‌شود.",
     ),
-    image("/services/family.jpg", "تغذیه و دهان", "راهنمای خانواده کرج."),
+    image("/portfolio/smile-after-04.jpg", "تغذیه و دهان", "راهنمای خانواده کرج."),
     list(
       "نکات تغذیه",
       [
@@ -776,7 +776,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
   seoTitle: "تغذیه و سلامت دندان در کرج | کلینیک امیر رحمتی جهانشهر",
   seoDescription: "قند پنهان، چای پررنگ و میان‌وعده — عادت‌های رایج در کرج و تأثیر بر پوسیدگی.",
   seoKeywords: "تغذیه و دندان کرج, nutrition dental karaj, جهانشهر, کلینیک امیر رحمتی",
-  ogImage: "/services/family.jpg",
+  ogImage: "/portfolio/smile-after-04.jpg",
   isActive: true,
 },
 ];

@@ -2,7 +2,7 @@ import type { ServerResponse } from '~~/types/common'
 import { BaseController } from '~/core/BaseController'
 import type { TestimonialDS } from '../data/index.store'
 import type { TestimonialApiService } from '../services/index.service'
-import type { TTestimonial } from '../types/index.type'
+import type { TPublicTestimonialPayload, TTestimonial } from '../types/index.type'
 
 export class TestimonialController extends BaseController<TestimonialApiService> {
   constructor(
@@ -54,5 +54,11 @@ export class TestimonialController extends BaseController<TestimonialApiService>
     finally {
       this.testimonialDS.setLoading(false)
     }
+  }
+
+  public async submitPublic(
+    payload: TPublicTestimonialPayload,
+  ): Promise<ServerResponse<{ id: string }>> {
+    return this.service.submitPublic(payload)
   }
 }

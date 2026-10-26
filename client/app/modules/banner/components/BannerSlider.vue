@@ -6,11 +6,18 @@ const bannerController = bannerModule.controller
 const mediaSrc = useMediaSrc()
 const activeIndex = ref(0)
 const isHovered = ref(false)
+const isVisible = ref(true)
+const reducedMotion = ref(false)
+const touchStartX = ref<number | null>(null)
 let timer: ReturnType<typeof setInterval> | null = null
 
 const slides = computed(() => bannerDS.getVisibleItems)
 const loading = computed(() => bannerDS.getLoading)
 const active = computed(() => slides.value[activeIndex.value] ?? null)
+const nextSlide = computed(() => {
+  if (slides.value.length < 2) return null
+  return slides.value[(activeIndex.value + 1) % slides.value.length] ?? null
+})
 
 function goTo(index: number) {
   if (!slides.value.length) return
@@ -27,10 +34,10 @@ function prev() {
 
 function startAutoplay() {
   stopAutoplay()
-  if (slides.value.length < 2) return
+  if (slides.value.length < 2 || reducedMotion.value) return
   timer = setInterval(() => {
-    if (!isHovered.value) next()
-  }, 7000)
+    if (!isHovered.value && isVisible.value) next()
+  }, 6500)
 }
 
 function stopAutoplay() {
@@ -40,13 +47,42 @@ function stopAutoplay() {
   }
 }
 
+function onVisibility() {
+  isVisible.value = document.visibilityState === 'visible'
+  if (isVisible.value) startAutoplay()
+  else stopAutoplay()
+}
+
+function onTouchStart(event: TouchEvent) {
+  touchStartX.value = event.changedTouches[0]?.clientX ?? null
+}
+
+function onTouchEnd(event: TouchEvent) {
+  const start = touchStartX.value
+  const end = event.changedTouches[0]?.clientX
+  touchStartX.value = null
+  if (start == null || end == null || slides.value.length < 2) return
+  const delta = end - start
+  if (Math.abs(delta) < 48) return
+  // RTL: swipe right → previous visual slide feels natural as next content
+  if (delta > 0) next()
+  else prev()
+}
+
 onMounted(async () => {
+  if (import.meta.client) {
+    reducedMotion.value = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    document.addEventListener('visibilitychange', onVisibility)
+  }
   await bannerController.getBannerList()
   if (slides.value.length) startAutoplay()
 })
 
 onBeforeUnmount(() => {
   stopAutoplay()
+  if (import.meta.client) {
+    document.removeEventListener('visibilitychange', onVisibility)
+  }
 })
 
 watch(
@@ -60,182 +96,157 @@ watch(
 
 <template>
   <section
-    class="relative overflow-hidden bg-mist"
+    class="banner-hero relative isolate overflow-hidden bg-band text-on-band"
+    aria-roledescription="carousel"
+    :aria-label="active?.displayTitle || 'بنر اصلی'"
     @mouseenter="isHovered = true"
     @mouseleave="isHovered = false"
+    @touchstart.passive="onTouchStart"
+    @touchend.passive="onTouchEnd"
   >
-    <div
-      class="pointer-events-none absolute -left-24 top-10 size-[28rem] rounded-full bg-green-deep/15 blur-3xl"
-      aria-hidden="true"
-    />
-    <div
-      class="pointer-events-none absolute -right-20 bottom-0 size-[22rem] rounded-full bg-band/10 blur-3xl"
-      aria-hidden="true"
-    />
-
-    <div class="relative mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8 lg:py-16">
+    <!-- Full-bleed media plane -->
+    <div class="absolute inset-0" aria-hidden="true">
       <div
         v-if="loading && !slides.length"
-        class="flex min-h-[28rem] items-center justify-center text-ink-muted"
-      >
-        در حال بارگذاری بنرها...
-      </div>
-
+        class="size-full animate-pulse bg-green-deep/40"
+      />
+      <template v-else-if="active">
+        <Transition name="banner-cross">
+          <img
+            :key="active.id"
+            :src="mediaSrc(active.image)"
+            :alt="active.title"
+            class="banner-kenburns absolute inset-0 size-full object-cover"
+            width="1920"
+            height="1080"
+            decoding="async"
+            fetchpriority="high"
+            loading="eager"
+          >
+        </Transition>
+        <!-- Prefetch next for snappy slide change -->
+        <img
+          v-if="nextSlide"
+          :src="mediaSrc(nextSlide.image)"
+          alt=""
+          class="pointer-events-none absolute size-0 opacity-0"
+          width="1"
+          height="1"
+          decoding="async"
+          aria-hidden="true"
+        >
+      </template>
       <div
-        v-else-if="!slides.length"
-        class="flex min-h-[22rem] items-center justify-center text-ink-muted"
+        v-else
+        class="flex size-full items-center justify-center bg-band text-on-band/70"
       >
         بنری برای نمایش وجود ندارد.
       </div>
 
-      <div
-        v-else-if="active"
-        class="grid items-center gap-8 lg:grid-cols-12 lg:gap-10"
-      >
-        <!-- Copy -->
-        <div class="relative z-10 lg:col-span-5">
-          <p class="text-[11px] font-semibold tracking-[0.28em] text-gold">
-            امیر رحمتی
-          </p>
+      <!-- Theme-safe readability scrim (no chips / overlays) -->
+      <div class="banner-hero__scrim absolute inset-0" />
+    </div>
 
-          <div class="relative mt-5 min-h-[12.5rem] sm:min-h-[14rem]">
-            <Transition name="home-slide" mode="out-in">
-              <div :key="active.id">
-                <p
-                  v-if="active.displaySubtitle"
-                  class="text-sm font-medium text-ink-muted"
-                >
-                  {{ active.displaySubtitle }}
-                </p>
-                <h1 class="mt-3 text-[1.85rem] font-bold leading-[1.35] tracking-tight text-ink sm:text-4xl lg:text-[2.65rem] lg:leading-[1.3]">
-                  {{ active.displayTitle }}
-                </h1>
-                <p
-                  v-if="active.displayDescription"
-                  class="mt-5 max-w-md text-[15px] leading-8 text-ink-muted"
-                >
-                  {{ active.displayDescription }}
-                </p>
-              </div>
-            </Transition>
-          </div>
+    <!-- Content -->
+    <div
+      v-if="active"
+      class="relative z-10 mx-auto flex min-h-[min(92svh,44rem)] w-full max-w-7xl flex-col justify-end px-4 pb-10 pt-24 sm:min-h-[min(88svh,48rem)] sm:px-6 sm:pb-14 sm:pt-28 lg:min-h-[min(86svh,52rem)] lg:justify-center lg:px-8 lg:pb-20 lg:pt-16"
+    >
+      <div class="max-w-2xl">
+        <p class="banner-hero__brand text-sm font-bold tracking-[0.18em] text-gold sm:text-base">
+          امیر رحمتی
+        </p>
 
-          <div class="mt-8 flex flex-wrap items-center gap-3">
-            <NuxtLink
-              v-if="active.hasButton1"
-              :to="active.button1Link!"
-              class="inline-flex items-center justify-center rounded-2xl bg-band px-5 py-3 text-sm font-semibold text-on-band transition hover:bg-green-deep hover:text-on-primary"
+        <Transition name="banner-copy" mode="out-in">
+          <div :key="active.id" class="mt-4 sm:mt-5">
+            <p
+              v-if="active.displaySubtitle"
+              class="text-sm font-medium text-on-band/75 sm:text-[15px]"
             >
-              {{ active.button1Text }}
-            </NuxtLink>
-            <NuxtLink
-              v-if="active.hasButton2"
-              :to="active.button2Link!"
-              class="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-semibold text-ink ring-1 ring-band/15 transition hover:bg-panel"
+              {{ active.displaySubtitle }}
+            </p>
+            <h1 class="mt-2 text-[1.85rem] font-bold leading-[1.25] tracking-tight text-on-band sm:mt-3 sm:text-4xl lg:text-[3.15rem] lg:leading-[1.18]">
+              {{ active.displayTitle }}
+            </h1>
+            <p
+              v-if="active.displayDescription"
+              class="mt-4 max-w-xl text-[15px] leading-8 text-on-band/80 sm:mt-5 sm:text-base sm:leading-8"
             >
-              {{ active.button2Text }}
-            </NuxtLink>
-            <NuxtLink
-              v-else-if="active.link && !active.hasButton1"
-              :to="active.link"
-              class="inline-flex items-center justify-center rounded-2xl bg-band px-5 py-3 text-sm font-semibold text-on-band transition hover:bg-green-deep hover:text-on-primary"
-            >
-              بیشتر بدانید
-            </NuxtLink>
-          </div>
-
-          <div
-            v-if="slides.length > 1"
-            class="mt-10 flex items-center gap-4"
-          >
-            <div class="flex items-center gap-2">
-              <button
-                type="button"
-                class="inline-flex size-11 items-center justify-center rounded-full bg-panel text-2xl leading-none text-ink shadow-sm ring-1 ring-mist-deep transition hover:bg-band hover:text-on-band"
-                aria-label="اسلاید قبلی"
-                @click="prev"
-              >
-                ‹
-              </button>
-              <button
-                type="button"
-                class="inline-flex size-11 items-center justify-center rounded-full bg-panel text-2xl leading-none text-ink shadow-sm ring-1 ring-mist-deep transition hover:bg-band hover:text-on-band"
-                aria-label="اسلاید بعدی"
-                @click="next"
-              >
-                ›
-              </button>
-            </div>
-            <div class="flex items-center gap-2">
-              <button
-                v-for="(slide, index) in slides"
-                :key="`dot-${slide.id}`"
-                type="button"
-                class="h-1.5 rounded-full transition-all"
-                :class="index === activeIndex ? 'w-8 bg-band' : 'w-2.5 bg-band/25 hover:bg-band/50'"
-                :aria-label="`رفتن به اسلاید ${index + 1}`"
-                @click="goTo(index)"
-              />
-            </div>
-            <p class="ms-auto font-mono text-xs text-ink-muted">
-              {{ String(activeIndex + 1).padStart(2, '0') }}
-              <span class="text-ink/30">/</span>
-              {{ String(slides.length).padStart(2, '0') }}
+              {{ active.displayDescription }}
             </p>
           </div>
+        </Transition>
+
+        <div class="mt-7 flex flex-wrap items-center gap-3 sm:mt-9">
+          <NuxtLink
+            v-if="active.hasButton1"
+            :to="active.button1Link!"
+            class="banner-hero__cta inline-flex min-h-11 items-center justify-center rounded-full bg-green-deep px-6 py-3 text-sm font-bold text-on-primary shadow-[0_14px_36px_color-mix(in_srgb,var(--color-green-deep)_45%,transparent)] transition duration-200 hover:-translate-y-0.5 hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+          >
+            {{ active.button1Text }}
+          </NuxtLink>
+          <NuxtLink
+            v-if="active.hasButton2"
+            :to="active.button2Link!"
+            class="inline-flex min-h-11 items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-on-band ring-1 ring-on-band/35 backdrop-blur-sm transition duration-200 hover:bg-on-band/10 hover:ring-on-band/55 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+          >
+            {{ active.button2Text }}
+          </NuxtLink>
+          <NuxtLink
+            v-else-if="active.link && !active.hasButton1"
+            :to="active.link"
+            class="banner-hero__cta inline-flex min-h-11 items-center justify-center rounded-full bg-green-deep px-6 py-3 text-sm font-bold text-on-primary shadow-[0_14px_36px_color-mix(in_srgb,var(--color-green-deep)_45%,transparent)] transition duration-200 hover:-translate-y-0.5 hover:brightness-110"
+          >
+            بیشتر بدانید
+          </NuxtLink>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div
+        v-if="slides.length > 1"
+        class="mt-10 flex items-center gap-4 lg:mt-14"
+      >
+        <div class="flex items-center gap-2">
+          <button
+            type="button"
+            class="inline-flex size-10 items-center justify-center rounded-full bg-on-band/10 text-lg text-on-band ring-1 ring-on-band/20 backdrop-blur-md transition hover:bg-on-band/20 sm:size-11"
+            aria-label="اسلاید قبلی"
+            @click="prev"
+          >
+            ‹
+          </button>
+          <button
+            type="button"
+            class="inline-flex size-10 items-center justify-center rounded-full bg-on-band/10 text-lg text-on-band ring-1 ring-on-band/20 backdrop-blur-md transition hover:bg-on-band/20 sm:size-11"
+            aria-label="اسلاید بعدی"
+            @click="next"
+          >
+            ›
+          </button>
         </div>
 
-        <!-- Media -->
-        <div class="relative lg:col-span-7">
-          <div class="absolute -inset-3 rounded-[2rem] bg-gradient-to-bl from-green-deep/25 via-transparent to-band/10 blur-2xl" aria-hidden="true" />
-          <div class="relative overflow-hidden rounded-[1.75rem] bg-band shadow-[0_30px_80px_rgba(6,54,55,0.22)] ring-1 ring-band/10 sm:rounded-[2rem]">
-            <div class="relative aspect-[4/5] overflow-hidden sm:aspect-[5/4] lg:aspect-[16/11]">
-              <Transition name="home-slide" mode="out-in">
-                <div
-                  :key="active.id"
-                  class="group absolute inset-0"
-                >
-                  <img
-                    :src="mediaSrc(active.image)"
-                    :alt="active.title"
-                    class="banner-kenburns size-full object-cover"
-                    width="1200"
-                    height="825"
-                    loading="eager"
-                  >
-
-                  <div class="absolute inset-0 bg-gradient-to-b from-band/55 via-band/10 to-band/60" />
-
-                  <!-- Chip on top of image (no longer clipped below the frame) -->
-                  <div class="absolute inset-x-0 top-0 z-[1] p-4 sm:p-6">
-                    <div class="inline-flex max-w-[min(100%,20rem)] flex-col rounded-2xl bg-panel px-4 py-3 shadow-[0_12px_30px_rgba(6,54,55,0.18)] sm:px-5">
-                      <p class="text-[11px] font-medium text-ink-muted">
-                        مسیر روشن درمان
-                      </p>
-                      <p class="mt-0.5 text-sm font-semibold leading-6 text-ink">
-                        از معاینه تا لبخند سالم
-                      </p>
-                    </div>
-                  </div>
-
-                  <div class="absolute inset-x-0 bottom-0 z-[1] flex items-end justify-between gap-4 p-5 sm:p-7">
-                    <div class="max-w-sm">
-                      <p class="text-[11px] font-medium tracking-[0.18em] text-gold">
-                        کلینیک دندان‌پزشکی امیر رحمتی
-                      </p>
-                      <p class="mt-2 line-clamp-2 text-base font-semibold text-on-band sm:text-lg">
-                        {{ active.displayTitle }}
-                      </p>
-                    </div>
-                    <span class="hidden rounded-full bg-white/15 px-3 py-1.5 text-[11px] font-medium text-on-band backdrop-blur sm:inline-flex">
-                      مراقبت تخصصی
-                    </span>
-                  </div>
-                </div>
-              </Transition>
-            </div>
-          </div>
+        <div class="flex items-center gap-2" role="tablist" aria-label="انتخاب اسلاید">
+          <button
+            v-for="(slide, index) in slides"
+            :key="`dot-${slide.id}`"
+            type="button"
+            role="tab"
+            class="banner-hero__dot h-1.5 rounded-full transition-all duration-300"
+            :class="index === activeIndex
+              ? 'w-9 bg-gold'
+              : 'w-2.5 bg-on-band/35 hover:bg-on-band/55'"
+            :aria-selected="index === activeIndex"
+            :aria-label="`رفتن به اسلاید ${index + 1}`"
+            @click="goTo(index)"
+          />
         </div>
+
+        <p class="ms-auto font-mono text-[11px] tracking-wider text-on-band/55 sm:text-xs">
+          {{ String(activeIndex + 1).padStart(2, '0') }}
+          <span class="text-on-band/30">/</span>
+          {{ String(slides.length).padStart(2, '0') }}
+        </p>
       </div>
     </div>
   </section>

@@ -26,6 +26,7 @@ export class PortfolioService implements OnModuleInit {
       'digital-imaging',
       'sterile-kids',
     ];
+    // keep list for one-time cleanup of old space-tour seeds
     for (const slug of obsoleteSlugs) {
       const row = await this.portfolioRepository.findOne({ where: { slug } });
       if (row) await this.portfolioRepository.remove(row);

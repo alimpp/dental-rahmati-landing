@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import {
   CreateTestimonialDto,
+  PublicSubmitTestimonialDto,
   UpdateTestimonialDto,
 } from './dto/testimonial.dto';
 import { Testimonial } from './entities/testimonial.entity';
@@ -42,6 +43,30 @@ export class TestimonialService implements OnModuleInit {
     });
     if (!testimonial) throw new NotFoundException('نظر یافت نشد');
     return testimonial;
+  }
+
+  /** Site visitors — always stored as inactive until admin approves */
+  async submitPublic(dto: PublicSubmitTestimonialDto) {
+    const firstName = dto.firstName.trim();
+    const lastName = dto.lastName.trim();
+    const quote = dto.quote.trim();
+    const maxSort = await this.testimonialRepository
+      .createQueryBuilder('t')
+      .select('MAX(t.sort)', 'max')
+      .getRawOne<{ max: string | null }>();
+    const sort = (Number(maxSort?.max) || 0) + 1;
+
+    const testimonial = this.testimonialRepository.create({
+      clientName: `${firstName} ${lastName}`.slice(0, 120),
+      quote,
+      rating: dto.rating,
+      roleOrCompany: null,
+      avatarUrl: null,
+      sort,
+      isActive: false,
+      featured: true,
+    });
+    return this.testimonialRepository.save(testimonial);
   }
 
   async create(dto: CreateTestimonialDto) {

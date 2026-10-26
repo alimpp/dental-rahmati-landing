@@ -11,7 +11,7 @@ export const SERVICE_SEED: CreateServiceDto[] = [
     description:
       'اسکن داخل دهانی، طراحی دیجیتال لبخند، CAD/CAM و طرح درمان شفاف در کلینیک دندان‌پزشکی امیر رحمتی جهانشهر کرج؛ دقت بالا، زمان کمتر در صندلی درمان و نتیجه قابل پیش‌بینی برای ایمپلنت، روکش، لمینت و ارتودنسی.',
     icon: '/icons/services/digital.svg',
-    coverImage: '/services/family.jpg',
+    coverImage: '/services/dental-digital.jpg',
     sort: 1,
     sections: [
       {
@@ -142,7 +142,7 @@ export const SERVICE_SEED: CreateServiceDto[] = [
     description:
       'کاشت ایمپلنت با برنامه‌ریزی دیجیتال، جراحی هدفمند و روکش نهایی در کلینیک امیر رحمتی جهانشهر؛ جایگزین پایدار برای دندان از دست رفته با تمرکز بر ایمپلنت در کرج و مراقبت بلندمدت.',
     icon: '/icons/services/implant.svg',
-    coverImage: '/services/criminal.jpg',
+    coverImage: '/services/dental-ops.jpg',
     sort: 2,
     sections: [
       {
@@ -271,7 +271,7 @@ export const SERVICE_SEED: CreateServiceDto[] = [
     description:
       'لمینت سرامیکی و کامپوزیت ونیر با طراحی دیجیتال لبخند در کلینیک امیر رحمتی جهانشهر کرج؛ اصلاح رنگ، فرم و فاصله بین دندان‌ها با حداقل تراش و نتیجه طبیعی برای جستجوی لمینت دندان کرج.',
     icon: '/icons/services/veneer.svg',
-    coverImage: '/services/property.jpg',
+    coverImage: '/services/dental-veneer.jpg',
     sort: 3,
     sections: [
       {
@@ -391,7 +391,7 @@ export const SERVICE_SEED: CreateServiceDto[] = [
     slug: 'general-dentistry',
     description: 'معاینه دوره\u200cای، ترمیم پوسیدگی و برنامه پیشگیری در کلینیک دندان\u200cپزشکی امیر رحمتی در جهانشهر کرج؛ بهترین مسیر برای حفظ سلامت دندان در کرج.',
     icon: '/icons/services/tooth.svg',
-    coverImage: '/services/commercial.jpg',
+    coverImage: '/services/dental-care.jpg',
     sort: 4,
     sections: [
       {
@@ -500,7 +500,7 @@ export const SERVICE_SEED: CreateServiceDto[] = [
     slug: 'dental-cleaning',
     description: 'جرم\u200cگیری حرفه\u200cای، پولیش و فلوراید در کلینیک دندان\u200cپزشکی امیر رحمتی در جهانشهر کرج؛ برای لثه سالم و بوی تازه در کرج.',
     icon: '/icons/services/cleaning.svg',
-    coverImage: '/services/traffic.jpg',
+    coverImage: '/services/dental-tools.jpg',
     sort: 5,
     sections: [
       {
@@ -601,7 +601,7 @@ export const SERVICE_SEED: CreateServiceDto[] = [
     slug: 'smile-design',
     description: 'تحلیل دیجیتال لبخند، هماهنگی رنگ و فرم دندان در کلینیک دندان\u200cپزشکی امیر رحمتی در جهانشهر کرج؛ پیش از لمینت، بلیچینگ یا ارتودنسی در کرج.',
     icon: '/icons/services/smile.svg',
-    coverImage: '/services/labor.jpg',
+    coverImage: '/services/dental-smile.jpg',
     sort: 6,
     sections: [
       {
@@ -702,7 +702,7 @@ export const SERVICE_SEED: CreateServiceDto[] = [
     slug: 'teeth-whitening',
     description: 'بلیچینگ حرفه\u200cای و کیت خانگی تحت نظر کلینیک دندان\u200cپزشکی امیر رحمتی در جهانشهر کرج؛ لبخند روشن\u200cتر با ایمنی لثه در کرج.',
     icon: '/icons/services/whitening.svg',
-    coverImage: '/services/insurance.jpg',
+    coverImage: '/services/dental-whitening.jpg',
     sort: 7,
     sections: [
       {
@@ -803,7 +803,7 @@ export const SERVICE_SEED: CreateServiceDto[] = [
     slug: 'orthodontics',
     description: 'ارتودنسی ثابت و شفاف در کلینیک دندان\u200cپزشکی امیر رحمتی در جهانشهر کرج؛ اصلاح نامرتبی و گاز گرفتن در کرج با پیگیری منظم.',
     icon: '/icons/services/ortho.svg',
-    coverImage: '/services/banking.jpg',
+    coverImage: '/services/dental-ortho.jpg',
     sort: 8,
     sections: [
       {
@@ -904,7 +904,7 @@ export const SERVICE_SEED: CreateServiceDto[] = [
     slug: 'root-canal',
     description: 'درمان ریشه با بی\u200cحسی موضعی در کلینیک دندان\u200cپزشکی امیر رحمتی در جهانشهر کرج؛ نجات دندان از کشیدن در کرج.',
     icon: '/icons/services/root-canal.svg',
-    coverImage: '/services/enforcement.jpg',
+    coverImage: '/services/dental-closeup.jpg',
     sort: 9,
     sections: [
       {
@@ -1005,7 +1005,7 @@ export const SERVICE_SEED: CreateServiceDto[] = [
     slug: 'pediatric-dentistry',
     description: 'مراقبت دوستانه از دندان شیری و دائمی در کلینیک دندان\u200cپزشکی امیر رحمتی در جهانشهر کرج؛ پیشگیری و ترمیم کودکان کرج.',
     icon: '/icons/services/pediatric.svg',
-    coverImage: '/services/arbitration.jpg',
+    coverImage: '/services/dental-kids.jpg',
     sort: 10,
     sections: [
       {
@@ -1106,7 +1106,7 @@ export const SERVICE_SEED: CreateServiceDto[] = [
     slug: 'gum-treatment',
     description: 'درمان التهاب و بیماری پریودنتال در کلینیک دندان\u200cپزشکی امیر رحمتی در جهانشهر کرج؛ جلوگیری از تحلیل استخوان در کرج.',
     icon: '/icons/services/gum.svg',
-    coverImage: '/services/medical.jpg',
+    coverImage: '/services/dental-care.jpg',
     sort: 11,
     sections: [
       {
@@ -1207,7 +1207,7 @@ export const SERVICE_SEED: CreateServiceDto[] = [
     slug: 'oral-surgery',
     description: 'کشیدن دندان عقل و جراحی دهان در کلینیک دندان\u200cپزشکی امیر رحمتی در جهانشهر کرج؛ با بی\u200cحسی و دستورالعمل بعد از عمل در کرج.',
     icon: '/icons/services/surgery.svg',
-    coverImage: '/services/hero.jpg',
+    coverImage: '/services/dental-sterile.jpg',
     sort: 12,
     sections: [
       {
@@ -1308,7 +1308,7 @@ export const SERVICE_SEED: CreateServiceDto[] = [
     slug: 'crowns-bridges',
     description: 'روکش سرامیک و زیرکونیا، بریج ثابت و پروتز با CAD/CAM در کلینیک دندان\u200cپزشکی امیر رحمتی در جهانشهر کرج؛ بازسازی جویدن در کرج.',
     icon: '/icons/services/crown.svg',
-    coverImage: '/services/family.jpg',
+    coverImage: '/services/dental-exam.jpg',
     sort: 13,
     sections: [
       {
@@ -1409,7 +1409,7 @@ export const SERVICE_SEED: CreateServiceDto[] = [
     slug: 'dental-emergency',
     description: 'درد شدید، تورم، شکستگی و خونریزی؛ پاسخ\u200cگویی کلینیک دندان\u200cپزشکی امیر رحمتی در جهانشهر کرج برای اورژانس دندان در کرج.',
     icon: '/icons/services/emergency.svg',
-    coverImage: '/services/criminal.jpg',
+    coverImage: '/services/dental-xray.jpg',
     sort: 14,
     sections: [
       {

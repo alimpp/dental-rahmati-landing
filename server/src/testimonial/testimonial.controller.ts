@@ -20,6 +20,7 @@ import { PermissionsGuard } from '../auth/guards/permissions.guard';
 import { assertCanListAll, wantsAll } from '../auth/list-all.util';
 import {
   CreateTestimonialDto,
+  PublicSubmitTestimonialDto,
   UpdateTestimonialDto,
 } from './dto/testimonial.dto';
 import { TestimonialService } from './testimonial.service';
@@ -43,6 +44,18 @@ export class TestimonialController {
       success: true,
       message: '',
       data,
+    };
+  }
+
+  /** Public review form — creates pending (inactive) testimonial */
+  @Post('public')
+  async submitPublic(@Body() dto: PublicSubmitTestimonialDto) {
+    const data = await this.testimonialService.submitPublic(dto);
+    return {
+      success: true,
+      message:
+        'نظر شما ثبت شد. پس از تایید ادمین در سایت قابل بازدید خواهد بود.',
+      data: { id: data.id },
     };
   }
 

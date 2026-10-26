@@ -13,7 +13,6 @@ const columns = [
       { label: 'کلینیک ما', to: '/clinic' },
       { label: 'درباره ما', to: '/about' },
       { label: 'راهنماها', to: '/guides' },
-      { label: 'کاتالوگ', to: '/catalog' },
       { label: 'نمونه کارها', to: '/portfolio' },
     ],
   },

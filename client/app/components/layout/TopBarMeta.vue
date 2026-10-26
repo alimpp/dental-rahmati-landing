@@ -10,10 +10,10 @@ defineProps<{
   <component
     :is="href ? 'a' : 'div'"
     :href="href"
-    class="inline-flex min-w-0 max-w-full items-center gap-2 text-sm text-ink/90 transition-colors duration-100 ease-out hover:text-ink"
+    class="inline-flex min-w-0 max-w-full items-center gap-2 text-[13px] text-on-primary/90 transition-colors duration-150 hover:text-on-primary"
   >
     <span
-      class="inline-block size-4 shrink-0 bg-ink"
+      class="inline-block size-3.5 shrink-0 bg-on-primary/90"
       :style="{
         maskImage: `url(${icon})`,
         WebkitMaskImage: `url(${icon})`,

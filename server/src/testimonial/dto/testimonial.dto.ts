@@ -7,7 +7,34 @@ import {
   Max,
   MaxLength,
   Min,
+  MinLength,
 } from 'class-validator';
+
+/** Public site submission — pending admin approval */
+export class PublicSubmitTestimonialDto {
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(2)
+  @MaxLength(60)
+  firstName!: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(2)
+  @MaxLength(60)
+  lastName!: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(20)
+  @MaxLength(1200)
+  quote!: string;
+
+  @IsInt()
+  @Min(1)
+  @Max(5)
+  rating!: number;
+}
 
 export class CreateTestimonialDto {
   @IsString()

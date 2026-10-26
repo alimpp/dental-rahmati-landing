@@ -41,10 +41,9 @@ async function fetchArticles(base: string) {
 export default defineSitemapEventHandler(async () => {
   const config = useRuntimeConfig()
   const apiBase = String(config.public.apiBase || 'http://localhost:4000/api')
-  const [articles, guides, catalog, services, portfolio] = await Promise.all([
+  const [articles, guides, services, portfolio] = await Promise.all([
     fetchArticles(apiBase),
     fetchList(apiBase, '/guides'),
-    fetchList(apiBase, '/catalog'),
     fetchList(apiBase, '/services'),
     fetchList(apiBase, '/portfolio'),
   ])
@@ -54,7 +53,6 @@ export default defineSitemapEventHandler(async () => {
     { loc: '/about', changefreq: 'monthly', priority: 0.8 },
     { loc: '/articles', changefreq: 'daily', priority: 0.9 },
     { loc: '/guides', changefreq: 'weekly', priority: 0.8 },
-    { loc: '/catalog', changefreq: 'weekly', priority: 0.7 },
     { loc: '/portfolio', changefreq: 'weekly', priority: 0.7 },
     { loc: '/contact', changefreq: 'monthly', priority: 0.8 },
     { loc: '/consultation', changefreq: 'monthly', priority: 0.8 },
@@ -70,13 +68,6 @@ export default defineSitemapEventHandler(async () => {
       .filter((item) => item.slug)
       .map((item) => ({
         loc: `/guides/${item.slug}`,
-        changefreq: 'monthly' as const,
-        priority: 0.6,
-      })),
-    ...catalog
-      .filter((item) => item.slug)
-      .map((item) => ({
-        loc: `/catalog/${item.slug}`,
         changefreq: 'monthly' as const,
         priority: 0.6,
       })),

@@ -2,7 +2,6 @@ export const ADMIN_MODULES = [
   'banners',
   'services',
   'articles',
-  'catalog',
   'stats',
   'promises',
   'process_steps',
@@ -89,7 +88,6 @@ export interface TDashboardTotals {
   articles: number
   banners: number
   services: number
-  catalog: number
   guides: number
   inquiries: number
 }
@@ -135,7 +133,7 @@ export interface TVisitReport {
   pages: TDashboardPath[]
 }
 
-export interface TPermissionCatalog {
+export interface TPermissionSchema {
   modules: { key: AdminModuleKey; label: string }[]
   actions: { key: PermissionAction; label: string }[]
 }
@@ -144,7 +142,6 @@ export const MODULE_LABELS: Record<AdminModuleKey, string> = {
   banners: 'بنرها',
   services: 'خدمات',
   articles: 'مقالات',
-  catalog: 'کاتالوگ',
   stats: 'آمار صفحه اصلی',
   promises: 'تعهدات صفحه اصلی',
   process_steps: 'مسیر درمان',
@@ -165,7 +162,6 @@ export const MODULE_ICONS: Record<AdminModuleKey, string> = {
   banners: '/icons/admin-banner.svg',
   services: '/icons/practice.svg',
   articles: '/icons/articles.svg',
-  catalog: '/icons/catalog.svg',
   stats: '/icons/admin-report.svg',
   promises: '/icons/about.svg',
   process_steps: '/icons/practice.svg',

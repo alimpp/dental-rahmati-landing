@@ -11,7 +11,7 @@ import {
   type TCreateAdminPayload,
   type THistoryPage,
   type TLoginPayload,
-  type TPermissionCatalog,
+  type TPermissionSchema,
   type TUpdateAdminPayload,
   type VisitReportRange,
 } from '../types/index.type'
@@ -75,13 +75,13 @@ export class AdminController extends BaseController<AdminApiService> {
     return true
   }
 
-  public async loadCatalog(): Promise<TPermissionCatalog | null> {
-    const response = await this.service.getCatalog()
+  public async loadPermissionSchema(): Promise<TPermissionSchema | null> {
+    const response = await this.service.getPermissionSchema()
     if (response.success && response.data) {
-      this.adminDS.setCatalog(response.data)
+      this.adminDS.setPermissionSchema(response.data)
       return response.data
     }
-    return this.adminDS.getCatalog
+    return this.adminDS.getPermissionSchema
   }
 
   public async getAdmins() {

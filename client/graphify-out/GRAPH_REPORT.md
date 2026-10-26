@@ -1,29 +1,29 @@
-# Graph Report - client  (2026-10-17)
+# Graph Report - client  (2026-10-26)
 
 ## Corpus Check
-- 173 files · ~337,564 words
+- 187 files · ~685,911 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1299 nodes · 1921 edges · 108 communities (87 shown, 21 thin omitted)
-- Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 4 edges (avg confidence: 0.5)
+- 1426 nodes · 2076 edges · 127 communities (96 shown, 31 thin omitted)
+- Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 6 edges (avg confidence: 0.5)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `91fb4b5b`
+- Built from commit: `fc3fae42`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - dependencies
 - admin/types/index.type.ts
-- PracticeMegaMenu.vue
+- SiteHeader.vue
 - ArticleDS
 - TService
 - TBanner
 - GuideDS
 - InquiryDS
-- CatalogItemModel
+- PortfolioDS
 - BaseStore
 - default.vue
 - BaseApp
@@ -31,7 +31,7 @@
 - articles/index.vue
 - articles.vue
 - banners.vue
-- catalog.vue
+- PortfolioGallery.vue
 - services.vue
 - guides.vue
 - AdminMediaField.vue
@@ -50,7 +50,7 @@
 - promises.vue
 - ContactSection.vue
 - PromisesSection.vue
-- CatalogGallery.vue
+- themes.vue
 - admin/index.vue
 - AdminLineChart.vue
 - useAdminConfirm.ts
@@ -58,7 +58,7 @@
 - page-meta.ts
 - SiteGuidesFaq.vue
 - articles/[slug].vue
-- catalog/[slug].vue
+- apply-theme.ts
 - practice-areas/[slug].vue
 - guides/index.vue
 - Nuxt Minimal Starter
@@ -66,7 +66,7 @@
 - AdminThumb.vue
 - BaseController
 - ServicesSection.vue
-- catalog/index.vue
+- portfolio.vue
 - practice-areas/index.vue
 - AdminBarChart.vue
 - AdminConfirmModal.vue
@@ -97,13 +97,29 @@
 - testimonials.vue
 - FaqSection.vue
 - TestimonialsSection.vue
-- CatalogPreview.vue
+- PortfolioBeforeAfter.vue
 - appointment-slots.vue
 - useAdminPageHeader.ts
 - appointment-bookings.vue
 - jalali.ts
+- portfolio/index.vue
 - guides/[slug].vue
 - GuidesPreview.vue
+- portfolio/[slug].vue
+- ArticleModule
+- GuideModule
+- PortfolioModule
+- ClinicStoryTour.vue
+- .getInstance
+- BannerModule
+- ServiceModule
+- InstagramSection.vue
+- clinic-rooms.ts
+- AdminModule
+- ThemeIconButton.vue
+- ThemePicker.vue
+- ThemeFab.vue
+- clinic.vue
 
 ## God Nodes (most connected - your core abstractions)
 1. `ArticleDS` - 24 edges
@@ -112,27 +128,27 @@
 4. `AdminApiService` - 20 edges
 5. `BannerDS` - 19 edges
 6. `ServiceDS` - 19 edges
-7. `CatalogItemModel` - 18 edges
-8. `CatalogDS` - 17 edges
-9. `GuideDS` - 17 edges
-10. `InquiryDS` - 17 edges
+7. `GuideDS` - 17 edges
+8. `InquiryDS` - 17 edges
+9. `PortfolioDS` - 17 edges
+10. `AdminController` - 16 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `BannerState` --references--> `BannerModel`  [EXTRACTED]
   app/modules/banner/data/index.store.ts → app/modules/banner/models/index.model.ts
-- `CatalogState` --references--> `CatalogItemModel`  [EXTRACTED]
-  app/modules/catalog/data/index.store.ts → app/modules/catalog/models/index.model.ts
 - `FaqState` --references--> `FaqModel`  [EXTRACTED]
   app/modules/faq/data/index.store.ts → app/modules/faq/models/index.model.ts
 - `GuideState` --references--> `GuideModel`  [EXTRACTED]
   app/modules/guide/data/index.store.ts → app/modules/guide/models/index.model.ts
 - `InquiryState` --references--> `InquiryModel`  [EXTRACTED]
   app/modules/inquiry/data/index.store.ts → app/modules/inquiry/models/index.model.ts
+- `PortfolioState` --references--> `PortfolioItemModel`  [EXTRACTED]
+  app/modules/portfolio/data/index.store.ts → app/modules/portfolio/models/index.model.ts
 
 ## Import Cycles
 - None detected.
 
-## Communities (108 total, 21 thin omitted)
+## Communities (127 total, 31 thin omitted)
 
 ### Community 0 - "dependencies"
 Cohesion: 0.07
@@ -142,9 +158,9 @@ Nodes (26): @fontsource-variable/vazirmatn, dependencies, @fontsource-variable/v
 Cohesion: 0.06
 Nodes (29): AdminController, AdminDS, AdminState, AdminApiService, ACTION_ICONS, ACTION_LABELS, ADMIN_MODULES, AdminModuleKey (+21 more)
 
-### Community 2 - "PracticeMegaMenu.vue"
+### Community 2 - "SiteHeader.vue"
 Cohesion: 0.05
-Nodes (27): emit, mediaSrc, NavLink, practiceHasMore, practiceOpen, props, route, catalogCount (+19 more)
+Nodes (30): emit, mediaSrc, NavLink, practiceHasMore, practiceOpen, props, route, emit (+22 more)
 
 ### Community 3 - "ArticleDS"
 Cohesion: 0.08
@@ -166,9 +182,9 @@ Nodes (7): GuideController, GuideDS, GuideState, GuideModel, normalizeOrder(), G
 Cohesion: 0.09
 Nodes (14): InquiryController, InquiryDS, InquiryState, InquiryModule, InquiryModel, CreateInquiryInput, createInquirySchema, flattenInquiryErrors() (+6 more)
 
-### Community 8 - "CatalogItemModel"
-Cohesion: 0.09
-Nodes (9): CatalogController, CatalogDS, CatalogState, CatalogItemModel, normalizeOrder(), CatalogApiService, TCatalogGalleryImage, TCatalogItem (+1 more)
+### Community 8 - "PortfolioDS"
+Cohesion: 0.10
+Nodes (7): PortfolioController, PortfolioDS, PortfolioState, PortfolioItemModel, PortfolioApiService, TPortfolioGalleryImage, TPortfolioItem
 
 ### Community 9 - "BaseStore"
 Cohesion: 0.11
@@ -194,9 +210,9 @@ Nodes (11): { confirm: confirmDelete }, editing, error, form, items, load(), mod
 Cohesion: 0.16
 Nodes (11): { confirm: confirmDelete }, editing, error, form, items, load(), modal, payload() (+3 more)
 
-### Community 21 - "catalog.vue"
-Cohesion: 0.16
-Nodes (11): { confirm: confirmDelete }, editing, error, form, items, load(), modal, payload() (+3 more)
+### Community 21 - "PortfolioGallery.vue"
+Cohesion: 0.09
+Nodes (24): active, activeImage, close(), dragging, dragStart, mediaSrc, next(), offset (+16 more)
 
 ### Community 22 - "services.vue"
 Cohesion: 0.16
@@ -211,8 +227,8 @@ Cohesion: 0.17
 Nodes (9): error, input, isImage, isPdf, mediaSrc, model, preview, props (+1 more)
 
 ### Community 25 - "BannerSlider.vue"
-Cohesion: 0.21
-Nodes (11): active, activeIndex, goTo(), isHovered, loading, mediaSrc, next(), prev() (+3 more)
+Cohesion: 0.14
+Nodes (17): active, activeIndex, goTo(), isHovered, isVisible, loading, mediaSrc, next() (+9 more)
 
 ### Community 26 - "reports.vue"
 Cohesion: 0.18
@@ -231,12 +247,12 @@ Cohesion: 0.11
 Nodes (8): PromiseController, PromiseDS, PromiseState, PromiseModule, normalizeOrder(), PromiseModel, PromiseApiService, TPromise
 
 ### Community 30 - "admin.vue"
-Cohesion: 0.11
-Nodes (14): accessChips, canCreate, canEdit, groupedLinks, groupLabels, links, nowLabel, open (+6 more)
+Cohesion: 0.10
+Nodes (15): accessChips, canCreate, canEdit, groupedLinks, groupLabels, { initSiteTheme }, links, nowLabel (+7 more)
 
 ### Community 31 - "modules/index.ts"
-Cohesion: 0.05
-Nodes (19): AdminModule, ArticleModule, BannerModule, CatalogModule, GuideModule, adminModule, AppModules, articleModule (+11 more)
+Cohesion: 0.15
+Nodes (12): adminModule, articleModule, bannerModule, faqModule, guideModule, inquiryModule, portfolioModule, processStepModule (+4 more)
 
 ### Community 32 - "history.vue"
 Cohesion: 0.25
@@ -266,9 +282,9 @@ Nodes (11): { confirm: confirmDelete }, editing, error, form, items, load(), mod
 Cohesion: 0.40
 Nodes (4): channels, mapLink, mapSrc, tips
 
-### Community 41 - "CatalogGallery.vue"
-Cohesion: 0.20
-Nodes (8): active, activeImage, close(), mediaSrc, onKey(), prev(), props, slideDir
+### Community 41 - "themes.vue"
+Cohesion: 0.13
+Nodes (12): { confirm: confirmDelete }, editing, error, form, items, load(), modal, payload() (+4 more)
 
 ### Community 42 - "admin/index.vue"
 Cohesion: 0.33
@@ -294,17 +310,17 @@ Nodes (4): ADMIN_PAGE_META, AdminPageGroup, AdminPageMeta, GROUP_LABELS
 Cohesion: 0.33
 Nodes (5): article, mediaSrc, related, route, slug
 
-### Community 49 - "catalog/[slug].vue"
-Cohesion: 0.22
-Nodes (8): item, mediaSrc, paraMotion, related, route, shell, slug, toc
+### Community 49 - "apply-theme.ts"
+Cohesion: 0.23
+Nodes (14): EMPTY_THEME_COLORS, TCreateThemePayload, THEME_COLOR_LABELS, TTheme, TThemeColors, TUpdateThemePayload, applyThemeColors(), applyThemeCss() (+6 more)
 
 ### Community 50 - "practice-areas/[slug].vue"
 Cohesion: 0.33
 Nodes (5): mediaSrc, related, route, service, slug
 
 ### Community 51 - "guides/index.vue"
-Cohesion: 0.22
-Nodes (8): activeCategory, categories, filtered, items, lead, loading, mediaSrc, rest
+Cohesion: 0.29
+Nodes (6): activeCategory, categories, filtered, items, loading, mediaSrc
 
 ### Community 52 - "Nuxt Minimal Starter"
 Cohesion: 0.40
@@ -322,9 +338,9 @@ Nodes (3): mediaSrc, props, url
 Cohesion: 0.33
 Nodes (5): items, lead, loading, mediaSrc, rest
 
-### Community 57 - "catalog/index.vue"
-Cohesion: 0.33
-Nodes (5): items, lead, loading, mediaSrc, rest
+### Community 57 - "portfolio.vue"
+Cohesion: 0.16
+Nodes (11): { confirm: confirmDelete }, editing, error, form, items, load(), modal, payload() (+3 more)
 
 ### Community 58 - "practice-areas/index.vue"
 Cohesion: 0.33
@@ -333,6 +349,10 @@ Nodes (5): items, lead, loading, mediaSrc, rest
 ### Community 61 - "AdminUserBadge.vue"
 Cohesion: 0.40
 Nodes (4): emit, initials, props, roleLabel
+
+### Community 62 - "SiteFooter.vue"
+Cohesion: 0.50
+Nodes (3): columns, { openPicker }, year
 
 ### Community 63 - "SiteReveal.vue"
 Cohesion: 0.40
@@ -363,8 +383,8 @@ Cohesion: 0.50
 Nodes (4): onScroll(), progress, updateProgress(), visible
 
 ### Community 91 - "TestimonialDS"
-Cohesion: 0.10
-Nodes (8): TestimonialController, TestimonialDS, TestimonialState, TestimonialModule, normalizeOrder(), TestimonialModel, TestimonialApiService, TTestimonial
+Cohesion: 0.09
+Nodes (9): TestimonialController, TestimonialDS, TestimonialState, TestimonialModule, normalizeOrder(), TestimonialModel, TestimonialApiService, TPublicTestimonialPayload (+1 more)
 
 ### Community 92 - "FaqDS"
 Cohesion: 0.11
@@ -387,12 +407,16 @@ Cohesion: 0.16
 Nodes (11): { confirm: confirmDelete }, editing, error, form, items, load(), modal, payload() (+3 more)
 
 ### Community 97 - "testimonials.vue"
-Cohesion: 0.16
-Nodes (11): { confirm: confirmDelete }, editing, error, form, items, load(), modal, payload() (+3 more)
+Cohesion: 0.15
+Nodes (14): approve(), can(), { confirm: confirmDelete }, editing, error, form, items, load() (+6 more)
 
 ### Community 99 - "TestimonialsSection.vue"
-Cohesion: 0.40
-Nodes (4): items, lead, mediaSrc, rest
+Cohesion: 0.07
+Nodes (24): burst, current, emit, hover, pick(), props, shown, sizeClass (+16 more)
+
+### Community 100 - "PortfolioBeforeAfter.vue"
+Cohesion: 0.28
+Nodes (7): dragging, mediaSrc, onPointerDown(), onPointerMove(), position, root, setFromClientX()
 
 ### Community 101 - "appointment-slots.vue"
 Cohesion: 0.13
@@ -402,29 +426,45 @@ Nodes (17): addDraft(), addPreset(), can(), { confirm: confirmDelete }, draftRan
 Cohesion: 0.20
 Nodes (8): BookingRow, cancelBooking(), { confirm: confirmDelete }, error, filtered, items, load(), query
 
+### Community 106 - "portfolio/index.vue"
+Cohesion: 0.29
+Nodes (6): activeTreatment, filtered, items, loading, mediaSrc, treatments
+
 ### Community 107 - "guides/[slug].vue"
 Cohesion: 0.40
 Nodes (4): item, mediaSrc, route, slug
 
+### Community 109 - "portfolio/[slug].vue"
+Cohesion: 0.29
+Nodes (6): item, mediaSrc, related, route, siblings, slug
+
+### Community 117 - "InstagramSection.vue"
+Cohesion: 0.50
+Nodes (3): feed, highlights, loopFeed
+
+### Community 119 - "clinic-rooms.ts"
+Cohesion: 0.50
+Nodes (3): CLINIC_HERO, CLINIC_ROOMS, ClinicRoom
+
 ## Knowledge Gaps
-- **391 isolated node(s):** `RevealVariant`, `root`, `shown`, `props`, `root` (+386 more)
+- **447 isolated node(s):** `RevealVariant`, `root`, `shown`, `props`, `root` (+442 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **21 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **31 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `ModuleRegistry` connect `BaseStore` to `modules/index.ts`?**
-  _High betweenness centrality (0.032) - this node is a cross-community bridge._
-- **Why does `BannerDS` connect `TBanner` to `modules/index.ts`?**
-  _High betweenness centrality (0.023) - this node is a cross-community bridge._
+- **Why does `ServiceDS` connect `TService` to `ServiceModule`?**
+  _High betweenness centrality (0.018) - this node is a cross-community bridge._
+- **Why does `ArticleDS` connect `ArticleDS` to `ArticleModule`?**
+  _High betweenness centrality (0.016) - this node is a cross-community bridge._
 - **What connects `RevealVariant`, `root`, `shown` to the rest of the system?**
-  _391 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _447 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `dependencies` be split into smaller, more focused modules?**
   _Cohesion score 0.07407407407407407 - nodes in this community are weakly interconnected._
 - **Should `admin/types/index.type.ts` be split into smaller, more focused modules?**
-  _Cohesion score 0.05627545353572751 - nodes in this community are weakly interconnected._
-- **Should `PracticeMegaMenu.vue` be split into smaller, more focused modules?**
-  _Cohesion score 0.05365853658536585 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.05745814307458143 - nodes in this community are weakly interconnected._
+- **Should `SiteHeader.vue` be split into smaller, more focused modules?**
+  _Cohesion score 0.049682875264270614 - nodes in this community are weakly interconnected._
 - **Should `ArticleDS` be split into smaller, more focused modules?**
   _Cohesion score 0.07743496672716274 - nodes in this community are weakly interconnected._

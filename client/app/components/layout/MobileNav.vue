@@ -75,7 +75,7 @@ onBeforeUnmount(() => {
         <button
           v-if="open"
           type="button"
-          class="fixed inset-0 z-50 bg-band/40"
+          class="fixed inset-0 z-50 bg-band/50 backdrop-blur-[2px]"
           aria-label="بستن منو"
           @click="emit('close')"
         />
@@ -92,7 +92,7 @@ onBeforeUnmount(() => {
         <nav
           v-if="open"
           id="mobile-nav"
-          class="fixed inset-x-0 bottom-0 z-50 flex h-[70vh] flex-col rounded-t-3xl bg-surface shadow-[0_-8px_30px_rgba(43,48,54,0.16)]"
+          class="fixed inset-x-0 bottom-0 z-50 flex h-[min(78vh,36rem)] flex-col rounded-t-3xl border-t border-mist/80 bg-surface/95 shadow-[0_-16px_48px_color-mix(in_srgb,var(--color-ink)_14%,transparent)] backdrop-blur-xl"
           aria-label="منوی موبایل"
           role="dialog"
           aria-modal="true"

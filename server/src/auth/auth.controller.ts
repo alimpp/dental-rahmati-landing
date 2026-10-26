@@ -41,8 +41,8 @@ export class AuthController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('catalog')
-  catalog() {
+  @Get('permission-schema')
+  permissionSchema() {
     return {
       success: true,
       message: '',

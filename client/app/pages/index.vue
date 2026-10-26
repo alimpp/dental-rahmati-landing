@@ -3,9 +3,6 @@
     <SiteReveal variant="fade" delay="0ms">
       <BannerSlider />
     </SiteReveal>
-    <SiteReveal variant="up" delay="50ms">
-      <CatalogPreview />
-    </SiteReveal>
     <SiteReveal variant="soft" delay="40ms">
       <PromisesSection />
     </SiteReveal>
@@ -51,16 +48,16 @@ import HomeAboutSection from '~/components/home/AboutSection.vue'
 import HomeContactSection from '~/components/home/ContactSection.vue'
 import HomeInstagramSection from '~/components/home/InstagramSection.vue'
 import ArticlesPreview from '~/modules/article/components/ArticlesPreview.vue'
-import CatalogPreview from '~/modules/catalog/components/CatalogPreview.vue'
 import TestimonialsSection from '~/modules/testimonial/components/TestimonialsSection.vue'
 import ClinicInviteSection from '~/components/clinic/ClinicInviteSection.vue'
 
 usePageSeo({
-  title: 'دندانپزشکی در کرج | بهترین کلینیک امیر رحمتی جهانشهر',
+  title: 'دندانپزشکی در کرج | کلینیک امیر رحمتی جهانشهر',
   description:
-    'کلینیک دندان‌پزشکی امیر رحمتی در کرج جهانشهر — دندان پزشکی دیجیتال، ایمپلنت در کرج، لمینت دندان، زیبایی و رزرو نوبت. کسری شمالی، کوچه غزال.',
+    'کلینیک دندان‌پزشکی امیر رحمتی در کرج جهانشهر: دیجیتال، ایمپلنت، لمینت، ارتودنسی و رزرو نوبت — کسری شمالی، کوچه غزال.',
   keywords:
-    'دندانپزشکی در کرج, بهترین دندانپزشک کرج, دندان پزشکی دیجیتال در کرج, ایمپلنت در کرج, لمینت دندان کرج, کلینیک دندانپزشکی جهانشهر',
+    'دندانپزشکی در کرج, بهترین دندانپزشک کرج, دندان پزشکی دیجیتال در کرج, ایمپلنت در کرج, لمینت دندان کرج, کلینیک دندانپزشکی جهانشهر, دکتر امیر رحمتی',
   path: '/',
+  image: '/clinic/01-facade.jpg',
 })
 </script>

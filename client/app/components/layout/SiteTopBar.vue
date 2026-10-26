@@ -3,8 +3,8 @@ import { siteContact } from '~/data/site-contact'
 </script>
 
 <template>
-  <div class="site-gold-foil hidden text-ink min-[1440px]:block">
-    <div class="mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-4 py-2.5 2xl:px-8">
+  <div class="site-topbar hidden text-on-primary min-[1440px]:block">
+    <div class="mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-4 py-2 2xl:px-8">
       <LayoutTopBarMeta
         icon="/icons/location.svg"
         :label="siteContact.address"

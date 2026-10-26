@@ -8,7 +8,6 @@ import { ServiceModule } from './service/service.module';
 import { ArticleModule } from './article/article.module';
 import { AuthModule } from './auth/auth.module';
 import { InquiryModule } from './inquiry/inquiry.module';
-import { CatalogModule } from './catalog/catalog.module';
 import { AnalyticsModule } from './analytics/analytics.module';
 import { UploadModule } from './upload/upload.module';
 import { StatModule } from './stat/stat.module';
@@ -47,7 +46,6 @@ import { PortfolioModule } from './portfolio/portfolio.module';
     ServiceModule,
     ArticleModule,
     InquiryModule,
-    CatalogModule,
     AnalyticsModule,
     UploadModule,
     StatModule,

@@ -2,7 +2,6 @@
 import ClinicStoryTour from '~/components/clinic/ClinicStoryTour.vue'
 import ServicesSection from '~/modules/service/components/ServicesSection.vue'
 import ArticlesPreview from '~/modules/article/components/ArticlesPreview.vue'
-import CatalogPreview from '~/modules/catalog/components/CatalogPreview.vue'
 import { siteContact } from '~/data/site-contact'
 
 definePageMeta({
@@ -10,10 +9,12 @@ definePageMeta({
 })
 
 usePageSeo({
-  title: 'کلینیک ما در کرج جهانشهر | دندان‌پزشکی امیر رحمتی',
-  description: 'آشنایی با ۱۲ فضای کلینیک امیر رحمتی در کرج جهانشهر — از ورودی تا اتاق درمان، سپس خدمات و مقالات.',
-  keywords: 'کلینیک دندانپزشکی کرج, کلینیک جهانشهر, کلینیک امیر رحمتی',
+  title: 'تور کلینیک دندانپزشکی در کرج جهانشهر | امیر رحمتی',
+  description:
+    'بازدید تصویری از ۱۲ فضای کلینیک امیر رحمتی در کرج جهانشهر: ورودی، پذیرش، یونیت درمان، دیجیتال، VIP و استریل.',
+  keywords: 'کلینیک دندانپزشکی کرج, کلینیک جهانشهر, تور کلینیک امیر رحمتی, کسری شمالی',
   path: '/clinic',
+  image: '/clinic/02-lobby.jpg',
 })
 
 const highlights = [
@@ -92,6 +93,5 @@ const highlights = [
 
     <ServicesSection />
     <ArticlesPreview />
-    <CatalogPreview />
   </div>
 </template>

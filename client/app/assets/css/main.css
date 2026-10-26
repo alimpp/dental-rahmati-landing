@@ -266,22 +266,133 @@ textarea:disabled,
 .banner-kenburns {
   animation: banner-kenburns 18s ease-in-out alternate infinite;
   transform-origin: center;
+  will-change: transform;
 }
 
 @keyframes banner-kenburns {
   from { transform: scale(1); }
-  to { transform: scale(1.08); }
+  to { transform: scale(1.06); }
 }
 
-/* ---- Home polish ---- */
+/* Full-bleed home hero — theme tokens only */
+.banner-hero__scrim {
+  background:
+    linear-gradient(
+      105deg,
+      color-mix(in srgb, var(--color-band) 88%, transparent) 0%,
+      color-mix(in srgb, var(--color-band) 55%, transparent) 42%,
+      color-mix(in srgb, var(--color-band) 28%, transparent) 72%,
+      color-mix(in srgb, var(--color-band) 45%, transparent) 100%
+    ),
+    linear-gradient(
+      to top,
+      color-mix(in srgb, var(--color-band) 78%, transparent) 0%,
+      transparent 48%
+    );
+}
+
+.banner-hero__brand {
+  text-shadow: 0 1px 18px color-mix(in srgb, var(--color-band) 55%, transparent);
+}
+
+.banner-cross-enter-active,
+.banner-cross-leave-active {
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.banner-cross-enter-from,
+.banner-cross-leave-to {
+  opacity: 0;
+}
+
+.banner-cross-leave-active {
+  position: absolute;
+  inset: 0;
+}
+
+.banner-copy-enter-active,
+.banner-copy-leave-active {
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.banner-copy-enter-from {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+}
+
+.banner-copy-leave-to {
+  opacity: 0;
+  transform: translate3d(0, -8px, 0);
+}
+
+/* Glass header — adapts to light/dark themes via CSS vars */
+.site-header {
+  border-bottom: 1px solid transparent;
+  background: color-mix(in srgb, var(--color-surface) 72%, transparent);
+  backdrop-filter: blur(16px) saturate(1.35);
+  -webkit-backdrop-filter: blur(16px) saturate(1.35);
+}
+
+.site-header--top {
+  box-shadow: none;
+}
+
+.site-header--scrolled {
+  border-bottom-color: color-mix(in srgb, var(--color-mist) 85%, transparent);
+  background: color-mix(in srgb, var(--color-surface) 88%, transparent);
+  box-shadow: 0 10px 36px color-mix(in srgb, var(--color-ink) 8%, transparent);
+}
+
+.site-header__link--active {
+  background: color-mix(in srgb, var(--color-green-soft) 70%, transparent);
+}
+
+.site-header__link--active::after {
+  content: "";
+  position: absolute;
+  inset-inline: 28%;
+  bottom: 0.35rem;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--color-green-deep);
+  opacity: 0.85;
+}
+
+/* Top bar — primary wash, theme-safe */
+.site-topbar {
+  background-color: var(--color-green-deep);
+  background-image:
+    radial-gradient(
+      circle at 12% 20%,
+      color-mix(in srgb, var(--color-gold) 28%, transparent),
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 88% 80%,
+      color-mix(in srgb, var(--color-green-soft) 22%, transparent),
+      transparent 48%
+    ),
+    linear-gradient(
+      120deg,
+      var(--color-green-deep) 0%,
+      color-mix(in srgb, var(--color-green-deep) 75%, var(--color-band)) 100%
+    );
+}
+
+/* Legacy alias if referenced elsewhere */
 .site-gold-foil {
   background-color: var(--color-green-deep);
   background-image:
-    radial-gradient(circle at 20% 20%, rgba(34, 211, 238, 0.35), transparent 45%),
-    radial-gradient(circle at 80% 70%, rgba(204, 251, 241, 0.25), transparent 50%),
-    linear-gradient(135deg, #0f766e 0%, #0e7490 55%, #155e75 100%);
-  background-size: cover;
-  background-position: center;
+    radial-gradient(
+      circle at 20% 20%,
+      color-mix(in srgb, var(--color-gold) 30%, transparent),
+      transparent 45%
+    ),
+    linear-gradient(
+      135deg,
+      var(--color-green-deep) 0%,
+      color-mix(in srgb, var(--color-green-deep) 70%, var(--color-band)) 100%
+    );
 }
 
 /* ---- Editorial home motion ---- */
@@ -394,6 +505,19 @@ textarea:disabled,
   scrollbar-width: thin;
   scrollbar-color: var(--color-gold) transparent;
   scroll-padding-inline: 1rem;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+
+.testimonial-track [data-testimonial-card] {
+  scroll-snap-align: start;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .testimonial-track {
+    scroll-behavior: auto;
+  }
 }
 
 .testimonial-quote {
@@ -557,6 +681,17 @@ textarea:disabled,
   .banner-kenburns,
   .cta-ring {
     animation: none;
+  }
+  .banner-cross-enter-active,
+  .banner-cross-leave-active,
+  .banner-copy-enter-active,
+  .banner-copy-leave-active {
+    transition: none !important;
+  }
+  .site-header {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: var(--color-surface);
   }
   .faq-panel,
   .faq-plus::before,

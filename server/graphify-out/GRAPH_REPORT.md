@@ -1,16 +1,16 @@
-# Graph Report - server  (2026-10-17)
+# Graph Report - server  (2026-10-26)
 
 ## Corpus Check
-- 122 files · ~36,702 words
+- 128 files · ~37,770 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1141 nodes · 2464 edges · 62 communities (37 shown, 25 thin omitted)
+- 1211 nodes · 2638 edges · 74 communities (44 shown, 30 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 2 edges (avg confidence: 0.5)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `91fb4b5b`
+- Built from commit: `fc3fae42`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -18,28 +18,28 @@
 - dependencies
 - AdminUser
 - scripts
-- app.module.ts
+- UploadService
 - CreateArticleDto
 - CreatePromiseDto
 - exclude
 - devDependencies
-- CreateCatalogItemDto
+- ThemeService
 - CreateGuideDto
 - BannerService
-- AnalyticsController
+- AnalyticsService
 - CreateFaqDto
 - Article
 - globals
 - jest
 - CreateProcessStepDto
 - appointment.service.ts
-- AnalyticsService
+- app.module.ts
 - prettier
 - source-map-support
 - supertest
 - SqliteArticle
 - ts-node
-- Inquiry
+- .remove
 - @types/express
 - BulkCreateSlotsDto
 - @types/pg
@@ -61,7 +61,7 @@
 - CreateStatDto
 - CreateTestimonialDto
 - AppointmentService
-- Guide
+- CreatePortfolioItemDto
 - nest-cli.json
 - AppointmentController
 - start-local-postgres.sh
@@ -70,61 +70,73 @@
 - @types/bcryptjs
 - @types/multer
 - .log
-- AuditLog
+- AdminUsersService
 - init-db.sh
-- CatalogItem
-- eslint
+- jest
+- Banner
 - tsconfig-paths
+- package.json
 - @nestjs/testing
+- @nestjs/common
+- AppController
+- @nestjs/typeorm
+- pg
+- rxjs
+- zod
+- @nestjs/schematics
+- Inquiry
+- Guide
+- Service
+- @nestjs/platform-express
 
 ## God Nodes (most connected - your core abstractions)
-1. `AdminUser` - 81 edges
-2. `CurrentUser` - 65 edges
-3. `RequirePermission()` - 61 edges
-4. `AuditService` - 36 edges
-5. `AdminUsersService` - 24 edges
-6. `assertCanListAll()` - 23 edges
-7. `JwtAuthGuard` - 22 edges
-8. `wantsAll()` - 22 edges
+1. `AdminUser` - 86 edges
+2. `CurrentUser` - 70 edges
+3. `RequirePermission()` - 65 edges
+4. `AuditService` - 38 edges
+5. `assertCanListAll()` - 25 edges
+6. `AdminUsersService` - 24 edges
+7. `wantsAll()` - 24 edges
+8. `JwtAuthGuard` - 23 edges
 9. `compilerOptions` - 22 edges
-10. `PermissionsGuard` - 20 edges
+10. `PermissionsGuard` - 21 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `SqliteArticle` --references--> `ArticleSection`  [EXTRACTED]
   scripts/migrate-sqlite-to-postgres.ts → src/article/entities/article.entity.ts
+- `AdminUser` --references--> `AdminPermissions`  [EXTRACTED]
+  src/auth/entities/admin-user.entity.ts → src/auth/permissions.ts
 - `flattenPhone()` --calls--> `toEnglishDigits()`  [EXTRACTED]
   src/appointment/appointment.schema.ts → src/inquiry/inquiry.schema.ts
 - `AppointmentBooking` --references--> `AppointmentSlot`  [EXTRACTED]
   src/appointment/entities/appointment-booking.entity.ts → src/appointment/entities/appointment-slot.entity.ts
 - `CreateAdminDto` --references--> `AdminModuleKey`  [EXTRACTED]
   src/auth/dto/admin-user.dto.ts → src/auth/permissions.ts
-- `CreateAdminDto` --references--> `PermissionAction`  [EXTRACTED]
-  src/auth/dto/admin-user.dto.ts → src/auth/permissions.ts
 
 ## Import Cycles
 - None detected.
 
-## Communities (62 total, 25 thin omitted)
+## Communities (74 total, 30 thin omitted)
 
 ### Community 0 - "dependencies"
-Cohesion: 0.06
-Nodes (33): bcryptjs, better-sqlite3, class-transformer, class-validator, dotenv, dependencies, bcryptjs, better-sqlite3 (+25 more)
+Cohesion: 0.10
+Nodes (21): bcryptjs, better-sqlite3, class-transformer, class-validator, dotenv, dependencies, bcryptjs, better-sqlite3 (+13 more)
 
 ### Community 1 - "AdminUser"
-Cohesion: 0.06
-Nodes (67): IsObject, AdminUsersController, Body, Controller, Delete, Get, Param, Patch (+59 more)
+Cohesion: 0.09
+Nodes (44): AdminUsersController, Body, Controller, Delete, Get, Param, Patch, Post (+36 more)
 
 ### Community 2 - "scripts"
-Cohesion: 0.05
-Nodes (37): author, description, jest, collectCoverageFrom, coverageDirectory, moduleFileExtensions, rootDir, testEnvironment (+29 more)
+Cohesion: 0.11
+Nodes (18): scripts, build, db:init, db:migrate-sqlite, db:postgres, db:sync-articles, db:sync-services, format (+10 more)
 
-### Community 3 - "app.module.ts"
-Cohesion: 0.07
-Nodes (25): Global, AnalyticsModule, Module, AppController, Controller, Get, AppModule, Module (+17 more)
+### Community 3 - "UploadService"
+Cohesion: 0.13
+Nodes (13): Controller, Post, Query, UseGuards, UploadController, Module, UploadModule, FILE_TYPES (+5 more)
 
 ### Community 4 - "CreateArticleDto"
 Cohesion: 0.06
-Nodes (35): IsDateString, ArticleController, Body, Controller, Delete, Get, Param, Patch (+27 more)
+Nodes (34): IsDateString, ArticleController, Body, Controller, Delete, Get, Param, Patch (+26 more)
 
 ### Community 5 - "CreatePromiseDto"
 Cohesion: 0.07
@@ -136,31 +148,31 @@ Nodes (8): exclude, extends, dist, node_modules, scripts, **/*spec.ts, test, ./t
 
 ### Community 7 - "devDependencies"
 Cohesion: 0.29
-Nodes (7): eslint-config-prettier, devDependencies, eslint-config-prettier, @nestjs/schematics, @types/jest, @nestjs/schematics, @types/jest
+Nodes (7): eslint, eslint-config-prettier, devDependencies, eslint, eslint-config-prettier, @types/jest, @types/jest
 
-### Community 8 - "CreateCatalogItemDto"
-Cohesion: 0.08
-Nodes (31): CatalogController, Body, Controller, Delete, Get, Param, Patch, Post (+23 more)
+### Community 8 - "ThemeService"
+Cohesion: 0.06
+Nodes (42): IsHexColor, Length, CreateThemeDto, QueryThemeDto, ThemeColorsDto, IsBoolean, IsInt, IsObject (+34 more)
 
 ### Community 9 - "CreateGuideDto"
 Cohesion: 0.08
-Nodes (26): CreateGuideDto, ArrayMaxSize, ArrayMinSize, IsArray, IsBoolean, IsInt, IsNotEmpty, IsOptional (+18 more)
+Nodes (27): CreateGuideDto, ArrayMaxSize, ArrayMinSize, IsArray, IsBoolean, IsInt, IsNotEmpty, IsOptional (+19 more)
 
 ### Community 10 - "BannerService"
-Cohesion: 0.07
-Nodes (31): BannerController, Body, Controller, Delete, Get, Param, Patch, Post (+23 more)
+Cohesion: 0.09
+Nodes (23): BannerController, Body, Controller, Delete, Get, Param, Patch, Post (+15 more)
 
-### Community 11 - "AnalyticsController"
-Cohesion: 0.15
-Nodes (10): AnalyticsController, Body, Controller, Get, Post, Query, UseGuards, ReportsQueryDto (+2 more)
+### Community 11 - "AnalyticsService"
+Cohesion: 0.10
+Nodes (16): AnalyticsController, Body, Controller, Get, Post, Query, UseGuards, AnalyticsService (+8 more)
 
 ### Community 12 - "CreateFaqDto"
 Cohesion: 0.07
 Nodes (31): CreateFaqDto, IsBoolean, IsInt, IsNotEmpty, IsOptional, IsString, MaxLength, Min (+23 more)
 
 ### Community 13 - "Article"
-Cohesion: 0.22
-Nodes (8): InjectRepository, Article, Column, CreateDateColumn, Entity, Index, PrimaryGeneratedColumn, UpdateDateColumn
+Cohesion: 0.29
+Nodes (7): Article, Column, CreateDateColumn, Entity, Index, PrimaryGeneratedColumn, UpdateDateColumn
 
 ### Community 16 - "CreateProcessStepDto"
 Cohesion: 0.07
@@ -170,33 +182,37 @@ Nodes (31): CreateProcessStepDto, IsBoolean, IsInt, IsNotEmpty, IsOptional, IsSt
 Cohesion: 0.13
 Nodes (18): JoinColumn, AppointmentModule, Module, InjectRepository, AppointmentBooking, Column, CreateDateColumn, Entity (+10 more)
 
+### Community 18 - "app.module.ts"
+Cohesion: 0.11
+Nodes (15): Global, AnalyticsModule, Module, AppModule, Module, ArticleModule, Module, AuthModule (+7 more)
+
 ### Community 22 - "SqliteArticle"
 Cohesion: 0.29
 Nodes (7): SqliteArticle, Column, CreateDateColumn, Entity, Index, PrimaryGeneratedColumn, UpdateDateColumn
 
-### Community 24 - "Inquiry"
-Cohesion: 0.07
-Nodes (26): bookingFieldErrors, createBookingSchema, flattenPhone(), Inquiry, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn (+18 more)
+### Community 24 - ".remove"
+Cohesion: 0.08
+Nodes (19): bookingFieldErrors, createBookingSchema, flattenPhone(), InquiryController, Body, Controller, Delete, Get (+11 more)
 
 ### Community 26 - "BulkCreateSlotsDto"
 Cohesion: 0.16
 Nodes (18): IsUUID, BulkCreateSlotsDto, CreateBookingDto, CreateSlotDto, SlotRangeDto, ArrayMaxSize, ArrayMinSize, IsArray (+10 more)
 
 ### Community 32 - "CreateServiceDto"
-Cohesion: 0.05
-Nodes (42): CreateServiceDto, ServiceSectionDto, ArrayMaxSize, ArrayMinSize, IsArray, IsBoolean, IsIn, IsInt (+34 more)
+Cohesion: 0.07
+Nodes (32): CreateServiceDto, ServiceSectionDto, ArrayMaxSize, ArrayMinSize, IsArray, IsBoolean, IsIn, IsInt (+24 more)
 
 ### Community 34 - "compilerOptions"
 Cohesion: 0.09
 Nodes (22): compilerOptions, allowSyntheticDefaultImports, baseUrl, declaration, emitDecoratorMetadata, esModuleInterop, experimentalDecorators, forceConsistentCasingInFileNames (+14 more)
 
 ### Community 37 - "HistoryQueryDto"
-Cohesion: 0.13
-Nodes (13): HistoryQueryDto, IsInt, IsOptional, IsString, Max, MaxLength, Min, Type (+5 more)
+Cohesion: 0.18
+Nodes (10): HistoryQueryDto, IsInt, IsOptional, IsString, Max, MaxLength, Min, Type (+2 more)
 
 ### Community 38 - "analytics.module.ts"
-Cohesion: 0.14
-Nodes (13): PAGE_LABELS, TrackViewDto, IsNotEmpty, IsString, MaxLength, PageView, Column, Entity (+5 more)
+Cohesion: 0.19
+Nodes (9): PAGE_LABELS, PageView, Column, Entity, Index, PrimaryGeneratedColumn, ServiceSection, ServiceSectionType (+1 more)
 
 ### Community 39 - "README.md"
 Cohesion: 0.20
@@ -216,15 +232,15 @@ Nodes (31): CreateStatDto, IsBoolean, IsInt, IsNotEmpty, IsOptional, IsString, M
 
 ### Community 45 - "CreateTestimonialDto"
 Cohesion: 0.07
-Nodes (32): CreateTestimonialDto, IsBoolean, IsInt, IsNotEmpty, IsOptional, IsString, Max, MaxLength (+24 more)
+Nodes (32): CreateTestimonialDto, PublicSubmitTestimonialDto, IsBoolean, IsInt, IsNotEmpty, IsOptional, IsString, Max (+24 more)
 
 ### Community 46 - "AppointmentService"
 Cohesion: 0.18
 Nodes (6): CreateBookingInput, AppointmentService, assertValidRange(), timeToMinutes(), todayIso(), Injectable
 
-### Community 47 - "Guide"
-Cohesion: 0.22
-Nodes (8): Guide, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn, GuideModule, Module
+### Community 47 - "CreatePortfolioItemDto"
+Cohesion: 0.06
+Nodes (38): CreatePortfolioItemDto, PortfolioGalleryImageDto, ArrayMaxSize, ArrayMinSize, IsArray, IsBoolean, IsInt, IsNotEmpty (+30 more)
 
 ### Community 48 - "nest-cli.json"
 Cohesion: 0.33
@@ -238,37 +254,61 @@ Nodes (4): AppointmentController, Controller, Get, Query
 Cohesion: 0.24
 Nodes (6): Body, Delete, Param, Patch, Post, UseGuards
 
-### Community 56 - "AuditLog"
-Cohesion: 0.29
-Nodes (6): InjectRepository, AuditLog, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn
+### Community 56 - "AdminUsersService"
+Cohesion: 0.07
+Nodes (34): AdminUsersService, PublicAdmin, Injectable, InjectRepository, AuthController, Body, Controller, Get (+26 more)
 
 ### Community 57 - "init-db.sh"
 Cohesion: 0.83
 Nodes (3): run_as_password(), run_as_peer(), init-db.sh script
 
-### Community 58 - "CatalogItem"
-Cohesion: 0.18
-Nodes (9): InjectRepository, InjectRepository, CatalogItem, Column, CreateDateColumn, Entity, Index, PrimaryGeneratedColumn (+1 more)
+### Community 58 - "jest"
+Cohesion: 0.15
+Nodes (13): jest, collectCoverageFrom, coverageDirectory, moduleFileExtensions, rootDir, testEnvironment, testRegex, transform (+5 more)
+
+### Community 59 - "Banner"
+Cohesion: 0.33
+Nodes (6): Banner, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn
+
+### Community 61 - "package.json"
+Cohesion: 0.29
+Nodes (6): author, description, license, name, private, version
+
+### Community 64 - "AppController"
+Cohesion: 0.27
+Nodes (5): AppController, Controller, Get, AppService, Injectable
+
+### Community 70 - "Inquiry"
+Cohesion: 0.27
+Nodes (7): Inquiry, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, InquiryModule, Module
+
+### Community 71 - "Guide"
+Cohesion: 0.25
+Nodes (7): InjectRepository, Guide, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn
+
+### Community 72 - "Service"
+Cohesion: 0.29
+Nodes (7): Service, Column, CreateDateColumn, Entity, Index, PrimaryGeneratedColumn, UpdateDateColumn
 
 ## Knowledge Gaps
-- **145 isolated node(s):** `$schema`, `collection`, `sourceRoot`, `deleteOutDir`, `name` (+140 more)
+- **144 isolated node(s):** `$schema`, `collection`, `sourceRoot`, `deleteOutDir`, `name` (+139 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **25 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **30 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `AdminUser` connect `AdminUser` to `CreateServiceDto`, `CreateArticleDto`, `CreatePromiseDto`, `CreateCatalogItemDto`, `migrate-sqlite-to-postgres.ts`, `BannerService`, `CreateGuideDto`, `CreateFaqDto`, `CreateStatDto`, `CreateTestimonialDto`, `CreateProcessStepDto`, `.log`, `Inquiry`?**
-  _High betweenness centrality (0.155) - this node is a cross-community bridge._
-- **Why does `RequirePermission()` connect `AdminUser` to `CreateServiceDto`, `CreateArticleDto`, `HistoryQueryDto`, `CreatePromiseDto`, `CreateCatalogItemDto`, `CreateGuideDto`, `BannerService`, `AnalyticsController`, `CreateFaqDto`, `CreateStatDto`, `CreateTestimonialDto`, `CreateProcessStepDto`, `AppointmentController`, `.log`, `Inquiry`?**
-  _High betweenness centrality (0.093) - this node is a cross-community bridge._
-- **Why does `CurrentUser` connect `AdminUser` to `CreateServiceDto`, `CreateArticleDto`, `CreatePromiseDto`, `CreateCatalogItemDto`, `CreateGuideDto`, `BannerService`, `CreateFaqDto`, `CreateStatDto`, `CreateTestimonialDto`, `CreateProcessStepDto`, `.log`, `Inquiry`?**
-  _High betweenness centrality (0.071) - this node is a cross-community bridge._
+- **Why does `AdminUser` connect `AdminUser` to `CreateServiceDto`, `CreateArticleDto`, `CreatePromiseDto`, `ThemeService`, `migrate-sqlite-to-postgres.ts`, `BannerService`, `CreateGuideDto`, `CreateFaqDto`, `CreateStatDto`, `CreateTestimonialDto`, `CreatePortfolioItemDto`, `CreateProcessStepDto`, `.log`, `AdminUsersService`, `.remove`?**
+  _High betweenness centrality (0.158) - this node is a cross-community bridge._
+- **Why does `RequirePermission()` connect `AdminUser` to `CreateServiceDto`, `CreateArticleDto`, `HistoryQueryDto`, `CreatePromiseDto`, `ThemeService`, `CreateGuideDto`, `BannerService`, `AnalyticsService`, `CreateFaqDto`, `CreateStatDto`, `CreateTestimonialDto`, `CreatePortfolioItemDto`, `CreateProcessStepDto`, `AppointmentController`, `.log`, `.remove`?**
+  _High betweenness centrality (0.098) - this node is a cross-community bridge._
+- **Why does `CurrentUser` connect `AdminUser` to `CreateServiceDto`, `CreateArticleDto`, `CreatePromiseDto`, `ThemeService`, `CreateGuideDto`, `BannerService`, `CreateFaqDto`, `CreateStatDto`, `CreateTestimonialDto`, `CreatePortfolioItemDto`, `CreateProcessStepDto`, `.log`, `AdminUsersService`, `.remove`?**
+  _High betweenness centrality (0.080) - this node is a cross-community bridge._
 - **What connects `$schema`, `collection`, `sourceRoot` to the rest of the system?**
-  _145 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _144 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `dependencies` be split into smaller, more focused modules?**
-  _Cohesion score 0.06060606060606061 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.09523809523809523 - nodes in this community are weakly interconnected._
 - **Should `AdminUser` be split into smaller, more focused modules?**
-  _Cohesion score 0.05690492713393477 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.09371807967313585 - nodes in this community are weakly interconnected._
 - **Should `scripts` be split into smaller, more focused modules?**
-  _Cohesion score 0.05263157894736842 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.1111111111111111 - nodes in this community are weakly interconnected._

@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Article } from '../article/entities/article.entity';
 import { Banner } from '../banner/entities/banner.entity';
-import { CatalogItem } from '../catalog/entities/catalog-item.entity';
 import { Guide } from '../guide/entities/guide.entity';
 import { Inquiry } from '../inquiry/entities/inquiry.entity';
 import { Service } from '../service/entities/service.entity';
@@ -17,7 +16,6 @@ import { PageView } from './entities/page-view.entity';
       Article,
       Banner,
       Service,
-      CatalogItem,
       Guide,
       Inquiry,
     ]),

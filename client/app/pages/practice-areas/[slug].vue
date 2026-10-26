@@ -448,11 +448,11 @@ useSchemaOrg([
               رزرو نوبت
             </NuxtLink>
             <NuxtLink
-              to="/catalog"
+              to="/articles"
               class="reveal-item reveal-item-drop inline-flex rounded-2xl px-5 py-3 text-sm font-medium text-ink ring-1 ring-mist-deep transition hover:bg-mist"
               style="--reveal-i: 4"
             >
-              کاتالوگ خدمات
+              مقالات مرتبط
             </NuxtLink>
           </div>
         </div>

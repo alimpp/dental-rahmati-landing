@@ -48,4 +48,15 @@ export class TestimonialModel implements TTestimonial {
   get isVisible(): boolean {
     return this.isActive && Boolean(this.clientName && this.quote)
   }
+
+  get truncatedQuote(): string {
+    const limit = 140
+    const text = this.quote.trim()
+    if (text.length <= limit) return text
+    return `${text.slice(0, limit).trimEnd()}…`
+  }
+
+  get isQuoteLong(): boolean {
+    return this.quote.trim().length > 140
+  }
 }

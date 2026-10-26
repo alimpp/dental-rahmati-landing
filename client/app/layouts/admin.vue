@@ -32,7 +32,7 @@ const links: {
   { to: '/admin/services', key: 'services', label: MODULE_LABELS.services, icon: MODULE_ICONS.services, group: 'content' },
   { to: '/admin/articles', key: 'articles', label: MODULE_LABELS.articles, icon: MODULE_ICONS.articles, group: 'content' },
   { to: '/admin/guides', key: 'guides', label: MODULE_LABELS.guides, icon: MODULE_ICONS.guides, group: 'content' },
-  { to: '/admin/catalog', key: 'catalog', label: MODULE_LABELS.catalog, icon: MODULE_ICONS.catalog, group: 'content' },
+  { to: '/admin/portfolio', key: 'portfolio', label: MODULE_LABELS.portfolio, icon: MODULE_ICONS.portfolio, group: 'content' },
   { to: '/admin/stats', key: 'stats', label: MODULE_LABELS.stats, icon: MODULE_ICONS.stats, group: 'content' },
   { to: '/admin/promises', key: 'promises', label: MODULE_LABELS.promises, icon: MODULE_ICONS.promises, group: 'content' },
   { to: '/admin/process-steps', key: 'process_steps', label: MODULE_LABELS.process_steps, icon: MODULE_ICONS.process_steps, group: 'content' },

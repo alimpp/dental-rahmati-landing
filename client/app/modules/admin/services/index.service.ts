@@ -7,7 +7,7 @@ import type {
   THistoryPage,
   TLoginPayload,
   TLoginResult,
-  TPermissionCatalog,
+  TPermissionSchema,
   TUpdateAdminPayload,
   TUploadFile,
   TVisitReport,
@@ -31,9 +31,9 @@ export class AdminApiService extends BaseApp<{ id: string }> {
     }, false)
   }
 
-  public async getCatalog(): Promise<ServerResponse<TPermissionCatalog>> {
-    return this.executeRequest<TPermissionCatalog>(async () => {
-      return await this.Get<TPermissionCatalog>('/auth/catalog')
+  public async getPermissionSchema(): Promise<ServerResponse<TPermissionSchema>> {
+    return this.executeRequest<TPermissionSchema>(async () => {
+      return await this.Get<TPermissionSchema>('/auth/permission-schema')
     }, false)
   }
 

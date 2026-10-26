@@ -14,10 +14,11 @@ await serviceController.getServiceList()
 usePageSeo({
   title: 'خدمات دندانپزشکی در کرج | دیجیتال، ایمپلنت، لمینت',
   description:
-    'خدمات کلینیک امیر رحمتی در کرج جهانشهر: دندان پزشکی دیجیتال، ایمپلنت در کرج، لمینت، زیبایی، ارتودنسی، جرم‌گیری و اورژانس.',
+    'فهرست خدمات کلینیک امیر رحمتی در کرج جهانشهر: دندان‌پزشکی دیجیتال، ایمپلنت، لمینت، ارتودنسی، جرم‌گیری، کودکان و اورژانس.',
   keywords:
-    'خدمات دندانپزشکی کرج, ایمپلنت در کرج, لمینت دندان کرج, دندان پزشکی دیجیتال در کرج, کلینیک جهانشهر',
+    'خدمات دندانپزشکی کرج, ایمپلنت در کرج, لمینت دندان کرج, دندان پزشکی دیجیتال در کرج, ارتودنسی کرج, کلینیک جهانشهر',
   path: '/practice-areas',
+  image: '/services/dental-smile.jpg',
 })
 </script>
 
@@ -58,10 +59,10 @@ usePageSeo({
                 رزرو نوبت
               </NuxtLink>
               <NuxtLink
-                to="/catalog"
+                to="/articles"
                 class="rounded-2xl px-4 py-2 text-sm font-medium text-ink ring-1 ring-mist-deep transition hover:bg-panel"
               >
-                کاتالوگ خدمات
+                مقالات
               </NuxtLink>
             </div>
           </div>

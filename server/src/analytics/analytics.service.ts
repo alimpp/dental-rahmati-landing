@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Article } from '../article/entities/article.entity';
 import { Banner } from '../banner/entities/banner.entity';
-import { CatalogItem } from '../catalog/entities/catalog-item.entity';
 import { Guide } from '../guide/entities/guide.entity';
 import { Inquiry } from '../inquiry/entities/inquiry.entity';
 import { Service } from '../service/entities/service.entity';
@@ -15,7 +14,6 @@ const PAGE_LABELS: Record<string, string> = {
   '/about': 'درباره ما',
   '/articles': 'مقالات',
   '/guides': 'راهنماها',
-  '/catalog': 'کاتالوگ',
   '/portfolio': 'نمونه کارها',
   '/contact': 'تماس',
   '/consultation': 'مشاوره',
@@ -33,8 +31,6 @@ export class AnalyticsService {
     private readonly bannerRepository: Repository<Banner>,
     @InjectRepository(Service)
     private readonly serviceRepository: Repository<Service>,
-    @InjectRepository(CatalogItem)
-    private readonly catalogRepository: Repository<CatalogItem>,
     @InjectRepository(Guide)
     private readonly guideRepository: Repository<Guide>,
     @InjectRepository(Inquiry)
@@ -103,16 +99,14 @@ export class AnalyticsService {
       }
     }
 
-    const [articleRows, catalogRows, serviceRows, guideRows] = await Promise.all([
+    const [articleRows, serviceRows, guideRows] = await Promise.all([
       this.articleRepository.find({ select: { slug: true, title: true } }),
-      this.catalogRepository.find({ select: { slug: true, title: true } }),
       this.serviceRepository.find({ select: { slug: true, title: true } }),
       this.guideRepository.find({ select: { slug: true, title: true } }),
     ]);
 
     const labels = {
       articles: new Map(articleRows.map((item) => [item.slug, item.title])),
-      catalog: new Map(catalogRows.map((item) => [item.slug, item.title])),
       services: new Map(serviceRows.map((item) => [item.slug, item.title])),
       guides: new Map(guideRows.map((item) => [item.slug, item.title])),
     };
@@ -141,12 +135,11 @@ export class AnalyticsService {
         visits: count,
       }));
 
-    const [articlesCount, banners, services, catalog, guides, inquiries] =
+    const [articlesCount, banners, services, guides, inquiries] =
       await Promise.all([
         this.articleRepository.count(),
         this.bannerRepository.count(),
         this.serviceRepository.count(),
-        this.catalogRepository.count(),
         this.guideRepository.count(),
         this.inquiryRepository.count(),
       ]);
@@ -160,7 +153,6 @@ export class AnalyticsService {
         articles: articlesCount,
         banners,
         services,
-        catalog,
         guides,
         inquiries,
       },
@@ -197,15 +189,13 @@ export class AnalyticsService {
       byPath.set(row.path, (byPath.get(row.path) ?? 0) + row.count);
     }
 
-    const [articleRows, catalogRows, serviceRows, guideRows] = await Promise.all([
+    const [articleRows, serviceRows, guideRows] = await Promise.all([
       this.articleRepository.find({ select: { slug: true, title: true } }),
-      this.catalogRepository.find({ select: { slug: true, title: true } }),
       this.serviceRepository.find({ select: { slug: true, title: true } }),
       this.guideRepository.find({ select: { slug: true, title: true } }),
     ]);
     const labels = {
       articles: new Map(articleRows.map((item) => [item.slug, item.title])),
-      catalog: new Map(catalogRows.map((item) => [item.slug, item.title])),
       services: new Map(serviceRows.map((item) => [item.slug, item.title])),
       guides: new Map(guideRows.map((item) => [item.slug, item.title])),
     };
@@ -242,7 +232,6 @@ export class AnalyticsService {
     path: string,
     labels: {
       articles: Map<string, string>;
-      catalog: Map<string, string>;
       services: Map<string, string>;
       guides: Map<string, string>;
     },
@@ -259,9 +248,8 @@ export class AnalyticsService {
     if (path.startsWith('/guides')) {
       return 'راهنماها';
     }
-    if (path.startsWith('/catalog/')) {
-      const slug = decodeURIComponent(path.slice('/catalog/'.length));
-      return labels.catalog.get(slug) || `کاتالوگ ${slug}`;
+    if (path.startsWith('/catalog')) {
+      return 'مقالات';
     }
     if (path.startsWith('/portfolio/')) {
       const slug = decodeURIComponent(path.slice('/portfolio/'.length));

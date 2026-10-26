@@ -58,6 +58,8 @@ export default defineNuxtConfig({
     '/admin/**': { robots: false },
     '/team': { redirect: '/guides' },
     '/team/**': { redirect: '/guides' },
+    '/catalog': { redirect: '/articles' },
+    '/catalog/**': { redirect: '/articles' },
     '/offers': { redirect: '/' },
     '/offers/**': { redirect: '/' },
     '/uploads/**': {

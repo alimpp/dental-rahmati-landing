@@ -76,15 +76,6 @@ export const ADMIN_PAGE_META: AdminPageMeta[] = [
     module: 'articles',
   },
   {
-    path: '/admin/catalog',
-    title: MODULE_LABELS.catalog,
-    description: 'کاتالوگ‌ها با متن کامل، گالری تصاویر و فایل PDF.',
-    group: 'content',
-    groupLabel: GROUP_LABELS.content,
-    icon: MODULE_ICONS.catalog,
-    module: 'catalog',
-  },
-  {
     path: '/admin/guides',
     title: MODULE_LABELS.guides,
     description: 'راهنماهای خواندنی برای کاربران؛ آماده‌سازی قبل از ویزیت و مراقبت پس از درمان.',

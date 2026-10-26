@@ -11,3 +11,10 @@ export interface TTestimonial {
   createdAt?: string | null
   updatedAt?: string | null
 }
+
+export interface TPublicTestimonialPayload {
+  firstName: string
+  lastName: string
+  quote: string
+  rating: number
+}

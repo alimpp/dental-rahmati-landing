@@ -5,13 +5,13 @@ import type { NavLink } from './MobileNav.vue'
 const props = defineProps<{
   link: NavLink
   items: ServiceModel[]
-  /** Full catalog size (menu may show only a subset). */
+  /** Full services count (menu may show only a subset). */
   totalCount?: number
   active: boolean
 }>()
 
-const catalogCount = computed(() => props.totalCount ?? props.items.length)
-const hasMore = computed(() => catalogCount.value > props.items.length)
+const servicesTotal = computed(() => props.totalCount ?? props.items.length)
+const hasMore = computed(() => servicesTotal.value > props.items.length)
 
 const emit = defineEmits<{
   open: [value: boolean]
@@ -101,10 +101,10 @@ onBeforeUnmount(() => {
     <div class="flex items-center">
       <NuxtLink
         :to="link.to"
-        class="whitespace-nowrap rounded-md px-2 py-2 text-[13px] font-medium transition-colors duration-100 ease-out min-[1440px]:px-3 min-[1440px]:text-sm"
+        class="site-header__link relative whitespace-nowrap rounded-full px-2.5 py-2 text-[13px] font-medium transition-colors duration-150 min-[1440px]:px-3 min-[1440px]:text-sm"
         :class="active
-          ? 'bg-mist text-green-deep'
-          : 'text-ink hover:bg-mist hover:text-green-deep'"
+          ? 'site-header__link--active text-green-deep'
+          : 'text-ink-muted hover:bg-mist/70 hover:text-ink'"
         :aria-expanded="open"
         aria-haspopup="true"
         aria-controls="practice-mega"
@@ -113,7 +113,7 @@ onBeforeUnmount(() => {
       </NuxtLink>
       <button
         v-if="items.length"
-        class="ms-[-6px] inline-flex size-8 items-center justify-center rounded-md text-ink-muted transition-colors duration-100 ease-out hover:bg-mist hover:text-green-deep"
+        class="ms-[-6px] inline-flex size-8 items-center justify-center rounded-full text-ink-muted transition-colors duration-150 hover:bg-mist/70 hover:text-green-deep"
         type="button"
         :aria-expanded="open"
         aria-controls="practice-mega"
@@ -157,7 +157,7 @@ onBeforeUnmount(() => {
                   انتخاب خدمت
                 </p>
                 <span class="text-[11px] text-ink-muted">
-                  {{ hasMore ? `${items.length} از ${catalogCount}` : `${items.length} خدمت` }}
+                  {{ hasMore ? `${items.length} از ${servicesTotal}` : `${items.length} خدمت` }}
                 </span>
               </div>
               <ul class="grid grid-cols-1 gap-1.5 sm:grid-cols-2">
