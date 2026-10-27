@@ -168,7 +168,12 @@ async function remove(item: TBanner) {
     <AdminModal :open="modal" :title="editing ? 'ویرایش بنر' : 'بنر جدید'" @close="modal = false">
       <form class="grid gap-3" @submit.prevent="save">
         <label class="text-sm">عنوان<input v-model="form.title" required class="mt-1 w-full rounded-xl border border-mist px-3 py-2"></label>
-        <AdminMediaField v-model="form.image" label="تصویر بنر" required />
+        <AdminMediaField
+          v-model="form.image"
+          label="رسانه بنر (تصویر / گیف / ویدیو)"
+          accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm"
+          required
+        />
         <label class="text-sm">زیرعنوان<input v-model="form.subtitle" class="mt-1 w-full rounded-xl border border-mist px-3 py-2"></label>
         <label class="text-sm">توضیح<textarea v-model="form.description" rows="3" class="mt-1 w-full rounded-xl border border-mist px-3 py-2" /></label>
         <div class="grid gap-3 sm:grid-cols-2">

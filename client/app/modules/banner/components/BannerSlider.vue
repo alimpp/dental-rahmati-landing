@@ -19,6 +19,16 @@ const nextSlide = computed(() => {
   return slides.value[(activeIndex.value + 1) % slides.value.length] ?? null
 })
 
+function isMotionMedia(src?: string | null) {
+  if (!src) return false
+  return /\.(mp4|webm|ogg|gif)(\?|$)/i.test(src)
+}
+
+function isVideoMedia(src?: string | null) {
+  if (!src) return false
+  return /\.(mp4|webm|ogg)(\?|$)/i.test(src)
+}
+
 function goTo(index: number) {
   if (!slides.value.length) return
   activeIndex.value = (index + slides.value.length) % slides.value.length
@@ -112,11 +122,24 @@ watch(
       />
       <template v-else-if="active">
         <Transition name="banner-cross">
+          <video
+            v-if="isVideoMedia(active.image)"
+            :key="`v-${active.id}`"
+            class="absolute inset-0 size-full object-cover"
+            :src="mediaSrc(active.image)"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="auto"
+          />
           <img
-            :key="active.id"
+            v-else
+            :key="`i-${active.id}`"
             :src="mediaSrc(active.image)"
             :alt="active.title"
-            class="banner-kenburns absolute inset-0 size-full object-cover"
+            class="absolute inset-0 size-full object-cover"
+            :class="isMotionMedia(active.image) ? '' : 'banner-kenburns'"
             width="1920"
             height="1080"
             decoding="async"
@@ -124,9 +147,17 @@ watch(
             loading="eager"
           >
         </Transition>
-        <!-- Prefetch next for snappy slide change -->
+        <!-- Prefetch next media -->
+        <video
+          v-if="nextSlide && isVideoMedia(nextSlide.image)"
+          :src="mediaSrc(nextSlide.image)"
+          class="pointer-events-none absolute size-0 opacity-0"
+          muted
+          preload="auto"
+          aria-hidden="true"
+        />
         <img
-          v-if="nextSlide"
+          v-else-if="nextSlide"
           :src="mediaSrc(nextSlide.image)"
           alt=""
           class="pointer-events-none absolute size-0 opacity-0"

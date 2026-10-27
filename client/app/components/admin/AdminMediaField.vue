@@ -12,7 +12,7 @@ const props = withDefaults(
   }>(),
   {
     kind: 'image',
-    accept: 'image/jpeg,image/png,image/webp,image/gif,image/svg+xml',
+    accept: 'image/jpeg,image/png,image/webp,image/gif,image/svg+xml,video/mp4,video/webm',
     required: false,
   },
 )
@@ -23,8 +23,10 @@ const error = ref('')
 const input = ref<HTMLInputElement | null>(null)
 
 const preview = computed(() => mediaSrc(model.value))
+const isVideo = computed(() => /\.(mp4|webm|ogg)(\?|$)/i.test(model.value))
 const isImage = computed(() => {
   const value = model.value.toLowerCase()
+  if (isVideo.value) return false
   return props.kind === 'image' || /\.(jpe?g|png|webp|gif|svg)(\?|$)/.test(value)
 })
 const isPdf = computed(() => model.value.toLowerCase().includes('.pdf'))
@@ -54,7 +56,17 @@ function clear() {
   <div class="text-sm">
     <p class="mb-1.5 font-medium text-ink">{{ label }}</p>
     <div class="overflow-hidden rounded-2xl border border-mist bg-[#f7faf8]">
-      <div v-if="preview && isImage" class="relative h-40 bg-mist">
+      <div v-if="preview && isVideo" class="relative h-40 bg-mist">
+        <video :src="preview" class="size-full object-cover" muted loop autoplay playsinline />
+        <button
+          class="absolute left-3 top-3 rounded-lg bg-white/90 px-2 py-1 text-[11px] text-red-600"
+          type="button"
+          @click="clear"
+        >
+          حذف فایل
+        </button>
+      </div>
+      <div v-else-if="preview && isImage" class="relative h-40 bg-mist">
         <img :src="preview" alt="" class="size-full object-cover">
         <button
           class="absolute left-3 top-3 rounded-lg bg-white/90 px-2 py-1 text-[11px] text-red-600"

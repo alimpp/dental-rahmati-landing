@@ -13,6 +13,8 @@ const IMAGE_TYPES = new Set([
   'image/webp',
   'image/gif',
   'image/svg+xml',
+  'video/mp4',
+  'video/webm',
 ]);
 
 const FILE_TYPES = new Set([...IMAGE_TYPES, 'application/pdf']);
@@ -62,6 +64,8 @@ export class UploadService implements OnModuleInit {
     if (mime === 'image/webp') return '.webp';
     if (mime === 'image/gif') return '.gif';
     if (mime === 'image/svg+xml') return '.svg';
+    if (mime === 'video/mp4') return '.mp4';
+    if (mime === 'video/webm') return '.webm';
     if (mime === 'application/pdf') return '.pdf';
     return '';
   }

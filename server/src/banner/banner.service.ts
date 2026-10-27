@@ -1,5 +1,7 @@
-import { Injectable, NotFoundException, OnModuleInit } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { access, copyFile, mkdir } from 'fs/promises';
+import { join } from 'path';
 import { Repository } from 'typeorm';
 import { CreateBannerDto, UpdateBannerDto } from './dto/banner.dto';
 import { Banner } from './entities/banner.entity';
@@ -7,18 +9,43 @@ import { BANNER_SEED } from './banner.seed';
 
 @Injectable()
 export class BannerService implements OnModuleInit {
+  private readonly logger = new Logger(BannerService.name);
+
   constructor(
     @InjectRepository(Banner)
     private readonly bannerRepository: Repository<Banner>,
   ) {}
 
   async onModuleInit() {
+    await this.ensureSeedMedia();
     await this.seedClinicBanners();
+  }
+
+  /** Copy tracked motion clips into uploads (served by Nest). */
+  private async ensureSeedMedia() {
+    const files = [
+      'banner-ppe.mp4',
+      'banner-assist.mp4',
+      'banner-arrive.mp4',
+      'banner-clean.mp4',
+    ];
+    await mkdir(join(process.cwd(), 'uploads', 'images'), { recursive: true });
+    for (const name of files) {
+      const from = join(process.cwd(), 'assets', 'banners', name);
+      const to = join(process.cwd(), 'uploads', 'images', name);
+      try {
+        await access(from);
+        await copyFile(from, to);
+      }
+      catch {
+        this.logger.warn(`Banner seed media missing: ${from}`);
+      }
+    }
   }
 
   /**
    * Keep clinic banner seed in sync and drop leftover rows from other projects
-   * (e.g. bookstore/lawyer demos that landed in this DB).
+   * (e.g. bookstore/lawyer demos) or old static /banners/*.jpg assets.
    */
   private async seedClinicBanners() {
     const seedImages = new Set(
@@ -53,6 +80,7 @@ export class BannerService implements OnModuleInit {
       const foreign =
         !seedImages.has(row.image) &&
         (row.image.startsWith('/images/') ||
+          row.image.startsWith('/banners/') ||
           /کتاب|کتابینو|وکیل|دادسر|dadsar|ketab/i.test(
             `${row.title} ${row.subtitle ?? ''} ${row.description ?? ''}`,
           ));

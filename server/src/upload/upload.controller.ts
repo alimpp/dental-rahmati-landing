@@ -21,7 +21,7 @@ export class UploadController {
   @UseInterceptors(
     FileInterceptor('file', {
       storage: memoryStorage(),
-      limits: { fileSize: 12 * 1024 * 1024 },
+      limits: { fileSize: 28 * 1024 * 1024 },
     }),
   )
   async upload(

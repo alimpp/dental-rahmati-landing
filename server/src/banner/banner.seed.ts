@@ -1,12 +1,18 @@
 import type { CreateBannerDto } from './dto/banner.dto';
 
+/** Served from Nest uploads after seed copy on boot (looping clinic B-roll) */
+export const BANNER_PPE = '/uploads/images/banner-ppe.mp4';
+export const BANNER_ASSIST = '/uploads/images/banner-assist.mp4';
+export const BANNER_ARRIVE = '/uploads/images/banner-arrive.mp4';
+export const BANNER_CLEAN = '/uploads/images/banner-clean.mp4';
+
 /**
- * Seed banners for کلینیک دندان‌پزشکی امیر رحمتی — کرج، جهانشهر، کسری شمالی.
- * Local assets under client/public/banners.
+ * Seed banners — کلینیک امیر رحمتی.
+ * Media: longer clinic motion clips (Mixkit free license), stored on server uploads.
  */
 export const BANNER_SEED: CreateBannerDto[] = [
   {
-    image: '/banners/clinic-lobby-hero.jpg',
+    image: BANNER_PPE,
     title: 'کلینیک مدرن در قلب جهانشهر کرج',
     subtitle: 'دکتر امیر رحمتی | کسری شمالی، کوچه غزال',
     description:
@@ -20,7 +26,7 @@ export const BANNER_SEED: CreateBannerDto[] = [
     isActive: true,
   },
   {
-    image: '/banners/clinic-ops-hero.jpg',
+    image: BANNER_ASSIST,
     title: 'اتاق درمان و دقت جراحی',
     subtitle: 'یونیت‌های به‌روز برای ایمپلنت و ترمیم',
     description:
@@ -34,29 +40,29 @@ export const BANNER_SEED: CreateBannerDto[] = [
     isActive: true,
   },
   {
-    image: '/banners/clinic-vip-hero.jpg',
-    title: 'سوییت VIP زیبایی لبخند',
-    subtitle: 'لمینت و طراحی لبخند با حریم خصوصی',
+    image: BANNER_ARRIVE,
+    title: 'تجربه آرام و حرفه‌ای بیمار',
+    subtitle: 'از پذیرش تا یونیت درمان',
     description:
-      'فضای اختصاصی زیبایی برای لمینت سرامیکی و بلیچینگ — تجربه آرام در کرج.',
-    link: '/articles/laminate-karaj',
+      'مسیر درمان شفاف، تیم همراه و فضای آرامش‌بخش برای هر جلسه در کرج جهانشهر.',
+    link: '/consultation',
     sort: 3,
-    button1Text: 'مشاوره لمینت',
+    button1Text: 'رزرو نوبت',
     button1Link: '/consultation',
     button2Text: 'کلینیک ما',
     button2Link: '/clinic',
     isActive: true,
   },
   {
-    image: '/banners/clinic-digital-hero.jpg',
-    title: 'دندان پزشکی دیجیتال در کرج',
-    subtitle: 'اسکن، CAD/CAM و طرح دقیق',
+    image: BANNER_CLEAN,
+    title: 'مراقبت دقیق و بهداشت حرفه‌ای',
+    subtitle: 'پاکسازی، پیشگیری و زیبایی لبخند',
     description:
-      'اتاق دیجیتال برای اسکن داخل دهان و برنامه‌ریزی ایمپلنت و لمینت بدون قالب سنتی ناخوشایند.',
+      'جرم‌گیری، بلیچینگ و مراقبت‌های پیشگیرانه با استاندارد استریل در کلینیک امیر رحمتی.',
     link: '/articles/digital-dentistry-karaj',
     sort: 4,
-    button1Text: 'دیجیتال در کرج',
-    button1Link: '/articles/digital-dentistry-karaj',
+    button1Text: 'خدمات کلینیک',
+    button1Link: '/practice-areas',
     button2Text: 'آدرس کلینیک',
     button2Link: '/contact',
     isActive: true,

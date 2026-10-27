@@ -245,7 +245,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
   excerpt: "تحلیل خط لبخند، رنگ و فرم دندان با دیجیتال در کلینیک کوچه غزال — نتیجه هماهنگ با چهره.",
   category: "زیبایی",
   author,
-  coverImage: "/portfolio/smile-after-02.jpg",
+  coverImage: "/uploads/images/portfolio-smile-after.png",
   featured: true,
   sort: 5,
   readingMinutes: 11,
@@ -259,7 +259,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
       "چرا ساکنان جهانشهر به کلینیک نزد خانه نیاز دارند؟",
       "ترافیک کرج و شلوغی مراکز درمانی مرکز شهر باعث می‌شود بسیاری از بیماران ترجیح دهند در محله خود معاینه و درمان را پیگیری کنند.\n\nکلینیک در جهانشهر دسترسی ساده‌تر از کسری شمالی دارد و برای خانواده‌ها زمان کمتری در راه صرف می‌شود.",
     ),
-    image("/portfolio/smile-after-02.jpg", "طراحی لبخند کرج", "مشاوره در جهانشهر."),
+    image("/uploads/images/portfolio-smile-after.png", "طراحی لبخند کرج", "مشاوره در جهانشهر."),
     list(
       "اجزای طراحی لبخند",
       [
@@ -290,7 +290,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
   seoTitle: "طراحی لبخند در کرج جهانشهر | کلینیک امیر رحمتی جهانشهر",
   seoDescription: "تحلیل خط لبخند، رنگ و فرم دندان با دیجیتال در کلینیک کوچه غزال — نتیجه هماهنگ با چهره.",
   seoKeywords: "طراحی لبخند کرج, smile design karaj, جهانشهر, کلینیک امیر رحمتی",
-  ogImage: "/portfolio/smile-after-02.jpg",
+  ogImage: "/uploads/images/portfolio-smile-after.png",
   isActive: true,
 },
 {
@@ -299,7 +299,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
   excerpt: "سفید کردن کنترل‌شده در کلینیک جهانشهر در مقابل کیت خانگی — ایمنی برای لثه کرج.",
   category: "زیبایی",
   author,
-  coverImage: "/portfolio/smile-after-02.jpg",
+  coverImage: "/uploads/images/portfolio-smile-after.png",
   featured: false,
   sort: 6,
   readingMinutes: 11,
@@ -313,7 +313,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
       "چرا ساکنان جهانشهر به کلینیک نزد خانه نیاز دارند؟",
       "ترافیک کرج و شلوغی مراکز درمانی مرکز شهر باعث می‌شود بسیاری از بیماران ترجیح دهند در محله خود معاینه و درمان را پیگیری کنند.\n\nکلینیک در جهانشهر دسترسی ساده‌تر از کسری شمالی دارد و برای خانواده‌ها زمان کمتری در راه صرف می‌شود.",
     ),
-    image("/portfolio/smile-after-02.jpg", "بلیچینگ کرج", "لبخند روشن‌تر در کلینیک."),
+    image("/uploads/images/portfolio-smile-after.png", "بلیچینگ کرج", "لبخند روشن‌تر در کلینیک."),
     list(
       "نکات بلیچینگ در کرج",
       [
@@ -344,7 +344,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
   seoTitle: "بلیچینگ دندان در کرج | کلینیک امیر رحمتی جهانشهر",
   seoDescription: "سفید کردن کنترل‌شده در کلینیک جهانشهر در مقابل کیت خانگی — ایمنی برای لثه کرج.",
   seoKeywords: "بلیچینگ دندان کرج, bleaching karaj, جهانشهر, کلینیک امیر رحمتی",
-  ogImage: "/portfolio/smile-after-02.jpg",
+  ogImage: "/uploads/images/portfolio-smile-after.png",
   isActive: true,
 },
 {
@@ -731,7 +731,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
   excerpt: "قند پنهان، چای پررنگ و میان‌وعده — عادت‌های رایج در کرج و تأثیر بر پوسیدگی.",
   category: "پیشگیری",
   author,
-  coverImage: "/portfolio/smile-after-04.jpg",
+  coverImage: "/uploads/images/portfolio-smile-after.png",
   featured: false,
   sort: 14,
   readingMinutes: 11,
@@ -745,7 +745,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
       "چرا ساکنان جهانشهر به کلینیک نزد خانه نیاز دارند؟",
       "ترافیک کرج و شلوغی مراکز درمانی مرکز شهر باعث می‌شود بسیاری از بیماران ترجیح دهند در محله خود معاینه و درمان را پیگیری کنند.\n\nکلینیک در جهانشهر دسترسی ساده‌تر از کسری شمالی دارد و برای خانواده‌ها زمان کمتری در راه صرف می‌شود.",
     ),
-    image("/portfolio/smile-after-04.jpg", "تغذیه و دهان", "راهنمای خانواده کرج."),
+    image("/uploads/images/portfolio-smile-after.png", "تغذیه و دهان", "راهنمای خانواده کرج."),
     list(
       "نکات تغذیه",
       [
@@ -776,7 +776,7 @@ export const ARTICLE_SEED: CreateArticleDto[] = [
   seoTitle: "تغذیه و سلامت دندان در کرج | کلینیک امیر رحمتی جهانشهر",
   seoDescription: "قند پنهان، چای پررنگ و میان‌وعده — عادت‌های رایج در کرج و تأثیر بر پوسیدگی.",
   seoKeywords: "تغذیه و دندان کرج, nutrition dental karaj, جهانشهر, کلینیک امیر رحمتی",
-  ogImage: "/portfolio/smile-after-04.jpg",
+  ogImage: "/uploads/images/portfolio-smile-after.png",
   isActive: true,
 },
 ];

@@ -1,5 +1,7 @@
-import { Injectable, NotFoundException, OnModuleInit } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { copyFile, mkdir, access } from 'fs/promises';
+import { join } from 'path';
 import { Repository } from 'typeorm';
 import {
   CreatePortfolioItemDto,
@@ -10,13 +12,42 @@ import { PORTFOLIO_SEED } from './portfolio.seed';
 
 @Injectable()
 export class PortfolioService implements OnModuleInit {
+  private readonly logger = new Logger(PortfolioService.name);
+
   constructor(
     @InjectRepository(PortfolioItem)
     private readonly portfolioRepository: Repository<PortfolioItem>,
   ) {}
 
   async onModuleInit() {
+    await this.ensureSeedImages();
     await this.seedMissing();
+  }
+
+  /** Copy tracked assets into uploads so URLs are served by Nest (not client/public). */
+  private async ensureSeedImages() {
+    const pairs = [
+      {
+        from: join(process.cwd(), 'assets', 'portfolio', 'smile-before.png'),
+        to: join(process.cwd(), 'uploads', 'images', 'portfolio-smile-before.png'),
+      },
+      {
+        from: join(process.cwd(), 'assets', 'portfolio', 'smile-after.png'),
+        to: join(process.cwd(), 'uploads', 'images', 'portfolio-smile-after.png'),
+      },
+    ];
+
+    await mkdir(join(process.cwd(), 'uploads', 'images'), { recursive: true });
+
+    for (const pair of pairs) {
+      try {
+        await access(pair.from);
+        await copyFile(pair.from, pair.to);
+      }
+      catch {
+        this.logger.warn(`Portfolio seed image missing: ${pair.from}`);
+      }
+    }
   }
 
   private async seedMissing() {
