@@ -1,0 +1,15 @@
+node_modules
+dist
+coverage
+.git
+.env
+.env.*
+!.env.example
+*.sqlite
+dadsar.sqlite
+graphify-out
+uploads/*
+!uploads/.gitkeep
+test
+*.log
+.DS_Store

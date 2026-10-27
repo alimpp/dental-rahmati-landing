@@ -68,8 +68,15 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      apiBase: process.env.API_BASE_URL || 'http://localhost:4000/api',
-      siteUrl: process.env.NUXT_SITE_URL || 'https://dentalrahmati.ir',
+      // Override at runtime on Liara with NUXT_PUBLIC_API_BASE / NUXT_PUBLIC_SITE_URL
+      apiBase:
+        process.env.NUXT_PUBLIC_API_BASE
+        || process.env.API_BASE_URL
+        || 'http://localhost:4000/api',
+      siteUrl:
+        process.env.NUXT_PUBLIC_SITE_URL
+        || process.env.NUXT_SITE_URL
+        || 'https://dentalrahmati.ir',
     },
   },
   vite: {

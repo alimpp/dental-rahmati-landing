@@ -214,23 +214,39 @@ function closeSuccess() {
             :key="item.id"
             data-testimonial-card
             dir="rtl"
-            class="testimonial-card flex h-[22.5rem] w-[min(85vw,20.5rem)] shrink-0 flex-col rounded-[1.5rem] bg-panel p-6 ring-1 ring-mist-deep sm:w-[22rem] sm:p-7"
+            class="testimonial-card group relative flex h-[23.5rem] w-[min(86vw,21rem)] shrink-0 flex-col overflow-hidden rounded-[1.6rem] bg-panel p-6 shadow-[0_12px_40px_color-mix(in_srgb,var(--color-ink)_7%,transparent)] ring-1 ring-mist-deep/80 transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_48px_color-mix(in_srgb,var(--color-ink)_12%,transparent)] sm:w-[22.5rem] sm:p-7"
           >
-            <div class="flex items-start justify-between gap-3">
-              <span class="testimonial-quote" aria-hidden="true" />
-              <StarRating
+            <div
+              class="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-l from-[#F5C518] via-[#FFE08A] to-green-deep/40"
+              aria-hidden="true"
+            />
+            <div
+              class="pointer-events-none absolute -left-10 -top-10 size-28 rounded-full bg-[#F5C518]/10 blur-2xl transition group-hover:bg-[#F5C518]/18"
+              aria-hidden="true"
+            />
+
+            <div class="relative flex items-start justify-between gap-3">
+              <span class="testimonial-quote !bg-[#EAB308]" aria-hidden="true" />
+              <div
                 v-if="item.rating"
-                :value="item.rating"
-                size="sm"
-                :label="`امتیاز ${item.clientName}`"
-              />
+                class="inline-flex items-center gap-1.5 rounded-full bg-[#F5C518]/12 px-2.5 py-1 ring-1 ring-[#EAB308]/25"
+              >
+                <StarRating
+                  :value="item.rating"
+                  size="sm"
+                  :label="`امتیاز ${item.clientName}`"
+                />
+                <span class="text-[11px] font-bold tabular-nums text-[#B45309]">
+                  {{ item.rating.toFixed(1) }}
+                </span>
+              </div>
             </div>
 
-            <p class="mt-5 flex-1 text-[15px] leading-8 text-ink">
+            <p class="relative mt-5 flex-1 text-[15px] leading-8 text-ink">
               {{ item.truncatedQuote }}
             </p>
 
-            <div class="mt-2 min-h-5">
+            <div class="relative mt-2 min-h-5">
               <button
                 v-if="item.isQuoteLong"
                 type="button"
@@ -241,28 +257,31 @@ function closeSuccess() {
               </button>
             </div>
 
-            <div class="mt-auto flex items-center gap-3 border-t border-mist pt-4">
+            <div class="relative mt-auto flex items-center gap-3 border-t border-mist/90 pt-4">
               <img
                 v-if="item.avatarUrl"
                 :src="mediaSrc(item.avatarUrl)"
                 :alt="item.clientName"
-                class="size-11 rounded-full object-cover ring-2 ring-green-soft"
-                width="44"
-                height="44"
+                class="size-12 rounded-full object-cover ring-2 ring-[#F5C518]/55"
+                width="48"
+                height="48"
                 loading="lazy"
               >
               <span
                 v-else
-                class="inline-flex size-11 items-center justify-center rounded-full bg-mist text-xs font-bold text-green-deep"
+                class="inline-flex size-12 items-center justify-center rounded-full bg-gradient-to-br from-[#FFE08A]/50 to-green-soft text-xs font-bold text-green-deep ring-2 ring-[#F5C518]/40"
               >
                 {{ item.initials }}
               </span>
               <div class="min-w-0">
-                <p class="truncate text-sm font-semibold text-ink">
+                <p class="truncate text-sm font-bold text-ink">
                   {{ item.clientName }}
                 </p>
                 <p v-if="item.roleOrCompany" class="truncate text-[12px] text-ink-muted">
                   {{ item.roleOrCompany }}
+                </p>
+                <p v-else class="text-[11px] text-[#B45309]/80">
+                  بیمار کلینیک
                 </p>
               </div>
             </div>
@@ -389,12 +408,12 @@ function closeSuccess() {
                 <p class="font-bold text-ink">
                   {{ detailItem.clientName }}
                 </p>
-                <div class="mt-2">
+                <div v-if="detailItem.rating" class="mt-2 inline-flex items-center gap-2 rounded-full bg-[#F5C518]/12 px-2.5 py-1 ring-1 ring-[#EAB308]/25">
                   <StarRating
-                    v-if="detailItem.rating"
                     :value="detailItem.rating"
                     size="sm"
                   />
+                  <span class="text-xs font-bold text-[#B45309]">{{ detailItem.rating }} از ۵</span>
                 </div>
               </div>
               <button

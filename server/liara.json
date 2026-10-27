@@ -1,0 +1,7 @@
+{
+  "platform": "node",
+  "port": 4000,
+  "node": {
+    "version": "20"
+  }
+}

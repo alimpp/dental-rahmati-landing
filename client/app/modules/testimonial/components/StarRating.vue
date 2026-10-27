@@ -34,7 +34,7 @@ const shown = computed(() => {
 })
 
 const sizeClass = computed(() => {
-  if (props.size === 'sm') return 'size-4'
+  if (props.size === 'sm') return 'size-[1.05rem]'
   if (props.size === 'lg') return 'size-8 sm:size-9'
   return 'size-6 sm:size-7'
 })
@@ -51,7 +51,7 @@ function pick(n: number) {
 
 <template>
   <div
-    class="star-rating inline-flex items-center gap-1"
+    class="star-rating inline-flex items-center gap-0.5"
     :class="{ 'star-rating--interactive': interactive }"
     role="group"
     :aria-label="label"
@@ -60,9 +60,9 @@ function pick(n: number) {
       v-for="n in 5"
       :key="n"
       type="button"
-      class="star-rating__btn relative inline-flex items-center justify-center rounded-md transition duration-200"
+      class="star-rating__btn relative inline-flex items-center justify-center rounded-md p-0.5 transition duration-200"
       :class="interactive
-        ? 'cursor-pointer hover:scale-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold'
+        ? 'cursor-pointer hover:scale-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#EAB308]'
         : 'cursor-default'"
       :disabled="!interactive"
       :aria-label="`${n} از ۵`"
@@ -88,7 +88,8 @@ function pick(n: number) {
 
 <style scoped>
 .star-rating__glyph {
-  background: color-mix(in srgb, var(--color-mist-deep) 80%, transparent);
+  /* empty / off — soft grey */
+  background: color-mix(in srgb, var(--color-mist-deep) 70%, #94a3b8);
   -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.6l2.7 6.2 6.7.6-5.1 4.4 1.6 6.5L12 16.8 6.1 20.3l1.6-6.5L2.6 9.4l6.7-.6L12 2.6z'/%3E%3C/svg%3E")
     center / contain no-repeat;
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.6l2.7 6.2 6.7.6-5.1 4.4 1.6 6.5L12 16.8 6.1 20.3l1.6-6.5L2.6 9.4l6.7-.6L12 2.6z'/%3E%3C/svg%3E")
@@ -99,9 +100,10 @@ function pick(n: number) {
     filter 0.35s ease;
 }
 
+/* Fixed golden stars — not theme accent (cyan) */
 .star-rating__glyph.is-on {
-  background: var(--color-gold);
-  filter: drop-shadow(0 4px 10px color-mix(in srgb, var(--color-gold) 45%, transparent));
+  background: linear-gradient(145deg, #FFE08A 0%, #F5C518 42%, #E0A100 100%);
+  filter: drop-shadow(0 2px 6px rgba(224, 161, 0, 0.45));
 }
 
 .star-rating__glyph.is-burst {
