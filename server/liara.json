@@ -1,7 +1,17 @@
 {
   "platform": "node",
+  "app": "rahmati-dent-api",
   "port": 4000,
+  "build": {
+    "location": "iran"
+  },
   "node": {
     "version": "20"
-  }
+  },
+  "disks": [
+    {
+      "name": "uploads",
+      "mountTo": "uploads"
+    }
+  ]
 }

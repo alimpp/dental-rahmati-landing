@@ -13,3 +13,10 @@ uploads/*
 test
 *.log
 .DS_Store
+.pgdata
+.deploy-tmp
+.xdg-cache
+.xdg-config
+tmp
+pnpm-lock.yaml
+pnpm-workspace.yaml
