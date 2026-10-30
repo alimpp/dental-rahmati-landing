@@ -15,7 +15,6 @@ import { ProcessStepModule } from './process-step/process-step.module';
 import { TestimonialModule } from './testimonial/testimonial.module';
 import { FaqModule } from './faq/faq.module';
 import { PromiseModule } from './promise/promise.module';
-import { GuideModule } from './guide/guide.module';
 import { AppointmentModule } from './appointment/appointment.module';
 import { ThemeModule } from './theme/theme.module';
 import { PortfolioModule } from './portfolio/portfolio.module';
@@ -53,7 +52,6 @@ import { PortfolioModule } from './portfolio/portfolio.module';
     ProcessStepModule,
     TestimonialModule,
     FaqModule,
-    GuideModule,
     AppointmentModule,
     ThemeModule,
     PortfolioModule,

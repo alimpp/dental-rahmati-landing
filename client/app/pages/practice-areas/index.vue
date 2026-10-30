@@ -141,7 +141,7 @@ usePageSeo({
             </div>
             <div class="flex flex-col justify-center p-7 sm:p-9 lg:col-span-7">
               <span
-                class="mb-5 inline-flex size-14 items-center justify-center rounded-2xl bg-white/10"
+                class="mb-5 inline-flex size-14 items-center justify-center rounded-2xl bg-on-band/10"
                 aria-hidden="true"
               >
                 <span
@@ -247,10 +247,10 @@ usePageSeo({
                 رزرو نوبت
               </NuxtLink>
               <NuxtLink
-                to="/guides"
-                class="inline-flex rounded-2xl px-5 py-3 text-sm font-medium text-on-band ring-1 ring-white/25 transition hover:bg-white/10"
+                to="/articles"
+                class="inline-flex rounded-2xl px-5 py-3 text-sm font-medium text-on-band ring-1 ring-on-band/25 transition hover:bg-on-band/10"
               >
-                راهنماها
+                مقالات
               </NuxtLink>
             </div>
           </div>

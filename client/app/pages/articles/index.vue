@@ -122,13 +122,13 @@ usePageSeo({
             </div>
             <div
               v-if="categories.length"
-              class="mt-6 flex flex-wrap gap-2"
+              class="mt-6 flex flex-wrap gap-2.5 py-1"
             >
               <button
                 v-for="entry in categories.slice(0, 8)"
                 :key="entry.category"
                 type="button"
-                class="rounded-full bg-surface px-3.5 py-1.5 text-xs font-medium text-ink ring-1 ring-mist-deep transition hover:bg-green-soft hover:text-green-deep"
+                class="rounded-full bg-panel px-3.5 py-2 text-xs font-medium leading-none text-ink ring-1 ring-mist-deep transition hover:bg-green-soft hover:text-green-deep"
                 @click="goToCategory(entry.category)"
               >
                 {{ entry.category }}
@@ -162,27 +162,29 @@ usePageSeo({
 
     <SiteReveal variant="up" delay="30ms">
       <section class="border-y border-mist-deep bg-surface">
-        <div class="mx-auto flex max-w-7xl gap-1 overflow-x-auto px-4 py-1 sm:px-6 lg:flex-wrap lg:overflow-visible lg:px-8">
-          <button
-            type="button"
-            class="shrink-0 border-b-2 px-4 py-3 text-sm font-semibold transition"
-            :class="!category ? 'border-gold text-ink' : 'border-transparent text-ink-muted hover:text-ink'"
-            @click="goToCategory('')"
-          >
-            همه
-            <span class="ms-1 opacity-55">{{ allCount }}</span>
-          </button>
-          <button
-            v-for="entry in categories"
-            :key="entry.category"
-            type="button"
-            class="shrink-0 border-b-2 px-4 py-3 text-sm font-semibold transition"
-            :class="category === entry.category ? 'border-gold text-ink' : 'border-transparent text-ink-muted hover:text-ink'"
-            @click="goToCategory(entry.category)"
-          >
-            {{ entry.category }}
-            <span class="ms-1 opacity-55">{{ entry.count }}</span>
-          </button>
+        <div class="mx-auto max-w-7xl overflow-x-auto py-2 lg:overflow-visible">
+          <div class="flex w-max min-w-full gap-1 px-4 sm:px-6 lg:flex-wrap lg:px-8">
+            <button
+              type="button"
+              class="shrink-0 border-b-2 px-4 py-3 text-sm font-semibold transition"
+              :class="!category ? 'border-gold text-ink' : 'border-transparent text-ink-muted hover:text-ink'"
+              @click="goToCategory('')"
+            >
+              همه
+              <span class="ms-1 opacity-55">{{ allCount }}</span>
+            </button>
+            <button
+              v-for="entry in categories"
+              :key="entry.category"
+              type="button"
+              class="shrink-0 border-b-2 px-4 py-3 text-sm font-semibold transition"
+              :class="category === entry.category ? 'border-gold text-ink' : 'border-transparent text-ink-muted hover:text-ink'"
+              @click="goToCategory(entry.category)"
+            >
+              {{ entry.category }}
+              <span class="ms-1 opacity-55">{{ entry.count }}</span>
+            </button>
+          </div>
         </div>
       </section>
     </SiteReveal>
@@ -221,7 +223,7 @@ usePageSeo({
             </div>
             <div class="flex flex-col justify-center p-7 sm:p-9">
               <div class="flex flex-wrap gap-2 text-[11px] text-ink-muted">
-                <span class="rounded-full bg-green-soft px-2.5 py-1 font-medium text-green-deep">{{ lead.category }}</span>
+                <span class="rounded-full bg-green-soft px-3 py-1.5 font-medium leading-none text-green-deep">{{ lead.category }}</span>
                 <span v-if="lead.displayDate">{{ lead.displayDate }}</span>
                 <span>{{ lead.readingMinutes }} دقیقه</span>
               </div>
@@ -263,7 +265,7 @@ usePageSeo({
                     height="400"
                     loading="lazy"
                   >
-                  <span class="absolute inset-inline-end-3 top-3 rounded-full bg-surface/95 px-3 py-1 text-[11px] font-semibold text-ink ring-1 ring-mist-deep">
+                  <span class="absolute inset-inline-end-3 top-3 rounded-full bg-panel/95 px-3 py-1.5 text-[11px] font-semibold leading-none text-ink ring-1 ring-mist-deep">
                     {{ item.category }}
                   </span>
                 </div>

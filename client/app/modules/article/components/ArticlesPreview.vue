@@ -49,7 +49,7 @@ await Promise.all([
           v-for="entry in categories.slice(0, 6)"
           :key="entry.category"
           :to="{ path: '/articles', query: { category: entry.category } }"
-          class="rounded-full bg-surface px-3.5 py-1.5 text-xs font-medium text-ink ring-1 ring-mist-deep transition hover:bg-green-soft hover:text-green-deep hover:ring-green-deep/30"
+          class="rounded-full bg-panel px-3.5 py-2 text-xs font-medium leading-none text-ink ring-1 ring-mist-deep transition hover:bg-green-soft hover:text-green-deep hover:ring-green-deep/30"
         >
           {{ entry.category }}
         </NuxtLink>
@@ -103,7 +103,7 @@ await Promise.all([
             <div class="absolute inset-0 bg-gradient-to-t from-band/50 via-transparent to-transparent lg:hidden" />
           </div>
           <div class="flex flex-col justify-center p-5 sm:p-6 lg:col-span-5">
-            <span class="w-fit rounded-full bg-green-soft px-3 py-1 text-[11px] font-medium text-green-deep">
+            <span class="w-fit rounded-full bg-green-soft px-3 py-1.5 text-[11px] font-medium leading-none text-green-deep">
               {{ lead.category }}
             </span>
             <h3 class="mt-3 text-xl font-bold leading-8 text-ink transition group-hover:text-green-deep sm:text-2xl sm:leading-9">
@@ -139,7 +139,7 @@ await Promise.all([
                   height="400"
                   loading="lazy"
                 >
-                <span class="absolute top-3 inset-inline-start-3 rounded-md bg-surface/95 px-2 py-1 font-mono text-[10px] font-semibold text-gold ring-1 ring-mist-deep">
+                <span class="absolute top-3 inset-inline-start-3 rounded-md bg-panel/95 px-2.5 py-1.5 font-mono text-[10px] font-semibold leading-none text-gold ring-1 ring-mist-deep">
                   {{ String(index + 2).padStart(2, '0') }}
                 </span>
               </div>

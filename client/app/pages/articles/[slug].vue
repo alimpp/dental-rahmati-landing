@@ -100,16 +100,16 @@ useSchemaOrg([
             </SiteReveal>
 
             <SiteReveal variant="right" delay="80ms">
-              <div class="mt-7 flex flex-wrap items-center gap-2 text-[11px]">
-                <span class="rounded-full bg-gold/15 px-3 py-1 font-semibold text-gold ring-1 ring-gold/25">
+              <div class="mt-7 flex flex-wrap items-center gap-2.5 py-1 text-[11px]">
+                <span class="rounded-full bg-gold/15 px-3 py-1.5 font-semibold leading-none text-gold ring-1 ring-gold/25">
                   {{ article.category }}
                 </span>
-                <span class="rounded-full bg-panel px-3 py-1 text-ink-muted ring-1 ring-mist-deep">
+                <span class="rounded-full bg-panel px-3 py-1.5 leading-none text-ink-muted ring-1 ring-mist-deep">
                   {{ article.readingMinutes }} دقیقه مطالعه
                 </span>
                 <span
                   v-if="article.displayDate"
-                  class="rounded-full bg-panel px-3 py-1 text-ink-muted ring-1 ring-mist-deep"
+                  class="rounded-full bg-panel px-3 py-1.5 leading-none text-ink-muted ring-1 ring-mist-deep"
                 >
                   {{ article.displayDate }}
                 </span>

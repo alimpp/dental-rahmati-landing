@@ -55,28 +55,35 @@ export default defineNuxtConfig({
     },
   },
   routeRules: {
-    '/admin/**': { robots: false },
-    '/team': { redirect: '/guides' },
-    '/team/**': { redirect: '/guides' },
+    '/admin/**': { robots: false, ssr: false },
+    '/team': { redirect: '/about' },
+    '/team/**': { redirect: '/about' },
+    '/guides': { redirect: '/articles' },
+    '/guides/**': { redirect: '/articles' },
     '/catalog': { redirect: '/articles' },
     '/catalog/**': { redirect: '/articles' },
     '/offers': { redirect: '/' },
     '/offers/**': { redirect: '/' },
+    // Baked at build time — always export API_ORIGIN when deploying.
     '/uploads/**': {
-      proxy: `${process.env.API_ORIGIN || 'http://localhost:4000'}/uploads/**`,
+      proxy: `${
+        process.env.API_ORIGIN
+        || String(process.env.NUXT_PUBLIC_API_BASE || '').replace(/\/api\/?$/, '')
+        || 'https://rahmati-dent-api.liara.run'
+      }/uploads/**`,
     },
   },
   runtimeConfig: {
     public: {
-      // Override at runtime on Liara with NUXT_PUBLIC_API_BASE / NUXT_PUBLIC_SITE_URL
+      // Runtime override on Liara: NUXT_PUBLIC_API_BASE / NUXT_PUBLIC_SITE_URL
       apiBase:
         process.env.NUXT_PUBLIC_API_BASE
         || process.env.API_BASE_URL
-        || 'http://localhost:4000/api',
+        || 'https://rahmati-dent-api.liara.run/api',
       siteUrl:
         process.env.NUXT_PUBLIC_SITE_URL
         || process.env.NUXT_SITE_URL
-        || 'https://dentalrahmati.ir',
+        || 'https://rahmati-dent.liara.run',
     },
   },
   vite: {

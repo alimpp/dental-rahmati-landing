@@ -25,6 +25,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 html.theme-switching,
@@ -39,6 +40,7 @@ html.theme-switching * {
 
 body {
   margin: 0;
+  overflow-x: clip;
   font-family: var(--font-sans);
   background: var(--color-surface);
   color: var(--color-ink);
@@ -99,6 +101,14 @@ textarea:disabled,
 .reveal-drop { transform: translate3d(0, -36px, 0); }
 .reveal-left { transform: translate3d(48px, 0, 0); }
 .reveal-right { transform: translate3d(-48px, 0, 0); }
+
+/* Sideways reveals expand document width on narrow screens — use vertical motion instead. */
+@media (max-width: 1023px) {
+  .reveal-left,
+  .reveal-right {
+    transform: translate3d(0, 28px, 0);
+  }
+}
 .reveal-zoom { transform: scale(0.9); }
 .reveal-bloom { transform: scale(1.06); }
 .reveal-expand { transform: scaleX(0.92); transform-origin: center; }

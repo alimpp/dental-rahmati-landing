@@ -25,14 +25,14 @@ import { siteContact } from '~/data/site-contact'
       <div class="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
         <NuxtLink
           to="/consultation"
-          class="reveal-item reveal-item-scale inline-flex items-center justify-center rounded-xl bg-green-deep px-7 py-3.5 text-sm font-bold tracking-wide text-on-primary shadow-[0_10px_28px_rgba(15,118,110,0.4)] ring-1 ring-white/25 transition duration-300 hover:-translate-y-0.5 hover:brightness-110"
+          class="reveal-item reveal-item-scale inline-flex items-center justify-center rounded-xl bg-green-deep px-7 py-3.5 text-sm font-bold tracking-wide text-on-primary shadow-[0_10px_28px_rgba(15,118,110,0.4)] ring-1 ring-on-band/25 transition duration-300 hover:-translate-y-0.5 hover:brightness-110"
           style="--reveal-i: 3"
         >
           رزرو نوبت
         </NuxtLink>
         <a
           :href="siteContact.phoneHref"
-          class="reveal-item reveal-item-slide inline-flex items-center justify-center gap-2 rounded-xl px-7 py-3.5 text-sm font-medium text-on-band ring-1 ring-white/30 transition duration-300 hover:-translate-y-0.5 hover:bg-white/10 hover:ring-gold"
+          class="reveal-item reveal-item-slide inline-flex items-center justify-center gap-2 rounded-xl px-7 py-3.5 text-sm font-medium text-on-band ring-1 ring-on-band/30 transition duration-300 hover:-translate-y-0.5 hover:bg-on-band/10 hover:ring-gold"
           style="--reveal-i: 4"
         >
           <span class="size-1.5 rounded-full bg-green-deep" aria-hidden="true" />

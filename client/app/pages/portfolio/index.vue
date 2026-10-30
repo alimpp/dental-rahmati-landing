@@ -50,7 +50,7 @@ useSchemaOrg([
 </script>
 
 <template>
-  <div class="bg-surface">
+  <div class="overflow-x-clip bg-surface">
     <SiteReveal variant="fade">
       <section class="relative isolate overflow-hidden bg-band text-on-band">
         <img
@@ -63,7 +63,7 @@ useSchemaOrg([
         >
         <div class="absolute inset-0 bg-gradient-to-t from-band via-band/80 to-band/50" />
         <div
-          class="pointer-events-none absolute -left-20 top-1/4 size-[24rem] rounded-full bg-green-deep/30 blur-3xl"
+          class="pointer-events-none absolute left-0 top-1/4 size-[18rem] -translate-x-1/3 rounded-full bg-green-deep/30 blur-3xl sm:size-[24rem]"
           aria-hidden="true"
         />
 
@@ -86,7 +86,7 @@ useSchemaOrg([
           <div class="mt-8 flex flex-wrap gap-3">
             <a
               href="#cases"
-              class="inline-flex rounded-xl bg-green-deep px-5 py-3 text-sm font-bold tracking-wide text-on-primary shadow-[0_10px_28px_rgba(15,118,110,0.4)] ring-1 ring-white/20 transition hover:brightness-110"
+              class="inline-flex rounded-xl bg-green-deep px-5 py-3 text-sm font-bold tracking-wide text-on-primary shadow-[0_10px_28px_rgba(15,118,110,0.4)] ring-1 ring-on-band/20 transition hover:brightness-110"
             >
               مشاهده کیس‌ها
             </a>
@@ -113,20 +113,22 @@ useSchemaOrg([
 
         <div
           v-if="treatments.length > 1"
-          class="mt-8 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          class="mt-8 -mx-4 overflow-x-auto py-1.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0"
         >
-          <button
-            v-for="treatment in treatments"
-            :key="treatment"
-            type="button"
-            class="shrink-0 rounded-full px-4 py-2 text-sm font-semibold transition"
-            :class="activeTreatment === treatment
-              ? 'bg-green-deep text-on-primary'
-              : 'bg-mist text-ink ring-1 ring-mist-deep hover:bg-panel'"
-            @click="activeTreatment = treatment"
-          >
-            {{ treatment }}
-          </button>
+          <div class="flex w-max min-w-full gap-2 px-4 sm:px-0">
+            <button
+              v-for="treatment in treatments"
+              :key="treatment"
+              type="button"
+              class="shrink-0 rounded-full px-4 py-2.5 text-sm font-semibold leading-none transition"
+              :class="activeTreatment === treatment
+                ? 'bg-green-deep text-on-primary'
+                : 'bg-mist text-ink ring-1 ring-mist-deep hover:bg-panel'"
+              @click="activeTreatment = treatment"
+            >
+              {{ treatment }}
+            </button>
+          </div>
         </div>
       </SiteReveal>
 
@@ -142,7 +144,7 @@ useSchemaOrg([
           v-for="(item, index) in filtered"
           :key="item.id"
         >
-          <SiteReveal :variant="index % 2 === 0 ? 'left' : 'right'" delay="30ms">
+          <SiteReveal variant="up" delay="30ms">
             <article class="group overflow-hidden rounded-[1.5rem] bg-mist ring-1 ring-mist-deep transition hover:ring-gold/40 hover:shadow-[0_24px_55px_rgba(6,54,55,0.1)]">
               <NuxtLink :to="item.href" class="block">
                 <PortfolioBeforeAfter
@@ -172,7 +174,7 @@ useSchemaOrg([
                 <div class="flex flex-wrap items-center gap-2">
                   <span
                     v-if="item.treatment"
-                    class="rounded-md bg-panel px-2.5 py-1 text-[11px] font-semibold text-green-deep ring-1 ring-mist-deep"
+                    class="rounded-md bg-panel px-2.5 py-1.5 text-[11px] font-semibold leading-none text-green-deep ring-1 ring-mist-deep"
                   >
                     {{ item.treatment }}
                   </span>

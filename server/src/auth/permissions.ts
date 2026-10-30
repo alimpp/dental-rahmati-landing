@@ -13,7 +13,6 @@ export const ADMIN_MODULES = [
   'process_steps',
   'testimonials',
   'faqs',
-  'guides',
   'themes',
   'portfolio',
 ] as const;
@@ -41,7 +40,6 @@ export const MODULE_LABELS: Record<AdminModuleKey, string> = {
   process_steps: 'مسیر درمان',
   testimonials: 'نظرات بیماران',
   faqs: 'سوالات متداول',
-  guides: 'راهنماها',
   themes: 'تم‌ها',
   portfolio: 'نمونه کارها',
 };

@@ -81,13 +81,13 @@ const roleParts = profile.roles.split('|').map((part) => part.trim())
             <li
               v-for="(role, index) in roleParts"
               :key="role"
-              class="reveal-item reveal-item-scale rounded-full bg-white/10 px-3.5 py-1.5 text-[12px] font-medium text-on-band ring-1 ring-white/20"
+              class="reveal-item reveal-item-scale rounded-full bg-on-band/10 px-3.5 py-2 text-[12px] font-medium leading-none text-on-band ring-1 ring-on-band/20"
               :style="{ '--reveal-i': index + 4 }"
             >
               {{ role }}
             </li>
             <li
-              class="reveal-item reveal-item-scale rounded-full bg-gold/20 px-3.5 py-1.5 text-[12px] font-medium text-gold ring-1 ring-gold/35"
+              class="reveal-item reveal-item-scale rounded-full bg-gold/20 px-3.5 py-2 text-[12px] font-medium leading-none text-gold ring-1 ring-gold/35"
               :style="{ '--reveal-i': roleParts.length + 4 }"
             >
               {{ profile.barSince }}
@@ -98,7 +98,7 @@ const roleParts = profile.roles.split('|').map((part) => part.trim())
             <div
               v-for="(stat, index) in profile.stats"
               :key="stat.label"
-              class="reveal-item reveal-item-scale rounded-2xl bg-white/8 px-3 py-4 text-center ring-1 ring-white/15 backdrop-blur-sm"
+              class="reveal-item reveal-item-scale rounded-2xl bg-on-band/8 px-3 py-4 text-center ring-1 ring-on-band/15 backdrop-blur-sm"
               :style="{ '--reveal-i': roleParts.length + 5 + index }"
             >
               <dt class="text-xl font-semibold text-gold sm:text-2xl">
@@ -112,7 +112,7 @@ const roleParts = profile.roles.split('|').map((part) => part.trim())
         </div>
 
         <aside class="reveal-item reveal-item-left flex lg:col-span-5" :style="{ '--reveal-i': roleParts.length + 8 }">
-          <div class="flex w-full flex-col justify-between rounded-[1.75rem] bg-white/[0.06] p-6 ring-1 ring-white/15 backdrop-blur-sm sm:p-7">
+          <div class="flex w-full flex-col justify-between rounded-[1.75rem] bg-on-band/[0.06] p-6 ring-1 ring-on-band/15 backdrop-blur-sm sm:p-7">
             <div>
               <p class="text-[11px] font-medium tracking-[0.16em] text-gold">
                 کلینیک دندان‌پزشکی امیر رحمتی
@@ -140,7 +140,7 @@ const roleParts = profile.roles.split('|').map((part) => part.trim())
             </div>
             <a
               :href="`mailto:${profile.email}`"
-              class="mt-8 inline-flex items-center justify-center rounded-xl bg-gold px-4 py-3 text-sm font-semibold text-ink transition hover:bg-panel"
+              class="mt-8 inline-flex items-center justify-center rounded-xl bg-gold px-4 py-3 text-sm font-semibold text-on-accent transition hover:brightness-110"
             >
               {{ profile.email }}
             </a>
@@ -151,11 +151,11 @@ const roleParts = profile.roles.split('|').map((part) => part.trim())
 
     <!-- Focus chips -->
     <div class="border-b border-mist bg-mist/40">
-      <div class="mx-auto flex max-w-7xl flex-wrap gap-2 px-4 py-5 sm:px-6 lg:px-8">
+      <div class="mx-auto flex max-w-7xl flex-wrap gap-2.5 px-4 py-6 sm:px-6 lg:px-8">
         <span
           v-for="(item, index) in focusAreas"
           :key="item"
-          class="reveal-item reveal-item-fade rounded-full bg-panel px-3.5 py-1.5 text-[12px] font-medium text-ink ring-1 ring-mist-deep"
+          class="reveal-item reveal-item-fade rounded-full bg-panel px-4 py-2 text-[12px] font-medium leading-none text-ink ring-1 ring-mist-deep"
           :style="{ '--reveal-i': index }"
         >
           {{ item }}
@@ -327,11 +327,11 @@ const roleParts = profile.roles.split('|').map((part) => part.trim())
         <p class="reveal-item reveal-item-fade text-[11px] font-medium tracking-[0.18em] text-gold" style="--reveal-i: 0">
           توانمندی‌های حرفه‌ای
         </p>
-        <ul class="mt-5 flex flex-wrap gap-2">
+        <ul class="mt-5 flex flex-wrap gap-2.5 py-1">
           <li
             v-for="(skill, index) in profile.skills"
             :key="skill"
-            class="reveal-item reveal-item-fade rounded-full bg-mist/60 px-4 py-2 text-[12px] font-medium text-ink ring-1 ring-mist-deep"
+            class="reveal-item reveal-item-fade rounded-full bg-panel px-4 py-2.5 text-[12px] font-medium leading-none text-ink ring-1 ring-mist-deep"
             :style="{ '--reveal-i': index + 1 }"
           >
             {{ skill }}
@@ -363,7 +363,7 @@ const roleParts = profile.roles.split('|').map((part) => part.trim())
         <NuxtLink
           v-if="!full"
           to="/about"
-          class="reveal-item reveal-item-scale inline-flex items-center rounded-xl bg-band px-5 py-3 text-sm font-semibold text-on-band transition hover:bg-gold hover:text-ink"
+          class="reveal-item reveal-item-scale inline-flex items-center rounded-xl bg-band px-5 py-3 text-sm font-semibold text-on-band transition hover:bg-gold hover:text-on-accent"
           style="--reveal-i: 0"
         >
           صفحه کامل درباره ما
@@ -377,11 +377,11 @@ const roleParts = profile.roles.split('|').map((part) => part.trim())
           رزرو نوبت
         </NuxtLink>
         <NuxtLink
-          to="/guides"
+          to="/articles"
           class="reveal-item reveal-item-slide inline-flex items-center rounded-xl px-5 py-3 text-sm font-medium text-ink ring-1 ring-mist-deep transition hover:bg-mist"
           style="--reveal-i: 1"
         >
-          راهنماهای مراقبت
+          مقالات آموزشی
         </NuxtLink>
         <NuxtLink
           to="/contact"

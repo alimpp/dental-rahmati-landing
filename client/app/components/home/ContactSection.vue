@@ -143,7 +143,7 @@ const tips = [
             :href="mapLink"
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center rounded-xl bg-band px-4 py-2.5 text-xs font-semibold text-on-band transition hover:bg-gold hover:text-ink"
+            class="inline-flex items-center rounded-xl bg-band px-4 py-2.5 text-xs font-semibold text-on-band transition hover:bg-gold hover:text-on-accent"
           >
             باز کردن نقشه بزرگ
           </a>

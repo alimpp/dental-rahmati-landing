@@ -3,7 +3,7 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 DATA_DIR="${ROOT_DIR}/.pgdata"
-BIN="/usr/lib/postgresql/17/bin"
+BIN="/usr/lib/postgresql/16/bin"
 PORT="${DB_PORT:-5433}"
 USER_NAME="${DB_USERNAME:-dental_rahmati}"
 PASSWORD="${DB_PASSWORD:-dental_rahmati}"

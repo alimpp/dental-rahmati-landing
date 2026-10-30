@@ -145,10 +145,10 @@ useSchemaOrg([
                   رزرو نوبت
                 </NuxtLink>
                 <NuxtLink
-                  to="/guides"
+                  to="/articles"
                   class="inline-flex rounded-2xl bg-panel px-5 py-3 text-sm font-medium text-ink ring-1 ring-mist-deep transition hover:bg-mist"
                 >
-                  راهنماهای مرتبط
+                  مقالات مرتبط
                 </NuxtLink>
               </div>
             </SiteReveal>
@@ -266,7 +266,7 @@ useSchemaOrg([
                       class="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-xl font-mono text-xs font-bold ring-1"
                       :class="
                         idx % 3 === 1
-                          ? 'bg-white/10 text-gold ring-white/15'
+                          ? 'bg-on-band/10 text-gold ring-on-band/15'
                           : 'bg-mist text-ink ring-mist-deep'
                       "
                     >
@@ -379,7 +379,7 @@ useSchemaOrg([
               </NuxtLink>
               <NuxtLink
                 to="/contact"
-                class="reveal-item reveal-item-scale mt-3 inline-flex w-full items-center justify-center rounded-2xl px-5 py-3 text-sm font-medium text-on-band ring-1 ring-white/25 transition hover:bg-white/10"
+                class="reveal-item reveal-item-scale mt-3 inline-flex w-full items-center justify-center rounded-2xl px-5 py-3 text-sm font-medium text-on-band ring-1 ring-on-band/25 transition hover:bg-on-band/10"
                 style="--reveal-i: 4"
               >
                 تماس با دفتر

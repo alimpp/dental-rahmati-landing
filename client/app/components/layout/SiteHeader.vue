@@ -29,7 +29,6 @@ const links: NavLink[] = [
   { label: 'مقالات', to: '/articles', icon: '/icons/articles.svg' },
   { label: 'نمونه کارها', to: '/portfolio', icon: '/icons/portfolio.svg' },
   { label: 'درباره ما', to: '/about', icon: '/icons/about.svg' },
-  { label: 'راهنماها', to: '/guides', icon: '/icons/articles.svg' },
   { label: 'تماس با ما', to: '/contact', icon: '/icons/contact.svg' },
 ]
 

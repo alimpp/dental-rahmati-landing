@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Article } from '../article/entities/article.entity';
 import { Banner } from '../banner/entities/banner.entity';
-import { Guide } from '../guide/entities/guide.entity';
 import { Inquiry } from '../inquiry/entities/inquiry.entity';
 import { Service } from '../service/entities/service.entity';
 import { TrackViewDto } from './dto/track-view.dto';
@@ -13,7 +12,6 @@ const PAGE_LABELS: Record<string, string> = {
   '/': 'خانه',
   '/about': 'درباره ما',
   '/articles': 'مقالات',
-  '/guides': 'راهنماها',
   '/portfolio': 'نمونه کارها',
   '/contact': 'تماس',
   '/consultation': 'مشاوره',
@@ -31,8 +29,6 @@ export class AnalyticsService {
     private readonly bannerRepository: Repository<Banner>,
     @InjectRepository(Service)
     private readonly serviceRepository: Repository<Service>,
-    @InjectRepository(Guide)
-    private readonly guideRepository: Repository<Guide>,
     @InjectRepository(Inquiry)
     private readonly inquiryRepository: Repository<Inquiry>,
   ) {}
@@ -99,16 +95,14 @@ export class AnalyticsService {
       }
     }
 
-    const [articleRows, serviceRows, guideRows] = await Promise.all([
+    const [articleRows, serviceRows] = await Promise.all([
       this.articleRepository.find({ select: { slug: true, title: true } }),
       this.serviceRepository.find({ select: { slug: true, title: true } }),
-      this.guideRepository.find({ select: { slug: true, title: true } }),
     ]);
 
     const labels = {
       articles: new Map(articleRows.map((item) => [item.slug, item.title])),
       services: new Map(serviceRows.map((item) => [item.slug, item.title])),
-      guides: new Map(guideRows.map((item) => [item.slug, item.title])),
     };
 
     const series = days.map((day) => ({
@@ -135,12 +129,11 @@ export class AnalyticsService {
         visits: count,
       }));
 
-    const [articlesCount, banners, services, guides, inquiries] =
+    const [articlesCount, banners, services, inquiries] =
       await Promise.all([
         this.articleRepository.count(),
         this.bannerRepository.count(),
         this.serviceRepository.count(),
-        this.guideRepository.count(),
         this.inquiryRepository.count(),
       ]);
 
@@ -153,7 +146,6 @@ export class AnalyticsService {
         articles: articlesCount,
         banners,
         services,
-        guides,
         inquiries,
       },
       series,
@@ -189,15 +181,13 @@ export class AnalyticsService {
       byPath.set(row.path, (byPath.get(row.path) ?? 0) + row.count);
     }
 
-    const [articleRows, serviceRows, guideRows] = await Promise.all([
+    const [articleRows, serviceRows] = await Promise.all([
       this.articleRepository.find({ select: { slug: true, title: true } }),
       this.serviceRepository.find({ select: { slug: true, title: true } }),
-      this.guideRepository.find({ select: { slug: true, title: true } }),
     ]);
     const labels = {
       articles: new Map(articleRows.map((item) => [item.slug, item.title])),
       services: new Map(serviceRows.map((item) => [item.slug, item.title])),
-      guides: new Map(guideRows.map((item) => [item.slug, item.title])),
     };
 
     const changePercent =
@@ -233,20 +223,12 @@ export class AnalyticsService {
     labels: {
       articles: Map<string, string>;
       services: Map<string, string>;
-      guides: Map<string, string>;
     },
   ) {
     if (PAGE_LABELS[path]) return PAGE_LABELS[path];
     if (path.startsWith('/articles/')) {
       const slug = decodeURIComponent(path.slice('/articles/'.length));
       return labels.articles.get(slug) || `مقاله ${slug}`;
-    }
-    if (path.startsWith('/guides/')) {
-      const slug = decodeURIComponent(path.slice('/guides/'.length));
-      return labels.guides.get(slug) || `راهنما ${slug}`;
-    }
-    if (path.startsWith('/guides')) {
-      return 'راهنماها';
     }
     if (path.startsWith('/catalog')) {
       return 'مقالات';

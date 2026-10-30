@@ -7,7 +7,6 @@ export const ADMIN_MODULES = [
   'process_steps',
   'testimonials',
   'faqs',
-  'guides',
   'inquiries',
   'appointment_slots',
   'appointment_bookings',
@@ -88,7 +87,6 @@ export interface TDashboardTotals {
   articles: number
   banners: number
   services: number
-  guides: number
   inquiries: number
 }
 
@@ -147,7 +145,6 @@ export const MODULE_LABELS: Record<AdminModuleKey, string> = {
   process_steps: 'مسیر درمان',
   testimonials: 'نظرات بیماران',
   faqs: 'سوالات متداول',
-  guides: 'راهنماها',
   inquiries: 'پیام‌های تماس',
   appointment_slots: 'نوبت‌های خالی',
   appointment_bookings: 'رزروهای نوبت',
@@ -167,7 +164,6 @@ export const MODULE_ICONS: Record<AdminModuleKey, string> = {
   process_steps: '/icons/practice.svg',
   testimonials: '/icons/admin-user.svg',
   faqs: '/icons/contact.svg',
-  guides: '/icons/articles.svg',
   inquiries: '/icons/contact.svg',
   appointment_slots: '/icons/clock.svg',
   appointment_bookings: '/icons/admin-file.svg',

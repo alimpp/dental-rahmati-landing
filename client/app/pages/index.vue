@@ -3,10 +3,10 @@
     <SiteReveal variant="fade" delay="0ms">
       <BannerSlider />
     </SiteReveal>
-    <SiteReveal variant="soft" delay="40ms">
+    <SiteReveal variant="fade" delay="0ms">
       <PromisesSection />
     </SiteReveal>
-    <SiteReveal variant="up" delay="40ms">
+    <SiteReveal variant="fade" delay="0ms">
       <ServicesSection />
     </SiteReveal>
     <SiteReveal variant="fade" delay="30ms">

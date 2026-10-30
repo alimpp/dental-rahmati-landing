@@ -31,9 +31,10 @@ const highlights = [
 
     <section
       id="clinic-next"
-      class="relative scroll-mt-28 overflow-hidden border-y border-mist-deep bg-mist"
+      class="clinic-next relative scroll-mt-28 overflow-hidden border-y border-mist-deep bg-mist"
     >
-      <div class="pointer-events-none absolute -left-16 top-0 size-72 rounded-full bg-green-deep/15 blur-3xl" />
+      <div class="pointer-events-none absolute -left-16 top-0 size-72 rounded-full bg-green-deep/20 blur-3xl" />
+      <div class="pointer-events-none absolute -right-10 bottom-0 size-56 rounded-full bg-gold/15 blur-3xl" />
       <div class="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
         <div class="grid gap-10 lg:grid-cols-12 lg:items-end">
           <div class="lg:col-span-7">
@@ -49,35 +50,36 @@ const highlights = [
             <div class="mt-7 flex flex-wrap gap-2">
               <NuxtLink
                 to="/consultation"
-                class="inline-flex rounded-xl bg-green-deep px-4 py-2.5 text-sm font-bold tracking-wide text-on-primary shadow-[0_8px_22px_rgba(15,118,110,0.35)] ring-1 ring-white/20 transition hover:brightness-110"
+                class="inline-flex rounded-2xl bg-green-deep px-4 py-2.5 text-sm font-bold tracking-wide text-on-primary shadow-[0_12px_28px_rgba(15,118,110,0.32)] ring-1 ring-on-band/20 transition hover:-translate-y-0.5 hover:brightness-110"
               >
                 رزرو نوبت
               </NuxtLink>
               <NuxtLink
                 to="/practice-areas"
-                class="inline-flex rounded-xl bg-surface px-4 py-2.5 text-sm font-semibold text-ink ring-1 ring-mist-deep"
+                class="inline-flex rounded-2xl bg-surface px-4 py-2.5 text-sm font-semibold text-ink ring-1 ring-mist-deep transition hover:-translate-y-0.5"
               >
                 خدمات
               </NuxtLink>
               <NuxtLink
                 to="/articles"
-                class="inline-flex rounded-xl bg-surface px-4 py-2.5 text-sm font-semibold text-ink ring-1 ring-mist-deep"
+                class="inline-flex rounded-2xl bg-surface px-4 py-2.5 text-sm font-semibold text-ink ring-1 ring-mist-deep transition hover:-translate-y-0.5"
               >
                 مقالات
               </NuxtLink>
               <NuxtLink
                 to="/contact"
-                class="inline-flex rounded-xl bg-surface px-4 py-2.5 text-sm font-semibold text-ink ring-1 ring-mist-deep"
+                class="inline-flex rounded-2xl bg-surface px-4 py-2.5 text-sm font-semibold text-ink ring-1 ring-mist-deep transition hover:-translate-y-0.5"
               >
                 تماس
               </NuxtLink>
             </div>
           </div>
-          <div class="grid grid-cols-2 gap-3 lg:col-span-5">
+          <div class="clinic-next-cards grid grid-cols-2 gap-3 perspective-[1200px] lg:col-span-5">
             <div
-              v-for="item in highlights"
+              v-for="(item, index) in highlights"
               :key="item.title"
-              class="rounded-2xl bg-surface p-4 ring-1 ring-mist-deep"
+              class="clinic-next-card rounded-2xl bg-panel p-4 ring-1 ring-mist-deep"
+              :style="{ '--i': index }"
             >
               <p class="text-sm font-semibold text-green-deep">
                 {{ item.title }}
@@ -95,3 +97,29 @@ const highlights = [
     <ArticlesPreview />
   </div>
 </template>
+
+<style scoped>
+.clinic-next-card {
+  transform: translateZ(calc(8px + var(--i) * 6px)) rotateY(calc(var(--i) * 0.8deg));
+  box-shadow:
+    0 10px 24px rgba(15, 23, 42, 0.05),
+    0 20px 40px rgba(15, 118, 110, 0.06);
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s ease;
+}
+
+.clinic-next-card:hover {
+  transform: translateZ(28px) translateY(-4px) rotateY(0deg);
+  box-shadow:
+    0 16px 32px rgba(15, 23, 42, 0.08),
+    0 28px 56px rgba(15, 118, 110, 0.12);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clinic-next-card {
+    transform: none !important;
+    transition: none !important;
+  }
+}
+</style>

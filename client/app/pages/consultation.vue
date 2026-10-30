@@ -233,12 +233,12 @@ function fieldClass(name: string) {
     <div class="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-12 lg:gap-10 lg:px-8 lg:py-14">
       <!-- Steps column -->
       <div class="space-y-6 lg:col-span-7">
-        <p v-if="error" class="rounded-2xl bg-red-50 px-4 py-3 text-sm text-red-700 ring-1 ring-red-100">
+        <p v-if="error" class="rounded-2xl bg-mist px-4 py-3 text-sm text-red-400 ring-1 ring-red-400/35">
           {{ error }}
         </p>
         <p
           v-if="success"
-          class="rounded-2xl bg-teal-50 px-4 py-3 text-sm font-medium text-teal-900 ring-1 ring-teal-100"
+          class="rounded-2xl bg-green-soft px-4 py-3 text-sm font-medium text-green-deep ring-1 ring-green-deep/25"
         >
           نوبت شما ثبت شد. منتظر دیدار شما در کلینیک هستیم.
         </p>
@@ -246,7 +246,7 @@ function fieldClass(name: string) {
         <!-- Step 1: dates -->
         <section class="rounded-[1.6rem] bg-panel p-5 ring-1 ring-mist-deep sm:p-7">
           <div class="flex items-center gap-3">
-            <span class="flex size-8 items-center justify-center rounded-xl bg-green-deep text-sm font-bold text-on-band">1</span>
+            <span class="flex size-8 items-center justify-center rounded-xl bg-green-deep text-sm font-bold text-on-primary">1</span>
             <div>
               <h2 class="text-lg font-bold text-ink">انتخاب روز</h2>
               <p class="text-sm text-ink-muted">روزهایی که نوبت خالی دارند</p>
@@ -262,7 +262,7 @@ function fieldClass(name: string) {
           >
             فعلاً نوبت خالی‌ای تعریف نشده است. لطفاً بعداً سر بزنید یا تماس بگیرید.
           </div>
-          <div v-else class="mt-5 flex gap-2 overflow-x-auto pb-1">
+          <div v-else class="mt-5 -mx-1 flex gap-2 overflow-x-auto px-1 py-1.5">
             <button
               v-for="day in dates"
               :key="day.date"
@@ -285,7 +285,7 @@ function fieldClass(name: string) {
         <!-- Step 2: times -->
         <section class="rounded-[1.6rem] bg-panel p-5 ring-1 ring-mist-deep sm:p-7">
           <div class="flex items-center gap-3">
-            <span class="flex size-8 items-center justify-center rounded-xl bg-green-deep text-sm font-bold text-on-band">2</span>
+            <span class="flex size-8 items-center justify-center rounded-xl bg-green-deep text-sm font-bold text-on-primary">2</span>
             <div>
               <h2 class="text-lg font-bold text-ink">انتخاب ساعت</h2>
               <p class="text-sm text-ink-muted">
@@ -308,7 +308,7 @@ function fieldClass(name: string) {
               class="rounded-2xl px-3 py-3 text-sm font-semibold transition ring-1"
               :class="
                 selectedSlot?.id === slot.id
-                  ? 'bg-green-deep text-on-band ring-green-deep'
+                  ? 'bg-green-deep text-on-primary ring-green-deep'
                   : 'bg-mist text-ink ring-mist-deep hover:ring-green-deep/40'
               "
               @click="pickSlot(slot)"
@@ -321,7 +321,7 @@ function fieldClass(name: string) {
         <!-- Step 3: form -->
         <section class="rounded-[1.6rem] bg-panel p-5 ring-1 ring-mist-deep sm:p-7">
           <div class="flex items-center gap-3">
-            <span class="flex size-8 items-center justify-center rounded-xl bg-green-deep text-sm font-bold text-on-band">3</span>
+            <span class="flex size-8 items-center justify-center rounded-xl bg-green-deep text-sm font-bold text-on-primary">3</span>
             <div>
               <h2 class="text-lg font-bold text-ink">مشخصات شما</h2>
               <p class="text-sm text-ink-muted">
@@ -401,7 +401,7 @@ function fieldClass(name: string) {
 
             <button
               type="submit"
-              class="inline-flex w-full items-center justify-center rounded-2xl bg-green-deep px-5 py-3.5 text-sm font-bold text-on-band transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-45 sm:w-auto sm:min-w-[14rem]"
+              class="inline-flex w-full items-center justify-center rounded-2xl bg-green-deep px-5 py-3.5 text-sm font-bold text-on-primary transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-45 sm:w-auto sm:min-w-[14rem]"
               :disabled="!selectedSlot || booking"
             >
               {{ booking ? 'در حال ثبت…' : 'تأیید و رزرو نوبت' }}

@@ -87,7 +87,7 @@ useSchemaOrg([
     <main>
       <slot />
       <div class="overflow-x-clip">
-        <LayoutSiteGuidesFaq />
+        <LayoutSiteFaq />
       </div>
     </main>
     <LayoutSiteFooter />

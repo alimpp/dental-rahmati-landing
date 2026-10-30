@@ -35,7 +35,6 @@ const kpis = computed(() => {
     { label: 'درخواست‌ها', value: fa(totals.inquiries), icon: '/icons/contact.svg', tone: 'green' },
     { label: 'مقالات', value: fa(totals.articles), icon: '/icons/articles.svg', tone: 'gold' },
     { label: 'خدمات', value: fa(totals.services), icon: '/icons/practice.svg', tone: 'green' },
-    { label: 'راهنماها', value: fa(totals.guides), icon: '/icons/articles.svg', tone: 'gold' },
   ]
 })
 </script>

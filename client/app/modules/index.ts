@@ -10,7 +10,6 @@ import { ProcessStepModule } from './process-step'
 import { TestimonialModule } from './testimonial'
 import { FaqModule } from './faq'
 import { PromiseModule } from './promise'
-import { GuideModule } from './guide'
 import { PortfolioModule } from './portfolio'
 
 export class AppModules {
@@ -39,7 +38,6 @@ export class AppModules {
     const testimonialMissing = !registry.has('testimonial')
     const faqMissing = !registry.has('faq')
     const promiseMissing = !registry.has('promise')
-    const guideMissing = !registry.has('guide')
     const portfolioMissing = !registry.has('portfolio')
 
     if (
@@ -53,7 +51,6 @@ export class AppModules {
       || testimonialMissing
       || faqMissing
       || promiseMissing
-      || guideMissing
       || portfolioMissing
     ) {
       if (articleStale) {
@@ -80,9 +77,6 @@ export class AppModules {
       if (promiseMissing) {
         PromiseModule.reset()
       }
-      if (guideMissing) {
-        GuideModule.reset()
-      }
       if (portfolioMissing) {
         PortfolioModule.reset()
       }
@@ -97,7 +91,6 @@ export class AppModules {
         ProcessStepModule.create(),
         TestimonialModule.create(),
         FaqModule.create(),
-        GuideModule.create(),
         PortfolioModule.create(),
       ])
     }
@@ -117,5 +110,4 @@ export const processStepModule = ProcessStepModule.getInstance()
 export const testimonialModule = TestimonialModule.getInstance()
 export const faqModule = FaqModule.getInstance()
 export const promiseModule = PromiseModule.getInstance()
-export const guideModule = GuideModule.getInstance()
 export const portfolioModule = PortfolioModule.getInstance()
