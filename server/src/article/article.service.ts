@@ -21,6 +21,8 @@ export class ArticleService implements OnModuleInit {
   }
 
   private async seedIfEmpty() {
+    const keepSlugs = new Set(ARTICLE_SEED.map((item) => item.slug));
+
     for (const item of ARTICLE_SEED) {
       const existing = await this.articleRepository.findOne({
         where: { slug: item.slug },
@@ -56,6 +58,13 @@ export class ArticleService implements OnModuleInit {
 
       Object.assign(existing, payload);
       await this.articleRepository.save(existing);
+    }
+
+    const outdated = await this.articleRepository.find();
+    for (const row of outdated) {
+      if (keepSlugs.has(row.slug) || !row.isActive) continue;
+      row.isActive = false;
+      await this.articleRepository.save(row);
     }
   }
 

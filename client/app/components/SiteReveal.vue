@@ -14,7 +14,7 @@ export type RevealVariant =
   | 'clip'
   | 'slide'
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     variant?: RevealVariant
     delay?: string
@@ -24,6 +24,11 @@ withDefaults(
 
 const root = ref<HTMLElement | null>(null)
 const shown = ref(false)
+
+/** Only horizontal transforms widen the page; clip those so sticky ancestors stay intact. */
+const needsXClip = computed(() =>
+  props.variant === 'left' || props.variant === 'right' || props.variant === 'slide',
+)
 
 function isNearView() {
   if (!root.value || typeof window === 'undefined') return false
@@ -97,12 +102,19 @@ onMounted(() => {
 </script>
 
 <template>
+  <!-- Outer host: clip X only for left/right/slide so page width stays stable.
+       Do not clip vertical/fade variants — sticky children (promises/FAQ/clinic) need intact ancestors. -->
   <div
     ref="root"
-    class="site-reveal"
-    :class="[`reveal-${variant}`, shown && 'is-in']"
-    :style="{ '--reveal-delay': delay }"
+    class="site-reveal-host max-w-full"
+    :class="needsXClip && 'overflow-x-clip'"
   >
-    <slot />
+    <div
+      class="site-reveal"
+      :class="[`reveal-${variant}`, shown && 'is-in']"
+      :style="{ '--reveal-delay': delay }"
+    >
+      <slot />
+    </div>
   </div>
 </template>

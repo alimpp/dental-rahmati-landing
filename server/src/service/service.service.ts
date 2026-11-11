@@ -17,6 +17,8 @@ export class ServiceService implements OnModuleInit {
   }
 
   private async seedIfEmpty() {
+    const keepSlugs = new Set(SERVICE_SEED.map((item) => item.slug));
+
     for (const item of SERVICE_SEED) {
       const existing = await this.serviceRepository.findOne({
         where: { slug: item.slug },
@@ -43,6 +45,13 @@ export class ServiceService implements OnModuleInit {
         isActive: item.isActive ?? true,
       });
       await this.serviceRepository.save(existing);
+    }
+
+    const outdated = await this.serviceRepository.find();
+    for (const row of outdated) {
+      if (keepSlugs.has(row.slug) || !row.isActive) continue;
+      row.isActive = false;
+      await this.serviceRepository.save(row);
     }
   }
 

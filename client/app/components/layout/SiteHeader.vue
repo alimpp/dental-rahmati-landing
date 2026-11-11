@@ -4,10 +4,21 @@ import { useSiteTheme } from '~/composables/useSiteTheme'
 import type { NavLink } from './MobileNav.vue'
 
 const route = useRoute()
+const router = useRouter()
 const { openPicker } = useSiteTheme()
 const menuOpen = ref(false)
 const scrolled = ref(false)
 const practiceItems = computed(() => serviceModule.store.getVisibleItems)
+
+async function goToReviewForm() {
+  closeMenu()
+  if (route.path === '/') {
+    await nextTick()
+    document.getElementById('review-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    return
+  }
+  await router.push({ path: '/', hash: '#review-form' })
+}
 /** Header/mega/mobile menu: first 6 only; full list lives on /practice-areas */
 const practiceMenuItems = computed(() => practiceItems.value.slice(0, 6))
 
@@ -154,6 +165,13 @@ onBeforeUnmount(() => {
       </NuxtLink>
 
       <div class="flex shrink-0 items-center gap-1">
+        <button
+          type="button"
+          class="inline-flex items-center rounded-full bg-gold/15 px-2.5 py-1.5 text-[11px] font-bold text-ink ring-1 ring-gold/30 transition hover:bg-gold/25"
+          @click="goToReviewForm"
+        >
+          نظر و امتیاز
+        </button>
         <ThemeIconButton @click="openPicker" />
         <button
           type="button"
@@ -233,6 +251,13 @@ onBeforeUnmount(() => {
       </nav>
 
       <div class="flex shrink-0 items-center gap-2">
+        <button
+          type="button"
+          class="inline-flex shrink-0 items-center justify-center rounded-full border border-gold/40 bg-gold/10 px-3.5 py-2.5 text-sm font-bold tracking-wide text-ink transition duration-200 hover:-translate-y-0.5 hover:bg-gold/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold 2xl:px-4"
+          @click="goToReviewForm"
+        >
+          نظر دهی و امتیاز
+        </button>
         <ThemeIconButton
           class="rounded-full border border-mist/80 bg-panel/80 hover:border-green-deep/35"
           @click="openPicker"

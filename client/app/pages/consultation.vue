@@ -199,7 +199,7 @@ function fieldClass(name: string) {
 </script>
 
 <template>
-  <div class="bg-mist">
+  <div class="max-w-full bg-mist">
     <SiteReveal variant="fade">
       <header class="relative overflow-hidden border-b border-mist-deep bg-panel">
         <div class="pointer-events-none absolute -left-20 top-0 size-72 rounded-full bg-green-deep/10 blur-3xl" />
@@ -411,7 +411,7 @@ function fieldClass(name: string) {
       </div>
 
       <!-- Side -->
-      <aside class="lg:col-span-5">
+      <aside class="min-w-0 lg:col-span-5">
         <div class="sticky top-24 space-y-4">
           <div class="overflow-hidden rounded-[1.6rem] bg-band p-6 text-on-band sm:p-7">
             <p class="text-[11px] font-semibold tracking-[0.18em] text-gold">چطور کار می‌کند؟</p>

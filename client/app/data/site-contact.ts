@@ -1,7 +1,8 @@
 export const siteContact = {
   name: 'کلینیک دندان‌پزشکی امیر رحمتی',
-  address: 'کرج، جهانشهر، خیابان کسری شمالی، کوچه غزال',
-  addressHint: 'دسترسی آسان از جهانشهر؛ نزدیک خیابان کسری شمالی',
+  address:
+    'کرج، جهانشهر، ابتدای بلوار جمهوری، نبش کوچه غزال، ساختمان فاتح، طبقه سوم، واحد ۷',
+  addressHint: 'جهانشهر کرج؛ نبش کوچه غزال، ساختمان فاتح',
   hours: 'شنبه تا چهارشنبه ۹ تا ۲۰ | پنج‌شنبه ۹ تا ۱۴',
   hoursNote: 'نوبت‌های عصر با هماهنگی قبلی امکان‌پذیر است.',
   phone: '۰۲۶-۳۴۲۰۰۰۰۰',
@@ -11,22 +12,20 @@ export const siteContact = {
   responseTime: 'پاسخ اولیه معمولاً در همان روز کاری',
   city: 'کرج',
   district: 'جهانشهر',
-  /** تقریبی — جهانشهر، کسری شمالی */
-  lat: 35.8294,
-  lng: 50.9972,
+  /** جهانشهر، بلوار جمهوری، کوچه غزال — ساختمان فاتح */
+  lat: 35.8281539,
+  lng: 50.979128,
   mapZoom: 17,
-  instagramHandle: 'dentalrahmati',
-  instagramUrl: 'https://www.instagram.com/dentalrahmati/',
+  mapUrl: 'https://maps.app.goo.gl/PF3HoHFnRFbEKwAC6?g_st=ic',
+  instagramHandle: 'dr.amir_rahmati',
+  instagramUrl: 'https://www.instagram.com/dr.amir_rahmati/',
 } as const
 
 export function siteContactMapEmbedUrl() {
   const { lat, lng, mapZoom } = siteContact
-  const delta = 0.006
-  const bbox = [lng - delta, lat - delta, lng + delta, lat + delta].join('%2C')
-  return `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${lat}%2C${lng}#map=${mapZoom}/${lat}/${lng}`
+  return `https://www.google.com/maps?q=${lat},${lng}&z=${mapZoom}&hl=fa&output=embed`
 }
 
 export function siteContactMapLink() {
-  const { lat, lng } = siteContact
-  return `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lng}#map=17/${lat}/${lng}`
+  return siteContact.mapUrl
 }

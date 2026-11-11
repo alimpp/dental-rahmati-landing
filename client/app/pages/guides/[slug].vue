@@ -42,7 +42,7 @@ useSchemaOrg([
 </script>
 
 <template>
-  <article class="bg-surface">
+  <article class="max-w-full bg-surface">
     <SiteReveal variant="zoom">
       <header class="relative isolate overflow-hidden">
         <div class="relative min-h-[min(48vh,460px)] w-full">

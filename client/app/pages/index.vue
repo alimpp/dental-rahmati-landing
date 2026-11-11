@@ -54,10 +54,29 @@ import ClinicInviteSection from '~/components/clinic/ClinicInviteSection.vue'
 usePageSeo({
   title: 'دندانپزشکی در کرج | کلینیک امیر رحمتی جهانشهر',
   description:
-    'کلینیک دندان‌پزشکی امیر رحمتی در کرج جهانشهر: دیجیتال، ایمپلنت، لمینت، ارتودنسی و رزرو نوبت — کسری شمالی، کوچه غزال.',
+    'کلینیک دندان‌پزشکی امیر رحمتی در کرج جهانشهر: زیبایی، ایمپلنت، دیجیتال، لیزر و ارتودنسی — بلوار جمهوری، نبش کوچه غزال، ساختمان فاتح.',
   keywords:
-    'دندانپزشکی در کرج, بهترین دندانپزشک کرج, دندان پزشکی دیجیتال در کرج, ایمپلنت در کرج, لمینت دندان کرج, کلینیک دندانپزشکی جهانشهر, دکتر امیر رحمتی',
+    'دندانپزشکی در کرج, بهترین دندانپزشک کرج, ایمپلنت در کرج, دندان پزشکی دیجیتال کرج, لیزر دندانپزشکی کرج, کلینیک دندانپزشکی جهانشهر, دکتر امیر رحمتی',
   path: '/',
   image: '/clinic/01-facade.jpg',
 })
+
+const route = useRoute()
+
+onMounted(() => {
+  if (route.hash !== '#review-form') return
+  requestAnimationFrame(() => {
+    document.getElementById('review-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  })
+})
+
+watch(
+  () => route.hash,
+  (hash) => {
+    if (hash !== '#review-form') return
+    requestAnimationFrame(() => {
+      document.getElementById('review-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    })
+  },
+)
 </script>

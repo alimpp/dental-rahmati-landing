@@ -34,13 +34,14 @@ useSchemaOrg([
       addressCountry: 'IR',
       addressRegion: 'البرز',
       addressLocality: 'کرج',
-      streetAddress: 'جهانشهر، خیابان کسری شمالی، کوچه غزال',
+      streetAddress: siteContact.address,
     },
     geo: {
       '@type': 'GeoCoordinates',
       latitude: siteContact.lat,
       longitude: siteContact.lng,
     },
+    sameAs: [siteContact.instagramUrl, siteContact.mapUrl],
     openingHoursSpecification: [
       {
         '@type': 'OpeningHoursSpecification',

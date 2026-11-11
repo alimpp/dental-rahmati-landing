@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { serviceModule } from '~/modules'
+import { articleModule, serviceModule } from '~/modules'
 import { ServiceModel } from '~/modules/service/models/index.model'
 import type { RevealVariant } from '~/components/SiteReveal.vue'
 
@@ -32,6 +32,20 @@ const related = computed(() =>
     .slice(0, 3),
 )
 
+const { data: relatedArticles } = await useAsyncData(
+  () => `service-articles-${slug.value}`,
+  async () => {
+    const res = await articleModule.controller.getArticlePage({
+      page: 1,
+      limit: 3,
+      category: service.value.title,
+    })
+    if (!res.success || !res.data) return []
+    return res.data.items || []
+  },
+  { watch: [slug] },
+)
+
 onMounted(() => {
   if (!serviceModule.store.getVisibleItems.length) {
     serviceModule.controller.getServiceList()
@@ -39,14 +53,14 @@ onMounted(() => {
 })
 
 const sectionShell = [
-  'left',
-  'right',
   'up',
+  'soft',
   'rise',
   'tilt',
   'clip',
   'bloom',
-  'slide',
+  'fade',
+  'drop',
 ] as const satisfies readonly RevealVariant[]
 
 usePageSeo({
@@ -69,7 +83,7 @@ useSchemaOrg([
 </script>
 
 <template>
-  <article class="bg-mist">
+  <article class="max-w-full bg-mist">
     <!-- Split editorial hero -->
     <SiteReveal variant="fade" delay="0ms">
       <header class="relative overflow-hidden">
@@ -94,8 +108,8 @@ useSchemaOrg([
               </NuxtLink>
             </SiteReveal>
 
-            <SiteReveal variant="right" delay="90ms">
-              <div class="mt-7 flex items-center gap-4">
+            <SiteReveal variant="soft" delay="90ms">
+              <div class="mt-7 flex min-w-0 items-center gap-4">
                 <span
                   class="inline-flex size-16 shrink-0 items-center justify-center rounded-2xl bg-panel shadow-sm ring-1 ring-mist-deep"
                   aria-hidden="true"
@@ -154,8 +168,8 @@ useSchemaOrg([
             </SiteReveal>
           </div>
 
-          <SiteReveal variant="left" delay="110ms" class="lg:col-span-6">
-            <div class="relative">
+          <SiteReveal variant="up" delay="110ms" class="min-w-0 lg:col-span-6">
+            <div class="relative overflow-hidden">
               <div class="absolute -inset-3 rounded-[2rem] bg-gradient-to-bl from-green-deep/20 to-band/10 blur-2xl" aria-hidden="true" />
               <div class="relative overflow-hidden rounded-[1.75rem] bg-band shadow-[0_30px_80px_rgba(6,54,55,0.22)]">
                 <div class="relative aspect-[16/11]">
@@ -357,7 +371,7 @@ useSchemaOrg([
       </div>
 
       <!-- Sticky side: sticky outside SiteReveal so transform/overflow don't kill it -->
-      <aside class="lg:col-span-4">
+      <aside class="min-w-0 lg:col-span-4">
         <div class="sticky top-24 space-y-4">
           <SiteReveal variant="zoom" delay="120ms">
             <div class="overflow-hidden rounded-[1.6rem] bg-band p-6 text-on-band shadow-[0_24px_55px_rgba(6,54,55,0.2)] sm:p-7">
@@ -419,8 +433,53 @@ useSchemaOrg([
       </aside>
     </div>
 
+    <!-- Related articles for SEO internal links -->
+    <SiteReveal v-if="relatedArticles?.length" variant="up" delay="40ms">
+      <section class="mx-auto max-w-7xl px-4 pb-10 sm:px-6 lg:px-8">
+        <div class="rounded-[1.75rem] bg-panel p-6 ring-1 ring-mist-deep sm:p-8">
+          <p class="text-[11px] font-semibold tracking-[0.2em] text-gold">
+            مقالات مرتبط با {{ service.title }}
+          </p>
+          <h2 class="mt-3 text-2xl font-bold text-ink">
+            راهنماهای کاربردی برای تصمیم بهتر
+          </h2>
+          <div class="mt-6 grid gap-4 md:grid-cols-3">
+            <NuxtLink
+              v-for="article in relatedArticles"
+              :key="article.id"
+              :to="`/articles/${article.slug}`"
+              class="group overflow-hidden rounded-2xl bg-mist/40 ring-1 ring-mist-deep transition hover:-translate-y-0.5 hover:shadow-md"
+            >
+              <div class="aspect-[16/10] overflow-hidden">
+                <img
+                  :src="mediaSrc(article.coverImage)"
+                  :alt="article.title"
+                  class="size-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                  loading="lazy"
+                >
+              </div>
+              <div class="p-4">
+                <p class="line-clamp-2 text-sm font-semibold text-ink">
+                  {{ article.title }}
+                </p>
+                <p class="mt-2 line-clamp-2 text-xs leading-6 text-ink-muted">
+                  {{ article.excerpt }}
+                </p>
+              </div>
+            </NuxtLink>
+          </div>
+          <NuxtLink
+            :to="{ path: '/articles', query: { category: service.title } }"
+            class="mt-5 inline-flex text-sm font-semibold text-green-deep hover:underline"
+          >
+            مشاهده همه مقالات این خدمت
+          </NuxtLink>
+        </div>
+      </section>
+    </SiteReveal>
+
     <!-- Bottom CTA -->
-    <SiteReveal variant="slide" delay="40ms">
+    <SiteReveal variant="up" delay="40ms">
       <section class="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
         <div class="grid gap-6 overflow-hidden rounded-[1.75rem] bg-panel p-8 ring-1 ring-mist-deep sm:p-10 lg:grid-cols-12 lg:items-center">
           <div class="lg:col-span-8">
@@ -436,7 +495,7 @@ useSchemaOrg([
               />
             </h2>
             <p class="reveal-item reveal-item-right mt-4 max-w-xl text-sm leading-8 text-ink-muted" style="--reveal-i: 2">
-              اگر سابقه درمان دارید یا فقط می‌خواهید معاینه اولیه بگیرید، از رزرو نوبت شروع کنید.
+              در کلینیک امیر رحمتی این خدمت با استاندارد تخصصی و توضیح شفاف انجام می‌شود — از رزرو نوبت شروع کنید.
             </p>
           </div>
           <div class="flex flex-wrap gap-3 lg:col-span-4 lg:justify-end">
@@ -448,7 +507,7 @@ useSchemaOrg([
               رزرو نوبت
             </NuxtLink>
             <NuxtLink
-              to="/articles"
+              :to="{ path: '/articles', query: { category: service.title } }"
               class="reveal-item reveal-item-drop inline-flex rounded-2xl px-5 py-3 text-sm font-medium text-ink ring-1 ring-mist-deep transition hover:bg-mist"
               style="--reveal-i: 4"
             >

@@ -12,18 +12,18 @@ const rest = computed(() => items.value.slice(1))
 await serviceController.getServiceList()
 
 usePageSeo({
-  title: 'خدمات دندانپزشکی در کرج | دیجیتال، ایمپلنت، لمینت',
+  title: 'خدمات دندانپزشکی در کرج | زیبایی، ایمپلنت، دیجیتال، لیزر',
   description:
-    'فهرست خدمات کلینیک امیر رحمتی در کرج جهانشهر: دندان‌پزشکی دیجیتال، ایمپلنت، لمینت، ارتودنسی، جرم‌گیری، کودکان و اورژانس.',
+    'خدمات کلینیک امیر رحمتی در کرج جهانشهر: زیبایی، ایمپلنت، ترمیمی، عصب‌کشی، ارتودنسی، دیجیتال و لیزر دندانپزشکی — ساختمان فاتح.',
   keywords:
-    'خدمات دندانپزشکی کرج, ایمپلنت در کرج, لمینت دندان کرج, دندان پزشکی دیجیتال در کرج, ارتودنسی کرج, کلینیک جهانشهر',
+    'خدمات دندانپزشکی کرج, ایمپلنت در کرج, دندان پزشکی زیبایی کرج, لیزر دندانپزشکی کرج, دندان پزشکی دیجیتال کرج, کلینیک جهانشهر',
   path: '/practice-areas',
-  image: '/services/dental-smile.jpg',
+  image: '/services/covers/svc-cosmetic.jpg',
 })
 </script>
 
 <template>
-  <div class="bg-surface">
+  <div class="max-w-full bg-surface">
     <!-- Split hero -->
     <SiteReveal variant="fade">
       <section class="relative overflow-hidden bg-mist">

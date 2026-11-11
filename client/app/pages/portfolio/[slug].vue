@@ -75,7 +75,7 @@ useSchemaOrg([
 </script>
 
 <template>
-  <article class="bg-surface">
+  <article class="max-w-full bg-surface">
     <SiteReveal variant="fade">
       <header class="border-b border-mist-deep bg-mist">
         <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">

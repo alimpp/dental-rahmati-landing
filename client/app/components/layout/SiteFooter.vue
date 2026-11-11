@@ -98,7 +98,7 @@ const columns = [
             class="size-9 rounded-full"
             @click="openPicker"
           />
-          <p>کرج · جهانشهر · کسری شمالی</p>
+          <p>کرج · جهانشهر · بلوار جمهوری</p>
         </div>
       </div>
     </div>

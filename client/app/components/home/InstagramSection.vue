@@ -1,23 +1,23 @@
 <script setup lang="ts">
 import { siteContact } from '~/data/site-contact'
 
-const feed = [
-  '/clinic/01-facade.jpg',
-  '/clinic/04-ops-1.jpg',
-  '/clinic/06-vip.jpg',
-  '/clinic/07-digital.jpg',
-  '/clinic/02-lobby.jpg',
-  '/clinic/09-sterile.jpg',
-  '/clinic/05-ops-2.jpg',
-  '/clinic/08-xray.jpg',
-  '/clinic/11-kids.jpg',
-  '/clinic/03-reception.jpg',
-  '/clinic/10-lab.jpg',
-  '/clinic/12-lounge.jpg',
+/** Explore tiles — mix of square and tall like real Instagram Explore */
+const tiles = [
+  { src: '/clinic/04-ops-1.jpg', tall: true },
+  { src: '/clinic/07-digital.jpg', tall: false },
+  { src: '/clinic/02-lobby.jpg', tall: false },
+  { src: '/clinic/06-vip.jpg', tall: false },
+  { src: '/clinic/09-sterile.jpg', tall: true },
+  { src: '/clinic/08-xray.jpg', tall: false },
+  { src: '/clinic/05-ops-2.jpg', tall: false },
+  { src: '/clinic/03-reception.jpg', tall: false },
+  { src: '/clinic/10-lab.jpg', tall: true },
+  { src: '/clinic/01-facade.jpg', tall: false },
+  { src: '/clinic/11-kids.jpg', tall: false },
+  { src: '/clinic/12-lounge.jpg', tall: false },
 ]
 
-/** Duplicate for seamless vertical loop (-50% translate) */
-const loopFeed = [...feed, ...feed]
+const loopTiles = [...tiles, ...tiles]
 
 const highlights = [
   'فضای کلینیک و اتاق‌های درمان',
@@ -31,13 +31,11 @@ const highlights = [
     class="ig-section relative isolate flex min-h-[100svh] items-center overflow-hidden bg-[#070b0c] text-white"
     aria-labelledby="ig-home-heading"
   >
-    <!-- Atmosphere -->
     <div class="pointer-events-none absolute inset-0" aria-hidden="true">
       <div class="ig-orb ig-orb-a absolute -right-24 top-1/4 size-[28rem] rounded-full bg-green-deep/25 blur-3xl" />
       <div class="ig-orb ig-orb-b absolute -left-20 bottom-0 size-[22rem] rounded-full bg-[#833AB4]/20 blur-3xl" />
-      <div class="ig-orb ig-orb-c absolute left-1/3 top-0 size-64 rounded-full bg-gold/10 blur-3xl" />
       <div
-        class="absolute inset-0 opacity-[0.07]"
+        class="absolute inset-0 opacity-[0.06]"
         style="background-image: radial-gradient(circle at 1px 1px, #fff 1px, transparent 0); background-size: 28px 28px"
       />
     </div>
@@ -46,7 +44,6 @@ const highlights = [
       class="relative mx-auto grid w-full max-w-7xl items-center gap-10 px-4 py-16 sm:gap-12 sm:px-6 sm:py-20 lg:grid-cols-12 lg:gap-8 lg:px-8 lg:py-0"
       dir="ltr"
     >
-      <!-- Copy — physical left on desktop; first on mobile for CTA -->
       <div
         class="order-1 flex flex-col justify-center lg:col-span-5 lg:min-h-[100svh] lg:py-20"
         dir="rtl"
@@ -99,73 +96,73 @@ const highlights = [
             />
             دنبال کردن در اینستاگرام
           </a>
-          <p class="text-sm text-white/45" dir="ltr">
+          <a
+            :href="siteContact.instagramUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-sm text-white/70 transition hover:text-white"
+            dir="ltr"
+          >
             @{{ siteContact.instagramHandle }}
-          </p>
+          </a>
         </div>
       </div>
 
-      <!-- iPhone — physical right on desktop -->
       <div class="order-2 flex items-center justify-center lg:col-span-7 lg:min-h-[100svh]">
-        <div class="ig-phone-wrap reveal-item reveal-item-scale relative" style="--reveal-i: 2">
-          <div class="ig-phone-glow pointer-events-none absolute -inset-10 rounded-[50%] bg-green-deep/20 blur-3xl" aria-hidden="true" />
+        <a
+          :href="siteContact.instagramUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="ig-phone-wrap reveal-item reveal-item-scale relative block"
+          style="--reveal-i: 2"
+          :aria-label="`باز کردن اینستاگرام @${siteContact.instagramHandle}`"
+        >
+          <div class="ig-phone-glow pointer-events-none absolute -inset-8 rounded-[50%] bg-green-deep/15 blur-3xl" aria-hidden="true" />
 
-          <div
-            class="ig-phone relative mx-auto w-[min(72vw,280px)] sm:w-[300px] lg:w-[320px]"
-            role="img"
-            :aria-label="`پیش‌نمایش اکسپلور اینستاگرام @${siteContact.instagramHandle}`"
-          >
-            <!-- Side buttons -->
-            <span class="absolute -left-[3px] top-[18%] h-8 w-[3px] rounded-l-sm bg-[#2a2f33]" aria-hidden="true" />
-            <span class="absolute -left-[3px] top-[28%] h-14 w-[3px] rounded-l-sm bg-[#2a2f33]" aria-hidden="true" />
-            <span class="absolute -left-[3px] top-[42%] h-14 w-[3px] rounded-l-sm bg-[#2a2f33]" aria-hidden="true" />
-            <span class="absolute -right-[3px] top-[32%] h-16 w-[3px] rounded-r-sm bg-[#2a2f33]" aria-hidden="true" />
+          <div class="ig-phone relative mx-auto w-[min(74vw,292px)] sm:w-[310px] lg:w-[328px]">
+            <span class="absolute -left-[2px] top-[17%] h-7 w-[3px] rounded-l-[2px] bg-[#2c3034]" aria-hidden="true" />
+            <span class="absolute -left-[2px] top-[27%] h-12 w-[3px] rounded-l-[2px] bg-[#2c3034]" aria-hidden="true" />
+            <span class="absolute -left-[2px] top-[40%] h-12 w-[3px] rounded-l-[2px] bg-[#2c3034]" aria-hidden="true" />
+            <span class="absolute -right-[2px] top-[30%] h-14 w-[3px] rounded-r-[2px] bg-[#2c3034]" aria-hidden="true" />
 
-            <!-- Titanium frame -->
-            <div class="relative overflow-hidden rounded-[2.65rem] bg-gradient-to-br from-[#3a3f44] via-[#1c1f22] to-[#0c0e10] p-[10px] shadow-[0_40px_80px_rgba(0,0,0,0.55),inset_0_1px_0_rgba(255,255,255,0.12)] ring-1 ring-white/10">
-              <div class="relative aspect-[9/19.4] overflow-hidden rounded-[2.15rem] bg-black">
-                <!-- Dynamic Island -->
+            <div class="relative overflow-hidden rounded-[2.55rem] bg-[#1a1c1e] p-[9px] shadow-[0_28px_70px_rgba(0,0,0,0.5)] ring-1 ring-white/12">
+              <div class="relative aspect-[9/19.5] overflow-hidden rounded-[2.05rem] bg-black">
                 <div
-                  class="absolute left-1/2 top-3 z-20 h-[1.55rem] w-[7.2rem] -translate-x-1/2 rounded-full bg-black shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)]"
+                  class="absolute left-1/2 top-[11px] z-20 h-[26px] w-[108px] -translate-x-1/2 rounded-full bg-black"
                   aria-hidden="true"
-                >
-                  <span class="absolute right-3 top-1/2 size-2 -translate-y-1/2 rounded-full bg-[#0a2540] ring-1 ring-[#1a4a6e]/50" />
-                </div>
+                />
 
-                <!-- Screen: Instagram Explore -->
-                <div class="absolute inset-0 flex flex-col bg-[#000]" dir="rtl">
-                  <!-- Status bar -->
-                  <div class="relative z-10 flex items-end justify-between px-6 pb-1 pt-3 text-[10px] font-semibold text-white">
+                <div class="absolute inset-0 flex flex-col bg-black" dir="rtl">
+                  <div class="relative z-10 flex items-end justify-between px-5 pb-1 pt-2.5 text-[10px] font-semibold text-white">
                     <span>۹:۴۱</span>
-                    <span class="flex items-center gap-1 opacity-90">
+                    <span class="flex items-center gap-1 opacity-85">
                       <span class="tracking-tighter">●●●</span>
-                      <span class="ml-0.5 inline-block h-2.5 w-5 rounded-sm border border-white/80">
+                      <span class="inline-block h-2.5 w-5 rounded-[3px] border border-white/80">
                         <span class="m-px block h-full w-3/4 rounded-[1px] bg-white" />
                       </span>
                     </span>
                   </div>
 
-                  <!-- IG header -->
-                  <div class="relative z-10 border-b border-white/10 px-3 pb-2.5 pt-1">
-                    <p class="mb-2 text-center text-[13px] font-semibold tracking-wide text-white">
+                  <div class="relative z-10 px-3 pb-2 pt-1">
+                    <p class="mb-2 text-center text-[13px] font-semibold text-white">
                       کاوش
                     </p>
-                    <div class="flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 text-[11px] text-white/55">
+                    <div class="flex items-center gap-2 rounded-xl bg-[#262626] px-3 py-[9px] text-[12px] text-white/55">
                       <span aria-hidden="true">⌕</span>
                       <span>جستجو</span>
                     </div>
                   </div>
 
-                  <!-- Scrolling explore grid -->
                   <div class="relative min-h-0 flex-1 overflow-hidden">
-                    <div class="ig-explore-track absolute inset-x-0 top-0 grid grid-cols-3 gap-[2px] px-[2px]">
+                    <div class="ig-explore-track absolute inset-x-0 top-0 grid grid-cols-3 gap-[1.5px] px-[1.5px] auto-rows-[minmax(0,1fr)]">
                       <div
-                        v-for="(src, index) in loopFeed"
-                        :key="`${src}-${index}`"
-                        class="relative aspect-square overflow-hidden bg-[#111]"
+                        v-for="(tile, index) in loopTiles"
+                        :key="`${tile.src}-${index}`"
+                        class="relative overflow-hidden bg-[#111]"
+                        :class="tile.tall ? 'row-span-2 aspect-[3/6]' : 'aspect-square'"
                       >
                         <img
-                          :src="src"
+                          :src="tile.src"
                           alt=""
                           class="size-full object-cover"
                           width="240"
@@ -176,31 +173,29 @@ const highlights = [
                       </div>
                     </div>
                     <div
-                      class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black to-transparent"
+                      class="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-black to-transparent"
                       aria-hidden="true"
                     />
                   </div>
 
-                  <!-- Tab bar -->
-                  <div class="relative z-10 flex items-center justify-around border-t border-white/10 bg-black/90 px-2 py-2.5 text-white/70">
-                    <span class="text-sm" aria-hidden="true">⌂</span>
-                    <span class="text-sm text-white" aria-hidden="true">⌕</span>
-                    <span class="text-sm" aria-hidden="true">＋</span>
-                    <span class="text-sm" aria-hidden="true">♡</span>
-                    <span class="size-5 overflow-hidden rounded-full ring-1 ring-white/40">
+                  <div class="relative z-10 flex items-center justify-around border-t border-white/10 bg-black px-1 py-2.5 text-white/65">
+                    <span class="text-[15px]" aria-hidden="true">⌂</span>
+                    <span class="text-[15px] text-white" aria-hidden="true">⌕</span>
+                    <span class="text-[15px]" aria-hidden="true">＋</span>
+                    <span class="text-[15px]" aria-hidden="true">▷</span>
+                    <span class="size-[22px] overflow-hidden rounded-full ring-1 ring-white/35">
                       <img src="/clinic/01-facade.jpg" alt="" class="size-full object-cover">
                     </span>
                   </div>
 
-                  <!-- Home indicator -->
-                  <div class="flex justify-center bg-black pb-2 pt-1" aria-hidden="true">
-                    <span class="h-1 w-28 rounded-full bg-white/35" />
+                  <div class="flex justify-center bg-black pb-1.5 pt-0.5" aria-hidden="true">
+                    <span class="h-[4px] w-[108px] rounded-full bg-white/30" />
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </a>
       </div>
     </div>
   </section>
@@ -208,21 +203,18 @@ const highlights = [
 
 <style scoped>
 .ig-phone-wrap {
-  animation: ig-float 5.5s ease-in-out infinite;
+  animation: ig-float 7s ease-in-out infinite;
 }
 
 .ig-orb-a {
-  animation: ig-orb-drift 12s ease-in-out infinite;
+  animation: ig-orb-drift 14s ease-in-out infinite;
 }
 .ig-orb-b {
-  animation: ig-orb-drift 16s ease-in-out infinite reverse;
-}
-.ig-orb-c {
-  animation: ig-orb-drift 10s ease-in-out infinite 1s;
+  animation: ig-orb-drift 18s ease-in-out infinite reverse;
 }
 
 .ig-explore-track {
-  animation: ig-explore-scroll 28s linear infinite;
+  animation: ig-explore-scroll 36s linear infinite;
   will-change: transform;
 }
 
@@ -232,12 +224,12 @@ const highlights = [
 
 @keyframes ig-float {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
+  50% { transform: translateY(-8px); }
 }
 
 @keyframes ig-orb-drift {
-  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.85; }
-  50% { transform: translate(18px, -24px) scale(1.08); opacity: 1; }
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.8; }
+  50% { transform: translate(14px, -18px) scale(1.05); opacity: 1; }
 }
 
 @keyframes ig-explore-scroll {
@@ -249,7 +241,6 @@ const highlights = [
   .ig-phone-wrap,
   .ig-orb-a,
   .ig-orb-b,
-  .ig-orb-c,
   .ig-explore-track {
     animation: none;
   }

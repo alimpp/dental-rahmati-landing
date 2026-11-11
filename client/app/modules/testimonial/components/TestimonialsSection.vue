@@ -297,7 +297,11 @@ function closeSuccess() {
       </p>
 
       <!-- Submit form -->
-      <div class="reveal-item mt-14 grid gap-8 rounded-[1.75rem] bg-panel p-6 ring-1 ring-mist-deep sm:p-8 lg:grid-cols-12 lg:gap-10" style="--reveal-i: 4">
+      <div
+        id="review-form"
+        class="reveal-item mt-14 scroll-mt-28 grid gap-8 rounded-[1.75rem] bg-panel p-6 ring-1 ring-mist-deep sm:p-8 lg:grid-cols-12 lg:gap-10"
+        style="--reveal-i: 4"
+      >
         <div class="lg:col-span-4">
           <p class="text-[11px] font-semibold tracking-[0.18em] text-gold">
             ثبت نظر شما

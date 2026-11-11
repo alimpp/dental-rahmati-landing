@@ -40,11 +40,11 @@ onMounted(() => {
 
 const sectionShell = [
   'up',
-  'right',
-  'left',
   'soft',
   'rise',
   'tilt',
+  'fade',
+  'drop',
 ] as const satisfies readonly RevealVariant[]
 
 usePageSeo({
@@ -79,7 +79,7 @@ useSchemaOrg([
 
 <template>
   <!-- Magazine / reading-room character -->
-  <article class="bg-mist">
+  <article class="max-w-full bg-mist">
     <SiteReveal variant="fade" delay="0ms">
       <header class="relative overflow-hidden">
         <div
@@ -99,8 +99,8 @@ useSchemaOrg([
               </NuxtLink>
             </SiteReveal>
 
-            <SiteReveal variant="right" delay="80ms">
-              <div class="mt-7 flex flex-wrap items-center gap-2 text-[11px]">
+            <SiteReveal variant="soft" delay="80ms">
+              <div class="mt-7 flex min-w-0 flex-wrap items-center gap-2 text-[11px]">
                 <span class="rounded-full bg-gold/15 px-3 py-1 font-semibold text-gold ring-1 ring-gold/25">
                   {{ article.category }}
                 </span>
@@ -140,8 +140,8 @@ useSchemaOrg([
             </SiteReveal>
           </div>
 
-          <SiteReveal variant="left" delay="100ms" class="lg:col-span-5">
-            <figure class="relative">
+          <SiteReveal variant="up" delay="100ms" class="min-w-0 lg:col-span-5">
+            <figure class="relative overflow-hidden">
               <div class="absolute -inset-3 rounded-[1.75rem] bg-gradient-to-tr from-band/10 to-green-deep/15 blur-2xl" aria-hidden="true" />
               <div class="relative overflow-hidden rounded-[1.5rem] bg-panel shadow-[0_24px_60px_rgba(6,54,55,0.14)] ring-1 ring-mist-deep">
                 <div class="aspect-[4/5] sm:aspect-[5/6]">
@@ -254,7 +254,7 @@ useSchemaOrg([
           </SiteReveal>
         </template>
 
-        <SiteReveal variant="slide" delay="40ms">
+        <SiteReveal variant="up" delay="40ms">
           <aside class="overflow-hidden rounded-[1.5rem] bg-band p-6 text-on-band sm:p-8">
             <p class="reveal-item reveal-item-fade text-[11px] font-semibold tracking-[0.2em] text-gold" style="--reveal-i: 0">
               ادامه مسیر
@@ -282,7 +282,7 @@ useSchemaOrg([
       </div>
 
       <!-- Sticky meta rail -->
-      <aside class="lg:col-span-4">
+      <aside class="min-w-0 lg:col-span-4">
         <div class="sticky top-24 space-y-4">
           <SiteReveal variant="zoom" delay="120ms">
             <div class="rounded-[1.5rem] bg-panel p-5 ring-1 ring-mist-deep sm:p-6">
@@ -291,24 +291,24 @@ useSchemaOrg([
               </p>
               <dl class="mt-4 space-y-3 text-sm">
                 <div class="reveal-item reveal-item-left flex justify-between gap-3" style="--reveal-i: 1">
-                  <dt class="text-ink-muted">دسته</dt>
-                  <dd class="font-medium text-ink">{{ article.category }}</dd>
+                  <dt class="shrink-0 text-ink-muted">دسته</dt>
+                  <dd class="min-w-0 break-words text-end font-medium text-ink">{{ article.category }}</dd>
                 </div>
                 <div class="reveal-item reveal-item-right flex justify-between gap-3" style="--reveal-i: 2">
-                  <dt class="text-ink-muted">نویسنده</dt>
-                  <dd class="font-medium text-ink">{{ article.author }}</dd>
+                  <dt class="shrink-0 text-ink-muted">نویسنده</dt>
+                  <dd class="min-w-0 break-words text-end font-medium text-ink">{{ article.author }}</dd>
                 </div>
                 <div
                   v-if="article.displayDate"
                   class="reveal-item reveal-item-left flex justify-between gap-3"
                   style="--reveal-i: 3"
                 >
-                  <dt class="text-ink-muted">تاریخ</dt>
-                  <dd class="font-medium text-ink">{{ article.displayDate }}</dd>
+                  <dt class="shrink-0 text-ink-muted">تاریخ</dt>
+                  <dd class="min-w-0 break-words text-end font-medium text-ink">{{ article.displayDate }}</dd>
                 </div>
                 <div class="reveal-item reveal-item-right flex justify-between gap-3" style="--reveal-i: 4">
-                  <dt class="text-ink-muted">زمان مطالعه</dt>
-                  <dd class="font-medium text-ink">{{ article.readingMinutes }} دقیقه</dd>
+                  <dt class="shrink-0 text-ink-muted">زمان مطالعه</dt>
+                  <dd class="min-w-0 break-words text-end font-medium text-ink">{{ article.readingMinutes }} دقیقه</dd>
                 </div>
               </dl>
               <NuxtLink
