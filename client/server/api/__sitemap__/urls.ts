@@ -50,13 +50,14 @@ export default defineSitemapEventHandler(async () => {
 
   return [
     { loc: '/', changefreq: 'daily', priority: 1 },
-    { loc: '/about', changefreq: 'monthly', priority: 0.8 },
+    { loc: '/about', changefreq: 'monthly', priority: 0.85 },
+    { loc: '/practice-areas', changefreq: 'weekly', priority: 0.95 },
     { loc: '/articles', changefreq: 'daily', priority: 0.9 },
+    { loc: '/clinic', changefreq: 'monthly', priority: 0.8 },
     { loc: '/guides', changefreq: 'weekly', priority: 0.8 },
-    { loc: '/portfolio', changefreq: 'weekly', priority: 0.7 },
+    { loc: '/portfolio', changefreq: 'weekly', priority: 0.75 },
     { loc: '/contact', changefreq: 'monthly', priority: 0.8 },
-    { loc: '/consultation', changefreq: 'monthly', priority: 0.8 },
-    { loc: '/practice-areas', changefreq: 'weekly', priority: 0.8 },
+    { loc: '/consultation', changefreq: 'weekly', priority: 0.9 },
     ...articles
       .filter((item) => item.slug)
       .map((item) => ({

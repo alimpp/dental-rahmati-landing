@@ -2,6 +2,7 @@
 import { portfolioModule } from '~/modules'
 import { PortfolioItemModel } from '~/modules/portfolio/models/index.model'
 import PortfolioBeforeAfter from '~/modules/portfolio/components/PortfolioBeforeAfter.vue'
+import { SEO_PAGES } from '~/data/seo'
 
 const portfolioDS = portfolioModule.store
 const mediaSrc = useMediaSrc()
@@ -23,11 +24,9 @@ const filtered = computed(() => {
 await portfolioModule.controller.getPortfolioList()
 
 usePageSeo({
-  title: 'نمونه کارهای دندانپزشکی | قبل و بعد درمان کلینیک امیر رحمتی',
-  description:
-    'نمونه کارهای واقعی بیماران کلینیک امیر رحمتی در کرج: لمینت، ایمپلنت، زیبایی و ارتودنسی با عکس قبل و بعد.',
-  keywords:
-    'نمونه کار دندانپزشکی کرج, قبل و بعد لمینت, نمونه کار ایمپلنت کرج, لبخند بیماران امیر رحمتی',
+  title: SEO_PAGES.portfolio.title,
+  description: SEO_PAGES.portfolio.description,
+  keywords: SEO_PAGES.portfolio.keywords,
   image: () => items.value[0]?.cover || '/clinic/06-vip.jpg',
   path: '/portfolio',
 })
@@ -35,15 +34,14 @@ usePageSeo({
 useSchemaOrg([
   defineWebPage({
     '@type': 'CollectionPage',
-    name: 'نمونه کارهای بیماران کلینیک امیر رحمتی',
-    description:
-      'گالری قبل و بعد درمان‌های دندانپزشکی کلینیک امیر رحمتی در کرج جهانشهر.',
+    name: SEO_PAGES.portfolio.title,
+    description: SEO_PAGES.portfolio.description,
     url: '/portfolio',
   }),
   defineBreadcrumb({
     itemListElement: [
       { name: 'خانه', item: '/' },
-      { name: 'نمونه کارها', item: '/portfolio' },
+      { name: 'نمونه کار ایمپلنت و لمینت', item: '/portfolio' },
     ],
   }),
 ])
@@ -56,7 +54,7 @@ useSchemaOrg([
         <img
           v-if="items[0]"
           :src="mediaSrc(items[0].cover)"
-          alt=""
+          :alt="`نمونه کار ${items[0].treatment || 'دندان پزشکی'} — دکتر امیر رحمتی کرج`"
           class="portfolio-hero-media absolute inset-0 size-full object-cover opacity-35"
           width="1920"
           height="900"
@@ -69,18 +67,18 @@ useSchemaOrg([
 
         <div class="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
           <p class="text-[11px] font-semibold tracking-[0.28em] text-gold">
-            کلینیک امیر رحمتی
+            کلینیک دکتر امیر رحمتی
           </p>
           <h1 class="mt-4 max-w-3xl text-3xl font-bold tracking-tight sm:text-5xl sm:leading-[1.12]">
             <SiteTypeText
-              text="نمونه کارهای واقعی بیماران"
+              text="نمونه کار ایمپلنت، لمینت و کامپوزیت در کرج"
               :speed="32"
               :start-delay="80"
               as="span"
             />
           </h1>
           <p class="mt-5 max-w-xl text-[15px] leading-8 text-on-band/75">
-            لبخندهایی که در کلینیک ساخته شده‌اند — عکس دندان و نتیجه درمان، با توضیح کوتاه هر کیس.
+            نتایج دندان پزشکی دیجیتال دکتر امیر رحمتی — قبل و بعد ایمپلنت دیجیتال، لمینت و کامپوزیت.
             هویت بیماران محرمانه می‌ماند.
           </p>
           <div class="mt-8 flex flex-wrap gap-3">

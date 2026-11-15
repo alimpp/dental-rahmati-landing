@@ -154,7 +154,7 @@ useSchemaOrg([
                   >
                 </div>
                 <figcaption class="flex items-center justify-between gap-3 border-t border-mist-deep bg-panel px-4 py-3">
-                  <span class="text-[11px] tracking-[0.16em] text-gold">مقاله امیر رحمتی</span>
+                  <span class="text-[11px] tracking-[0.16em] text-gold">مقاله دکتر امیر رحمتی</span>
                   <span class="truncate text-xs text-ink-muted">{{ article.category }}</span>
                 </figcaption>
               </div>

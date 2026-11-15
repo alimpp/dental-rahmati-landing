@@ -13,7 +13,7 @@ await promiseModule.controller.getList()
       <div class="grid gap-10 lg:grid-cols-12 lg:gap-14">
         <div class="lg:col-span-4 lg:sticky lg:top-28 lg:self-start">
           <p class="reveal-item reveal-item-fade text-[11px] font-semibold tracking-[0.2em] text-gold" style="--reveal-i: 0">
-            چرا امیر رحمتی
+            چرا دکتر امیر رحمتی
           </p>
           <h2 class="reveal-item mt-3 text-3xl font-bold tracking-tight text-ink sm:text-4xl" style="--reveal-i: 1">
             سه تعهد ساده؛ بدون شعار اضافه

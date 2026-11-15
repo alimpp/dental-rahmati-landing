@@ -19,8 +19,8 @@ const columns = [
   {
     title: 'خدمات',
     links: [
-      { label: 'خدمات', to: '/practice-areas' },
-      { label: 'مقالات', to: '/articles' },
+      { label: 'دندان پزشکی دیجیتال', to: '/practice-areas' },
+      { label: 'مقالات ایمپلنت و لمینت', to: '/articles' },
       { label: 'رزرو نوبت', to: '/consultation' },
       { label: 'تماس با ما', to: '/contact' },
     ],
@@ -41,7 +41,7 @@ const columns = [
             {{ siteContact.name }}
           </p>
           <p class="mt-4 max-w-md text-[15px] leading-8 text-on-band/75">
-            مراقبت دندانپزشکی با رویکرد دقیق و آرام؛ از معاینه و پیشگیری تا ترمیم، زیبایی و ایمپلنت — همراه شما تا لبخندی سالم.
+            دندان پزشکی دیجیتال در کرج با دکتر امیر رحمتی؛ ایمپلنت دیجیتال، لمینت، کامپوزیت و طراحی لبخند — دقیق، شفاف و قابل پیش‌بینی.
           </p>
           <p class="mt-5 text-sm leading-7 text-on-band/70">
             {{ siteContact.bar }}
@@ -86,6 +86,14 @@ const columns = [
             </li>
             <li>{{ siteContact.hours }}</li>
           </ul>
+          <div class="mt-6">
+            <p class="text-xs font-semibold tracking-wide text-gold">
+              نماد اعتماد
+            </p>
+            <div class="mt-3">
+              <EnamadBadge size="md" class="!bg-white" />
+            </div>
+          </div>
         </div>
       </div>
 
@@ -98,7 +106,7 @@ const columns = [
             class="size-9 rounded-full"
             @click="openPicker"
           />
-          <p>کرج · جهانشهر · بلوار جمهوری</p>
+          <p>کرج · جهانشهر · خیابان غزال</p>
         </div>
       </div>
     </div>

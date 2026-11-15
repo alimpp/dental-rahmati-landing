@@ -113,13 +113,13 @@ async function submit() {
         <div class="flex items-center gap-3">
           <img
             src="/images/logo.svg"
-            alt="لوگوی کلینیک امیر رحمتی"
+            alt="لوگوی کلینیک دکتر امیر رحمتی"
             class="size-14 rounded-2xl ring-1 ring-gold/35"
             width="56"
             height="56"
           >
           <div>
-            <p class="text-lg font-semibold">امیر رحمتی</p>
+            <p class="text-lg font-semibold">دکتر امیر رحمتی</p>
             <p class="text-xs text-gold">کلینیک دندان‌پزشکی</p>
           </div>
         </div>

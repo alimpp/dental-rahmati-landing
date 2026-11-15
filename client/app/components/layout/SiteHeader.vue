@@ -142,13 +142,13 @@ onBeforeUnmount(() => {
       <NuxtLink
         to="/"
         class="group flex min-w-0 items-center gap-2.5"
-        aria-label="صفحه اصلی کلینیک امیر رحمتی"
+        aria-label="صفحه اصلی کلینیک دکتر امیر رحمتی"
         @click="closeMenu"
       >
         <span class="site-header__logo-ring inline-flex size-10 shrink-0 items-center justify-center rounded-2xl bg-panel shadow-sm ring-1 ring-mist/80 transition group-hover:ring-green-deep/35">
           <img
             src="/images/logo.svg?v=2"
-            alt="لوگوی کلینیک دندان‌پزشکی امیر رحمتی"
+            alt="لوگوی کلینیک دندان‌پزشکی دکتر امیر رحمتی"
             class="size-7"
             width="28"
             height="28"
@@ -156,7 +156,7 @@ onBeforeUnmount(() => {
         </span>
         <div class="min-w-0 leading-tight">
           <p class="truncate text-sm font-bold tracking-tight text-green-deep">
-            امیر رحمتی
+            دکتر امیر رحمتی
           </p>
           <p class="truncate text-[11px] text-ink-muted">
             کلینیک دندان‌پزشکی
@@ -204,12 +204,12 @@ onBeforeUnmount(() => {
       <NuxtLink
         to="/"
         class="group flex min-w-0 shrink-0 items-center gap-3"
-        aria-label="صفحه اصلی کلینیک امیر رحمتی"
+        aria-label="صفحه اصلی کلینیک دکتر امیر رحمتی"
       >
         <span class="site-header__logo-ring inline-flex size-11 shrink-0 items-center justify-center rounded-2xl bg-panel shadow-sm ring-1 ring-mist/80 transition group-hover:ring-green-deep/35">
           <img
             src="/images/logo.svg?v=2"
-            alt="لوگوی کلینیک دندان‌پزشکی امیر رحمتی"
+            alt="لوگوی کلینیک دندان‌پزشکی دکتر امیر رحمتی"
             class="size-8"
             width="32"
             height="32"
@@ -217,7 +217,7 @@ onBeforeUnmount(() => {
         </span>
         <div class="min-w-0 leading-tight">
           <p class="text-sm font-bold tracking-tight text-green-deep 2xl:text-[15px]">
-            امیر رحمتی
+            دکتر امیر رحمتی
           </p>
           <p class="hidden truncate text-xs text-ink-muted 2xl:block">
             کلینیک دندان‌پزشکی

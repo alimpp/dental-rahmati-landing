@@ -10,6 +10,7 @@ import type {
   TPermissionSchema,
   TUpdateAdminPayload,
   TUploadFile,
+  TVisitDayDetail,
   TVisitReport,
   VisitReportRange,
 } from '../types/index.type'
@@ -81,6 +82,15 @@ export class AdminApiService extends BaseApp<{ id: string }> {
   public async getReports(range: VisitReportRange = 'daily'): Promise<ServerResponse<TVisitReport>> {
     return this.executeRequest<TVisitReport>(async () => {
       return await this.Get<TVisitReport>('/analytics/reports', { range })
+    }, false)
+  }
+
+  public async getDayDetail(
+    bucket: string,
+    range: VisitReportRange = 'daily',
+  ): Promise<ServerResponse<TVisitDayDetail>> {
+    return this.executeRequest<TVisitDayDetail>(async () => {
+      return await this.Get<TVisitDayDetail>('/analytics/day-detail', { bucket, range })
     }, false)
   }
 

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { siteContact } from '~/data/site-contact'
+import { SEO_OFFER_CATALOG } from '~/data/seo'
 import { useSiteTheme } from '~/composables/useSiteTheme'
 import ThemePicker from '~/components/theme/ThemePicker.vue'
 
@@ -12,23 +13,32 @@ onMounted(() => {
 
 useSchemaOrg([
   defineWebSite({
-    name: 'کلینیک دندان‌پزشکی امیر رحمتی | دندانپزشکی در کرج',
+    name: 'کلینیک دندان‌پزشکی دکتر امیر رحمتی | دندان پزشکی دیجیتال در کرج',
     inLanguage: 'fa-IR',
     description:
-      'دندان‌پزشکی دیجیتال، ایمپلنت و لمینت در کرج جهانشهر — کلینیک دکتر امیر رحمتی.',
+      'دکتر امیر رحمتی در کرج — دندان پزشکی دیجیتال، ایمپلنت دیجیتال، لمینت و کامپوزیت.',
   }),
   {
     '@type': ['Dentist', 'MedicalBusiness', 'LocalBusiness'],
     '@id': `${siteUrl}/#clinic`,
     name: siteContact.name,
-    alternateName: ['دندانپزشکی امیر رحمتی کرج', 'کلینیک دندانپزشکی جهانشهر'],
+    alternateName: [
+      'دکتر امیر رحمتی',
+      'دندان پزشکی دیجیتال در کرج',
+      'کلینیک دندانپزشکی جهانشهر',
+    ],
     url: siteUrl,
     logo: `${siteUrl}/images/logo.svg`,
-    image: `${siteUrl}/banners/clinic-hero.jpg`,
+    image: `${siteUrl}/clinic/01-facade.jpg`,
     email: siteContact.email,
     telephone: siteContact.phoneHref.replace('tel:', ''),
     priceRange: '$$',
-    medicalSpecialty: ['Dentistry', 'CosmeticDentistry', 'OralSurgery'],
+    medicalSpecialty: [
+      'Dentistry',
+      'CosmeticDentistry',
+      'Prosthodontics',
+      'OralSurgery',
+    ],
     address: {
       '@type': 'PostalAddress',
       addressCountry: 'IR',
@@ -41,19 +51,17 @@ useSchemaOrg([
       latitude: siteContact.lat,
       longitude: siteContact.lng,
     },
-    sameAs: [siteContact.instagramUrl, siteContact.mapUrl],
+    sameAs: [
+      siteContact.instagramUrl,
+      siteContact.mapUrl,
+      'https://www.paziresh24.com/dr/دکتر-امیر-رحمتی/',
+    ],
     openingHoursSpecification: [
       {
         '@type': 'OpeningHoursSpecification',
-        dayOfWeek: ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday'],
-        opens: '09:00',
-        closes: '20:00',
-      },
-      {
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: 'Thursday',
-        opens: '09:00',
-        closes: '14:00',
+        dayOfWeek: ['Sunday', 'Tuesday', 'Thursday'],
+        opens: '12:00',
+        closes: '21:00',
       },
     ],
     areaServed: [
@@ -62,19 +70,33 @@ useSchemaOrg([
     ],
     employee: {
       '@type': 'Person',
+      '@id': `${siteUrl}/about#physician`,
       name: 'دکتر امیر رحمتی',
-      jobTitle: 'دندانپزشک',
+      jobTitle: 'جراح و دندان‌پزشک؛ متخصص درمان‌های دیجیتال و طراحی لبخند',
+      identifier: siteContact.medicalLicense,
       worksFor: { '@id': `${siteUrl}/#clinic` },
     },
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
-      name: 'خدمات دندانپزشکی در کرج',
-      itemListElement: [
-        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'دندان‌پزشکی دیجیتال در کرج' } },
-        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'ایمپلنت دندان در کرج' } },
-        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'لمینت دندان در کرج' } },
-      ],
+      name: 'خدمات دندان پزشکی دیجیتال در کرج',
+      itemListElement: SEO_OFFER_CATALOG.map((name, index) => ({
+        '@type': 'Offer',
+        position: index + 1,
+        itemOffered: {
+          '@type': 'Service',
+          name,
+          provider: { '@id': `${siteUrl}/#clinic` },
+          areaServed: 'کرج',
+        },
+      })),
     },
+    knowsAbout: [
+      'دندان پزشکی دیجیتال',
+      'ایمپلنت دیجیتال',
+      'لمینت',
+      'کامپوزیت',
+      'طراحی لبخند دیجیتال',
+    ],
   },
 ])
 </script>

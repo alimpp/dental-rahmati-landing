@@ -12,7 +12,7 @@ export const THEME_SEED: Array<{
   {
     name: 'کلینیک تیل',
     slug: 'clinic-teal',
-    description: 'تم پیش‌فرض کلینیک امیر رحمتی — تیل تازه و آکوا',
+    description: 'تم پیش‌فرض کلینیک دکتر امیر رحمتی — تیل تازه و آکوا',
     colors: {
       primary: '#0f766e',
       primarySoft: '#ccfbf1',

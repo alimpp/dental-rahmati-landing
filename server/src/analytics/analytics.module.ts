@@ -8,11 +8,13 @@ import { Service } from '../service/entities/service.entity';
 import { AnalyticsController } from './analytics.controller';
 import { AnalyticsService } from './analytics.service';
 import { PageView } from './entities/page-view.entity';
+import { PageViewDevice } from './entities/page-view-device.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([
       PageView,
+      PageViewDevice,
       Article,
       Banner,
       Service,

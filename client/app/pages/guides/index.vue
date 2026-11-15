@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { guideModule } from '~/modules'
 import { GuideModel } from '~/modules/guide/models/index.model'
+import { SEO_PAGES } from '~/data/seo'
 
 const mediaSrc = useMediaSrc()
 const guideDS = guideModule.store
@@ -21,10 +22,9 @@ const filtered = computed(() => {
 await guideModule.controller.getList()
 
 usePageSeo({
-  title: 'راهنمای دندانپزشکی در کرج | قبل و بعد درمان',
-  description:
-    'راهنماهای کاربردی کلینیک امیر رحمتی در کرج جهانشهر: آماده‌سازی نوبت، بهداشت، مراقبت بعد ایمپلنت و لمینت.',
-  keywords: 'راهنمای دندانپزشکی کرج, مراقبت بعد ایمپلنت, مراقبت بعد لمینت, نوبت دندانپزشکی جهانشهر',
+  title: SEO_PAGES.guides.title,
+  description: SEO_PAGES.guides.description,
+  keywords: SEO_PAGES.guides.keywords,
   image: () => items.value[0]?.coverImage || '/banners/clinic-hero.jpg',
   path: '/guides',
 })
@@ -48,11 +48,11 @@ usePageSeo({
             راهنماها
           </p>
           <h1 class="mt-4 max-w-2xl text-3xl font-bold tracking-tight text-ink sm:text-5xl sm:leading-[1.15]">
-            کلینیک امیر رحمتی
-            <span class="mt-1 block text-ink-muted sm:mt-2">قبل از درمان، کوتاه و کاربردی بخوانید</span>
+            راهنمای ایمپلنت، لمینت و دندان پزشکی دیجیتال
+            <span class="mt-1 block text-ink-muted sm:mt-2">قبل و بعد درمان در کرج — دکتر امیر رحمتی</span>
           </h1>
           <p class="mt-5 max-w-xl text-[15px] leading-8 text-ink-muted">
-            آماده‌سازی نوبت، بهداشت روزانه و مراقبت بعد از درمان — بدون شعار اضافه.
+            آماده‌سازی نوبت، مراقبت بعد ایمپلنت دیجیتال، لمینت و کامپوزیت — کوتاه و کاربردی.
           </p>
           <div class="mt-8 flex flex-wrap items-center gap-3">
             <NuxtLink

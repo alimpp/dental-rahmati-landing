@@ -20,21 +20,21 @@ onMounted(() => {
       <div class="flex flex-wrap items-end justify-between gap-5">
         <div class="max-w-2xl">
           <p class="text-[11px] font-semibold tracking-[0.2em] text-gold">
-            خدمات
+            خدمات دندان پزشکی دیجیتال
           </p>
           <h2 class="mt-3 text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-            هر نیاز، درمان متناسب همان خدمت
+            ایمپلنت دیجیتال، لمینت و کامپوزیت در کرج
           </h2>
           <p class="mt-4 max-w-2xl text-[15px] leading-8 text-ink-muted">
-            از معاینه و پیشگیری تا ترمیم، زیبایی، لمینت و ایمپلنت در کرج جهانشهر —
-            هر خدمت با توضیح شفاف و برنامه درمانی مشخص.
+            خدمات دندان پزشکی دیجیتال دکتر امیر رحمتی — از ایمپلنت دیجیتال و طراحی لبخند تا لمینت و کامپوزیت،
+            با طرح درمان شفاف در جهانشهر.
           </p>
         </div>
         <NuxtLink
           to="/practice-areas"
           class="inline-flex rounded-2xl bg-green-deep px-5 py-3 text-sm font-semibold text-on-primary transition hover:opacity-90"
         >
-          همه خدمات
+          همه خدمات دیجیتال
         </NuxtLink>
       </div>
 

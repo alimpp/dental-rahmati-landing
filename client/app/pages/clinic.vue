@@ -3,19 +3,28 @@ import ClinicStoryTour from '~/components/clinic/ClinicStoryTour.vue'
 import ServicesSection from '~/modules/service/components/ServicesSection.vue'
 import ArticlesPreview from '~/modules/article/components/ArticlesPreview.vue'
 import { siteContact } from '~/data/site-contact'
+import { SEO_PAGES } from '~/data/seo'
 
 definePageMeta({
   layout: 'default',
 })
 
 usePageSeo({
-  title: 'تور کلینیک دندانپزشکی در کرج جهانشهر | امیر رحمتی',
-  description:
-    'بازدید تصویری از ۱۲ فضای کلینیک امیر رحمتی در کرج جهانشهر: ورودی، پذیرش، یونیت درمان، دیجیتال، VIP و استریل.',
-  keywords: 'کلینیک دندانپزشکی کرج, کلینیک جهانشهر, تور کلینیک امیر رحمتی, بلوار جمهوری, ساختمان فاتح',
+  title: SEO_PAGES.clinic.title,
+  description: SEO_PAGES.clinic.description,
+  keywords: SEO_PAGES.clinic.keywords,
   path: '/clinic',
   image: '/clinic/02-lobby.jpg',
 })
+
+useSchemaOrg([
+  defineBreadcrumb({
+    itemListElement: [
+      { name: 'خانه', item: '/' },
+      { name: 'کلینیک دندان پزشکی دیجیتال', item: '/clinic' },
+    ],
+  }),
+])
 
 const highlights = [
   { title: 'پذیرش دیجیتال', text: 'پرونده و زمان‌بندی شفاف از همان ورود' },

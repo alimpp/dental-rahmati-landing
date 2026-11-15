@@ -51,7 +51,7 @@ usePageSeo({
   title: () => `${item.value.title} | نمونه کار ${item.value.treatment || 'دندانپزشکی'}`,
   description: () => item.value.description,
   keywords: () =>
-    `نمونه کار ${item.value.treatment}, قبل و بعد ${item.value.treatment}, کلینیک امیر رحمتی`,
+    `نمونه کار ${item.value.treatment}, قبل و بعد ${item.value.treatment}, کلینیک دکتر امیر رحمتی`,
   image: () => item.value.cover,
   path: () => item.value.href,
   type: 'website',

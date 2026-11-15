@@ -4,10 +4,20 @@ import {
   siteContactMapEmbedUrl,
   siteContactMapLink,
 } from '~/data/site-contact'
+import { SEO_PAGES } from '~/data/seo'
 import ContactForm from '~/modules/inquiry/components/ContactForm.vue'
+
+const props = withDefaults(
+  defineProps<{
+    /** Use h1 when this section is the page hero (e.g. /contact) */
+    asPage?: boolean
+  }>(),
+  { asPage: false },
+)
 
 const mapSrc = siteContactMapEmbedUrl()
 const mapLink = siteContactMapLink()
+const headingTag = computed(() => (props.asPage ? 'h1' : 'h2'))
 
 const channels = [
   {
@@ -52,14 +62,18 @@ const tips = [
     <div class="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
       <div class="max-w-3xl">
         <p class="reveal-item reveal-item-fade text-[11px] font-medium tracking-[0.18em] text-gold" style="--reveal-i: 0">
-          تماس با ما
+          تماس با ما · دندان پزشکی در کرج
         </p>
-        <h2 class="reveal-item mt-3 text-3xl font-semibold leading-tight tracking-tight text-ink sm:text-4xl" style="--reveal-i: 1">
-          از همین‌جا نوبت بگیرید
-        </h2>
+        <component
+          :is="headingTag"
+          class="reveal-item mt-3 text-3xl font-semibold leading-tight tracking-tight text-ink sm:text-4xl"
+          style="--reveal-i: 1"
+        >
+          {{ asPage ? SEO_PAGES.contact.h1 : 'نوبت ایمپلنت، لمینت و دندان پزشکی دیجیتال' }}
+        </component>
         <p class="reveal-item reveal-item-fade mt-5 text-[15px] leading-8 text-ink-muted" style="--reveal-i: 2">
-          برای رزرو نوبت، پرسش درباره درمان یا هماهنگی ویزیت، از فرم استفاده کنید یا مستقیم با کلینیک تماس بگیرید.
-          موقعیت کلینیک روی نقشه مشخص شده تا مراجعه حضوری ساده‌تر باشد.
+          برای رزرو نوبت ایمپلنت دیجیتال، لمینت، کامپوزیت یا مشاوره دندان پزشکی دیجیتال با دکتر امیر رحمتی،
+          از فرم استفاده کنید یا مستقیم تماس بگیرید. آدرس: {{ siteContact.address }}.
         </p>
       </div>
 
@@ -120,7 +134,7 @@ const tips = [
               نام، شماره و توضیح کوتاه کافی است. پس از بررسی اولیه، برای هماهنگی وقت با شما تماس می‌گیریم.
             </p>
             <div class="mt-6">
-              <ContactForm source="home" default-subject="تماس از صفحه اصلی کلینیک امیر رحمتی" />
+              <ContactForm source="home" default-subject="تماس از صفحه اصلی کلینیک دکتر امیر رحمتی" />
             </div>
           </div>
         </div>
@@ -150,7 +164,7 @@ const tips = [
         </div>
         <iframe
           :src="mapSrc"
-          title="نقشه موقعیت کلینیک دندان‌پزشکی امیر رحمتی"
+          title="نقشه موقعیت کلینیک دندان‌پزشکی دکتر امیر رحمتی"
           class="block h-72 w-full border-0 sm:h-96"
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"

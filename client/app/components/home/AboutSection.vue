@@ -25,12 +25,12 @@ const pillars = [
 ] as const
 
 const focusAreas = [
-  'معاینه و پیشگیری',
-  'ترمیم و درمان ریشه',
-  'زیبایی و بلیچینگ',
-  'ایمپلنت و پروتز',
-  'جرم‌گیری حرفه‌ای',
-  'آموزش بهداشت دهان',
+  'طراحی لبخند دیجیتال (DSD)',
+  'اسکن داخل دهانی',
+  'CAD/CAM و پروتز',
+  'ایمپلنت دیجیتال',
+  'درمان ریشه',
+  'الاینر و نایت‌گارد',
 ] as const
 
 const roleParts = profile.roles.split('|').map((part) => part.trim())
@@ -70,11 +70,11 @@ const roleParts = profile.roles.split('|').map((part) => part.trim())
             class="reveal-item mt-4 max-w-xl text-xl font-medium leading-9 text-on-band/90 sm:text-2xl"
             style="--reveal-i: 2"
           >
-            مراقبت دندانپزشکی که بتوان به آن اعتماد کرد
+            {{ profile.headline }}
           </component>
           <p class="reveal-item reveal-item-fade mt-5 max-w-2xl text-[15px] leading-8 text-on-band/70" style="--reveal-i: 3">
-            از معاینه اولیه تا تکمیل درمان، مسیر مراقبت را با دقت، شفافیت و تخصص پیش می‌بریم —
-            برای شما و خانواده‌ای که به لبخندی سالم و تجربه‌ای آرام نیاز دارید.
+            با اسکن داخل دهانی، طراحی سه‌بعدی لبخند و CAD/CAM، درمان دقیق‌تر، سریع‌تر و قابل پیش‌بینی —
+            بدون قالب‌گیری سنتی و با تمرکز بر تجربه بهتر بیمار.
           </p>
 
           <ul class="mt-7 flex flex-wrap gap-2">
@@ -115,7 +115,7 @@ const roleParts = profile.roles.split('|').map((part) => part.trim())
           <div class="flex w-full flex-col justify-between rounded-[1.75rem] bg-white/[0.06] p-6 ring-1 ring-white/15 backdrop-blur-sm sm:p-7">
             <div>
               <p class="text-[11px] font-medium tracking-[0.16em] text-gold">
-                کلینیک دندان‌پزشکی امیر رحمتی
+                کلینیک دندان‌پزشکی دکتر امیر رحمتی
               </p>
               <p class="mt-3 text-lg font-semibold text-on-band">
                 {{ profile.location }}
@@ -171,10 +171,10 @@ const roleParts = profile.roles.split('|').map((part) => part.trim())
       <div class="relative grid gap-12 lg:grid-cols-12 lg:gap-14">
         <div class="lg:col-span-7">
           <p class="reveal-item reveal-item-fade text-[11px] font-medium tracking-[0.18em] text-gold" style="--reveal-i: 0">
-            از ۱۳۹۵ تا امروز
+            معرفی پزشک
           </p>
           <h3 class="reveal-item mt-3 text-2xl font-semibold tracking-tight text-ink sm:text-3xl" style="--reveal-i: 1">
-            مسیر شکل‌گیری کلینیک
+            درمان دیجیتال و طراحی لبخند
           </h3>
           <div class="mt-7 space-y-5">
             <p
@@ -285,7 +285,7 @@ const roleParts = profile.roles.split('|').map((part) => part.trim())
       </div>
 
       <!-- Companies -->
-      <div class="relative mt-16">
+      <div v-if="profile.companies.length" class="relative mt-16">
         <p class="reveal-item reveal-item-fade text-[11px] font-medium tracking-[0.18em] text-gold" style="--reveal-i: 0">
           همکاری‌های درمانی
         </p>

@@ -62,7 +62,7 @@ const highlights = [
           class="reveal-item mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-[2.75rem] lg:leading-[1.15]"
           style="--reveal-i: 1"
         >
-          کلینیک امیر رحمتی
+          کلینیک دکتر امیر رحمتی
           <span class="mt-1 block text-white/55">در اکسپلور اینستاگرام</span>
         </h2>
 
@@ -163,7 +163,7 @@ const highlights = [
                       >
                         <img
                           :src="tile.src"
-                          alt=""
+                          :alt="`نمونه فضای کلینیک و درمان دندان پزشکی دیجیتال دکتر امیر رحمتی — تصویر ${index + 1}`"
                           class="size-full object-cover"
                           width="240"
                           height="240"
@@ -184,7 +184,7 @@ const highlights = [
                     <span class="text-[15px]" aria-hidden="true">＋</span>
                     <span class="text-[15px]" aria-hidden="true">▷</span>
                     <span class="size-[22px] overflow-hidden rounded-full ring-1 ring-white/35">
-                      <img src="/clinic/01-facade.jpg" alt="" class="size-full object-cover">
+                      <img src="/clinic/01-facade.jpg" alt="لوگوی تصویری کلینیک دکتر امیر رحمتی" class="size-full object-cover">
                     </span>
                   </div>
 

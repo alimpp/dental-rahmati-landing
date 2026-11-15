@@ -111,4 +111,8 @@ export class AdminController extends BaseController<AdminApiService> {
   public async getReports(range: VisitReportRange = 'daily') {
     return this.service.getReports(range)
   }
+
+  public async getDayDetail(bucket: string, range: VisitReportRange = 'daily') {
+    return this.service.getDayDetail(bucket, range)
+  }
 }

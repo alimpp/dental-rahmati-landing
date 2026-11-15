@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { articleModule } from '~/modules'
+import { SEO_PAGES, SEO_KEYWORD_STRING } from '~/data/seo'
 
 const articleDS = articleModule.store
 const mediaSrc = useMediaSrc()
@@ -71,12 +72,13 @@ function goToCategory(next: string) {
 usePageSeo({
   title: () =>
     category.value
-      ? `مقالات ${category.value} در کرج | کلینیک امیر رحمتی`
-      : 'مقالات دندانپزشکی در کرج | ایمپلنت، زیبایی، لیزر، دیجیتال',
-  description:
-    'مقالات آموزشی کلینیک امیر رحمتی در کرج جهانشهر: زیبایی، ایمپلنت، عصب‌کشی، ارتودنسی، دیجیتال و لیزر دندانپزشکی.',
-  keywords:
-    'مقالات دندانپزشکی کرج, ایمپلنت در کرج, لیزر دندانپزشکی کرج, دندان پزشکی زیبایی کرج, بهترین دندانپزشک کرج',
+      ? `مقالات ${category.value} در کرج | دندان پزشکی دیجیتال دکتر امیر رحمتی`
+      : SEO_PAGES.articles.title,
+  description: SEO_PAGES.articles.description,
+  keywords: () =>
+    category.value
+      ? `${category.value}, ${SEO_KEYWORD_STRING}`
+      : SEO_PAGES.articles.keywords,
   path: '/articles',
 })
 </script>
@@ -94,11 +96,11 @@ usePageSeo({
               اتاق مطالعه سلامت دهان · کرج جهانشهر
             </p>
             <h1 class="mt-4 text-3xl font-bold tracking-tight text-ink sm:text-5xl sm:leading-[1.2]">
-              دانش دندانپزشکی، به‌زبان روشن
+              مقالات دندان پزشکی دیجیتال در کرج
             </h1>
             <p class="mt-5 max-w-2xl text-[15px] leading-8 text-ink-muted">
-              مقاله‌های بخش‌بندی‌شده درباره ایمپلنت، لمینت، دندان‌پزشکی دیجیتال، عصب‌کشی، پیشگیری و مراقبت روزانه —
-              تا قبل از ویزیت در کلینیک امیر رحمتی، تصویر روشنی از مسیر درمان داشته باشید.
+              راهنمای ایمپلنت دیجیتال، لمینت، کامپوزیت و دندان پزشکی دیجیتال —
+              تا قبل از ویزیت با دکتر امیر رحمتی، مسیر درمان را شفاف ببینید.
             </p>
             <div class="mt-6 flex flex-wrap gap-3 text-sm">
               <span class="rounded-2xl bg-surface px-4 py-2 font-medium text-ink ring-1 ring-mist-deep">
@@ -140,15 +142,14 @@ usePageSeo({
             <div class="relative overflow-hidden rounded-[1.75rem] bg-band ring-1 ring-mist-deep">
               <img
                 src="/images/articles-bg.jpg"
-                alt=""
+                alt="مقالات دندان پزشکی دیجیتال، ایمپلنت و لمینت — دکتر امیر رحمتی کرج"
                 class="aspect-[16/11] size-full object-cover opacity-75 sm:aspect-[5/4]"
                 width="720"
                 height="580"
-                aria-hidden="true"
               >
               <div class="absolute inset-0 bg-gradient-to-t from-band via-band/35 to-transparent" />
               <div class="absolute inset-x-0 bottom-0 space-y-2 p-5 sm:p-6">
-                <p class="text-[11px] tracking-[0.18em] text-gold">مجله امیر رحمتی</p>
+                <p class="text-[11px] tracking-[0.18em] text-gold">مجله دکتر امیر رحمتی</p>
                 <p class="text-lg font-semibold text-on-band">از پیشگیری تا درمان و زیبایی</p>
                 <p class="max-w-sm text-sm leading-7 text-on-band/70">
                   قبل از نوبت بخوانید؛ در جلسه با آمادگی بیشتر تصمیم بگیرید.

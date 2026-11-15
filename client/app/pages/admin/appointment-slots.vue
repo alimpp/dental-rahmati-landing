@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import { adminModule } from '~/modules'
 import { unwrapList } from '~/modules/admin/utils'
-import { formatJalaliDate, toIsoDate } from '~/utils/jalali'
+import {
+  clinicHourlySlots,
+  formatJalaliDate,
+  isClinicWorkIso,
+  toIsoDate,
+} from '~/utils/jalali'
 
 definePageMeta({ layout: 'admin', robots: false })
 
@@ -30,22 +35,25 @@ const error = ref('')
 const saving = ref(false)
 const filterDate = ref('')
 
+const presets = clinicHourlySlots()
+
 const form = reactive({
-  date: toIsoDate(),
-  startTime: '09:00',
-  endTime: '10:00',
+  date: nextWorkDay(),
+  startTime: '12:30',
+  endTime: '13:30',
 })
 
 const draftRanges = ref<{ startTime: string, endTime: string }[]>([])
 
-const presets = [
-  { startTime: '09:00', endTime: '10:00' },
-  { startTime: '10:00', endTime: '11:00' },
-  { startTime: '11:00', endTime: '12:00' },
-  { startTime: '12:00', endTime: '13:30' },
-  { startTime: '14:00', endTime: '16:00' },
-  { startTime: '16:30', endTime: '18:00' },
-]
+function nextWorkDay(from = new Date()): string {
+  const d = new Date(from)
+  for (let i = 0; i < 14; i += 1) {
+    const iso = toIsoDate(d)
+    if (isClinicWorkIso(iso)) return iso
+    d.setDate(d.getDate() + 1)
+  }
+  return toIsoDate()
+}
 
 const grouped = computed(() => {
   const map = new Map<string, SlotRow[]>()
@@ -91,10 +99,33 @@ function addDraft() {
   error.value = ''
 }
 
-function addPreset(preset: { startTime: string, endTime: string }) {
+function togglePreset(preset: { startTime: string, endTime: string }) {
+  const idx = draftRanges.value.findIndex(
+    (r) => r.startTime === preset.startTime && r.endTime === preset.endTime,
+  )
+  if (idx >= 0) {
+    draftRanges.value.splice(idx, 1)
+    return
+  }
   form.startTime = preset.startTime
   form.endTime = preset.endTime
   addDraft()
+}
+
+function isPresetSelected(preset: { startTime: string, endTime: string }) {
+  return draftRanges.value.some(
+    (r) => r.startTime === preset.startTime && r.endTime === preset.endTime,
+  )
+}
+
+function addAllPresets() {
+  for (const preset of presets) {
+    if (!isPresetSelected(preset)) {
+      draftRanges.value.push({ startTime: preset.startTime, endTime: preset.endTime })
+    }
+  }
+  draftRanges.value.sort((a, b) => a.startTime.localeCompare(b.startTime))
+  error.value = ''
 }
 
 function removeDraft(index: number) {
@@ -104,6 +135,10 @@ function removeDraft(index: number) {
 async function saveBulk() {
   if (!form.date) {
     error.value = 'تاریخ را انتخاب کنید'
+    return
+  }
+  if (!isClinicWorkIso(form.date)) {
+    error.value = 'فقط یکشنبه، سه‌شنبه و پنج‌شنبه قابل انتخاب است'
     return
   }
   if (!draftRanges.value.length) {
@@ -159,7 +194,7 @@ async function remove(item: SlotRow) {
 </script>
 
 <template>
-  <div class="space-y-5">
+  <div class="space-y-4 sm:space-y-5">
     <AdminHeader
       title="نوبت‌های خالی"
       action-label=""
@@ -170,75 +205,63 @@ async function remove(item: SlotRow) {
       {{ error }}
     </p>
 
-    <!-- Create panel -->
     <section
       v-if="can('create')"
-      class="rounded-2xl border border-mist bg-white p-5 shadow-sm sm:p-6"
+      class="rounded-2xl border border-mist bg-white p-4 shadow-sm sm:p-6"
     >
       <div class="flex flex-wrap items-end justify-between gap-3">
-        <div>
+        <div class="min-w-0">
           <p class="text-[11px] font-semibold tracking-[0.18em] text-green-deep">
             تعریف نوبت
           </p>
-          <h2 class="mt-1 text-lg font-bold text-ink">
-            برای یک روز، چند بازه خالی بگذارید
+          <h2 class="mt-1 text-base font-bold text-ink sm:text-lg">
+            بازه‌های خالی یک روز کاری
           </h2>
-          <p class="mt-1 text-sm text-ink-muted">
-            کاربران فقط نوبت‌های فعال و رزرونشده را می‌بینند.
+          <p class="mt-1 text-[13px] text-ink-muted">
+            یکشنبه / سه‌شنبه / پنج‌شنبه · ۱۲:۳۰ تا ۲۲:۰۰ · هر ساعت
           </p>
         </div>
-        <p
-          v-if="form.date"
-          class="rounded-xl bg-green-soft/60 px-3 py-1.5 text-sm font-medium text-ink"
-        >
-          {{ formatJalaliDate(form.date) }}
-        </p>
       </div>
 
-      <div class="mt-5 grid gap-3 sm:grid-cols-4">
-        <label class="text-sm sm:col-span-2">
-          <span class="mb-1 block text-ink-muted">تاریخ</span>
-          <input
+      <div class="mt-5 grid gap-4 lg:grid-cols-12">
+        <div class="lg:col-span-4">
+          <AdminJalaliDatePicker
             v-model="form.date"
-            type="date"
-            class="w-full rounded-xl border border-mist px-3 py-2.5 outline-none focus:border-green-deep"
-          >
-        </label>
-        <label class="text-sm">
-          <span class="mb-1 block text-ink-muted">از ساعت</span>
-          <input
-            v-model="form.startTime"
-            type="time"
-            class="w-full rounded-xl border border-mist px-3 py-2.5 outline-none focus:border-green-deep"
-          >
-        </label>
-        <label class="text-sm">
-          <span class="mb-1 block text-ink-muted">تا ساعت</span>
-          <input
-            v-model="form.endTime"
-            type="time"
-            class="w-full rounded-xl border border-mist px-3 py-2.5 outline-none focus:border-green-deep"
-          >
-        </label>
-      </div>
-
-      <div class="mt-3 flex flex-wrap gap-2">
-        <button
-          type="button"
-          class="rounded-xl bg-ink px-4 py-2 text-sm font-medium text-white transition hover:bg-green-deep"
-          @click="addDraft"
-        >
-          افزودن بازه
-        </button>
-        <button
-          v-for="preset in presets"
-          :key="`${preset.startTime}-${preset.endTime}`"
-          type="button"
-          class="rounded-full bg-mist/70 px-3 py-1.5 text-[12px] font-medium text-ink ring-1 ring-mist-deep transition hover:bg-green-soft"
-          @click="addPreset(preset)"
-        >
-          {{ preset.startTime }}–{{ preset.endTime }}
-        </button>
+            work-days-only
+            label="تاریخ شمسی"
+          />
+        </div>
+        <div class="lg:col-span-8">
+          <div class="mb-2 flex flex-wrap items-center justify-between gap-2">
+            <p class="text-sm text-ink-muted">
+              تایم‌های پیشنهادی
+            </p>
+            <button
+              type="button"
+              class="rounded-full bg-green-soft px-3 py-1 text-[12px] font-medium text-green-deep transition hover:bg-green-deep hover:text-on-primary"
+              @click="addAllPresets"
+            >
+              انتخاب همه بازه‌ها
+            </button>
+          </div>
+          <div class="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
+            <button
+              v-for="preset in presets"
+              :key="`${preset.startTime}-${preset.endTime}`"
+              type="button"
+              class="rounded-2xl px-3 py-3 text-center text-sm font-semibold transition ring-1"
+              :class="isPresetSelected(preset)
+                ? 'bg-green-deep text-on-primary ring-green-deep shadow-sm'
+                : 'bg-[#f8fafc] text-ink ring-mist hover:bg-green-soft/70'"
+              @click="togglePreset(preset)"
+            >
+              <span class="block tabular-nums tracking-wide">{{ preset.label }}</span>
+              <span class="mt-1 block text-[10px] font-medium opacity-70">
+                {{ isPresetSelected(preset) ? 'انتخاب‌شده' : 'یک‌ساعته' }}
+              </span>
+            </button>
+          </div>
+        </div>
       </div>
 
       <div v-if="draftRanges.length" class="mt-4 flex flex-wrap gap-2">
@@ -261,7 +284,7 @@ async function remove(item: SlotRow) {
 
       <button
         type="button"
-        class="mt-5 inline-flex items-center justify-center rounded-2xl bg-green-deep px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-50"
+        class="mt-5 inline-flex w-full items-center justify-center rounded-2xl bg-green-deep px-5 py-3 text-sm font-semibold text-on-primary transition hover:opacity-90 disabled:opacity-50 sm:w-auto"
         :disabled="saving || !draftRanges.length"
         @click="saveBulk"
       >
@@ -269,18 +292,15 @@ async function remove(item: SlotRow) {
       </button>
     </section>
 
-    <!-- Filter + list -->
     <section class="rounded-2xl border border-mist bg-white p-4 sm:p-5">
-      <div class="mb-4 flex flex-wrap items-center gap-3">
-        <label class="text-sm">
-          <span class="ml-2 text-ink-muted">فیلتر تاریخ</span>
-          <input
+      <div class="mb-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end">
+        <div class="w-full sm:max-w-xs">
+          <AdminJalaliDatePicker
             v-model="filterDate"
-            type="date"
-            class="rounded-xl border border-mist px-3 py-2 outline-none focus:border-green-deep"
-            @change="load"
-          >
-        </label>
+            label="فیلتر تاریخ"
+            @update:model-value="load"
+          />
+        </div>
         <button
           v-if="filterDate"
           type="button"
@@ -295,21 +315,21 @@ async function remove(item: SlotRow) {
         هنوز نوبت خالی‌ای ثبت نشده است.
       </div>
 
-      <div v-else class="space-y-5">
+      <div v-else class="space-y-4">
         <article
           v-for="[date, slots] in grouped"
           :key="date"
-          class="rounded-2xl bg-[#f8fafc] p-4 ring-1 ring-mist"
+          class="rounded-2xl bg-[#f8fafc] p-3 ring-1 ring-mist sm:p-4"
         >
           <div class="mb-3 flex flex-wrap items-center justify-between gap-2">
-            <h3 class="font-bold text-ink">
+            <h3 class="text-sm font-bold text-ink sm:text-base">
               {{ formatJalaliDate(date) }}
             </h3>
             <span class="text-[12px] text-ink-muted">
               {{ slots.length }} نوبت
             </span>
           </div>
-          <ul class="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+          <ul class="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
             <li
               v-for="slot in slots"
               :key="slot.id"

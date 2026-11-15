@@ -85,6 +85,9 @@ export interface TDashboardTotals {
   visitsToday: number
   visitsWeek: number
   articleVisits: number
+  devicesToday?: number
+  devicesWeek?: number
+  uniquePaths?: number
   articles: number
   banners: number
   services: number
@@ -131,6 +134,27 @@ export interface TVisitReport {
   }
   series: TDashboardPoint[]
   pages: TDashboardPath[]
+  note?: string
+}
+
+export interface TVisitDayHit {
+  id: string
+  path: string
+  label: string
+  day: string
+  at: string
+  time: string
+  timeShort: string
+}
+
+export interface TVisitDayDetail {
+  bucket: string
+  range: VisitReportRange
+  from: string
+  to: string
+  label: string
+  total: number
+  visits: TVisitDayHit[]
 }
 
 export interface TPermissionSchema {

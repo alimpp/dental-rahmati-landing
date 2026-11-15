@@ -7,7 +7,7 @@
     <div class="absolute inset-0">
       <img
         src="/clinic/02-lobby.jpg"
-        alt=""
+        alt="فضای پذیرش کلینیک دندان پزشکی دیجیتال دکتر امیر رحمتی در کرج جهانشهر"
         class="size-full object-cover opacity-45"
       >
       <div class="absolute inset-0 bg-gradient-to-t from-band via-band/80 to-band/45" />
@@ -19,10 +19,10 @@
           کلینیک ما
         </p>
         <h2 class="mt-3 text-2xl font-bold leading-snug sm:text-3xl">
-          ۱۲ فضای کلینیک جهانشهر را ببینید
+          فضای کلینیک دندان پزشکی دیجیتال در کرج
         </h2>
         <p class="mt-3 text-[15px] leading-8 text-on-band/80">
-          تور آرام و خوانا با عکس هر اتاق و توضیح کوتاه — بدون قفل اسکرول، هم‌رنگ تم سایت.
+          تور تصویری کلینیک دکتر امیر رحمتی برای ایمپلنت دیجیتال، لمینت و کامپوزیت در جهانشهر.
         </p>
       </div>
       <NuxtLink

@@ -55,11 +55,19 @@ export class ServiceModel implements TService {
   }
 
   get displaySeoTitle(): string {
-    return this.seoTitle || `${this.title} در کرج | کلینیک امیر رحمتی`
+    if (this.seoTitle) return this.seoTitle
+    return `${this.title} در کرج | دندان پزشکی دیجیتال دکتر امیر رحمتی`
   }
 
   get displaySeoDescription(): string {
-    return this.seoDescription || this.description
+    if (this.seoDescription) return this.seoDescription
+    const base = this.description || this.title
+    return `${base} — در کلینیک دکتر امیر رحمتی کرج؛ دندان پزشکی دیجیتال، ایمپلنت دیجیتال، لمینت و کامپوزیت.`
+  }
+
+  get displaySeoKeywords(): string {
+    return this.seoKeywords
+      || `${this.title}, دندان پزشکی دیجیتال, ایمپلنت دیجیتال, دکتر امیر رحمتی, دندان پزشکی در کرج, ایمپلنت, لمینت, کامپوزیت`
   }
 
   get hasCasePath(): boolean {

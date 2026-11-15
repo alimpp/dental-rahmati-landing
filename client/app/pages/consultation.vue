@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { z } from 'zod'
 import { siteContact } from '~/data/site-contact'
+import { SEO_PAGES } from '~/data/seo'
 import { formatJalaliDate, formatJalaliShort, toIsoDate } from '~/utils/jalali'
 
 interface AvailableDate {
@@ -57,10 +58,9 @@ const bookSchema = z.object({
 })
 
 usePageSeo({
-  title: 'رزرو نوبت دندانپزشکی در کرج | کلینیک امیر رحمتی',
-  description:
-    'رزرو آنلاین نوبت کلینیک دندان‌پزشکی امیر رحمتی در کرج جهانشهر؛ انتخاب روز و ساعت خالی برای ایمپلنت، لمینت و معاینه.',
-  keywords: 'رزرو نوبت دندانپزشکی کرج, نوبت ایمپلنت کرج, نوبت لمینت کرج, کلینیک جهانشهر',
+  title: SEO_PAGES.consultation.title,
+  description: SEO_PAGES.consultation.description,
+  keywords: SEO_PAGES.consultation.keywords,
   path: '/consultation',
 })
 
@@ -68,7 +68,7 @@ useSchemaOrg([
   defineBreadcrumb({
     itemListElement: [
       { name: 'خانه', item: '/' },
-      { name: 'رزرو نوبت', item: '/consultation' },
+      { name: 'رزرو نوبت ایمپلنت و لمینت', item: '/consultation' },
     ],
   }),
 ])
@@ -209,11 +209,11 @@ function fieldClass(name: string) {
             نوبت‌دهی آنلاین
           </p>
           <h1 class="mt-3 max-w-2xl text-3xl font-bold tracking-tight text-ink sm:text-5xl sm:leading-[1.15]">
-            روز و ساعت خالی را انتخاب کنید
+            رزرو نوبت ایمپلنت، لمینت و دندان پزشکی دیجیتال در کرج
           </h1>
           <p class="mt-4 max-w-xl text-[15px] leading-8 text-ink-muted">
-            نوبت‌هایی که ادمین آزاد کرده اینجاست. با انتخاب بازه و ثبت مشخصات، نوبت شما قطعی می‌شود
-            و دیگری نمی‌تواند همان ساعت را بگیرد.
+            نوبت آنلاین کلینیک دکتر امیر رحمتی برای دندان پزشکی دیجیتال، ایمپلنت دیجیتال، لمینت و کامپوزیت در کرج.
+            با انتخاب بازه و ثبت مشخصات، نوبت شما قطعی می‌شود.
           </p>
           <div class="mt-6 flex flex-wrap gap-3 text-sm">
             <span class="rounded-2xl bg-mist px-4 py-2 font-medium text-ink ring-1 ring-mist-deep">

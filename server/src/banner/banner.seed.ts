@@ -7,7 +7,7 @@ export const BANNER_ARRIVE = '/uploads/images/banner-arrive.mp4';
 export const BANNER_CLEAN = '/uploads/images/banner-clean.mp4';
 
 /**
- * Seed banners — کلینیک امیر رحمتی.
+ * Seed banners — کلینیک دکتر امیر رحمتی.
  * Media: longer clinic motion clips (Mixkit free license), stored on server uploads.
  */
 export const BANNER_SEED: CreateBannerDto[] = [
@@ -30,7 +30,7 @@ export const BANNER_SEED: CreateBannerDto[] = [
     title: 'اتاق درمان و دقت جراحی',
     subtitle: 'یونیت‌های به‌روز برای ایمپلنت و ترمیم',
     description:
-      'نور جراحی، استریل استاندارد و طرح درمان شفاف در کلینیک امیر رحمتی جهانشهر.',
+      'نور جراحی، استریل استاندارد و طرح درمان شفاف در کلینیک دکتر امیر رحمتی جهانشهر.',
     link: '/practice-areas',
     sort: 2,
     button1Text: 'خدمات کلینیک',
@@ -58,7 +58,7 @@ export const BANNER_SEED: CreateBannerDto[] = [
     title: 'مراقبت دقیق و بهداشت حرفه‌ای',
     subtitle: 'پاکسازی، پیشگیری و زیبایی لبخند',
     description:
-      'جرم‌گیری، بلیچینگ و مراقبت‌های پیشگیرانه با استاندارد استریل در کلینیک امیر رحمتی.',
+      'جرم‌گیری، بلیچینگ و مراقبت‌های پیشگیرانه با استاندارد استریل در کلینیک دکتر امیر رحمتی.',
     link: '/articles/digital-dentistry-karaj',
     sort: 4,
     button1Text: 'خدمات کلینیک',

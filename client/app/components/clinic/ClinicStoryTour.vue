@@ -74,7 +74,7 @@ useHead({
     <header class="relative isolate min-h-[70vh] overflow-hidden">
       <img
         src="/clinic/01-facade.jpg"
-        alt=""
+        alt="نمای ورودی کلینیک دندان پزشکی دیجیتال دکتر امیر رحمتی در کرج جهانشهر"
         class="absolute inset-0 size-full object-cover"
         fetchpriority="high"
       >
@@ -84,7 +84,7 @@ useHead({
           کلینیک ما · کرج جهانشهر
         </p>
         <h1 class="mt-4 max-w-3xl text-3xl font-bold leading-snug text-on-band sm:text-5xl sm:leading-[1.2]">
-          قدم‌زدن در فضاهای کلینیک امیر رحمتی
+          کلینیک دندان پزشکی دیجیتال دکتر امیر رحمتی در کرج
         </h1>
         <p class="mt-5 max-w-2xl text-[15px] leading-8 text-on-band/80">
           {{ siteContact.address }} — از ورودی تا یونیت، VIP، دیجیتال و استریل را با اسکرول آرام ببینید.

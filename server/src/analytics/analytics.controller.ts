@@ -3,6 +3,7 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { PermissionsGuard } from '../auth/guards/permissions.guard';
 import { RequirePermission } from '../auth/decorators/require-permission.decorator';
 import { AnalyticsService } from './analytics.service';
+import { DayDetailQueryDto } from './dto/day-detail-query.dto';
 import { ReportsQueryDto } from './dto/reports-query.dto';
 import { TrackViewDto } from './dto/track-view.dto';
 
@@ -28,6 +29,17 @@ export class AnalyticsController {
   @Get('reports')
   async reports(@Query() query: ReportsQueryDto) {
     const data = await this.analyticsService.reports(query.range || 'daily');
+    return { success: true, message: '', data };
+  }
+
+  @UseGuards(JwtAuthGuard, PermissionsGuard)
+  @RequirePermission('reports', 'view')
+  @Get('day-detail')
+  async dayDetail(@Query() query: DayDetailQueryDto) {
+    const data = await this.analyticsService.dayDetail(
+      query.bucket,
+      query.range || 'daily',
+    );
     return { success: true, message: '', data };
   }
 }

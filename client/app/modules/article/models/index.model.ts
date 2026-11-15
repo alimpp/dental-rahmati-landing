@@ -36,7 +36,7 @@ export class ArticleModel implements TArticle {
     this.slug = data?.slug?.trim() || ''
     this.excerpt = data?.excerpt?.trim() || ''
     this.category = data?.category?.trim() || ''
-    this.author = data?.author?.trim() || 'تیم کلینیک امیر رحمتی'
+    this.author = data?.author?.trim() || 'تیم کلینیک دکتر امیر رحمتی'
     this.coverImage = data?.coverImage?.trim() || '/services/hero.jpg'
     this.sections = Array.isArray(data?.sections) ? data.sections : null
     this.seoTitle = data?.seoTitle?.trim() || null
@@ -57,12 +57,15 @@ export class ArticleModel implements TArticle {
   }
 
   get displaySeoTitle(): string {
-    return this.seoTitle || `${this.title} | مقالات دندانپزشکی کرج`
+    return this.seoTitle || `${this.title} | دندان پزشکی دیجیتال در کرج — دکتر امیر رحمتی`
   }
 
   get displaySeoDescription(): string {
-    return this.seoDescription || this.excerpt
+    if (this.seoDescription) return this.seoDescription
+    const base = this.excerpt || this.title
+    return `${base} — مقاله کلینیک دکتر امیر رحمتی درباره ایمپلنت، لمینت، کامپوزیت و دندان پزشکی دیجیتال در کرج.`
   }
+
 
   get displayDate(): string {
     if (!this.publishedAt) return ''

@@ -66,19 +66,35 @@ const sectionShell = [
 usePageSeo({
   title: () => service.value.displaySeoTitle,
   description: () => service.value.displaySeoDescription,
-  keywords: () => service.value.seoKeywords || undefined,
+  keywords: () => service.value.displaySeoKeywords,
   image: () => service.value.coverImage || '/services/hero.jpg',
   path: () => service.value.href,
 })
+
+const siteUrl = useRuntimeConfig().public.siteUrl as string
 
 useSchemaOrg([
   defineBreadcrumb({
     itemListElement: [
       { name: 'خانه', item: '/' },
-      { name: 'خدمات', item: '/practice-areas' },
+      { name: 'خدمات دندان پزشکی دیجیتال', item: '/practice-areas' },
       { name: () => service.value.title, item: () => service.value.href },
     ],
   }),
+  defineWebPage({
+    '@type': 'MedicalWebPage',
+    name: () => service.value.displaySeoTitle,
+    description: () => service.value.displaySeoDescription,
+  }),
+  {
+    '@type': 'Service',
+    name: () => service.value.title,
+    description: () => service.value.displaySeoDescription,
+    provider: { '@id': `${siteUrl}/#clinic` },
+    areaServed: { '@type': 'City', name: 'کرج' },
+    serviceType: 'Dentistry',
+    url: () => `${siteUrl}${service.value.href}`,
+  },
 ])
 </script>
 
@@ -129,7 +145,7 @@ useSchemaOrg([
                   />
                 </span>
                 <p class="text-[11px] font-semibold tracking-[0.22em] text-gold">
-                  خدمات کلینیک امیر رحمتی
+                  خدمات کلینیک دکتر امیر رحمتی
                 </p>
               </div>
             </SiteReveal>
@@ -188,7 +204,7 @@ useSchemaOrg([
                     </div>
                   </div>
                   <div class="absolute inset-x-0 bottom-0 p-6 sm:p-7">
-                    <p class="text-[11px] tracking-[0.18em] text-gold">امیر رحمتی</p>
+                    <p class="text-[11px] tracking-[0.18em] text-gold">دکتر امیر رحمتی</p>
                     <p class="mt-2 text-lg font-semibold text-on-band">{{ service.title }}</p>
                   </div>
                 </div>
@@ -495,7 +511,7 @@ useSchemaOrg([
               />
             </h2>
             <p class="reveal-item reveal-item-right mt-4 max-w-xl text-sm leading-8 text-ink-muted" style="--reveal-i: 2">
-              در کلینیک امیر رحمتی این خدمت با استاندارد تخصصی و توضیح شفاف انجام می‌شود — از رزرو نوبت شروع کنید.
+              در کلینیک دکتر امیر رحمتی این خدمت با استاندارد تخصصی و توضیح شفاف انجام می‌شود — از رزرو نوبت شروع کنید.
             </p>
           </div>
           <div class="flex flex-wrap gap-3 lg:col-span-4 lg:justify-end">

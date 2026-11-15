@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { bannerModule } from '~/modules'
+import { SEO_BRAND, SEO_HOME } from '~/data/seo'
 
 const bannerDS = bannerModule.store
 const bannerController = bannerModule.controller
@@ -11,12 +12,23 @@ const reducedMotion = ref(false)
 const touchStartX = ref<number | null>(null)
 let timer: ReturnType<typeof setInterval> | null = null
 
+// SSR-load so hero H1/media exist in first HTML for crawlers & LCP.
+await useAsyncData('home-banners', async () => {
+  const res = await bannerController.getBannerList({}, { force: true, skipCache: true })
+  return res.data ?? []
+})
+
 const slides = computed(() => bannerDS.getVisibleItems)
 const loading = computed(() => bannerDS.getLoading)
 const active = computed(() => slides.value[activeIndex.value] ?? null)
 const nextSlide = computed(() => {
   if (slides.value.length < 2) return null
   return slides.value[(activeIndex.value + 1) % slides.value.length] ?? null
+})
+const showBannerTitle = computed(() => {
+  const title = active.value?.displayTitle?.trim()
+  if (!title) return false
+  return title !== SEO_HOME.h1
 })
 
 function isMotionMedia(src?: string | null) {
@@ -79,13 +91,17 @@ function onTouchEnd(event: TouchEvent) {
   else prev()
 }
 
-onMounted(async () => {
+onMounted(() => {
   if (import.meta.client) {
     reducedMotion.value = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     document.addEventListener('visibilitychange', onVisibility)
   }
-  await bannerController.getBannerList()
   if (slides.value.length) startAutoplay()
+  else {
+    void bannerController.getBannerList().then(() => {
+      if (slides.value.length) startAutoplay()
+    })
+  }
 })
 
 onBeforeUnmount(() => {
@@ -178,30 +194,38 @@ watch(
       <div class="banner-hero__scrim absolute inset-0" />
     </div>
 
-    <!-- Content -->
+    <!-- Content — fixed SEO H1 always in SSR HTML -->
     <div
-      v-if="active"
       class="relative z-10 mx-auto flex min-h-[min(92svh,44rem)] w-full max-w-7xl flex-col justify-end px-4 pb-10 pt-24 sm:min-h-[min(88svh,48rem)] sm:px-6 sm:pb-14 sm:pt-28 lg:min-h-[min(86svh,52rem)] lg:justify-center lg:px-8 lg:pb-20 lg:pt-16"
     >
       <div class="max-w-2xl">
         <p class="banner-hero__brand text-sm font-bold tracking-[0.18em] text-gold sm:text-base">
-          امیر رحمتی
+          {{ SEO_BRAND }}
+        </p>
+        <h1 class="mt-4 text-[1.85rem] font-bold leading-[1.25] tracking-tight text-on-band sm:mt-5 sm:text-4xl lg:text-[3.15rem] lg:leading-[1.18]">
+          {{ SEO_HOME.h1 }}
+        </h1>
+        <p class="mt-3 max-w-xl text-[15px] leading-8 text-on-band/80 sm:text-base sm:leading-8">
+          {{ SEO_HOME.support }}
         </p>
 
         <Transition name="banner-copy" mode="out-in">
-          <div :key="active.id" class="mt-4 sm:mt-5">
+          <div v-if="active" :key="active.id" class="mt-5 sm:mt-6">
             <p
               v-if="active.displaySubtitle"
               class="text-sm font-medium text-on-band/75 sm:text-[15px]"
             >
               {{ active.displaySubtitle }}
             </p>
-            <h1 class="mt-2 text-[1.85rem] font-bold leading-[1.25] tracking-tight text-on-band sm:mt-3 sm:text-4xl lg:text-[3.15rem] lg:leading-[1.18]">
+            <p
+              v-if="showBannerTitle"
+              class="mt-2 text-lg font-semibold leading-8 text-on-band/95 sm:text-xl"
+            >
               {{ active.displayTitle }}
-            </h1>
+            </p>
             <p
               v-if="active.displayDescription"
-              class="mt-4 max-w-xl text-[15px] leading-8 text-on-band/80 sm:mt-5 sm:text-base sm:leading-8"
+              class="mt-3 max-w-xl text-[15px] leading-8 text-on-band/75 sm:text-base"
             >
               {{ active.displayDescription }}
             </p>
@@ -210,25 +234,39 @@ watch(
 
         <div class="mt-7 flex flex-wrap items-center gap-3 sm:mt-9">
           <NuxtLink
-            v-if="active.hasButton1"
+            v-if="active?.hasButton1"
             :to="active.button1Link!"
             class="banner-hero__cta inline-flex min-h-11 items-center justify-center rounded-full bg-green-deep px-6 py-3 text-sm font-bold text-on-primary shadow-[0_14px_36px_color-mix(in_srgb,var(--color-green-deep)_45%,transparent)] transition duration-200 hover:-translate-y-0.5 hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
           >
             {{ active.button1Text }}
           </NuxtLink>
           <NuxtLink
-            v-if="active.hasButton2"
+            v-else
+            to="/practice-areas"
+            class="banner-hero__cta inline-flex min-h-11 items-center justify-center rounded-full bg-green-deep px-6 py-3 text-sm font-bold text-on-primary shadow-[0_14px_36px_color-mix(in_srgb,var(--color-green-deep)_45%,transparent)] transition duration-200 hover:-translate-y-0.5 hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+          >
+            خدمات دندان پزشکی دیجیتال
+          </NuxtLink>
+          <NuxtLink
+            v-if="active?.hasButton2"
             :to="active.button2Link!"
             class="inline-flex min-h-11 items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-on-band ring-1 ring-on-band/35 backdrop-blur-sm transition duration-200 hover:bg-on-band/10 hover:ring-on-band/55 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
           >
             {{ active.button2Text }}
           </NuxtLink>
           <NuxtLink
-            v-else-if="active.link && !active.hasButton1"
+            v-else-if="active?.link && !active?.hasButton1"
             :to="active.link"
-            class="banner-hero__cta inline-flex min-h-11 items-center justify-center rounded-full bg-green-deep px-6 py-3 text-sm font-bold text-on-primary shadow-[0_14px_36px_color-mix(in_srgb,var(--color-green-deep)_45%,transparent)] transition duration-200 hover:-translate-y-0.5 hover:brightness-110"
+            class="banner-hero__cta inline-flex min-h-11 items-center justify-center rounded-full bg-white/10 px-6 py-3 text-sm font-semibold text-on-band ring-1 ring-white/25 backdrop-blur-sm transition duration-200 hover:bg-white/18"
           >
             بیشتر بدانید
+          </NuxtLink>
+          <NuxtLink
+            v-else
+            to="/consultation"
+            class="inline-flex min-h-11 items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-on-band ring-1 ring-on-band/35 backdrop-blur-sm transition duration-200 hover:bg-on-band/10 hover:ring-on-band/55"
+          >
+            رزرو نوبت ایمپلنت و لمینت
           </NuxtLink>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Article } from '../article/entities/article.entity';
@@ -8,6 +8,7 @@ import { Inquiry } from '../inquiry/entities/inquiry.entity';
 import { Service } from '../service/entities/service.entity';
 import { TrackViewDto } from './dto/track-view.dto';
 import { PageView } from './entities/page-view.entity';
+import { PageViewDevice } from './entities/page-view-device.entity';
 
 const PAGE_LABELS: Record<string, string> = {
   '/': 'خانه',
@@ -17,14 +18,19 @@ const PAGE_LABELS: Record<string, string> = {
   '/portfolio': 'نمونه کارها',
   '/contact': 'تماس',
   '/consultation': 'مشاوره',
-  '/practice-areas': 'حوزه‌های تخصصی',
+  '/clinic': 'کلینیک ما',
+  '/practice-areas': 'خدمات',
 };
 
 @Injectable()
-export class AnalyticsService {
+export class AnalyticsService implements OnModuleInit {
+  private readonly logger = new Logger(AnalyticsService.name);
+
   constructor(
     @InjectRepository(PageView)
     private readonly viewRepository: Repository<PageView>,
+    @InjectRepository(PageViewDevice)
+    private readonly deviceRepository: Repository<PageViewDevice>,
     @InjectRepository(Article)
     private readonly articleRepository: Repository<Article>,
     @InjectRepository(Banner)
@@ -36,6 +42,34 @@ export class AnalyticsService {
     @InjectRepository(Inquiry)
     private readonly inquiryRepository: Repository<Inquiry>,
   ) {}
+
+  async onModuleInit() {
+    // Production has DB_SYNCHRONIZE=false — ensure device dedupe table exists.
+    try {
+      await this.deviceRepository.query(`
+        CREATE TABLE IF NOT EXISTS page_view_devices (
+          id uuid PRIMARY KEY,
+          path varchar(240) NOT NULL,
+          day varchar(10) NOT NULL,
+          visitor_key varchar(64) NOT NULL,
+          created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+        );
+      `);
+      await this.deviceRepository.query(`
+        CREATE UNIQUE INDEX IF NOT EXISTS uq_page_view_devices_path_day_visitor
+          ON page_view_devices (path, day, visitor_key);
+      `);
+      await this.deviceRepository.query(`
+        CREATE INDEX IF NOT EXISTS idx_page_view_devices_day
+          ON page_view_devices (day);
+      `);
+    }
+    catch (err) {
+      this.logger.warn(
+        `page_view_devices bootstrap skipped: ${err instanceof Error ? err.message : err}`,
+      );
+    }
+  }
 
   normalizePath(raw: string): string | null {
     let path = raw.trim();
@@ -55,6 +89,24 @@ export class AnalyticsService {
     const path = this.normalizePath(dto.path);
     if (!path) return { tracked: false };
     const day = this.today();
+    const visitorKey = this.normalizeVisitor(dto.visitorId);
+    if (!visitorKey) return { tracked: false };
+
+    // Each device counts once per path per calendar day.
+    const seen = await this.deviceRepository.findOne({
+      where: { path, day, visitorKey },
+    });
+    if (seen) return { tracked: false, duplicate: true };
+
+    try {
+      await this.deviceRepository.save(
+        this.deviceRepository.create({ path, day, visitorKey }),
+      );
+    } catch {
+      // Race: unique violation → already counted
+      return { tracked: false, duplicate: true };
+    }
+
     const existing = await this.viewRepository.findOne({ where: { path, day } });
     if (existing) {
       existing.count += 1;
@@ -65,6 +117,13 @@ export class AnalyticsService {
       );
     }
     return { tracked: true };
+  }
+
+  private normalizeVisitor(raw?: string) {
+    const value = (raw || '').trim().slice(0, 64);
+    if (!value || value.length < 8) return null;
+    if (!/^[a-zA-Z0-9_-]+$/.test(value)) return null;
+    return value;
   }
 
   async dashboard() {
@@ -119,7 +178,7 @@ export class AnalyticsService {
 
     const pages = [...byPath.entries()]
       .sort((a, b) => b[1] - a[1])
-      .slice(0, 10)
+      .slice(0, 12)
       .map(([path, count]) => ({
         path,
         label: this.labelFor(path, labels),
@@ -128,12 +187,18 @@ export class AnalyticsService {
 
     const articles = [...byArticle.entries()]
       .sort((a, b) => b[1] - a[1])
-      .slice(0, 8)
+      .slice(0, 10)
       .map(([path, count]) => ({
         path,
         label: this.labelFor(path, labels),
         visits: count,
       }));
+
+    const devicesToday = await this.deviceRepository.count({ where: { day: today } });
+    const devicesWeek = await this.deviceRepository
+      .createQueryBuilder('d')
+      .where('d.day >= :weekStart', { weekStart })
+      .getCount();
 
     const [articlesCount, banners, services, guides, inquiries] =
       await Promise.all([
@@ -150,6 +215,9 @@ export class AnalyticsService {
         visitsToday,
         visitsWeek,
         articleVisits,
+        devicesToday,
+        devicesWeek,
+        uniquePaths: byPath.size,
         articles: articlesCount,
         banners,
         services,
@@ -160,6 +228,92 @@ export class AnalyticsService {
       pages,
       articles,
     };
+  }
+
+  /**
+   * Exact visit timestamps for a report bucket (day / week / month).
+   * Uses page_view_devices.created_at — first hit of that device+path that day.
+   */
+  async dayDetail(
+    bucket: string,
+    range: 'daily' | 'weekly' | 'monthly' = 'daily',
+  ) {
+    const { from, to, label } = this.bucketBounds(bucket, range);
+    const rows = await this.deviceRepository
+      .createQueryBuilder('d')
+      .where('d.day >= :from AND d.day <= :to', { from, to })
+      .orderBy('d.created_at', 'ASC')
+      .getMany();
+
+    const [articleRows, serviceRows, guideRows] = await Promise.all([
+      this.articleRepository.find({ select: { slug: true, title: true } }),
+      this.serviceRepository.find({ select: { slug: true, title: true } }),
+      this.guideRepository.find({ select: { slug: true, title: true } }),
+    ]);
+    const labels = {
+      articles: new Map(articleRows.map((item) => [item.slug, item.title])),
+      services: new Map(serviceRows.map((item) => [item.slug, item.title])),
+      guides: new Map(guideRows.map((item) => [item.slug, item.title])),
+    };
+
+    const timeFmt = new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'Asia/Tehran',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false,
+    });
+    const timeShortFmt = new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'Asia/Tehran',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    });
+
+    const visits = rows.map((row) => {
+      const at = row.createdAt instanceof Date ? row.createdAt : new Date(row.createdAt);
+      return {
+        id: row.id,
+        path: row.path,
+        label: this.labelFor(row.path, labels),
+        day: row.day,
+        at: at.toISOString(),
+        time: timeFmt.format(at),
+        timeShort: timeShortFmt.format(at),
+      };
+    });
+
+    return {
+      bucket,
+      range,
+      from,
+      to,
+      label,
+      total: visits.length,
+      visits,
+    };
+  }
+
+  private bucketBounds(
+    bucket: string,
+    range: 'daily' | 'weekly' | 'monthly',
+  ): { from: string; to: string; label: string } {
+    if (range === 'monthly' || /^\d{4}-\d{2}$/.test(bucket)) {
+      const [year, month] = bucket.slice(0, 7).split('-').map(Number);
+      const from = `${year}-${String(month).padStart(2, '0')}-01`;
+      const last = new Date(year!, month!, 0).getDate();
+      const to = `${year}-${String(month).padStart(2, '0')}-${String(last).padStart(2, '0')}`;
+      return { from, to, label: bucket.slice(0, 7) };
+    }
+    if (range === 'weekly') {
+      const from = bucket.slice(0, 10);
+      const end = new Date(`${from}T12:00:00`);
+      end.setDate(end.getDate() + 6);
+      const to = end.toISOString().slice(0, 10);
+      return { from, to, label: from };
+    }
+    const day = bucket.slice(0, 10);
+    return { from: day, to: day, label: day };
   }
 
   async reports(range: 'daily' | 'weekly' | 'monthly' = 'daily') {
@@ -219,12 +373,13 @@ export class AnalyticsService {
       })),
       pages: [...byPath.entries()]
         .sort((a, b) => b[1] - a[1])
-        .slice(0, 12)
+        .slice(0, 25)
         .map(([path, count]) => ({
           path,
           label: this.labelFor(path, labels),
           visits: count,
         })),
+      note: 'هر دستگاه در هر صفحه، حداکثر یک‌بار در روز شمارش می‌شود.',
     };
   }
 

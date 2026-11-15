@@ -7,6 +7,21 @@ const openId = ref<string | null>(null)
 
 await faqModule.controller.getList()
 
+useSchemaOrg([
+  {
+    '@type': 'FAQPage',
+    mainEntity: () =>
+      items.value.map((item) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.answer,
+        },
+      })),
+  },
+])
+
 function toggle(id: string) {
   openId.value = openId.value === id ? null : id
 }
@@ -23,10 +38,10 @@ function toggle(id: string) {
             سوالات متداول
           </p>
           <h2 class="reveal-item reveal-item-drop mt-3 text-3xl font-semibold leading-tight tracking-tight text-ink sm:text-4xl" style="--reveal-i: 1">
-            پیش از ویزیت، شاید این‌ها را بپرسید
+            پرسش‌های رایج ایمپلنت، لمینت و دندان پزشکی دیجیتال
           </h2>
           <p class="reveal-item mt-4 text-[15px] leading-8 text-ink-muted" style="--reveal-i: 2">
-            پاسخ کوتاه پرسش‌های رایج بیماران. اگر سؤال شما این‌جا نیست، با ما در میان بگذارید.
+            پاسخ کوتاه درباره دندان پزشکی در کرج، ایمپلنت دیجیتال، لمینت و کامپوزیت با دکتر امیر رحمتی.
           </p>
           <NuxtLink
             to="/consultation"

@@ -1,3 +1,5 @@
+import { SITE_ORIGIN } from '~/data/seo'
+
 type PageSeoInput = {
   title: MaybeRefOrGetter<string>
   description: MaybeRefOrGetter<string>
@@ -14,7 +16,7 @@ const DEFAULT_OG = '/banners/clinic-hero.jpg'
 export function usePageSeo(input: PageSeoInput) {
   const route = useRoute()
   const config = useRuntimeConfig()
-  const origin = String(config.public.siteUrl || '').replace(/\/$/, '') || 'https://dentalrahmati.ir'
+  const origin = String(config.public.siteUrl || '').replace(/\/$/, '') || SITE_ORIGIN
 
   const canonical = computed(() => {
     const p = toValue(input.path) || route.path || '/'
@@ -38,7 +40,7 @@ export function usePageSeo(input: PageSeoInput) {
     ogUrl: () => canonical.value,
     ogImage: () => image.value,
     ogLocale: 'fa_IR',
-    ogSiteName: 'کلینیک دندان‌پزشکی امیر رحمتی | کرج',
+    ogSiteName: 'کلینیک دندان‌پزشکی دکتر امیر رحمتی | دندان پزشکی دیجیتال در کرج',
     twitterCard: 'summary_large_image',
     twitterTitle: () => toValue(input.title),
     twitterDescription: () => toValue(input.description),
@@ -50,5 +52,12 @@ export function usePageSeo(input: PageSeoInput) {
 
   useHead({
     link: [{ rel: 'canonical', href: () => canonical.value }],
+    meta: [
+      { name: 'geo.region', content: 'IR-30' },
+      { name: 'geo.placename', content: 'کرج' },
+      { name: 'geo.position', content: '35.8282;50.9791' },
+      { name: 'ICBM', content: '35.8282, 50.9791' },
+      { name: 'author', content: 'دکتر امیر رحمتی' },
+    ],
   })
 }

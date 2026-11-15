@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { adminModule } from '~/modules'
-import type { TVisitReport, VisitReportRange } from '~/modules/admin/types/index.type'
+import type {
+  TVisitDayDetail,
+  TVisitReport,
+  VisitReportRange,
+} from '~/modules/admin/types/index.type'
 
 definePageMeta({ layout: 'admin', robots: false })
 
@@ -8,6 +12,13 @@ const error = ref('')
 const loading = ref(false)
 const range = ref('daily')
 const data = ref<TVisitReport | null>(null)
+const query = ref('')
+
+const detailOpen = ref(false)
+const detailLoading = ref(false)
+const detailError = ref('')
+const detail = ref<TVisitDayDetail | null>(null)
+const detailTitle = ref('')
 
 const rangeOptions = [
   { value: 'daily', label: 'روزانه — ۳۰ روز' },
@@ -37,6 +48,30 @@ async function load() {
   data.value = response.data
 }
 
+async function openDayDetail(bucket: string) {
+  detailOpen.value = true
+  detailLoading.value = true
+  detailError.value = ''
+  detail.value = null
+  detailTitle.value = formatBucket(bucket)
+  const response = await adminModule.controller.getDayDetail(
+    bucket,
+    range.value as VisitReportRange,
+  )
+  detailLoading.value = false
+  if (!response.success || !response.data) {
+    detailError.value = response.message || 'جزئیات بازدید در دسترس نیست'
+    return
+  }
+  detail.value = response.data
+}
+
+function closeDetail() {
+  detailOpen.value = false
+  detail.value = null
+  detailError.value = ''
+}
+
 function fa(value?: number) {
   return (value ?? 0).toLocaleString('fa-IR')
 }
@@ -52,71 +87,185 @@ function formatBucket(value: string) {
   return new Date(`${value}T12:00:00`).toLocaleDateString('fa-IR')
 }
 
+function formatDayLabel(iso: string) {
+  return new Date(`${iso}T12:00:00`).toLocaleDateString('fa-IR', {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+  })
+}
+
 const change = computed(() => data.value?.totals.changePercent ?? 0)
 const kpis = computed(() => {
   const totals = data.value?.totals
   if (!totals) return []
   return [
-    { label: 'بازدید این دوره', value: fa(totals.visits) },
-    { label: 'بازدید مقالات', value: fa(totals.articleVisits) },
-    { label: 'تعداد صفحات', value: fa(totals.uniquePaths) },
-    { label: 'نسبت به دوره قبل', value: `${change.value > 0 ? '+' : ''}${fa(change.value)}٪` },
+    { label: 'بازدید یکتا', value: fa(totals.visits), hint: 'این دوره' },
+    { label: 'بازدید مقالات', value: fa(totals.articleVisits), hint: 'زیرمجموعه' },
+    { label: 'تعداد صفحات', value: fa(totals.uniquePaths), hint: 'مسیر یکتا' },
+    {
+      label: 'رشد نسبت به قبل',
+      value: `${change.value > 0 ? '+' : ''}${fa(change.value)}٪`,
+      hint: 'دوره قبلی',
+    },
   ]
 })
+
+const filteredPages = computed(() => {
+  const pages = data.value?.pages ?? []
+  const q = query.value.trim()
+  if (!q) return pages
+  return pages.filter(
+    (p) => p.label.includes(q) || p.path.includes(q),
+  )
+})
+
+const maxPageVisits = computed(() =>
+  Math.max(1, ...filteredPages.value.map((p) => p.visits)),
+)
+
+const showDayColumn = computed(() => range.value !== 'daily')
 </script>
 
 <template>
-  <div>
-    <div class="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-end">
+  <div class="space-y-4">
+    <div class="flex flex-col gap-3 rounded-2xl border border-mist bg-white p-3 sm:flex-row sm:items-center sm:justify-between sm:p-4">
+      <div>
+        <p class="text-sm font-medium text-ink">گزارش بازدید صفحات</p>
+        <p class="mt-0.5 text-[12px] text-ink-muted">
+          {{ data?.note || 'هر دستگاه در هر صفحه، حداکثر یک‌بار در روز شمارش می‌شود.' }}
+          برای دیدن ساعت دقیق، روی هر روز در جدول زمانی کلیک کنید.
+        </p>
+      </div>
       <AdminSelect
         v-model="range"
+        class="sm:w-56"
         :options="rangeOptions"
         :allow-empty="false"
         placeholder="بازه گزارش"
       />
     </div>
 
-    <p v-if="error" class="mb-3 text-sm text-red-600">{{ error }}</p>
-    <p v-else-if="loading" class="mb-3 text-sm text-ink-muted">در حال بارگذاری گزارش...</p>
+    <p v-if="error" class="text-sm text-red-600">{{ error }}</p>
+    <p v-else-if="loading" class="text-sm text-ink-muted">در حال بارگذاری گزارش...</p>
 
-    <div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-      <article v-for="item in kpis" :key="item.label" class="rounded-2xl border border-mist bg-white p-4">
-        <p class="text-2xl font-semibold text-ink">{{ item.value }}</p>
-        <p class="mt-1 text-xs text-ink-muted">{{ item.label }}</p>
+    <div class="grid gap-3 grid-cols-2 xl:grid-cols-4">
+      <article v-for="item in kpis" :key="item.label" class="rounded-2xl border border-mist bg-white p-3 sm:p-4">
+        <p class="text-[11px] text-ink-muted">{{ item.hint }}</p>
+        <p class="mt-1 text-xl font-semibold tabular-nums text-ink sm:text-2xl">{{ item.value }}</p>
+        <p class="mt-1 text-[12px] text-ink-muted">{{ item.label }}</p>
       </article>
     </div>
 
-    <div class="mt-5 grid gap-4 xl:grid-cols-5">
-      <section class="rounded-2xl border border-mist bg-white p-5 xl:col-span-3">
-        <h2 class="font-semibold text-ink">روند بازدید</h2>
-        <p class="mb-3 text-xs text-ink-muted">{{ rangeOptions.find((item) => item.value === range)?.label }}</p>
+    <div class="grid gap-4 xl:grid-cols-5">
+      <section class="rounded-2xl border border-mist bg-white p-4 sm:p-5 xl:col-span-3">
+        <h2 class="font-semibold text-ink">روند بازدید یکتا</h2>
+        <p class="mb-3 text-[11px] text-ink-muted">{{ rangeOptions.find((item) => item.value === range)?.label }}</p>
         <AdminLineChart v-if="data?.series?.length" :series="data.series" />
         <p v-else class="py-10 text-center text-sm text-ink-muted">در این بازه بازدیدی نیست</p>
       </section>
-      <section class="rounded-2xl border border-mist bg-white p-5 xl:col-span-2">
-        <h2 class="mb-3 font-semibold text-ink">پربازدیدترین صفحات</h2>
-        <AdminBarChart v-if="data?.pages?.length" :items="data.pages" />
-        <p v-else class="text-sm text-ink-muted">صفحه‌ای ثبت نشده</p>
+
+      <section class="rounded-2xl border border-mist bg-white p-4 sm:p-5 xl:col-span-2">
+        <div class="mb-3 flex items-center justify-between gap-2">
+          <h2 class="font-semibold text-ink">جدول زمانی</h2>
+          <p class="text-[11px] text-ink-muted">کلیک = ساعت‌ها</p>
+        </div>
+        <div class="max-h-72 space-y-2 overflow-y-auto pe-1">
+          <button
+            v-for="item in data?.series ?? []"
+            :key="item.day"
+            type="button"
+            class="flex w-full items-center justify-between gap-2 rounded-xl bg-[#f8fafc] px-3 py-2 text-sm ring-1 ring-mist/70 transition hover:bg-green-soft/40 hover:ring-green-deep/30"
+            @click="openDayDetail(item.day)"
+          >
+            <span class="text-ink-muted">{{ formatBucket(item.day) }}</span>
+            <span class="tabular-nums font-semibold text-green-deep">{{ fa(item.visits) }}</span>
+          </button>
+          <p v-if="!data?.series?.length" class="py-6 text-center text-sm text-ink-muted">داده‌ای نیست</p>
+        </div>
       </section>
     </div>
 
-    <section class="mt-4 overflow-x-auto rounded-2xl border border-mist bg-white">
-      <table class="w-full min-w-[520px] text-right text-sm">
-        <thead class="bg-mist/60 text-ink-muted">
-          <tr>
-            <th class="p-3 font-medium">بازه</th>
-            <th class="p-3 font-medium">بازدید</th>
-            <th class="p-3 font-medium">مقالات</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in data?.series ?? []" :key="item.day" class="border-t border-mist">
-            <td class="p-3">{{ formatBucket(item.day) }}</td>
-            <td class="p-3 text-green-deep">{{ fa(item.visits) }}</td>
-            <td class="p-3">{{ fa(item.articleVisits) }}</td>
-          </tr>
-        </tbody>
-      </table>
+    <section class="rounded-2xl border border-mist bg-white p-4 sm:p-5">
+      <div class="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h2 class="font-semibold text-ink">جزئیات صفحات</h2>
+          <p class="text-[11px] text-ink-muted">تا ۲۵ صفحه پربازدید این دوره</p>
+        </div>
+        <input
+          v-model="query"
+          type="search"
+          placeholder="جستجوی صفحه…"
+          class="w-full rounded-xl border border-mist px-3 py-2 text-sm outline-none focus:border-green-deep sm:max-w-xs"
+        >
+      </div>
+
+      <ul class="space-y-2">
+        <li
+          v-for="(item, index) in filteredPages"
+          :key="item.path"
+          class="rounded-2xl bg-[#f8fafc] p-3 ring-1 ring-mist/80"
+        >
+          <div class="flex items-start justify-between gap-3">
+            <div class="min-w-0">
+              <p class="truncate text-sm font-medium text-ink">
+                <span class="me-2 text-ink-muted tabular-nums">{{ fa(index + 1) }}.</span>
+                {{ item.label }}
+              </p>
+              <p class="mt-0.5 truncate text-[11px] text-ink-muted dir-ltr">{{ item.path }}</p>
+            </div>
+            <p class="shrink-0 tabular-nums text-sm font-bold text-green-deep">
+              {{ fa(item.visits) }}
+            </p>
+          </div>
+          <div class="mt-2 h-1.5 overflow-hidden rounded-full bg-mist">
+            <div
+              class="h-full rounded-full bg-green-deep"
+              :style="{ width: `${Math.max(6, (item.visits / maxPageVisits) * 100)}%` }"
+            />
+          </div>
+        </li>
+      </ul>
+      <p v-if="!filteredPages.length" class="py-8 text-center text-sm text-ink-muted">
+        صفحه‌ای با این جستجو پیدا نشد
+      </p>
     </section>
+
+    <AdminModal
+      :open="detailOpen"
+      :title="`ساعت بازدید — ${detailTitle}`"
+      @close="closeDetail"
+    >
+      <p v-if="detailLoading" class="py-8 text-center text-sm text-ink-muted">
+        در حال بارگذاری ساعت‌ها…
+      </p>
+      <p v-else-if="detailError" class="text-sm text-red-600">{{ detailError }}</p>
+      <template v-else-if="detail">
+        <p class="mb-4 text-[13px] text-ink-muted">
+          {{ fa(detail.total) }} بازدید یکتا در این بازه — هر ردیف زمان ثبت همان دستگاه روی همان صفحه است.
+        </p>
+        <div class="max-h-[55vh] space-y-2 overflow-y-auto pe-1">
+          <div
+            v-for="hit in detail.visits"
+            :key="hit.id"
+            class="flex items-start justify-between gap-3 rounded-xl bg-[#f8fafc] px-3 py-2.5 ring-1 ring-mist/70"
+          >
+            <div class="min-w-0">
+              <p class="truncate text-sm font-medium text-ink">{{ hit.label }}</p>
+              <p class="mt-0.5 truncate text-[11px] text-ink-muted dir-ltr">{{ hit.path }}</p>
+              <p v-if="showDayColumn" class="mt-1 text-[11px] text-ink-muted">
+                {{ formatDayLabel(hit.day) }}
+              </p>
+            </div>
+            <p class="shrink-0 tabular-nums text-sm font-bold text-green-deep dir-ltr">
+              {{ hit.timeShort }}
+            </p>
+          </div>
+          <p v-if="!detail.visits.length" class="py-8 text-center text-sm text-ink-muted">
+            بازدیدی در این بازه ثبت نشده
+          </p>
+        </div>
+      </template>
+    </AdminModal>
   </div>
 </template>

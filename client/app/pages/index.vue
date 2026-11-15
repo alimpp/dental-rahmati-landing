@@ -50,16 +50,25 @@ import HomeInstagramSection from '~/components/home/InstagramSection.vue'
 import ArticlesPreview from '~/modules/article/components/ArticlesPreview.vue'
 import TestimonialsSection from '~/modules/testimonial/components/TestimonialsSection.vue'
 import ClinicInviteSection from '~/components/clinic/ClinicInviteSection.vue'
+import { SEO_HOME, SEO_KEYWORD_STRING } from '~/data/seo'
 
 usePageSeo({
-  title: 'دندانپزشکی در کرج | کلینیک امیر رحمتی جهانشهر',
-  description:
-    'کلینیک دندان‌پزشکی امیر رحمتی در کرج جهانشهر: زیبایی، ایمپلنت، دیجیتال، لیزر و ارتودنسی — بلوار جمهوری، نبش کوچه غزال، ساختمان فاتح.',
-  keywords:
-    'دندانپزشکی در کرج, بهترین دندانپزشک کرج, ایمپلنت در کرج, دندان پزشکی دیجیتال کرج, لیزر دندانپزشکی کرج, کلینیک دندانپزشکی جهانشهر, دکتر امیر رحمتی',
+  title: SEO_HOME.title,
+  description: SEO_HOME.description,
+  keywords: SEO_KEYWORD_STRING,
   path: '/',
-  image: '/clinic/01-facade.jpg',
+  image: SEO_HOME.image,
 })
+
+useSchemaOrg([
+  defineWebPage({
+    name: SEO_HOME.title,
+    description: SEO_HOME.description,
+  }),
+  defineBreadcrumb({
+    itemListElement: [{ name: 'خانه', item: '/' }],
+  }),
+])
 
 const route = useRoute()
 

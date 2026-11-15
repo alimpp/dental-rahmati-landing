@@ -1,6 +1,6 @@
 <script setup lang="ts">
 useSeoMeta({
-  title: 'ورود ادمین | امیر رحمتی',
+  title: 'ورود ادمین | دکتر امیر رحمتی',
   robots: 'noindex, nofollow',
 })
 </script>

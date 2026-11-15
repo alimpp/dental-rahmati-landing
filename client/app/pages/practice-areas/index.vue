@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { serviceModule } from '~/modules'
+import { SEO_PAGES } from '~/data/seo'
 
 const serviceDS = serviceModule.store
 const serviceController = serviceModule.controller
@@ -12,14 +13,21 @@ const rest = computed(() => items.value.slice(1))
 await serviceController.getServiceList()
 
 usePageSeo({
-  title: 'خدمات دندانپزشکی در کرج | زیبایی، ایمپلنت، دیجیتال، لیزر',
-  description:
-    'خدمات کلینیک امیر رحمتی در کرج جهانشهر: زیبایی، ایمپلنت، ترمیمی، عصب‌کشی، ارتودنسی، دیجیتال و لیزر دندانپزشکی — ساختمان فاتح.',
-  keywords:
-    'خدمات دندانپزشکی کرج, ایمپلنت در کرج, دندان پزشکی زیبایی کرج, لیزر دندانپزشکی کرج, دندان پزشکی دیجیتال کرج, کلینیک جهانشهر',
+  title: SEO_PAGES.services.title,
+  description: SEO_PAGES.services.description,
+  keywords: SEO_PAGES.services.keywords,
   path: '/practice-areas',
   image: '/services/covers/svc-cosmetic.jpg',
 })
+
+useSchemaOrg([
+  defineBreadcrumb({
+    itemListElement: [
+      { name: 'خانه', item: '/' },
+      { name: 'خدمات دندان پزشکی دیجیتال', item: '/practice-areas' },
+    ],
+  }),
+])
 </script>
 
 <template>
@@ -42,11 +50,10 @@ usePageSeo({
               خدمات کلینیک
             </p>
             <h1 class="mt-4 text-3xl font-bold tracking-tight text-ink sm:text-5xl sm:leading-[1.2]">
-              خدمات دندانپزشکی؛
-              <span class="text-ink-muted">با دقت و تخصص</span>
+              {{ SEO_PAGES.services.h1 }}
             </h1>
             <p class="mt-5 max-w-lg text-[15px] leading-8 text-ink-muted">
-              هر درمان با توجه به نیاز شما برنامه‌ریزی می‌شود — برای سلامت دهان، زیبایی لبخند و آرامش در ویزیت.
+              ایمپلنت دیجیتال، لمینت، کامپوزیت و طراحی لبخند با دکتر امیر رحمتی — درمان دقیق و قابل پیش‌بینی در کرج جهانشهر.
             </p>
             <div class="mt-8 flex flex-wrap gap-3">
               <span class="rounded-2xl bg-panel px-4 py-2 text-sm font-medium text-ink ring-1 ring-mist-deep">
@@ -73,7 +80,7 @@ usePageSeo({
               <div class="relative aspect-[16/11]">
                 <img
                   src="/services/hero.jpg"
-                  alt="خدمات کلینیک دندان‌پزشکی امیر رحمتی"
+                  alt="خدمات دندان پزشکی دیجیتال، ایمپلنت و لمینت در کلینیک دکتر امیر رحمتی کرج"
                   class="size-full object-cover opacity-80"
                   width="960"
                   height="660"
@@ -86,9 +93,9 @@ usePageSeo({
                   </div>
                 </div>
                 <div class="absolute inset-x-0 bottom-0 p-6 sm:p-7">
-                  <p class="text-[11px] tracking-[0.18em] text-gold">امیر رحمتی</p>
+                  <p class="text-[11px] tracking-[0.18em] text-gold">دکتر امیر رحمتی</p>
                   <p class="mt-2 max-w-sm text-lg font-semibold text-on-band">
-                    از معاینه و ترمیم تا زیبایی و ایمپلنت
+                    دندان پزشکی دیجیتال، ایمپلنت دیجیتال، لمینت و کامپوزیت
                   </p>
                 </div>
               </div>

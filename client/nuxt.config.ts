@@ -9,7 +9,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       htmlAttrs: { lang: 'fa', dir: 'rtl' },
-      title: 'دندانپزشکی در کرج | کلینیک امیر رحمتی',
+      title: 'دندان پزشکی دیجیتال در کرج | دکتر امیر رحمتی',
       titleTemplate: '%s',
       meta: [
         { name: 'theme-color', content: '#0f766e' },
@@ -17,20 +17,20 @@ export default defineNuxtConfig({
         {
           name: 'keywords',
           content:
-            'دندانپزشکی در کرج, بهترین دندانپزشک کرج, دندان پزشکی دیجیتال در کرج, ایمپلنت در کرج, لمینت دندان کرج, کلینیک دندانپزشکی جهانشهر, دکتر امیر رحمتی',
+            'دندان پزشکی دیجیتال, ایمپلنت دیجیتال, خدمات دندان پزشکی دیجیتال, دکتر امیر رحمتی, دندان پزشکی در کرج, ایمپلنت, لمینت, کامپوزیت',
         },
         { name: 'geo.region', content: 'IR-30' },
         { name: 'geo.placename', content: 'کرج' },
-        { name: 'geo.position', content: '35.8294;50.9972' },
-        { name: 'ICBM', content: '35.8294, 50.9972' },
+        { name: 'geo.position', content: '35.8282;50.9791' },
+        { name: 'ICBM', content: '35.8282, 50.9791' },
       ],
     },
   },
   site: {
-    url: process.env.NUXT_SITE_URL || 'https://dentalrahmati.ir',
-    name: 'کلینیک دندان‌پزشکی امیر رحمتی | کرج',
+    url: process.env.NUXT_SITE_URL || process.env.NUXT_PUBLIC_SITE_URL || 'https://dramirrahmati.com',
+    name: 'کلینیک دندان‌پزشکی دکتر امیر رحمتی | دندان پزشکی دیجیتال در کرج',
     description:
-      'کلینیک دندان‌پزشکی امیر رحمتی در کرج، جهانشهر — دندان‌پزشکی دیجیتال، ایمپلنت، لمینت، زیبایی و رزرو نوبت. بهترین مسیر درمان دندان در کرج.',
+      'دکتر امیر رحمتی در کرج جهانشهر — دندان پزشکی دیجیتال، ایمپلنت دیجیتال، لمینت، کامپوزیت و طراحی لبخند.',
     defaultLocale: 'fa',
     trailingSlash: false,
   },
@@ -47,15 +47,17 @@ export default defineNuxtConfig({
   schemaOrg: {
     identity: {
       type: 'Dentist',
-      name: 'کلینیک دندان‌پزشکی امیر رحمتی',
-      url: process.env.NUXT_SITE_URL || 'https://dentalrahmati.ir',
+      name: 'کلینیک دندان‌پزشکی دکتر امیر رحمتی',
+      url: process.env.NUXT_SITE_URL || process.env.NUXT_PUBLIC_SITE_URL || 'https://dramirrahmati.com',
       logo: '/images/logo.svg',
       description:
-        'دندانپزشکی دیجیتال، ایمپلنت و لمینت در کرج، جهانشهر — کلینیک دکتر امیر رحمتی.',
+        'دندان پزشکی دیجیتال، ایمپلنت دیجیتال، لمینت و کامپوزیت در کرج جهانشهر — دکتر امیر رحمتی.',
     },
   },
   routeRules: {
-    '/admin/**': { robots: false },
+    // Admin is cookie-auth + client modules; SSR on refresh caused 500s on some pages.
+    '/admin/**': { ssr: false, robots: false },
+    '/admin/login': { ssr: false, robots: false },
     '/team': { redirect: '/guides' },
     '/team/**': { redirect: '/guides' },
     '/catalog': { redirect: '/articles' },
@@ -76,7 +78,7 @@ export default defineNuxtConfig({
       siteUrl:
         process.env.NUXT_PUBLIC_SITE_URL
         || process.env.NUXT_SITE_URL
-        || 'https://dentalrahmati.ir',
+        || 'https://dramirrahmati.com',
     },
   },
   vite: {
