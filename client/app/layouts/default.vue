@@ -29,7 +29,7 @@ useSchemaOrg([
     ],
     url: siteUrl,
     logo: `${siteUrl}/images/logo.svg`,
-    image: `${siteUrl}/clinic/01-facade.jpg`,
+    image: `${siteUrl}/clinic/01-reception.jpg`,
     email: siteContact.email,
     telephone: siteContact.phoneHref.replace('tel:', ''),
     priceRange: '$$',

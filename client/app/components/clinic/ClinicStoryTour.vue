@@ -1,13 +1,56 @@
 <script setup lang="ts">
 /**
- * تور ادیتوریال — کاملاً روی توکن‌های تم
+ * تور ادیتوریال — داده‌ها از ادمین (`clinic-rooms`)
  */
-import { CLINIC_ROOMS } from '~/data/clinic-rooms'
+import { clinicRoomModule } from '~/modules'
+import { CLINIC_HERO } from '~/data/clinic-rooms'
 import { siteContact } from '~/data/site-contact'
 
-const rooms = CLINIC_ROOMS
-const activeId = ref(rooms[0]!.id)
+const HERO_INTERVAL_MS = 4500
+
+const mediaSrc = useMediaSrc()
+const rooms = computed(() => clinicRoomModule.store.getVisibleItems)
+const loading = computed(() => clinicRoomModule.store.getLoading)
+const activeId = ref('')
 const stripRef = ref<HTMLElement | null>(null)
+const heroIndex = ref(0)
+const reducedMotion = ref(false)
+let heroTimer: ReturnType<typeof setInterval> | null = null
+
+const heroSlides = computed(() =>
+  rooms.value.length
+    ? rooms.value
+    : [{ id: 'fallback', image: CLINIC_HERO.fallbackImage, title: CLINIC_HERO.title, eyebrow: CLINIC_HERO.eyebrow }],
+)
+const heroRoom = computed(() => heroSlides.value[heroIndex.value] ?? heroSlides.value[0] ?? null)
+const heroAlt = computed(() =>
+  heroRoom.value
+    ? `${heroRoom.value.title} | کلینیک دندان پزشکی دیجیتال دکتر امیر رحمتی`
+    : CLINIC_HERO.title,
+)
+
+function stopHeroAutoplay() {
+  if (heroTimer) {
+    clearInterval(heroTimer)
+    heroTimer = null
+  }
+}
+
+function startHeroAutoplay() {
+  stopHeroAutoplay()
+  if (heroSlides.value.length < 2 || reducedMotion.value) return
+  if (typeof document !== 'undefined' && document.visibilityState !== 'visible') return
+  heroTimer = setInterval(() => {
+    const len = heroSlides.value.length
+    if (len < 2) return
+    heroIndex.value = (heroIndex.value + 1) % len
+  }, HERO_INTERVAL_MS)
+}
+
+function onHeroVisibility() {
+  if (document.visibilityState === 'visible') startHeroAutoplay()
+  else stopHeroAutoplay()
+}
 
 function scrollToRoom(id: string) {
   const el = document.getElementById(`clinic-room-${id}`)
@@ -28,12 +71,22 @@ function onStripWheel(e: WheelEvent) {
 
 let roomObserver: IntersectionObserver | null = null
 
-onMounted(() => {
-  const nodes = rooms
+function bindRoomObserver() {
+  roomObserver?.disconnect()
+  roomObserver = null
+
+  const list = rooms.value
+  if (!list.length || typeof IntersectionObserver === 'undefined') return
+
+  if (!activeId.value || !list.some(r => r.id === activeId.value)) {
+    activeId.value = list[0]!.id
+  }
+
+  const nodes = list
     .map(r => document.getElementById(`clinic-room-${r.id}`))
     .filter((n): n is HTMLElement => !!n)
 
-  if (!nodes.length || typeof IntersectionObserver === 'undefined') return
+  if (!nodes.length) return
 
   roomObserver = new IntersectionObserver(
     (entries) => {
@@ -53,45 +106,74 @@ onMounted(() => {
   )
 
   nodes.forEach(n => roomObserver!.observe(n))
+}
+
+await clinicRoomModule.controller.getList()
+
+onMounted(() => {
+  reducedMotion.value = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  heroIndex.value = 0
+  startHeroAutoplay()
+  document.addEventListener('visibilitychange', onHeroVisibility)
+  nextTick(() => bindRoomObserver())
 })
 
+watch(
+  () => rooms.value.map(r => r.id).join(','),
+  () => {
+    heroIndex.value = 0
+    startHeroAutoplay()
+    nextTick(() => bindRoomObserver())
+  },
+)
+
 onBeforeUnmount(() => {
+  stopHeroAutoplay()
+  document.removeEventListener('visibilitychange', onHeroVisibility)
   roomObserver?.disconnect()
   roomObserver = null
 })
 
 useHead({
-  link: rooms.slice(0, 4).map(s => ({
-    rel: 'preload' as const,
-    as: 'image' as const,
-    href: s.image,
-  })),
+  link: computed(() =>
+    rooms.value.slice(0, 4).map(s => ({
+      rel: 'preload' as const,
+      as: 'image' as const,
+      href: mediaSrc(s.image),
+    })),
+  ),
 })
 </script>
 
 <template>
   <div class="clinic-tour bg-surface text-ink">
     <header class="relative isolate min-h-[70vh] overflow-hidden">
-      <img
-        src="/clinic/01-facade.jpg"
-        alt="نمای ورودی کلینیک دندان پزشکی دیجیتال دکتر امیر رحمتی در کرج جهانشهر"
-        class="absolute inset-0 size-full object-cover"
-        fetchpriority="high"
-      >
+      <div class="absolute inset-0" aria-hidden="true">
+        <img
+          v-for="(slide, i) in heroSlides"
+          :key="slide.id"
+          :src="mediaSrc(slide.image)"
+          :alt="i === heroIndex ? heroAlt : ''"
+          class="absolute inset-0 size-full object-cover transition-opacity duration-700 ease-out"
+          :class="i === heroIndex ? 'opacity-100' : 'opacity-0'"
+          :fetchpriority="i === 0 ? 'high' : 'low'"
+          :loading="i === 0 ? 'eager' : 'lazy'"
+        >
+      </div>
       <div class="absolute inset-0 bg-gradient-to-t from-band via-band/60 to-band/30" />
       <div class="relative mx-auto flex min-h-[70vh] max-w-7xl flex-col justify-end px-4 pb-14 pt-28 sm:px-6 lg:px-8 lg:pb-16">
         <p class="text-[11px] font-medium tracking-[0.22em] text-gold">
-          کلینیک ما · کرج جهانشهر
+          {{ CLINIC_HERO.eyebrow }}
         </p>
         <h1 class="mt-4 max-w-3xl text-3xl font-bold leading-snug text-on-band sm:text-5xl sm:leading-[1.2]">
-          کلینیک دندان پزشکی دیجیتال دکتر امیر رحمتی در کرج
+          {{ CLINIC_HERO.title }}
         </h1>
         <p class="mt-5 max-w-2xl text-[15px] leading-8 text-on-band/80">
-          {{ siteContact.address }} — از ورودی تا یونیت، VIP، دیجیتال و استریل را با اسکرول آرام ببینید.
-          از نوار بندانگشتی می‌توانید به هر فضا بپرید.
+          {{ siteContact.address }} — {{ CLINIC_HERO.description }}
         </p>
-        <div class="mt-8 flex flex-wrap gap-3">
+        <div class="mt-8 flex flex-wrap items-center gap-3">
           <button
+            v-if="rooms.length"
             type="button"
             class="inline-flex rounded-xl bg-gold px-5 py-3 text-sm font-semibold text-on-accent transition hover:opacity-90"
             @click="scrollToRoom(rooms[0]!.id)"
@@ -104,11 +186,21 @@ useHead({
           >
             رزرو نوبت
           </NuxtLink>
+          <p
+            v-if="heroSlides.length > 1"
+            class="ms-auto font-mono text-[11px] tracking-wider text-on-band/70"
+            aria-live="polite"
+          >
+            {{ String(heroIndex + 1).padStart(2, '0') }} / {{ String(heroSlides.length).padStart(2, '0') }}
+          </p>
         </div>
       </div>
     </header>
 
-    <div class="sticky top-[var(--clinic-header-offset,4.5rem)] z-20 border-y border-mist-deep bg-surface/95 backdrop-blur-md">
+    <div
+      v-if="rooms.length"
+      class="sticky top-[var(--clinic-header-offset,4.5rem)] z-20 border-y border-mist-deep bg-surface/95 backdrop-blur-md"
+    >
       <div class="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3 sm:px-6 lg:px-8">
         <p class="hidden shrink-0 text-[11px] tracking-[0.18em] text-gold sm:block">
           فضاها
@@ -130,7 +222,7 @@ useHead({
             @click="scrollToRoom(room.id)"
           >
             <img
-              :src="room.image"
+              :src="mediaSrc(room.image)"
               :alt="room.title"
               class="size-full object-cover transition duration-300 group-hover:scale-105"
               loading="lazy"
@@ -144,7 +236,27 @@ useHead({
       </div>
     </div>
 
-    <div class="relative mx-auto max-w-7xl lg:grid lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-10 lg:px-8">
+    <div
+      v-if="loading && !rooms.length"
+      class="mx-auto max-w-7xl px-4 py-20 text-center text-sm text-ink-muted sm:px-6 lg:px-8"
+    >
+      در حال بارگذاری فضاهای کلینیک…
+    </div>
+
+    <div
+      v-else-if="!rooms.length"
+      class="mx-auto max-w-7xl px-4 py-20 text-center sm:px-6 lg:px-8"
+    >
+      <p class="text-base font-semibold text-ink">هنوز فضایی ثبت نشده</p>
+      <p class="mt-2 text-sm leading-7 text-ink-muted">
+        از پنل ادمین، بخش «کلینیک ما»، عکس و توضیح فضاها را اضافه کنید.
+      </p>
+    </div>
+
+    <div
+      v-else
+      class="relative mx-auto max-w-7xl lg:grid lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-10 lg:px-8"
+    >
       <nav
         class="sticky top-[calc(var(--clinic-header-offset,4.5rem)+5.5rem)] z-10 hidden max-h-[calc(100vh-8rem)] self-start overflow-y-auto py-10 lg:block"
         aria-label="فهرست فضاهای کلینیک"
@@ -183,8 +295,8 @@ useHead({
               <div class="relative overflow-hidden rounded-[1.5rem] bg-mist ring-1 ring-mist-deep lg:col-span-7">
                 <div class="aspect-[16/11] sm:aspect-[5/3]">
                   <img
-                    :src="room.image"
-                    :alt="room.title"
+                    :src="mediaSrc(room.image)"
+                    :alt="`${room.title} | کلینیک دندان پزشکی دیجیتال دکتر امیر رحمتی`"
                     class="size-full object-cover"
                     :loading="i < 2 ? 'eager' : 'lazy'"
                   >

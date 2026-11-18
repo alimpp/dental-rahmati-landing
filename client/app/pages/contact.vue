@@ -7,7 +7,7 @@ usePageSeo({
   description: SEO_PAGES.contact.description,
   keywords: SEO_PAGES.contact.keywords,
   path: '/contact',
-  image: '/clinic/01-facade.jpg',
+  image: '/clinic/01-reception.jpg',
 })
 
 useSchemaOrg([

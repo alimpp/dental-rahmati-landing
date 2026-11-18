@@ -94,6 +94,15 @@ export const ADMIN_PAGE_META: AdminPageMeta[] = [
     module: 'portfolio',
   },
   {
+    path: '/admin/clinic',
+    title: MODULE_LABELS.clinic,
+    description: 'فضاها و عکس‌های صفحهٔ کلینیک ما؛ عنوان، توضیح و ترتیب نمایش.',
+    group: 'content',
+    groupLabel: GROUP_LABELS.content,
+    icon: MODULE_ICONS.clinic,
+    module: 'clinic',
+  },
+  {
     path: '/admin/stats',
     title: MODULE_LABELS.stats,
     description: 'آمار و اعداد نمایشی نوار آمار صفحه اصلی.',

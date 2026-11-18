@@ -44,7 +44,7 @@ export class PortfolioItemModel implements TPortfolioItem {
   }
 
   get cover(): string {
-    return this.coverImage || this.afterImage || this.gallery[0]?.url || '/clinic/01-facade.jpg'
+    return this.coverImage || this.afterImage || this.gallery[0]?.url || '/clinic/01-reception.jpg'
   }
 
   get imageCount(): number {

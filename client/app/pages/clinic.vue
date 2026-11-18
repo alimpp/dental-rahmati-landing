@@ -14,7 +14,7 @@ usePageSeo({
   description: SEO_PAGES.clinic.description,
   keywords: SEO_PAGES.clinic.keywords,
   path: '/clinic',
-  image: '/clinic/02-lobby.jpg',
+  image: '/clinic/01-reception.jpg',
 })
 
 useSchemaOrg([
@@ -27,10 +27,10 @@ useSchemaOrg([
 ])
 
 const highlights = [
-  { title: 'پذیرش دیجیتال', text: 'پرونده و زمان‌بندی شفاف از همان ورود' },
-  { title: 'دو یونیت موازی', text: 'کاهش انتظار بدون افت کیفیت درمان' },
-  { title: 'مسیر دیجیتال', text: 'اسکن، طراحی و آماده‌سازی دقیق‌تر' },
-  { title: 'استریل استاندارد', text: 'چرخه ابزار برای هر جلسه درمان' },
+  { title: 'پذیرش دیجیتال', text: 'هماهنگی نوبت و پرونده از همان ورود' },
+  { title: 'فضای درمان مدرن', text: 'یونیت‌های موازی و چیدمان مرتب' },
+  { title: 'طراحی لبخند', text: 'عکاسی و مستندسازی قبل‌و‌بعد' },
+  { title: 'دندان‌پزشکی دیجیتال', text: 'تجهیزات دقیق برای درمان تخصصی' },
 ]
 </script>
 

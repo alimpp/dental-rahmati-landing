@@ -19,6 +19,7 @@ import { GuideModule } from './guide/guide.module';
 import { AppointmentModule } from './appointment/appointment.module';
 import { ThemeModule } from './theme/theme.module';
 import { PortfolioModule } from './portfolio/portfolio.module';
+import { ClinicRoomModule } from './clinic-room/clinic-room.module';
 
 @Module({
   imports: [
@@ -57,6 +58,7 @@ import { PortfolioModule } from './portfolio/portfolio.module';
     AppointmentModule,
     ThemeModule,
     PortfolioModule,
+    ClinicRoomModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -6,7 +6,7 @@
   <section class="relative overflow-hidden bg-band text-on-band">
     <div class="absolute inset-0">
       <img
-        src="/clinic/02-lobby.jpg"
+        src="/clinic/01-reception.jpg"
         alt="فضای پذیرش کلینیک دندان پزشکی دیجیتال دکتر امیر رحمتی در کرج جهانشهر"
         class="size-full object-cover opacity-45"
       >

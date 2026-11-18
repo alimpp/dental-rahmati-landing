@@ -23,7 +23,7 @@ export const SEO_HOME = {
   h1: 'دندان پزشکی دیجیتال و ایمپلنت در کرج',
   support:
     'ایمپلنت دیجیتال، لمینت، کامپوزیت و خدمات دندان پزشکی دیجیتال با دکتر امیر رحمتی',
-  image: '/clinic/01-facade.jpg',
+  image: '/clinic/01-reception.jpg',
 } as const
 
 export const SEO_PAGES = {

@@ -27,7 +27,7 @@ usePageSeo({
   title: SEO_PAGES.portfolio.title,
   description: SEO_PAGES.portfolio.description,
   keywords: SEO_PAGES.portfolio.keywords,
-  image: () => items.value[0]?.cover || '/clinic/06-vip.jpg',
+  image: () => items.value[0]?.cover || '/clinic/09-ops-gallery.jpg',
   path: '/portfolio',
 })
 

@@ -16,6 +16,7 @@ export const ADMIN_MODULES = [
   'guides',
   'themes',
   'portfolio',
+  'clinic',
 ] as const;
 
 export const PERMISSION_ACTIONS = ['view', 'create', 'edit', 'delete'] as const;
@@ -44,6 +45,7 @@ export const MODULE_LABELS: Record<AdminModuleKey, string> = {
   guides: 'راهنماها',
   themes: 'تم‌ها',
   portfolio: 'نمونه کارها',
+  clinic: 'کلینیک ما',
 };
 
 export const ACTION_LABELS: Record<PermissionAction, string> = {

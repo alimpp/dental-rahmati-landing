@@ -192,36 +192,42 @@ async function submit() {
 
 function fieldClass(name: string) {
   return [
-    'w-full rounded-2xl bg-mist px-4 py-3 text-sm text-ink outline-none ring-1 transition focus:bg-panel',
+    'box-border max-w-full w-full rounded-2xl bg-mist px-3.5 py-3 text-sm text-ink outline-none ring-1 transition focus:bg-panel sm:px-4',
     fieldErrors.value[name] ? 'ring-red-400' : 'ring-mist-deep focus:ring-green-deep/40',
   ]
 }
 </script>
 
 <template>
-  <div class="max-w-full bg-mist">
+  <div class="min-w-0 w-full overflow-x-clip bg-mist">
     <SiteReveal variant="fade">
-      <header class="relative overflow-hidden border-b border-mist-deep bg-panel">
-        <div class="pointer-events-none absolute -left-20 top-0 size-72 rounded-full bg-green-deep/10 blur-3xl" />
-        <div class="pointer-events-none absolute -right-16 bottom-0 size-56 rounded-full bg-gold/20 blur-3xl" />
-        <div class="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+      <header class="relative overflow-x-clip border-b border-mist-deep bg-panel">
+        <div
+          class="pointer-events-none absolute inset-y-0 start-0 w-40 max-w-[40%] bg-green-deep/8 blur-3xl"
+          aria-hidden="true"
+        />
+        <div
+          class="pointer-events-none absolute inset-y-0 end-0 w-36 max-w-[35%] bg-gold/15 blur-3xl"
+          aria-hidden="true"
+        />
+        <div class="relative mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8 lg:py-16">
           <p class="text-[11px] font-semibold tracking-[0.22em] text-green-deep">
             نوبت‌دهی آنلاین
           </p>
-          <h1 class="mt-3 max-w-2xl text-3xl font-bold tracking-tight text-ink sm:text-5xl sm:leading-[1.15]">
+          <h1 class="mt-3 max-w-2xl text-[1.65rem] font-bold leading-snug tracking-tight text-ink sm:text-4xl sm:leading-[1.2] lg:text-5xl">
             رزرو نوبت ایمپلنت، لمینت و دندان پزشکی دیجیتال در کرج
           </h1>
-          <p class="mt-4 max-w-xl text-[15px] leading-8 text-ink-muted">
+          <p class="mt-4 max-w-xl text-[14px] leading-7 text-ink-muted sm:text-[15px] sm:leading-8">
             نوبت آنلاین کلینیک دکتر امیر رحمتی برای دندان پزشکی دیجیتال، ایمپلنت دیجیتال، لمینت و کامپوزیت در کرج.
             با انتخاب بازه و ثبت مشخصات، نوبت شما قطعی می‌شود.
           </p>
-          <div class="mt-6 flex flex-wrap gap-3 text-sm">
-            <span class="rounded-2xl bg-mist px-4 py-2 font-medium text-ink ring-1 ring-mist-deep">
+          <div class="mt-5 flex flex-wrap gap-2 text-[13px] sm:mt-6 sm:gap-3 sm:text-sm">
+            <span class="rounded-2xl bg-mist px-3.5 py-2 font-medium text-ink ring-1 ring-mist-deep sm:px-4">
               نام، نام‌خانوادگی و موبایل کافی است
             </span>
             <a
               :href="siteContact.phoneHref"
-              class="rounded-2xl bg-band px-4 py-2 font-medium text-on-band transition hover:bg-green-deep"
+              class="rounded-2xl bg-band px-3.5 py-2 font-medium text-on-band transition hover:bg-green-deep sm:px-4"
             >
               تماس {{ siteContact.phone }}
             </a>
@@ -230,9 +236,43 @@ function fieldClass(name: string) {
       </header>
     </SiteReveal>
 
-    <div class="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-12 lg:gap-10 lg:px-8 lg:py-14">
+    <div class="mx-auto grid w-full max-w-7xl grid-cols-1 gap-5 px-4 py-6 sm:gap-6 sm:px-6 sm:py-10 lg:grid-cols-12 lg:gap-10 lg:px-8 lg:py-14">
+      <!-- Side first on mobile as compact how-to -->
+      <aside class="order-1 min-w-0 lg:order-2 lg:col-span-5">
+        <div class="space-y-4 lg:sticky lg:top-24">
+          <div class="overflow-hidden rounded-2xl bg-band p-4 text-on-band sm:rounded-[1.6rem] sm:p-6 lg:p-7">
+            <p class="text-[11px] font-semibold tracking-[0.18em] text-gold">چطور کار می‌کند؟</p>
+            <ol class="mt-4 grid gap-3 text-[13px] leading-7 text-on-band/80 sm:mt-5 sm:gap-4 sm:text-sm">
+              <li class="flex gap-3">
+                <span class="mt-0.5 shrink-0 font-mono text-gold">01</span>
+                <span>روز دارای نوبت خالی را انتخاب کنید.</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="mt-0.5 shrink-0 font-mono text-gold">02</span>
+                <span>یکی از بازه‌های ساعتی آزاد را بزنید.</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="mt-0.5 shrink-0 font-mono text-gold">03</span>
+                <span>نام، نام‌خانوادگی و موبایل را وارد و تأیید کنید.</span>
+              </li>
+            </ol>
+            <p class="mt-4 border-t border-white/10 pt-4 text-[12px] text-on-band/55 sm:mt-6 sm:pt-5">
+              {{ siteContact.hours }}
+            </p>
+          </div>
+
+          <div class="hidden rounded-[1.5rem] bg-panel p-5 ring-1 ring-mist-deep sm:block sm:p-6">
+            <p class="text-[11px] font-semibold tracking-[0.18em] text-green-deep">نکته</p>
+            <p class="mt-3 text-sm leading-7 text-ink-muted">
+              هر نوبت فقط یک‌بار قابل رزرو است. اگر کسی زودتر همان ساعت را بگیرد،
+              لیست به‌روزرسانی می‌شود و باید بازه دیگری انتخاب کنید.
+            </p>
+          </div>
+        </div>
+      </aside>
+
       <!-- Steps column -->
-      <div class="space-y-6 lg:col-span-7">
+      <div class="order-2 min-w-0 space-y-4 sm:space-y-6 lg:order-1 lg:col-span-7">
         <p v-if="error" class="rounded-2xl bg-red-50 px-4 py-3 text-sm text-red-700 ring-1 ring-red-100">
           {{ error }}
         </p>
@@ -244,51 +284,58 @@ function fieldClass(name: string) {
         </p>
 
         <!-- Step 1: dates -->
-        <section class="rounded-[1.6rem] bg-panel p-5 ring-1 ring-mist-deep sm:p-7">
-          <div class="flex items-center gap-3">
-            <span class="flex size-8 items-center justify-center rounded-xl bg-green-deep text-sm font-bold text-on-band">1</span>
-            <div>
-              <h2 class="text-lg font-bold text-ink">انتخاب روز</h2>
-              <p class="text-sm text-ink-muted">روزهایی که نوبت خالی دارند</p>
+        <section class="min-w-0 overflow-hidden rounded-2xl bg-panel ring-1 ring-mist-deep sm:rounded-[1.6rem]">
+          <div class="px-4 pt-5 sm:px-7 sm:pt-7">
+            <div class="flex items-start gap-3">
+              <span class="flex size-8 shrink-0 items-center justify-center rounded-xl bg-green-deep text-sm font-bold text-on-band">1</span>
+              <div class="min-w-0">
+                <h2 class="text-base font-bold text-ink sm:text-lg">انتخاب روز</h2>
+                <p class="text-[13px] text-ink-muted sm:text-sm">روزهایی که نوبت خالی دارند</p>
+              </div>
             </div>
           </div>
 
-          <div v-if="loading" class="mt-6 text-sm text-ink-muted">
+          <div v-if="loading" class="px-4 py-6 text-sm text-ink-muted sm:px-7">
             در حال بارگذاری…
           </div>
           <div
             v-else-if="!dates.length"
-            class="mt-6 rounded-2xl bg-mist px-4 py-8 text-center text-sm text-ink-muted"
+            class="mx-4 my-5 rounded-2xl bg-mist px-4 py-8 text-center text-sm text-ink-muted sm:mx-7"
           >
             فعلاً نوبت خالی‌ای تعریف نشده است. لطفاً بعداً سر بزنید یا تماس بگیرید.
           </div>
-          <div v-else class="mt-5 flex gap-2 overflow-x-auto pb-1">
-            <button
-              v-for="day in dates"
-              :key="day.date"
-              type="button"
-              class="min-w-[7.5rem] shrink-0 rounded-2xl px-3 py-3 text-right transition ring-1"
-              :class="
-                selectedDate === day.date
-                  ? 'bg-band text-on-band ring-band'
-                  : 'bg-mist text-ink ring-mist-deep hover:bg-green-soft/50'
-              "
-              @click="selectDate(day.date)"
-            >
-              <span class="block text-[12px] opacity-80">{{ formatJalaliShort(day.date) }}</span>
-              <span class="mt-1 block text-sm font-bold">{{ formatJalaliDate(day.date, { weekday: 'long' }) }}</span>
-              <span class="mt-1 block text-[11px] opacity-75">{{ day.count }} نوبت</span>
-            </button>
+          <div
+            v-else
+            class="mt-4 overflow-x-auto overscroll-x-contain pb-5 [scrollbar-width:thin] touch-pan-x"
+          >
+            <div class="flex w-max gap-2 px-4 sm:px-7">
+              <button
+                v-for="day in dates"
+                :key="day.date"
+                type="button"
+                class="w-[7.25rem] shrink-0 snap-start rounded-2xl px-3 py-3 text-start transition ring-1 sm:w-[7.75rem]"
+                :class="
+                  selectedDate === day.date
+                    ? 'bg-band text-on-band ring-band'
+                    : 'bg-mist text-ink ring-mist-deep hover:bg-green-soft/50'
+                "
+                @click="selectDate(day.date)"
+              >
+                <span class="block text-[11px] opacity-80 sm:text-[12px]">{{ formatJalaliShort(day.date) }}</span>
+                <span class="mt-1 block truncate text-[13px] font-bold sm:text-sm">{{ formatJalaliDate(day.date, { weekday: 'long' }) }}</span>
+                <span class="mt-1 block text-[11px] opacity-75">{{ day.count }} نوبت</span>
+              </button>
+            </div>
           </div>
         </section>
 
         <!-- Step 2: times -->
-        <section class="rounded-[1.6rem] bg-panel p-5 ring-1 ring-mist-deep sm:p-7">
-          <div class="flex items-center gap-3">
-            <span class="flex size-8 items-center justify-center rounded-xl bg-green-deep text-sm font-bold text-on-band">2</span>
-            <div>
-              <h2 class="text-lg font-bold text-ink">انتخاب ساعت</h2>
-              <p class="text-sm text-ink-muted">
+        <section class="min-w-0 overflow-hidden rounded-2xl bg-panel p-4 ring-1 ring-mist-deep sm:rounded-[1.6rem] sm:p-7">
+          <div class="flex items-start gap-3">
+            <span class="flex size-8 shrink-0 items-center justify-center rounded-xl bg-green-deep text-sm font-bold text-on-band">2</span>
+            <div class="min-w-0">
+              <h2 class="text-base font-bold text-ink sm:text-lg">انتخاب ساعت</h2>
+              <p class="text-[13px] text-ink-muted sm:text-sm">
                 {{ selectedDate ? formatJalaliDate(selectedDate) : 'ابتدا روز را انتخاب کنید' }}
               </p>
             </div>
@@ -296,16 +343,19 @@ function fieldClass(name: string) {
 
           <div
             v-if="selectedDate && !slots.length"
-            class="mt-6 rounded-2xl bg-mist px-4 py-8 text-center text-sm text-ink-muted"
+            class="mt-5 rounded-2xl bg-mist px-4 py-8 text-center text-sm text-ink-muted"
           >
             برای این روز نوبت آزادی باقی نمانده است.
           </div>
-          <div v-else-if="slots.length" class="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3">
+          <div
+            v-else-if="slots.length"
+            class="mt-4 grid grid-cols-2 gap-2 min-[400px]:grid-cols-3 sm:mt-5"
+          >
             <button
               v-for="slot in slots"
               :key="slot.id"
               type="button"
-              class="rounded-2xl px-3 py-3 text-sm font-semibold transition ring-1"
+              class="min-w-0 rounded-2xl px-2 py-3 text-[13px] font-semibold transition ring-1 sm:px-3 sm:text-sm"
               :class="
                 selectedSlot?.id === slot.id
                   ? 'bg-green-deep text-on-band ring-green-deep'
@@ -313,18 +363,18 @@ function fieldClass(name: string) {
               "
               @click="pickSlot(slot)"
             >
-              {{ slot.label }}
+              <span class="block truncate">{{ slot.label }}</span>
             </button>
           </div>
         </section>
 
         <!-- Step 3: form -->
-        <section class="rounded-[1.6rem] bg-panel p-5 ring-1 ring-mist-deep sm:p-7">
-          <div class="flex items-center gap-3">
-            <span class="flex size-8 items-center justify-center rounded-xl bg-green-deep text-sm font-bold text-on-band">3</span>
-            <div>
-              <h2 class="text-lg font-bold text-ink">مشخصات شما</h2>
-              <p class="text-sm text-ink-muted">
+        <section class="min-w-0 overflow-hidden rounded-2xl bg-panel p-4 ring-1 ring-mist-deep sm:rounded-[1.6rem] sm:p-7">
+          <div class="flex items-start gap-3">
+            <span class="flex size-8 shrink-0 items-center justify-center rounded-xl bg-green-deep text-sm font-bold text-on-band">3</span>
+            <div class="min-w-0">
+              <h2 class="text-base font-bold text-ink sm:text-lg">مشخصات شما</h2>
+              <p class="text-[13px] text-ink-muted sm:text-sm">
                 <template v-if="selectedSlot">
                   رزرو برای {{ formatJalaliShort(selectedSlot.date) }} · {{ selectedSlot.label }}
                 </template>
@@ -335,9 +385,9 @@ function fieldClass(name: string) {
             </div>
           </div>
 
-          <form class="mt-6 space-y-4" novalidate @submit.prevent="submit">
-            <div class="grid gap-4 sm:grid-cols-2">
-              <label class="block">
+          <form class="mt-5 space-y-4 sm:mt-6" novalidate @submit.prevent="submit">
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <label class="block min-w-0">
                 <span class="mb-1.5 block text-[11px] font-medium text-ink-muted">
                   نام <span class="text-green-deep">*</span>
                 </span>
@@ -351,7 +401,7 @@ function fieldClass(name: string) {
                 >
                 <span v-if="fieldErrors.firstName" class="mt-1 block text-[11px] text-red-600">{{ fieldErrors.firstName }}</span>
               </label>
-              <label class="block">
+              <label class="block min-w-0">
                 <span class="mb-1.5 block text-[11px] font-medium text-ink-muted">
                   نام خانوادگی <span class="text-green-deep">*</span>
                 </span>
@@ -367,7 +417,7 @@ function fieldClass(name: string) {
               </label>
             </div>
 
-            <label class="block">
+            <label class="block min-w-0">
               <span class="mb-1.5 block text-[11px] font-medium text-ink-muted">
                 شماره موبایل <span class="text-green-deep">*</span>
               </span>
@@ -379,13 +429,13 @@ function fieldClass(name: string) {
                 placeholder="0912…"
                 autocomplete="tel"
                 :disabled="!selectedSlot || booking"
-                :class="fieldClass('phone')"
+                :class="[...fieldClass('phone'), 'text-start']"
                 @input="clearField('phone')"
               >
               <span v-if="fieldErrors.phone" class="mt-1 block text-[11px] text-red-600">{{ fieldErrors.phone }}</span>
             </label>
 
-            <label class="block">
+            <label class="block min-w-0">
               <span class="mb-1.5 block text-[11px] font-medium text-ink-muted">
                 توضیحات <span class="text-ink-muted/70">(اختیاری)</span>
               </span>
@@ -408,41 +458,15 @@ function fieldClass(name: string) {
             </button>
           </form>
         </section>
-      </div>
 
-      <!-- Side -->
-      <aside class="min-w-0 lg:col-span-5">
-        <div class="sticky top-24 space-y-4">
-          <div class="overflow-hidden rounded-[1.6rem] bg-band p-6 text-on-band sm:p-7">
-            <p class="text-[11px] font-semibold tracking-[0.18em] text-gold">چطور کار می‌کند؟</p>
-            <ol class="mt-5 space-y-4 text-sm leading-7 text-on-band/80">
-              <li class="flex gap-3">
-                <span class="mt-0.5 font-mono text-gold">01</span>
-                <span>روز دارای نوبت خالی را انتخاب کنید.</span>
-              </li>
-              <li class="flex gap-3">
-                <span class="mt-0.5 font-mono text-gold">02</span>
-                <span>یکی از بازه‌های ساعتی آزاد را بزنید.</span>
-              </li>
-              <li class="flex gap-3">
-                <span class="mt-0.5 font-mono text-gold">03</span>
-                <span>نام، نام‌خانوادگی و موبایل را وارد و تأیید کنید.</span>
-              </li>
-            </ol>
-            <p class="mt-6 border-t border-white/10 pt-5 text-[12px] text-on-band/55">
-              {{ siteContact.hours }}
-            </p>
-          </div>
-
-          <div class="rounded-[1.5rem] bg-panel p-5 ring-1 ring-mist-deep sm:p-6">
-            <p class="text-[11px] font-semibold tracking-[0.18em] text-green-deep">نکته</p>
-            <p class="mt-3 text-sm leading-7 text-ink-muted">
-              هر نوبت فقط یک‌بار قابل رزرو است. اگر کسی زودتر همان ساعت را بگیرد،
-              لیست به‌روزرسانی می‌شود و باید بازه دیگری انتخاب کنید.
-            </p>
-          </div>
+        <div class="rounded-2xl bg-panel p-4 ring-1 ring-mist-deep sm:hidden">
+          <p class="text-[11px] font-semibold tracking-[0.18em] text-green-deep">نکته</p>
+          <p class="mt-2 text-[13px] leading-7 text-ink-muted">
+            هر نوبت فقط یک‌بار قابل رزرو است. اگر کسی زودتر همان ساعت را بگیرد،
+            لیست به‌روزرسانی می‌شود.
+          </p>
         </div>
-      </aside>
+      </div>
     </div>
   </div>
 </template>

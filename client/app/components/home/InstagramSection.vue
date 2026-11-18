@@ -3,18 +3,18 @@ import { siteContact } from '~/data/site-contact'
 
 /** Explore tiles — mix of square and tall like real Instagram Explore */
 const tiles = [
-  { src: '/clinic/04-ops-1.jpg', tall: true },
-  { src: '/clinic/07-digital.jpg', tall: false },
+  { src: '/clinic/09-ops-gallery.jpg', tall: true },
+  { src: '/clinic/04-crystal-tooth.jpg', tall: false },
+  { src: '/clinic/01-reception.jpg', tall: false },
+  { src: '/clinic/07-photo-studio.jpg', tall: false },
+  { src: '/clinic/16-siger-units.jpg', tall: true },
+  { src: '/clinic/22-gold-tooth.jpg', tall: false },
+  { src: '/clinic/10-ops-dual.jpg', tall: false },
   { src: '/clinic/02-lobby.jpg', tall: false },
-  { src: '/clinic/06-vip.jpg', tall: false },
-  { src: '/clinic/09-sterile.jpg', tall: true },
-  { src: '/clinic/08-xray.jpg', tall: false },
-  { src: '/clinic/05-ops-2.jpg', tall: false },
-  { src: '/clinic/03-reception.jpg', tall: false },
-  { src: '/clinic/10-lab.jpg', tall: true },
-  { src: '/clinic/01-facade.jpg', tall: false },
-  { src: '/clinic/11-kids.jpg', tall: false },
-  { src: '/clinic/12-lounge.jpg', tall: false },
+  { src: '/clinic/17-treatment.jpg', tall: true },
+  { src: '/clinic/08-crystal-heart.jpg', tall: false },
+  { src: '/clinic/20-digital-gear.jpg', tall: false },
+  { src: '/clinic/03-consult.jpg', tall: false },
 ]
 
 const loopTiles = [...tiles, ...tiles]
@@ -184,7 +184,7 @@ const highlights = [
                     <span class="text-[15px]" aria-hidden="true">＋</span>
                     <span class="text-[15px]" aria-hidden="true">▷</span>
                     <span class="size-[22px] overflow-hidden rounded-full ring-1 ring-white/35">
-                      <img src="/clinic/01-facade.jpg" alt="لوگوی تصویری کلینیک دکتر امیر رحمتی" class="size-full object-cover">
+                      <img src="/clinic/01-reception.jpg" alt="پذیرش کلینیک دندان پزشکی دیجیتال دکتر امیر رحمتی" class="size-full object-cover">
                     </span>
                   </div>
 

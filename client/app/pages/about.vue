@@ -10,7 +10,7 @@ usePageSeo({
   description: SEO_PAGES.about.description,
   keywords: SEO_PAGES.about.keywords,
   path: '/about',
-  image: '/clinic/01-facade.jpg',
+  image: '/clinic/01-reception.jpg',
   type: 'profile',
 })
 
@@ -30,7 +30,7 @@ useSchemaOrg([
     jobTitle: aboutProfile.headline,
     description: aboutProfile.summary.join(' '),
     url: `${siteUrl}/about`,
-    image: `${siteUrl}/clinic/01-facade.jpg`,
+    image: `${siteUrl}/clinic/01-reception.jpg`,
     telephone: siteContact.phoneHref.replace('tel:', ''),
     email: siteContact.email,
     identifier: siteContact.medicalLicense,

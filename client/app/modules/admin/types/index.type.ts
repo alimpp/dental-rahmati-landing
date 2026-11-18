@@ -16,6 +16,7 @@ export const ADMIN_MODULES = [
   'reports',
   'themes',
   'portfolio',
+  'clinic',
 ] as const
 
 export const PERMISSION_ACTIONS = ['view', 'create', 'edit', 'delete'] as const
@@ -180,6 +181,7 @@ export const MODULE_LABELS: Record<AdminModuleKey, string> = {
   reports: 'گزارش بازدید',
   themes: 'تم‌ها',
   portfolio: 'نمونه کارها',
+  clinic: 'کلینیک ما',
 }
 
 export const MODULE_ICONS: Record<AdminModuleKey, string> = {
@@ -200,6 +202,7 @@ export const MODULE_ICONS: Record<AdminModuleKey, string> = {
   reports: '/icons/admin-report.svg',
   themes: '/icons/admin-banner.svg',
   portfolio: '/icons/portfolio.svg',
+  clinic: '/icons/home.svg',
 }
 
 export const ACTION_ICONS: Record<PermissionAction, string> = {
