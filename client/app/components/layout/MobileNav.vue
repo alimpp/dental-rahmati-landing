@@ -189,22 +189,17 @@ onBeforeUnmount(() => {
                         @click="emit('close')"
                       >
                         <span
-                          class="inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-mist"
+                          class="relative size-10 shrink-0 overflow-hidden rounded-lg bg-mist ring-1 ring-mist-deep"
                           aria-hidden="true"
                         >
-                          <span
-                            class="inline-block size-6 bg-green-deep"
-                            :style="{
-                              maskImage: `url(${mediaSrc(item.icon)})`,
-                              WebkitMaskImage: `url(${mediaSrc(item.icon)})`,
-                              maskRepeat: 'no-repeat',
-                              WebkitMaskRepeat: 'no-repeat',
-                              maskPosition: 'center',
-                              WebkitMaskPosition: 'center',
-                              maskSize: 'contain',
-                              WebkitMaskSize: 'contain',
-                            }"
-                          />
+                          <img
+                            :src="mediaSrc(item.coverSrc)"
+                            :alt="item.title"
+                            class="size-full object-cover"
+                            width="40"
+                            height="40"
+                            loading="lazy"
+                          >
                         </span>
                         <span class="font-medium">{{ item.title }}</span>
                       </NuxtLink>

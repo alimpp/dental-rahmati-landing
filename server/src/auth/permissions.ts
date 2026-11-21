@@ -13,6 +13,7 @@ export const ADMIN_MODULES = [
   'process_steps',
   'testimonials',
   'faqs',
+  /** Kept for API compatibility; admin UI no longer exposes guides. */
   'guides',
   'themes',
   'portfolio',

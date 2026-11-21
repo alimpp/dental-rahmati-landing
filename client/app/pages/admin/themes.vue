@@ -21,6 +21,7 @@ const { selectTheme } = useSiteTheme()
 const items = ref<TTheme[]>([])
 const error = ref('')
 const saving = ref(false)
+const togglingId = ref<string | null>(null)
 const modal = ref(false)
 const editing = ref<TTheme | null>(null)
 const form = reactive({
@@ -127,6 +128,21 @@ async function save() {
   }
 }
 
+async function toggleActive(item: TTheme) {
+  if (!can('edit')) return
+  togglingId.value = item.id
+  error.value = ''
+  const response = await adminModule.service.updateItem(`/themes/${item.id}`, {
+    isActive: !item.isActive,
+  })
+  togglingId.value = null
+  if (!response.success) {
+    error.value = response.message
+    return
+  }
+  await load()
+}
+
 async function remove(item: TTheme) {
   if (item.isDefault) {
     error.value = 'تم پیش‌فرض قابل حذف نیست'
@@ -148,84 +164,115 @@ function preview(item: TTheme) {
 </script>
 
 <template>
-  <div>
+  <div class="min-w-0">
     <AdminHeader title="تم‌ها" action-label="تم جدید" :show-action="can('create')" @action="openCreate" />
     <p v-if="error" class="mb-3 text-sm text-red-600">
       {{ error }}
     </p>
-    <div class="overflow-x-auto rounded-2xl border border-mist bg-white">
-      <table class="w-full min-w-[720px] text-right text-sm">
-        <thead class="bg-mist/60 text-ink-muted">
-          <tr>
-            <th class="p-3 font-medium">
-              پیش‌نمایش
-            </th>
-            <th class="p-3 font-medium">
-              نام
-            </th>
-            <th class="p-3 font-medium">
-              اسلاگ
-            </th>
-            <th class="p-3 font-medium">
-              ترتیب
-            </th>
-            <th class="p-3 font-medium">
-              وضعیت
-            </th>
-            <th class="p-3 font-medium">
-              عملیات
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in items" :key="item.id" class="border-t border-mist">
-            <td class="p-3">
-              <span class="inline-flex gap-1">
-                <span class="size-5 rounded-full border" :style="{ background: item.colors.primary }" />
-                <span class="size-5 rounded-full border" :style="{ background: item.colors.accent }" />
-                <span class="size-5 rounded-full border" :style="{ background: item.colors.surface }" />
-              </span>
-            </td>
-            <td class="p-3 font-medium">
-              {{ item.name }}
-              <span v-if="item.isDefault" class="ms-2 text-[10px] text-gold">پیش‌فرض</span>
-            </td>
-            <td class="p-3 font-mono text-xs text-ink-muted">
-              {{ item.slug }}
-            </td>
-            <td class="p-3">
-              {{ item.sort }}
-            </td>
-            <td class="p-3">
-              <AdminStatus :active="item.isActive" />
-            </td>
-            <td class="p-3">
-              <div class="flex flex-wrap items-center gap-2">
-                <button
-                  type="button"
-                  class="rounded-lg border border-mist px-2 py-1 text-xs hover:border-green-deep"
-                  @click="preview(item)"
-                >
-                  اعمال
-                </button>
-                <AdminRowActions
-                  :can-edit="can('edit')"
-                  :can-delete="can('delete') && !item.isDefault"
-                  @edit="openEdit(item)"
-                  @delete="remove(item)"
+    <AdminListPanel :count="items.length">
+      <template #table>
+        <table class="w-full text-right text-sm">
+          <thead class="bg-mist/60 text-ink-muted">
+            <tr>
+              <th class="p-3 font-medium">پیش‌نمایش</th>
+              <th class="p-3 font-medium">نام</th>
+              <th class="p-3 font-medium">اسلاگ</th>
+              <th class="p-3 font-medium">ترتیب</th>
+              <th class="p-3 font-medium">وضعیت</th>
+              <th class="p-3 font-medium">عملیات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in items" :key="item.id" class="border-t border-mist">
+              <td class="p-3">
+                <span class="inline-flex gap-1">
+                  <span class="size-5 rounded-full border" :style="{ background: item.colors.primary }" />
+                  <span class="size-5 rounded-full border" :style="{ background: item.colors.accent }" />
+                  <span class="size-5 rounded-full border" :style="{ background: item.colors.surface }" />
+                </span>
+              </td>
+              <td class="p-3 font-medium">
+                {{ item.name }}
+                <span v-if="item.isDefault" class="ms-2 text-[10px] text-gold">پیش‌فرض</span>
+              </td>
+              <td class="p-3 font-mono text-xs text-ink-muted">{{ item.slug }}</td>
+              <td class="p-3">{{ item.sort }}</td>
+              <td class="p-3">
+                <AdminStatus
+                  :active="item.isActive"
+                  :clickable="can('edit')"
+                  :busy="togglingId === item.id"
+                  @toggle="toggleActive(item)"
                 />
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <p v-if="!items.length" class="p-6 text-center text-ink-muted">
-        موردی نیست
-      </p>
-    </div>
+              </td>
+              <td class="p-3">
+                <div class="flex flex-wrap items-center gap-2">
+                  <button
+                    type="button"
+                    class="rounded-lg border border-mist px-2 py-1 text-xs hover:border-green-deep"
+                    @click="preview(item)"
+                  >
+                    اعمال
+                  </button>
+                  <AdminRowActions
+                    :can-edit="can('edit')"
+                    :can-delete="can('delete') && !item.isDefault"
+                    @edit="openEdit(item)"
+                    @delete="remove(item)"
+                  />
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </template>
+      <template #cards>
+        <article
+          v-for="item in items"
+          :key="item.id"
+          class="min-w-0 overflow-hidden rounded-2xl border border-mist bg-white p-3.5"
+        >
+          <div class="flex items-start justify-between gap-3">
+            <div class="min-w-0">
+              <p class="font-semibold text-ink">
+                {{ item.name }}
+                <span v-if="item.isDefault" class="ms-1 text-[10px] text-gold">پیش‌فرض</span>
+              </p>
+              <p class="mt-0.5 font-mono text-[11px] text-ink-muted">{{ item.slug }}</p>
+              <span class="mt-2 inline-flex gap-1">
+                <span class="size-4 rounded-full border" :style="{ background: item.colors.primary }" />
+                <span class="size-4 rounded-full border" :style="{ background: item.colors.accent }" />
+                <span class="size-4 rounded-full border" :style="{ background: item.colors.surface }" />
+              </span>
+            </div>
+            <AdminStatus
+              :active="item.isActive"
+              :clickable="can('edit')"
+              :busy="togglingId === item.id"
+              @toggle="toggleActive(item)"
+            />
+          </div>
+          <div class="mt-3 flex flex-wrap items-center justify-end gap-2">
+            <button
+              type="button"
+              class="rounded-lg border border-mist px-2.5 py-1.5 text-xs hover:border-green-deep"
+              @click="preview(item)"
+            >
+              اعمال
+            </button>
+            <AdminRowActions
+              :can-edit="can('edit')"
+              :can-delete="can('delete') && !item.isDefault"
+              @edit="openEdit(item)"
+              @delete="remove(item)"
+            />
+          </div>
+        </article>
+      </template>
+    </AdminListPanel>
 
     <AdminModal :open="modal" :title="editing ? 'ویرایش تم' : 'تم جدید'" @close="modal = false">
-      <form class="grid gap-3" @submit.prevent="save">
+      <form id="admin-themes-form" class="grid gap-3" @submit.prevent="save">
         <label class="text-sm">نام<input v-model="form.name" required class="mt-1 w-full rounded-xl border border-mist px-3 py-2"></label>
         <label class="text-sm">اسلاگ<input v-model="form.slug" required class="mt-1 w-full rounded-xl border border-mist px-3 py-2 font-mono text-xs"></label>
         <label class="text-sm">توضیح<textarea v-model="form.description" rows="2" class="mt-1 w-full rounded-xl border border-mist px-3 py-2" /></label>
@@ -242,10 +289,13 @@ function preview(item: TTheme) {
         </div>
         <AdminCheckbox v-model="form.isActive" label="فعال" />
         <AdminCheckbox v-model="form.isDefault" label="پیش‌فرض سایت" />
-        <button class="rounded-xl bg-green-deep py-2 text-white" :disabled="saving">
+
+        </form>
+      <template #footer>
+          <button class="w-full rounded-xl bg-green-deep py-2.5 text-sm font-semibold text-on-primary shadow-sm transition hover:brightness-110 disabled:opacity-60" type="submit" form="admin-themes-form" :disabled="saving">
           ذخیره
         </button>
-      </form>
+      </template>
     </AdminModal>
   </div>
 </template>

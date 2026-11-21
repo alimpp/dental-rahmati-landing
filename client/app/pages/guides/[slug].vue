@@ -17,7 +17,7 @@ usePageSeo({
   title: () => `${item.value.title} | راهنمای دندانپزشکی کرج`,
   description: () => item.value.excerpt,
   keywords: () =>
-    [item.value.category, 'راهنمای دندانپزشکی کرج', 'کلینیک دکتر امیر رحمتی جهانشهر', 'دندانپزشکی در کرج']
+    [item.value.category, 'راهنمای دندانپزشکی', 'کلینیک دکتر امیر رحمتی', 'دندانپزشکی دیجیتال']
       .filter(Boolean)
       .join(', '),
   image: () => item.value.coverImage,

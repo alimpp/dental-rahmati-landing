@@ -7,7 +7,12 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-export type ArticleSectionType = 'text' | 'list' | 'image';
+export type ArticleSectionType = 'text' | 'list' | 'image' | 'links';
+
+export interface ArticleLink {
+  label: string;
+  href: string;
+}
 
 export interface ArticleSection {
   type: ArticleSectionType;
@@ -17,6 +22,7 @@ export interface ArticleSection {
   src?: string | null;
   alt?: string | null;
   caption?: string | null;
+  links?: ArticleLink[] | null;
 }
 
 @Entity('articles')

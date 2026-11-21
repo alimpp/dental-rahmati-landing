@@ -7,7 +7,12 @@ import { ARTICLE_SEED } from '../src/article/article.seed'
 
 config({ path: resolve(__dirname, '../.env') })
 
+/**
+ * Default: insert missing seed articles only (preserves admin edits).
+ * FORCE=1: overwrite existing seed-slug rows and deactivate non-seed actives.
+ */
 async function main() {
+  const force = process.env.FORCE === '1'
   const ds = new DataSource({
     type: 'postgres',
     host: process.env.DB_HOST || '127.0.0.1',
@@ -22,6 +27,7 @@ async function main() {
 
   await ds.initialize()
   const repo = ds.getRepository(Article)
+  const keepSlugs = new Set(ARTICLE_SEED.map((item) => item.slug))
 
   for (const item of ARTICLE_SEED) {
     const existing = await repo.findOne({ where: { slug: item.slug } })
@@ -35,7 +41,7 @@ async function main() {
       seoTitle: item.seoTitle ?? null,
       seoDescription: item.seoDescription ?? null,
       seoKeywords: item.seoKeywords ?? null,
-      ogImage: item.ogImage ?? null,
+      ogImage: item.ogImage ?? item.coverImage ?? null,
       readingMinutes: item.readingMinutes ?? 6,
       publishedAt: item.publishedAt ? new Date(item.publishedAt) : null,
       featured: item.featured ?? false,
@@ -49,13 +55,32 @@ async function main() {
       continue
     }
 
+    if (!force) {
+      console.log(`  = skip ${item.slug} (admin preserved; FORCE=1 to overwrite)`)
+      continue
+    }
+
     Object.assign(existing, payload)
     await repo.save(existing)
     console.log(`  ~ ${item.slug}`)
   }
 
+  if (force) {
+    const outdated = await repo.find()
+    for (const row of outdated) {
+      if (keepSlugs.has(row.slug) || !row.isActive) continue
+      row.isActive = false
+      await repo.save(row)
+      console.log(`  - deactivated ${row.slug}`)
+    }
+  }
+
   await ds.destroy()
-  console.log(`Done. ${ARTICLE_SEED.length} articles synced.`)
+  console.log(
+    force
+      ? `Done. Forced sync of ${ARTICLE_SEED.length} articles.`
+      : `Done. Insert-only sync (${ARTICLE_SEED.length} seed rows checked).`,
+  )
 }
 
 main().catch((error) => {

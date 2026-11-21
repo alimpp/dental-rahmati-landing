@@ -47,6 +47,9 @@ watch(
   [page, category],
   ([nextPage, nextCategory]) => {
     articleModule.controller.getArticleList(listQuery(nextPage, nextCategory), { force: true })
+    if (import.meta.client) {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
   },
 )
 
@@ -72,7 +75,7 @@ function goToCategory(next: string) {
 usePageSeo({
   title: () =>
     category.value
-      ? `مقالات ${category.value} در کرج | دندان پزشکی دیجیتال دکتر امیر رحمتی`
+      ? `مقالات ${category.value} | دکتر امیر رحمتی`
       : SEO_PAGES.articles.title,
   description: SEO_PAGES.articles.description,
   keywords: () =>
@@ -93,10 +96,10 @@ usePageSeo({
         <div class="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 sm:py-14 lg:grid-cols-12 lg:items-center lg:gap-10 lg:px-8 lg:py-16">
           <div class="lg:col-span-7">
             <p class="text-[11px] font-semibold tracking-[0.24em] text-gold">
-              اتاق مطالعه سلامت دهان · کرج جهانشهر
+              اتاق مطالعه سلامت دهان
             </p>
             <h1 class="mt-4 text-3xl font-bold tracking-tight text-ink sm:text-5xl sm:leading-[1.2]">
-              مقالات دندان پزشکی دیجیتال در کرج
+              مقالات دندان پزشکی دیجیتال
             </h1>
             <p class="mt-5 max-w-2xl text-[15px] leading-8 text-ink-muted">
               راهنمای ایمپلنت دیجیتال، لمینت، کامپوزیت و دندان پزشکی دیجیتال —

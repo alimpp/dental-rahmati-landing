@@ -30,7 +30,7 @@ export default defineNuxtConfig({
     url: process.env.NUXT_SITE_URL || process.env.NUXT_PUBLIC_SITE_URL || 'https://dramirrahmati.com',
     name: 'کلینیک دندان‌پزشکی دکتر امیر رحمتی | دندان پزشکی دیجیتال در کرج',
     description:
-      'دکتر امیر رحمتی در کرج جهانشهر — دندان پزشکی دیجیتال، ایمپلنت دیجیتال، لمینت، کامپوزیت و طراحی لبخند.',
+      'دکتر امیر رحمتی — دندان پزشکی دیجیتال، ایمپلنت دیجیتال، لمینت، کامپوزیت و طراحی لبخند.',
     defaultLocale: 'fa',
     trailingSlash: false,
   },
@@ -51,7 +51,7 @@ export default defineNuxtConfig({
       url: process.env.NUXT_SITE_URL || process.env.NUXT_PUBLIC_SITE_URL || 'https://dramirrahmati.com',
       logo: '/images/logo.svg',
       description:
-        'دندان پزشکی دیجیتال، ایمپلنت دیجیتال، لمینت و کامپوزیت در کرج جهانشهر — دکتر امیر رحمتی.',
+        'دندان پزشکی دیجیتال، ایمپلنت دیجیتال، لمینت و کامپوزیت — دکتر امیر رحمتی.',
     },
   },
   routeRules: {

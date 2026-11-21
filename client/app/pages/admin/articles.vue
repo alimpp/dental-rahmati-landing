@@ -12,6 +12,7 @@ const { confirm: confirmDelete } = useAdminConfirm()
 const items = ref<TArticle[]>([])
 const error = ref('')
 const saving = ref(false)
+const togglingId = ref<string | null>(null)
 const modal = ref(false)
 const editing = ref<TArticle | null>(null)
 const form = reactive({
@@ -25,7 +26,6 @@ const form = reactive({
   seoTitle: '',
   seoDescription: '',
   seoKeywords: '',
-  ogImage: '',
   readingMinutes: 5,
   publishedAt: '',
   featured: false,
@@ -42,16 +42,27 @@ onMounted(async () => {
 })
 
 async function load() {
-  const response = await adminModule.service.getAll<TArticlePage>('/articles', {
-    all: 'true',
-    limit: '50',
-    page: '1',
-  })
-  if (!response.success || !response.data) {
-    error.value = response.message
-    return
-  }
-  items.value = response.data.items ?? []
+  error.value = ''
+  const collected: TArticle[] = []
+  let page = 1
+  let pageCount = 1
+
+  do {
+    const response = await adminModule.service.getAll<TArticlePage>('/articles', {
+      all: 'true',
+      limit: '50',
+      page: String(page),
+    })
+    if (!response.success || !response.data) {
+      error.value = response.message
+      return
+    }
+    collected.push(...(response.data.items ?? []))
+    pageCount = Math.max(1, response.data.pageCount || 1)
+    page += 1
+  } while (page <= pageCount)
+
+  items.value = collected
 }
 
 function openCreate() {
@@ -61,13 +72,12 @@ function openCreate() {
     slug: '',
     excerpt: '',
     category: '',
-    author: '',
+    author: 'دکتر امیر رحمتی',
     coverImage: '',
     sections: '[]',
     seoTitle: '',
     seoDescription: '',
     seoKeywords: '',
-    ogImage: '',
     readingMinutes: 5,
     publishedAt: new Date().toISOString().slice(0, 10),
     featured: false,
@@ -90,7 +100,6 @@ function openEdit(item: TArticle) {
     seoTitle: item.seoTitle ?? '',
     seoDescription: item.seoDescription ?? '',
     seoKeywords: item.seoKeywords ?? '',
-    ogImage: item.ogImage ?? '',
     readingMinutes: item.readingMinutes,
     publishedAt: item.publishedAt ? item.publishedAt.slice(0, 10) : '',
     featured: item.featured,
@@ -112,7 +121,7 @@ function payload() {
     seoTitle: form.seoTitle || null,
     seoDescription: form.seoDescription || null,
     seoKeywords: form.seoKeywords || null,
-    ogImage: form.ogImage || null,
+    ogImage: form.coverImage || null,
     readingMinutes: Number(form.readingMinutes) || 5,
     publishedAt: form.publishedAt || null,
     featured: form.featured,
@@ -143,6 +152,21 @@ async function save() {
   }
 }
 
+async function toggleActive(item: TArticle) {
+  if (!can('edit')) return
+  togglingId.value = item.id
+  error.value = ''
+  const response = await adminModule.service.updateItem(`/articles/${item.id}`, {
+    isActive: !item.isActive,
+  })
+  togglingId.value = null
+  if (!response.success) {
+    error.value = response.message
+    return
+  }
+  await load()
+}
+
 async function remove(item: TArticle) {
   if (!(await confirmDelete(`مقاله «${item.title}» حذف شود؟`))) return
   const response = await adminModule.service.deleteItem(`/articles/${item.id}`)
@@ -155,43 +179,74 @@ async function remove(item: TArticle) {
 </script>
 
 <template>
-  <div>
+  <div class="min-w-0">
     <AdminHeader title="مقالات" action-label="مقاله جدید" :show-action="can('create')" @action="openCreate" />
     <p v-if="error" class="mb-3 text-sm text-red-600">{{ error }}</p>
-    <div class="overflow-x-auto rounded-2xl border border-mist bg-white">
-      <table class="w-full min-w-[720px] text-right text-sm">
-        <thead class="bg-mist/60 text-ink-muted">
-          <tr>
-            <th class="p-3 font-medium">تصویر</th>
-            <th class="p-3 font-medium">عنوان</th>
-            <th class="p-3 font-medium">دسته</th>
-            <th class="p-3 font-medium">وضعیت</th>
-            <th class="p-3 font-medium">تاریخ</th>
-            <th class="p-3 font-medium">عملیات</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in items" :key="item.id" class="border-t border-mist">
-            <td class="p-3"><AdminThumb :src="item.coverImage" :alt="item.title" /></td>
-            <td class="p-3">{{ item.title }}</td>
-            <td class="p-3">{{ item.category }}</td>
-            <td class="p-3"><AdminStatus :active="item.isActive" /></td>
-            <td class="p-3">{{ formatFaDate(item.publishedAt || item.createdAt) }}</td>
-            <td class="p-3">
-              <AdminRowActions
-                :can-edit="can('edit')"
-                :can-delete="can('delete')"
-                @edit="openEdit(item)"
-                @delete="remove(item)"
-              />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <p v-if="!items.length" class="p-6 text-center text-ink-muted">موردی نیست</p>
-    </div>
+
+    <AdminListPanel :count="items.length">
+      <template #table>
+        <table class="w-full text-right text-sm">
+          <thead class="bg-mist/60 text-ink-muted">
+            <tr>
+              <th class="p-3 font-medium">تصویر</th>
+              <th class="p-3 font-medium">عنوان</th>
+              <th class="p-3 font-medium">دسته</th>
+              <th class="p-3 font-medium">وضعیت</th>
+              <th class="p-3 font-medium">تاریخ</th>
+              <th class="p-3 font-medium">عملیات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in items" :key="item.id" class="border-t border-mist">
+              <td class="p-3"><AdminThumb :src="item.coverImage" :alt="item.title" /></td>
+              <td class="p-3 max-w-xs">
+                <p class="font-medium text-ink">{{ item.title }}</p>
+                <p class="mt-0.5 line-clamp-1 text-xs text-ink-muted">{{ item.excerpt }}</p>
+              </td>
+              <td class="p-3 whitespace-nowrap">{{ item.category }}</td>
+              <td class="p-3">
+                <AdminStatus
+                  :active="item.isActive"
+                  :clickable="can('edit')"
+                  :busy="togglingId === item.id"
+                  @toggle="toggleActive(item)"
+                />
+              </td>
+              <td class="p-3 whitespace-nowrap">{{ formatFaDate(item.publishedAt || item.createdAt) }}</td>
+              <td class="p-3">
+                <AdminRowActions
+                  :can-edit="can('edit')"
+                  :can-delete="can('delete')"
+                  @edit="openEdit(item)"
+                  @delete="remove(item)"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </template>
+      <template #cards>
+        <AdminMobileCard
+          v-for="item in items"
+          :key="item.id"
+          :title="item.title"
+          :subtitle="item.excerpt"
+          :thumb="item.coverImage"
+          :active="item.isActive"
+          :can-toggle="can('edit')"
+          :toggle-busy="togglingId === item.id"
+          :can-edit="can('edit')"
+          :can-delete="can('delete')"
+          :meta="`${item.category} · ${formatFaDate(item.publishedAt || item.createdAt)}`"
+          @toggle="toggleActive(item)"
+          @edit="openEdit(item)"
+          @delete="remove(item)"
+        />
+      </template>
+    </AdminListPanel>
+
     <AdminModal :open="modal" :title="editing ? 'ویرایش مقاله' : 'مقاله جدید'" @close="modal = false">
-      <form class="grid gap-3" @submit.prevent="save">
+      <form id="admin-articles-form" class="grid gap-3" @submit.prevent="save">
         <label class="text-sm">عنوان<input v-model="form.title" required class="mt-1 w-full rounded-xl border border-mist px-3 py-2"></label>
         <label class="text-sm">اسلاگ<input v-model="form.slug" required class="mt-1 w-full rounded-xl border border-mist px-3 py-2"></label>
         <label class="text-sm">خلاصه<textarea v-model="form.excerpt" rows="3" required class="mt-1 w-full rounded-xl border border-mist px-3 py-2" /></label>
@@ -199,8 +254,7 @@ async function remove(item: TArticle) {
           <label class="text-sm">دسته<input v-model="form.category" required class="mt-1 w-full rounded-xl border border-mist px-3 py-2"></label>
           <label class="text-sm">نویسنده<input v-model="form.author" required class="mt-1 w-full rounded-xl border border-mist px-3 py-2"></label>
         </div>
-        <AdminMediaField v-model="form.coverImage" label="کاور مقاله" required />
-        <AdminMediaField v-model="form.ogImage" label="تصویر اشتراک‌گذاری (اختیاری)" />
+        <AdminMediaField v-model="form.coverImage" label="تصویر اصلی مقاله" required />
         <label class="text-sm">بخش‌ها (JSON)<textarea v-model="form.sections" rows="6" class="mt-1 w-full rounded-xl border border-mist px-3 py-2 font-mono text-xs" /></label>
         <div class="grid gap-3 sm:grid-cols-2">
           <label class="text-sm">زمان مطالعه<input v-model.number="form.readingMinutes" type="number" class="mt-1 w-full rounded-xl border border-mist px-3 py-2"></label>
@@ -208,8 +262,11 @@ async function remove(item: TArticle) {
         </div>
         <AdminCheckbox v-model="form.featured" label="ویژه" />
         <AdminCheckbox v-model="form.isActive" label="فعال" />
-        <button class="rounded-xl bg-green-deep py-2 text-ink" :disabled="saving">ذخیره</button>
-      </form>
+
+        </form>
+      <template #footer>
+          <button class="w-full rounded-xl bg-green-deep py-2.5 text-sm font-semibold text-on-primary shadow-sm transition hover:brightness-110 disabled:opacity-60" type="submit" form="admin-articles-form" :disabled="saving">ذخیره</button>
+      </template>
     </AdminModal>
   </div>
 </template>

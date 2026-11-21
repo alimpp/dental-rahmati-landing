@@ -1,4 +1,9 @@
-export type TArticleSectionType = 'text' | 'list' | 'image'
+export type TArticleSectionType = 'text' | 'list' | 'image' | 'links'
+
+export interface TArticleLink {
+  label: string
+  href: string
+}
 
 export interface TArticleSection {
   type: TArticleSectionType
@@ -8,6 +13,7 @@ export interface TArticleSection {
   src?: string | null
   alt?: string | null
   caption?: string | null
+  links?: TArticleLink[] | null
 }
 
 export interface TArticle {

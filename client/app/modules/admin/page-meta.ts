@@ -76,15 +76,6 @@ export const ADMIN_PAGE_META: AdminPageMeta[] = [
     module: 'articles',
   },
   {
-    path: '/admin/guides',
-    title: MODULE_LABELS.guides,
-    description: 'راهنماهای خواندنی برای کاربران؛ آماده‌سازی قبل از ویزیت و مراقبت پس از درمان.',
-    group: 'content',
-    groupLabel: GROUP_LABELS.content,
-    icon: MODULE_ICONS.guides,
-    module: 'guides',
-  },
-  {
     path: '/admin/portfolio',
     title: MODULE_LABELS.portfolio,
     description: 'کیس بیماران: نوع درمان، عکس قبل/بعد دندان و توضیح نتیجه.',

@@ -67,22 +67,7 @@ export class PortfolioService implements OnModuleInit {
       const exists = await this.portfolioRepository.findOne({
         where: { slug: item.slug },
       });
-      if (exists) {
-        Object.assign(exists, {
-          title: item.title,
-          treatment: item.treatment,
-          patientAlias: item.patientAlias ?? null,
-          description: item.description,
-          coverImage: item.coverImage ?? exists.coverImage,
-          beforeImage: item.beforeImage ?? exists.beforeImage,
-          afterImage: item.afterImage ?? exists.afterImage,
-          gallery: item.gallery,
-          sort: item.sort ?? exists.sort,
-          isActive: item.isActive ?? true,
-        });
-        await this.portfolioRepository.save(exists);
-        continue;
-      }
+      if (exists) continue;
       await this.portfolioRepository.save(
         this.portfolioRepository.create({
           ...item,

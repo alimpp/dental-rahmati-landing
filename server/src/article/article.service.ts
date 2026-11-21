@@ -17,54 +17,42 @@ export class ArticleService implements OnModuleInit {
   ) {}
 
   async onModuleInit() {
-    await this.seedIfEmpty();
+    try {
+      await this.seedMissingOnly();
+    } catch (error) {
+      console.error('[ArticleService] seed failed', error);
+      throw error;
+    }
   }
 
-  private async seedIfEmpty() {
-    const keepSlugs = new Set(ARTICLE_SEED.map((item) => item.slug));
-
+  /** Insert missing seed rows only — never overwrite admin edits. */
+  private async seedMissingOnly() {
     for (const item of ARTICLE_SEED) {
       const existing = await this.articleRepository.findOne({
         where: { slug: item.slug },
       });
+      if (existing) continue;
 
-      const payload = {
-        title: item.title,
-        excerpt: item.excerpt,
-        category: item.category,
-        author: item.author,
-        coverImage: item.coverImage,
-        sections: item.sections ?? null,
-        seoTitle: item.seoTitle ?? null,
-        seoDescription: item.seoDescription ?? null,
-        seoKeywords: item.seoKeywords ?? null,
-        ogImage: item.ogImage ?? null,
-        readingMinutes: item.readingMinutes ?? 6,
-        publishedAt: item.publishedAt ? new Date(item.publishedAt) : null,
-        featured: item.featured ?? false,
-        sort: item.sort ?? 0,
-        isActive: item.isActive ?? true,
-      };
-
-      if (!existing) {
-        await this.articleRepository.save(
-          this.articleRepository.create({
-            slug: item.slug,
-            ...payload,
-          }),
-        );
-        continue;
-      }
-
-      Object.assign(existing, payload);
-      await this.articleRepository.save(existing);
-    }
-
-    const outdated = await this.articleRepository.find();
-    for (const row of outdated) {
-      if (keepSlugs.has(row.slug) || !row.isActive) continue;
-      row.isActive = false;
-      await this.articleRepository.save(row);
+      await this.articleRepository.save(
+        this.articleRepository.create({
+          slug: item.slug,
+          title: item.title,
+          excerpt: item.excerpt,
+          category: item.category,
+          author: item.author,
+          coverImage: item.coverImage,
+          sections: item.sections ?? null,
+          seoTitle: item.seoTitle ?? null,
+          seoDescription: item.seoDescription ?? null,
+          seoKeywords: item.seoKeywords ?? null,
+          ogImage: item.ogImage ?? null,
+          readingMinutes: item.readingMinutes ?? 6,
+          publishedAt: item.publishedAt ? new Date(item.publishedAt) : null,
+          featured: item.featured ?? false,
+          sort: item.sort ?? 0,
+          isActive: item.isActive ?? true,
+        }),
+      );
     }
   }
 

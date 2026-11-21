@@ -84,7 +84,7 @@ function formatWhen(item: BookingRow) {
 </script>
 
 <template>
-  <div class="space-y-5">
+  <div class="min-w-0 space-y-5">
     <AdminHeader title="رزروهای نوبت" :show-action="false" />
 
     <p v-if="error" class="rounded-2xl bg-red-50 px-4 py-3 text-sm text-red-700 ring-1 ring-red-100">
@@ -103,58 +103,71 @@ function formatWhen(item: BookingRow) {
       >
     </div>
 
-    <div v-if="!filtered.length" class="rounded-2xl border border-mist bg-white px-4 py-12 text-center text-sm text-ink-muted">
-      هنوز رزروی ثبت نشده است.
-    </div>
-
-    <div v-else class="overflow-x-auto rounded-2xl border border-mist bg-white">
-      <table class="w-full min-w-[720px] text-right text-sm">
-        <thead class="bg-mist/60 text-ink-muted">
-          <tr>
-            <th class="p-3 font-medium">بیمار</th>
-            <th class="p-3 font-medium">تلفن</th>
-            <th class="p-3 font-medium">نوبت</th>
-            <th class="p-3 font-medium">توضیحات</th>
-            <th class="p-3 font-medium">ثبت</th>
-            <th class="p-3 font-medium">عملیات</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="item in filtered"
-            :key="item.id"
-            class="border-t border-mist/80"
-          >
-            <td class="p-3 font-semibold text-ink">
-              {{ item.firstName }} {{ item.lastName }}
-            </td>
-            <td class="p-3" dir="ltr">
-              <a :href="`tel:${item.phone}`" class="text-green-deep hover:underline">
-                {{ item.phone }}
-              </a>
-            </td>
-            <td class="p-3 text-ink">
-              {{ formatWhen(item) }}
-            </td>
-            <td class="max-w-[220px] truncate p-3 text-ink-muted">
-              {{ item.notes || '—' }}
-            </td>
-            <td class="p-3 text-[12px] text-ink-muted">
-              {{ formatJalaliDate(item.createdAt, { dateStyle: 'medium', timeStyle: 'short' }) }}
-            </td>
-            <td class="p-3">
-              <button
-                v-if="can('delete')"
-                type="button"
-                class="rounded-lg px-2.5 py-1 text-[12px] font-medium text-red-600 ring-1 ring-red-100 hover:bg-red-50"
-                @click="cancelBooking(item)"
-              >
-                لغو رزرو
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <AdminListPanel :count="filtered.length" empty-text="هنوز رزروی ثبت نشده است.">
+      <template #table>
+        <table class="w-full text-right text-sm">
+          <thead class="bg-mist/60 text-ink-muted">
+            <tr>
+              <th class="p-3 font-medium">بیمار</th>
+              <th class="p-3 font-medium">تلفن</th>
+              <th class="p-3 font-medium">نوبت</th>
+              <th class="p-3 font-medium">توضیحات</th>
+              <th class="p-3 font-medium">ثبت</th>
+              <th class="p-3 font-medium">عملیات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="item in filtered"
+              :key="item.id"
+              class="border-t border-mist/80"
+            >
+              <td class="p-3 font-semibold text-ink">
+                {{ item.firstName }} {{ item.lastName }}
+              </td>
+              <td class="p-3" dir="ltr">
+                <a :href="`tel:${item.phone}`" class="text-green-deep hover:underline">
+                  {{ item.phone }}
+                </a>
+              </td>
+              <td class="p-3 text-ink">
+                {{ formatWhen(item) }}
+              </td>
+              <td class="max-w-[220px] truncate p-3 text-ink-muted">
+                {{ item.notes || '—' }}
+              </td>
+              <td class="p-3 text-[12px] text-ink-muted">
+                {{ formatJalaliDate(item.createdAt, { dateStyle: 'medium', timeStyle: 'short' }) }}
+              </td>
+              <td class="p-3">
+                <button
+                  v-if="can('delete')"
+                  type="button"
+                  class="rounded-lg px-2.5 py-1 text-[12px] font-medium text-red-600 ring-1 ring-red-100 hover:bg-red-50"
+                  @click="cancelBooking(item)"
+                >
+                  لغو رزرو
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </template>
+      <template #cards>
+        <AdminMobileCard
+          v-for="item in filtered"
+          :key="item.id"
+          :title="`${item.firstName} ${item.lastName}`"
+          :subtitle="formatWhen(item)"
+          :can-delete="can('delete')"
+          :meta="`${item.phone} · ${formatJalaliDate(item.createdAt, { dateStyle: 'medium', timeStyle: 'short' })}`"
+          @delete="cancelBooking(item)"
+        >
+          <p v-if="item.notes" class="mt-2 line-clamp-2 text-xs leading-5 text-ink-muted">
+            {{ item.notes }}
+          </p>
+        </AdminMobileCard>
+      </template>
+    </AdminListPanel>
   </div>
 </template>

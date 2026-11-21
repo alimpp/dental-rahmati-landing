@@ -44,7 +44,6 @@ const secondaryKpis = computed(() => {
     { label: 'درخواست‌ها', value: fa(totals.inquiries) },
     { label: 'مقالات', value: fa(totals.articles) },
     { label: 'خدمات', value: fa(totals.services) },
-    { label: 'راهنماها', value: fa(totals.guides) },
   ]
 })
 </script>

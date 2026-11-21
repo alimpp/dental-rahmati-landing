@@ -54,13 +54,6 @@ const permissionRows = computed(() => {
     .filter((row) => props.user!.isSuperAdmin || row.actions.length > 0)
 })
 
-function onKey(event: KeyboardEvent) {
-  if (!props.open) return
-  if (event.key === 'Escape') emit('close')
-}
-
-onMounted(() => window.addEventListener('keydown', onKey))
-onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 </script>
 
 <template>
@@ -72,10 +65,12 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
         role="dialog"
         aria-modal="true"
         aria-label="پروفایل ادمین"
-        @click.self="emit('close')"
       >
-        <div class="admin-scroll max-h-[90vh] w-full max-w-lg overflow-hidden rounded-[1.5rem] bg-white shadow-[0_24px_60px_rgba(43,48,54,0.18)] ring-1 ring-mist-deep">
-          <div class="relative overflow-hidden bg-gradient-to-bl from-ink via-[#0a4a4b] to-[#042526] px-5 pb-5 pt-4 text-white">
+        <div
+          class="flex max-h-[90vh] w-full max-w-lg flex-col overflow-hidden rounded-[1.5rem] bg-white shadow-[0_24px_60px_rgba(43,48,54,0.18)] ring-1 ring-mist-deep"
+          @click.stop
+        >
+          <div class="relative shrink-0 overflow-hidden bg-gradient-to-bl from-ink via-[#0a4a4b] to-[#042526] px-5 pb-5 pt-4 text-white">
             <div
               class="pointer-events-none absolute inset-0 opacity-20"
               style="background-image: radial-gradient(circle at 1px 1px, #fff 1px, transparent 0); background-size: 18px 18px;"
@@ -113,7 +108,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
             </div>
           </div>
 
-          <div class="admin-scroll max-h-[min(52vh,420px)] overflow-y-auto px-5 py-4">
+          <div class="admin-scroll min-h-0 flex-1 overflow-y-auto px-5 py-4">
             <div class="mb-3 flex items-center gap-2">
               <span class="inline-flex size-8 items-center justify-center rounded-xl bg-green-soft text-green-deep">
                 <AdminIcon src="/icons/admin-shield.svg" size="size-4" />
@@ -161,7 +156,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
             </p>
           </div>
 
-          <div class="border-t border-mist px-5 py-4">
+          <div class="shrink-0 border-t border-mist bg-white px-5 py-4">
             <button
               type="button"
               class="flex w-full items-center justify-center gap-2 rounded-xl bg-[#fdeeee] py-3 text-sm font-semibold text-[#b42318] ring-1 ring-[#f5c2c0] transition hover:bg-[#fbd5d5]"

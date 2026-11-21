@@ -116,14 +116,8 @@ useSchemaOrg([
               </div>
             </SiteReveal>
 
-            <h1 class="mt-5 min-h-[4rem] text-3xl font-bold tracking-tight text-ink sm:min-h-[5rem] sm:text-5xl sm:leading-[1.2]">
-              <SiteTypeText
-                :key="article.slug"
-                as="span"
-                :text="article.title"
-                :speed="28"
-                :start-delay="140"
-              />
+            <h1 class="mt-5 text-3xl font-bold tracking-tight text-ink sm:text-5xl sm:leading-[1.2]">
+              {{ article.title }}
             </h1>
 
             <SiteReveal variant="up" delay="180ms">
@@ -190,14 +184,7 @@ useSchemaOrg([
                 class="reveal-item mt-3 text-xl font-bold text-ink sm:text-2xl"
                 :style="{ '--reveal-i': 1 }"
               >
-                <SiteTypeText
-                  :key="`${article.slug}-t-${idx}`"
-                  as="span"
-                  :text="section.title"
-                  :speed="22"
-                  :start-delay="100"
-                  :caret="idx === 0"
-                />
+                {{ section.title }}
               </h2>
 
               <p
@@ -236,7 +223,7 @@ useSchemaOrg([
                 :style="{ '--reveal-i': 2 }"
               >
                 <img
-                  :src="section.src"
+                  :src="mediaSrc(section.src)"
                   :alt="section.alt || article.title"
                   class="w-full object-cover"
                   width="1200"
@@ -250,6 +237,26 @@ useSchemaOrg([
                   {{ section.caption }}
                 </figcaption>
               </figure>
+
+              <ul
+                v-else-if="section.type === 'links' && section.links?.length"
+                class="mt-5 space-y-2"
+              >
+                <li
+                  v-for="(entry, i) in section.links"
+                  :key="`${entry.href}-${i}`"
+                  class="reveal-item"
+                  :style="{ '--reveal-i': i + 2 }"
+                >
+                  <NuxtLink
+                    :to="entry.href"
+                    class="flex items-center justify-between gap-3 rounded-xl bg-mist px-4 py-3 text-sm font-medium text-ink ring-1 ring-mist-deep transition hover:bg-green-soft hover:text-green-deep"
+                  >
+                    <span>{{ entry.label }}</span>
+                    <span aria-hidden="true">←</span>
+                  </NuxtLink>
+                </li>
+              </ul>
             </section>
           </SiteReveal>
         </template>
@@ -260,12 +267,7 @@ useSchemaOrg([
               ادامه مسیر
             </p>
             <h3 class="reveal-item mt-3 text-xl font-bold" style="--reveal-i: 1">
-              <SiteTypeText
-                text="همین موضوع را در ویزیت با دکتر مطرح کنید"
-                :speed="26"
-                :start-delay="160"
-                as="span"
-              />
+              همین موضوع را در ویزیت با دکتر مطرح کنید
             </h3>
             <p class="reveal-item reveal-item-right mt-3 text-sm leading-7 text-on-band/70" style="--reveal-i: 2">
               اگر مقاله به وضعیت شما نزدیک است، از رزرو نوبت شروع کنید.

@@ -46,7 +46,7 @@ watch(moduleFilter, () => {
 </script>
 
 <template>
-  <div>
+  <div class="min-w-0">
     <AdminHeader title="تاریخچه" />
     <div class="mb-4">
       <AdminSelect
@@ -56,29 +56,46 @@ watch(moduleFilter, () => {
       />
     </div>
     <p v-if="error" class="mb-3 text-sm text-red-600">{{ error }}</p>
-    <div class="overflow-x-auto rounded-2xl border border-mist bg-white">
-      <table class="w-full min-w-[720px] text-right text-sm">
-        <thead class="bg-mist/60 text-ink-muted">
-          <tr>
-            <th class="p-3 font-medium">زمان</th>
-            <th class="p-3 font-medium">کاربر</th>
-            <th class="p-3 font-medium">بخش</th>
-            <th class="p-3 font-medium">عملیات</th>
-            <th class="p-3 font-medium">شرح</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in items" :key="item.id" class="border-t border-mist">
-            <td class="p-3 whitespace-nowrap">{{ formatFaDate(item.createdAt) }}</td>
-            <td class="p-3">{{ item.actorUsername }}</td>
-            <td class="p-3">{{ MODULE_LABELS[item.module as AdminModuleKey] || item.module }}</td>
-            <td class="p-3">{{ item.action }}</td>
-            <td class="p-3">{{ item.summary }}</td>
-          </tr>
-        </tbody>
-      </table>
-      <p v-if="!items.length" class="p-6 text-center text-ink-muted">سابقه‌ای نیست</p>
-    </div>
+    <AdminListPanel :count="items.length" empty-text="سابقه‌ای نیست">
+      <template #table>
+        <table class="w-full text-right text-sm">
+          <thead class="bg-mist/60 text-ink-muted">
+            <tr>
+              <th class="p-3 font-medium">زمان</th>
+              <th class="p-3 font-medium">کاربر</th>
+              <th class="p-3 font-medium">بخش</th>
+              <th class="p-3 font-medium">عملیات</th>
+              <th class="p-3 font-medium">شرح</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in items" :key="item.id" class="border-t border-mist">
+              <td class="p-3 whitespace-nowrap">{{ formatFaDate(item.createdAt) }}</td>
+              <td class="p-3">{{ item.actorUsername }}</td>
+              <td class="p-3">{{ MODULE_LABELS[item.module as AdminModuleKey] || item.module }}</td>
+              <td class="p-3">{{ item.action }}</td>
+              <td class="p-3">{{ item.summary }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </template>
+      <template #cards>
+        <article
+          v-for="item in items"
+          :key="item.id"
+          class="min-w-0 overflow-hidden rounded-2xl border border-mist bg-white p-3.5"
+        >
+          <div class="flex items-start justify-between gap-2">
+            <h3 class="min-w-0 truncate text-sm font-semibold text-ink">
+              {{ MODULE_LABELS[item.module as AdminModuleKey] || item.module }}
+            </h3>
+            <span class="shrink-0 text-[11px] text-ink-muted">{{ formatFaDate(item.createdAt) }}</span>
+          </div>
+          <p class="mt-1 text-xs text-ink-muted">{{ item.actorUsername }} · {{ item.action }}</p>
+          <p class="mt-2 text-sm leading-6 text-ink">{{ item.summary }}</p>
+        </article>
+      </template>
+    </AdminListPanel>
     <div v-if="pageCount > 1" class="mt-4 flex gap-2">
       <button
         class="rounded-lg border border-mist bg-white px-3 py-1 text-sm disabled:opacity-40"

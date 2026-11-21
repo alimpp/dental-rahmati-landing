@@ -6,18 +6,21 @@ const props = withDefaults(
     speed?: number
     startDelay?: number
     caret?: boolean
+    /** When false (default), renders full text immediately — safe for SEO/SSR headings. */
+    animate?: boolean
   }>(),
   {
     as: 'span',
     speed: 28,
     startDelay: 120,
     caret: true,
+    animate: false,
   },
 )
 
 const root = ref<HTMLElement | null>(null)
-const shown = ref('')
-const done = ref(false)
+const shown = ref(props.text || '')
+const done = ref(true)
 let timer: ReturnType<typeof setTimeout> | null = null
 let started = false
 let io: IntersectionObserver | null = null
@@ -27,6 +30,13 @@ function clear() {
     clearTimeout(timer)
     timer = null
   }
+}
+
+function showFull() {
+  clear()
+  shown.value = props.text || ''
+  done.value = true
+  started = true
 }
 
 function typeAll() {
@@ -39,8 +49,7 @@ function typeAll() {
   }
 
   if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    shown.value = full
-    done.value = true
+    showFull()
     return
   }
 
@@ -64,10 +73,19 @@ function typeAll() {
 function start() {
   if (started) return
   started = true
+  if (!props.animate) {
+    showFull()
+    return
+  }
   typeAll()
 }
 
 onMounted(async () => {
+  if (!props.animate) {
+    showFull()
+    return
+  }
+
   await nextTick()
   if (!root.value || typeof window === 'undefined') {
     start()
@@ -75,7 +93,7 @@ onMounted(async () => {
   }
 
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    start()
+    showFull()
     return
   }
 
@@ -95,6 +113,10 @@ watch(
   () => props.text,
   () => {
     started = false
+    if (!props.animate) {
+      showFull()
+      return
+    }
     done.value = false
     shown.value = ''
     start()
@@ -115,7 +137,7 @@ onBeforeUnmount(() => {
     class="site-type-text inline"
   >
     {{ shown }}<span
-      v-if="caret && !done"
+      v-if="animate && caret && !done"
       class="site-type-caret"
       aria-hidden="true"
     >|</span>

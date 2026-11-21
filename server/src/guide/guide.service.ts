@@ -21,37 +21,23 @@ export class GuideService implements OnModuleInit {
     await this.seedIfEmpty();
   }
 
+  /** Insert missing seed rows only — never overwrite admin edits. */
   private async seedIfEmpty() {
     for (const item of GUIDE_SEED) {
       const existing = await this.guideRepository.findOne({
         where: { slug: item.slug },
       });
-      if (!existing) {
-        await this.guideRepository.save(
-          this.guideRepository.create({
-            ...item,
-            takeaways: item.takeaways ?? [],
-            category: item.category ?? null,
-            featured: item.featured ?? false,
-            sort: item.sort ?? 0,
-            isActive: item.isActive ?? true,
-          }),
-        );
-        continue;
-      }
-      if ((existing.paragraphs?.length ?? 0) >= item.paragraphs.length) continue;
-      Object.assign(existing, {
-        title: item.title,
-        excerpt: item.excerpt,
-        category: item.category ?? null,
-        coverImage: item.coverImage,
-        paragraphs: item.paragraphs,
-        takeaways: item.takeaways ?? [],
-        featured: item.featured ?? existing.featured,
-        sort: item.sort ?? existing.sort,
-        isActive: item.isActive ?? existing.isActive,
-      });
-      await this.guideRepository.save(existing);
+      if (existing) continue;
+      await this.guideRepository.save(
+        this.guideRepository.create({
+          ...item,
+          takeaways: item.takeaways ?? [],
+          category: item.category ?? null,
+          featured: item.featured ?? false,
+          sort: item.sort ?? 0,
+          isActive: item.isActive ?? true,
+        }),
+      );
     }
   }
 

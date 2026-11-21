@@ -44,43 +44,26 @@ export class BannerService implements OnModuleInit {
   }
 
   /**
-   * Keep clinic banner seed in sync and drop leftover rows from other projects
-   * (e.g. bookstore/lawyer demos) or old static /banners/*.jpg assets.
+   * Insert missing clinic banners only. Never overwrite admin edits (isActive,
+   * titles, links, sort). Only remove obvious leftover rows from other projects.
    */
   private async seedClinicBanners() {
-    const seedImages = new Set(
-      BANNER_SEED.map((item) => item.image).filter(Boolean) as string[],
-    );
-
     for (const item of BANNER_SEED) {
       const exists = await this.bannerRepository.findOne({
         where: { image: item.image },
       });
-      if (exists) {
-        Object.assign(exists, {
-          title: item.title,
-          subtitle: item.subtitle ?? null,
-          description: item.description ?? null,
-          link: item.link ?? null,
-          sort: item.sort ?? exists.sort,
-          button1Text: item.button1Text ?? null,
-          button1Link: item.button1Link ?? null,
-          button2Text: item.button2Text ?? null,
-          button2Link: item.button2Link ?? null,
-          isActive: item.isActive ?? true,
-        });
-        await this.bannerRepository.save(exists);
-        continue;
-      }
+      if (exists) continue;
       await this.bannerRepository.save(this.bannerRepository.create(item));
     }
 
+    const seedImages = new Set(
+      BANNER_SEED.map((item) => item.image).filter(Boolean) as string[],
+    );
     const all = await this.bannerRepository.find();
     for (const row of all) {
       const foreign =
         !seedImages.has(row.image) &&
         (row.image.startsWith('/images/') ||
-          row.image.startsWith('/banners/') ||
           /کتاب|کتابینو|وکیل|دادسر|dadsar|ketab/i.test(
             `${row.title} ${row.subtitle ?? ''} ${row.description ?? ''}`,
           ));

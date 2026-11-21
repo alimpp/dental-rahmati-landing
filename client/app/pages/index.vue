@@ -12,9 +12,11 @@
     <SiteReveal variant="fade" delay="30ms">
       <ClinicInviteSection />
     </SiteReveal>
+    <!-- Instagram section hidden for now — restore when requested
     <SiteReveal variant="zoom" delay="20ms">
       <HomeInstagramSection />
     </SiteReveal>
+    -->
     <SiteReveal variant="fade" delay="30ms">
       <HomeStatsStrip />
     </SiteReveal>
@@ -46,7 +48,7 @@ import PromisesSection from '~/modules/promise/components/PromisesSection.vue'
 import ServicesSection from '~/modules/service/components/ServicesSection.vue'
 import HomeAboutSection from '~/components/home/AboutSection.vue'
 import HomeContactSection from '~/components/home/ContactSection.vue'
-import HomeInstagramSection from '~/components/home/InstagramSection.vue'
+// import HomeInstagramSection from '~/components/home/InstagramSection.vue'
 import ArticlesPreview from '~/modules/article/components/ArticlesPreview.vue'
 import TestimonialsSection from '~/modules/testimonial/components/TestimonialsSection.vue'
 import ClinicInviteSection from '~/components/clinic/ClinicInviteSection.vue'

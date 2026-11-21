@@ -90,7 +90,7 @@ async function submit() {
           <p v-if="error" class="text-sm text-red-600">{{ error }}</p>
 
           <button
-            class="w-full rounded-xl bg-green-deep py-3 text-sm font-medium text-ink transition hover:brightness-105 disabled:opacity-60"
+            class="w-full rounded-xl bg-green-deep py-3 text-sm font-semibold text-on-primary shadow-sm transition hover:brightness-110 disabled:opacity-60"
             :disabled="loading"
             type="submit"
           >
@@ -128,7 +128,7 @@ async function submit() {
           پنل مدیریت محتوا
         </h2>
         <p class="mt-4 text-sm leading-7 text-white/80">
-          از این فضا بنرها، خدمات، مقالات، راهنماها و درخواست‌های نوبت را مدیریت می‌کنید.
+          از این فضا بنرها، خدمات، مقالات و درخواست‌های نوبت را مدیریت می‌کنید.
         </p>
 
         <ul class="mt-8 space-y-3">

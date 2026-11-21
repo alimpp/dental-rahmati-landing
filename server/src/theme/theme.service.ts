@@ -48,32 +48,22 @@ export class ThemeService implements OnModuleInit {
     await this.seedIfEmpty();
   }
 
+  /** Insert missing seed themes only — never overwrite admin edits. */
   private async seedIfEmpty() {
     for (const item of THEME_SEED) {
       const existing = await this.themeRepo.findOne({
         where: { slug: item.slug },
       });
-      if (!existing) {
-        await this.themeRepo.save(
-          this.themeRepo.create({
-            ...item,
-            colors: normalizeColors(item.colors),
-          }),
-        );
-        continue;
-      }
-
-      Object.assign(existing, {
-        name: item.name,
-        description: item.description,
-        colors: normalizeColors(item.colors),
-        sort: item.sort,
-        isActive: item.isActive,
-        isDefault: item.isDefault,
-      });
-      await this.themeRepo.save(existing);
+      if (existing) continue;
+      await this.themeRepo.save(
+        this.themeRepo.create({
+          ...item,
+          colors: normalizeColors(item.colors),
+        }),
+      );
     }
 
+    // Ensure at least one default without resetting admin choices.
     const defaults = await this.themeRepo.find({ where: { isDefault: true } });
     if (defaults.length === 0) {
       const fallback =

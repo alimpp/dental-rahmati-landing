@@ -30,7 +30,6 @@ const links: {
   { to: '/admin/themes', key: 'themes', label: MODULE_LABELS.themes, icon: MODULE_ICONS.themes, group: 'content' },
   { to: '/admin/services', key: 'services', label: MODULE_LABELS.services, icon: MODULE_ICONS.services, group: 'content' },
   { to: '/admin/articles', key: 'articles', label: MODULE_LABELS.articles, icon: MODULE_ICONS.articles, group: 'content' },
-  { to: '/admin/guides', key: 'guides', label: MODULE_LABELS.guides, icon: MODULE_ICONS.guides, group: 'content' },
   { to: '/admin/portfolio', key: 'portfolio', label: MODULE_LABELS.portfolio, icon: MODULE_ICONS.portfolio, group: 'content' },
   { to: '/admin/clinic', key: 'clinic', label: MODULE_LABELS.clinic, icon: MODULE_ICONS.clinic, group: 'content' },
   { to: '/admin/stats', key: 'stats', label: MODULE_LABELS.stats, icon: MODULE_ICONS.stats, group: 'content' },
@@ -110,7 +109,7 @@ useHead({
 <template>
   <div class="admin-shell min-h-screen overflow-x-clip bg-[#f4f2eb] text-ink" dir="rtl" lang="fa">
     <aside
-      class="fixed inset-y-0 right-0 z-40 flex w-[min(17.5rem,88vw)] flex-col border-l border-mist bg-white shadow-[ -8px_0_30px_rgba(43,48,54,0.04)] transition-transform duration-300 lg:w-[17.5rem] lg:translate-x-0"
+      class="fixed inset-y-0 right-0 z-40 flex w-full flex-col border-l border-mist bg-white shadow-[-8px_0_30px_rgba(43,48,54,0.04)] transition-transform duration-300 lg:w-[17.5rem] lg:translate-x-0"
       :class="open ? 'translate-x-0' : 'translate-x-full lg:translate-x-0'"
     >
       <div class="border-b border-mist px-4 pb-4 pt-5">
@@ -119,10 +118,18 @@ useHead({
             <img src="/images/logo.svg?v=2" alt="" class="size-11 rounded-2xl ring-1 ring-mist" width="44" height="44">
             <span class="absolute -bottom-0.5 -left-0.5 size-2.5 rounded-full bg-green-deep ring-2 ring-white" aria-hidden="true" />
           </div>
-          <div class="min-w-0">
+          <div class="min-w-0 flex-1">
             <p class="truncate text-sm font-bold text-green-deep">دکتر امیر رحمتی</p>
             <p class="text-[11px] tracking-wide text-gold">پنل مدیریت محتوا</p>
           </div>
+          <button
+            type="button"
+            class="inline-flex size-9 shrink-0 items-center justify-center rounded-xl border border-mist text-ink-muted transition hover:bg-mist hover:text-ink lg:hidden"
+            aria-label="بستن منو"
+            @click="open = false"
+          >
+            <span class="text-lg leading-none">×</span>
+          </button>
         </div>
       </div>
 

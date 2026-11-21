@@ -11,7 +11,7 @@ defineProps<{
     <span
       class="relative inline-flex size-7 shrink-0 items-center justify-center rounded-lg border-2 transition"
       :class="model
-        ? 'border-green-deep bg-green-deep text-ink shadow-[0_0_0_4px_rgba(196,160,53,0.22)]'
+        ? 'border-green-deep bg-green-deep text-on-primary shadow-[0_0_0_4px_rgba(34,211,238,0.22)]'
         : 'border-mist-deep bg-white text-transparent hover:border-green-deep'"
     >
       <input

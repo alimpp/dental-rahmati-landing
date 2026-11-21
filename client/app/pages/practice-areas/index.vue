@@ -53,7 +53,7 @@ useSchemaOrg([
               {{ SEO_PAGES.services.h1 }}
             </h1>
             <p class="mt-5 max-w-lg text-[15px] leading-8 text-ink-muted">
-              ایمپلنت دیجیتال، لمینت، کامپوزیت و طراحی لبخند با دکتر امیر رحمتی — درمان دقیق و قابل پیش‌بینی در کرج جهانشهر.
+              ایمپلنت دیجیتال، لمینت، کامپوزیت و طراحی لبخند با دکتر امیر رحمتی — درمان دقیق و قابل پیش‌بینی.
             </p>
             <div class="mt-8 flex flex-wrap gap-3">
               <span class="rounded-2xl bg-panel px-4 py-2 text-sm font-medium text-ink ring-1 ring-mist-deep">
@@ -137,7 +137,7 @@ useSchemaOrg([
           >
             <div class="relative aspect-[16/11] overflow-hidden lg:col-span-5 lg:aspect-auto lg:min-h-[14rem]">
               <img
-                :src="mediaSrc(lead.coverImage || '/services/hero.jpg')"
+                :src="mediaSrc(lead.coverSrc)"
                 :alt="lead.title"
                 class="home-media-shift size-full object-cover opacity-75"
                 width="800"
@@ -147,24 +147,6 @@ useSchemaOrg([
               <div class="absolute inset-0 bg-gradient-to-t from-band/70 via-transparent to-transparent lg:hidden" />
             </div>
             <div class="flex flex-col justify-center p-7 sm:p-9 lg:col-span-7">
-              <span
-                class="mb-5 inline-flex size-14 items-center justify-center rounded-2xl bg-white/10"
-                aria-hidden="true"
-              >
-                <span
-                  class="inline-block size-8 bg-gold"
-                  :style="{
-                    maskImage: `url(${mediaSrc(lead.icon)})`,
-                    WebkitMaskImage: `url(${mediaSrc(lead.icon)})`,
-                    maskRepeat: 'no-repeat',
-                    WebkitMaskRepeat: 'no-repeat',
-                    maskPosition: 'center',
-                    WebkitMaskPosition: 'center',
-                    maskSize: 'contain',
-                    WebkitMaskSize: 'contain',
-                  }"
-                />
-              </span>
               <p class="text-[11px] font-medium tracking-[0.16em] text-gold">خدمت ویژه</p>
               <h2 class="mt-2 text-2xl font-bold text-on-band sm:text-3xl">
                 {{ lead.title }}
@@ -191,25 +173,19 @@ useSchemaOrg([
                 :to="item.href"
                 class="group grid overflow-hidden rounded-[1.5rem] bg-mist ring-1 ring-mist-deep transition hover:bg-panel hover:shadow-[0_22px_50px_rgba(6,54,55,0.1)] hover:ring-gold/35 md:grid-cols-12"
               >
-                <div class="flex items-center gap-4 border-b border-mist-deep/70 p-5 md:col-span-4 md:border-b-0 md:border-l md:border-mist-deep/70 md:p-6">
-                  <span
-                    class="inline-flex size-14 shrink-0 items-center justify-center rounded-2xl bg-panel ring-1 ring-mist-deep transition group-hover:bg-band"
-                    aria-hidden="true"
+                <div class="relative aspect-[16/10] overflow-hidden bg-band md:col-span-4 md:aspect-auto md:min-h-[9.5rem]">
+                  <img
+                    :src="mediaSrc(item.coverSrc)"
+                    :alt="item.title"
+                    class="size-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                    width="640"
+                    height="400"
+                    loading="lazy"
                   >
-                    <span
-                      class="inline-block size-8 bg-ink transition group-hover:bg-gold"
-                      :style="{
-                        maskImage: `url(${mediaSrc(item.icon)})`,
-                        WebkitMaskImage: `url(${mediaSrc(item.icon)})`,
-                        maskRepeat: 'no-repeat',
-                        WebkitMaskRepeat: 'no-repeat',
-                        maskPosition: 'center',
-                        WebkitMaskPosition: 'center',
-                        maskSize: 'contain',
-                        WebkitMaskSize: 'contain',
-                      }"
-                    />
-                  </span>
+                  <div class="absolute inset-0 bg-gradient-to-l from-mist/40 to-transparent max-md:hidden" />
+                </div>
+
+                <div class="flex flex-col justify-center gap-3 p-5 sm:flex-row sm:items-center sm:justify-between md:col-span-8 md:gap-4 md:p-6">
                   <div class="min-w-0">
                     <span class="font-mono text-[11px] font-semibold tracking-widest text-gold">
                       {{ String(index + 2).padStart(2, '0') }}
@@ -217,13 +193,10 @@ useSchemaOrg([
                     <h2 class="mt-1 text-lg font-bold text-ink transition group-hover:text-green-deep sm:text-xl">
                       {{ item.title }}
                     </h2>
+                    <p class="mt-2 line-clamp-3 max-w-2xl text-sm leading-7 text-ink-muted">
+                      {{ item.description }}
+                    </p>
                   </div>
-                </div>
-
-                <div class="flex flex-col justify-center gap-4 p-5 sm:flex-row sm:items-center sm:justify-between md:col-span-8 md:p-6">
-                  <p class="line-clamp-3 max-w-2xl text-sm leading-7 text-ink-muted">
-                    {{ item.description }}
-                  </p>
                   <span class="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-ink">
                     مشاهده
                     <span class="inline-flex size-10 items-center justify-center rounded-full bg-band text-xl leading-none text-on-band transition group-hover:bg-green-deep group-hover:text-on-primary">

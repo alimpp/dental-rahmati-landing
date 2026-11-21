@@ -40,41 +40,55 @@ async function remove(item: TInquiry) {
 </script>
 
 <template>
-  <div>
+  <div class="min-w-0">
     <AdminHeader title="درخواست‌ها" />
     <p v-if="error" class="mb-3 text-sm text-red-600">{{ error }}</p>
-    <div class="overflow-x-auto rounded-2xl border border-mist bg-white">
-      <table class="w-full min-w-[720px] text-right text-sm">
-        <thead class="bg-mist/60 text-ink-muted">
-          <tr>
-            <th class="p-3 font-medium">نام</th>
-            <th class="p-3 font-medium">تلفن</th>
-            <th class="p-3 font-medium">موضوع</th>
-            <th class="p-3 font-medium">منبع</th>
-            <th class="p-3 font-medium">تاریخ</th>
-            <th class="p-3 font-medium">عملیات</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in items" :key="item.id" class="border-t border-mist align-top">
-            <td class="p-3">{{ item.name }}</td>
-            <td class="p-3 dir-ltr">{{ item.phone }}</td>
-            <td class="p-3">
-              <p>{{ item.subject }}</p>
-              <p class="mt-1 text-ink-muted">{{ item.message }}</p>
-            </td>
-            <td class="p-3">{{ item.source }}</td>
-            <td class="p-3">{{ formatFaDate(item.createdAt) }}</td>
-            <td class="p-3">
-              <AdminRowActions
-                :can-delete="can('delete')"
-                @delete="remove(item)"
-              />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <p v-if="!items.length" class="p-6 text-center text-ink-muted">درخواستی ثبت نشده</p>
-    </div>
+    <AdminListPanel :count="items.length" empty-text="درخواستی ثبت نشده">
+      <template #table>
+        <table class="w-full text-right text-sm">
+          <thead class="bg-mist/60 text-ink-muted">
+            <tr>
+              <th class="p-3 font-medium">نام</th>
+              <th class="p-3 font-medium">تلفن</th>
+              <th class="p-3 font-medium">موضوع</th>
+              <th class="p-3 font-medium">منبع</th>
+              <th class="p-3 font-medium">تاریخ</th>
+              <th class="p-3 font-medium">عملیات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in items" :key="item.id" class="border-t border-mist align-top">
+              <td class="p-3">{{ item.name }}</td>
+              <td class="p-3 dir-ltr">{{ item.phone }}</td>
+              <td class="p-3">
+                <p>{{ item.subject }}</p>
+                <p class="mt-1 text-ink-muted">{{ item.message }}</p>
+              </td>
+              <td class="p-3">{{ item.source }}</td>
+              <td class="p-3">{{ formatFaDate(item.createdAt) }}</td>
+              <td class="p-3">
+                <AdminRowActions
+                  :can-delete="can('delete')"
+                  @delete="remove(item)"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </template>
+      <template #cards>
+        <AdminMobileCard
+          v-for="item in items"
+          :key="item.id"
+          :title="item.name"
+          :subtitle="item.subject"
+          :can-delete="can('delete')"
+          :meta="`${item.phone} · ${item.source} · ${formatFaDate(item.createdAt)}`"
+          @delete="remove(item)"
+        >
+          <p class="mt-2 line-clamp-3 text-xs leading-5 text-ink-muted">{{ item.message }}</p>
+        </AdminMobileCard>
+      </template>
+    </AdminListPanel>
   </div>
 </template>

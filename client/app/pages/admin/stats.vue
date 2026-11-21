@@ -12,6 +12,7 @@ const { confirm: confirmDelete } = useAdminConfirm()
 const items = ref<TStat[]>([])
 const error = ref('')
 const saving = ref(false)
+const togglingId = ref<string | null>(null)
 const modal = ref(false)
 const editing = ref<TStat | null>(null)
 const form = reactive({
@@ -95,6 +96,22 @@ async function save() {
   }
 }
 
+
+async function toggleActive(item: TStat) {
+  if (!can('edit')) return
+  togglingId.value = item.id
+  error.value = ''
+  const response = await adminModule.service.updateItem(`/stats/${item.id}`, {
+    isActive: !item.isActive,
+  })
+  togglingId.value = null
+  if (!response.success) {
+    error.value = response.message
+    return
+  }
+  await load()
+}
+
 async function remove(item: TStat) {
   if (!(await confirmDelete(`آمار «${item.label}» حذف شود؟`))) return
   const response = await adminModule.service.deleteItem(`/stats/${item.id}`)
@@ -107,11 +124,12 @@ async function remove(item: TStat) {
 </script>
 
 <template>
-  <div>
+  <div class="min-w-0">
     <AdminHeader title="آمار صفحه اصلی" action-label="آمار جدید" :show-action="can('create')" @action="openCreate" />
     <p v-if="error" class="mb-3 text-sm text-red-600">{{ error }}</p>
-    <div class="overflow-x-auto rounded-2xl border border-mist bg-white">
-      <table class="w-full min-w-[640px] text-right text-sm">
+    <AdminListPanel :count="items.length">
+      <template #table>
+        <table class="w-full text-right text-sm">
         <thead class="bg-mist/60 text-ink-muted">
           <tr>
             <th class="p-3 font-medium">مقدار</th>
@@ -126,7 +144,12 @@ async function remove(item: TStat) {
             <td class="p-3">{{ item.value ?? '—' }}</td>
             <td class="p-3">{{ item.label ?? '—' }}</td>
             <td class="p-3">{{ item.sort }}</td>
-            <td class="p-3"><AdminStatus :active="item.isActive" /></td>
+            <td class="p-3"><AdminStatus
+                  :active="item.isActive"
+                  :clickable="can('edit')"
+                  :busy="togglingId === item.id"
+                  @toggle="toggleActive(item)"
+                /></td>
             <td class="p-3">
               <AdminRowActions
                 :can-edit="can('edit')"
@@ -138,10 +161,28 @@ async function remove(item: TStat) {
           </tr>
         </tbody>
       </table>
-      <p v-if="!items.length" class="p-6 text-center text-ink-muted">موردی نیست</p>
-    </div>
+      </template>
+      <template #cards>
+        <AdminMobileCard
+          v-for="item in items"
+          :key="item.id"
+          :title="item.label || item.value"
+          :subtitle="item.value"
+          
+          :active="item.isActive"
+          :can-toggle="can('edit')"
+          :toggle-busy="togglingId === item.id"
+          :can-edit="can('edit')"
+          :can-delete="can('delete')"
+          :meta="`ترتیب ${item.sort}`"
+          @toggle="toggleActive(item)"
+          @edit="openEdit(item)"
+          @delete="remove(item)"
+        />
+      </template>
+    </AdminListPanel>
     <AdminModal :open="modal" :title="editing ? 'ویرایش آمار' : 'آمار جدید'" @close="modal = false">
-      <form class="grid gap-3" @submit.prevent="save">
+      <form id="admin-stats-form" class="grid gap-3" @submit.prevent="save">
         <label class="text-sm">مقدار (مثلا +۸۸)<input v-model="form.value" required class="mt-1 w-full rounded-xl border border-mist px-3 py-2"></label>
         <label class="text-sm">عنوان<textarea v-model="form.label" rows="2" required class="mt-1 w-full rounded-xl border border-mist px-3 py-2" /></label>
         <label class="text-sm">آیکن
@@ -155,8 +196,11 @@ async function remove(item: TStat) {
         </label>
         <label class="text-sm">ترتیب<input v-model.number="form.sort" type="number" class="mt-1 w-full rounded-xl border border-mist px-3 py-2"></label>
         <AdminCheckbox v-model="form.isActive" label="فعال" />
-        <button class="rounded-xl bg-green-deep py-2 text-ink" :disabled="saving">ذخیره</button>
-      </form>
+
+        </form>
+      <template #footer>
+          <button class="w-full rounded-xl bg-green-deep py-2.5 text-sm font-semibold text-on-primary shadow-sm transition hover:brightness-110 disabled:opacity-60" type="submit" form="admin-stats-form" :disabled="saving">ذخیره</button>
+      </template>
     </AdminModal>
   </div>
 </template>

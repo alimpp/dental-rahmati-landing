@@ -12,6 +12,7 @@ const { confirm: confirmDelete } = useAdminConfirm()
 const items = ref<TBanner[]>([])
 const error = ref('')
 const saving = ref(false)
+const togglingId = ref<string | null>(null)
 const modal = ref(false)
 const editing = ref<TBanner | null>(null)
 const form = reactive({
@@ -112,6 +113,22 @@ async function save() {
   await load()
 }
 
+
+async function toggleActive(item: TBanner) {
+  if (!can('edit')) return
+  togglingId.value = item.id
+  error.value = ''
+  const response = await adminModule.service.updateItem(`/banners/${item.id}`, {
+    isActive: !item.isActive,
+  })
+  togglingId.value = null
+  if (!response.success) {
+    error.value = response.message
+    return
+  }
+  await load()
+}
+
 async function remove(item: TBanner) {
   if (!(await confirmDelete(`بنر «${item.title}» حذف شود؟`))) return
   const response = await adminModule.service.deleteItem(`/banners/${item.id}`)
@@ -124,7 +141,7 @@ async function remove(item: TBanner) {
 </script>
 
 <template>
-  <div>
+  <div class="min-w-0">
     <AdminHeader
       title="بنرها"
       action-label="بنر جدید"
@@ -132,8 +149,9 @@ async function remove(item: TBanner) {
       @action="openCreate"
     />
     <p v-if="error" class="mb-3 text-sm text-red-600">{{ error }}</p>
-    <div class="overflow-x-auto rounded-2xl border border-mist bg-white">
-      <table class="w-full min-w-[640px] text-right text-sm">
+    <AdminListPanel :count="items.length">
+      <template #table>
+        <table class="w-full text-right text-sm">
         <thead class="bg-mist/60 text-ink-muted">
           <tr>
             <th class="p-3 font-medium">تصویر</th>
@@ -148,7 +166,12 @@ async function remove(item: TBanner) {
           <tr v-for="item in items" :key="item.id" class="border-t border-mist">
             <td class="p-3"><AdminThumb :src="item.image" :alt="item.title" /></td>
             <td class="p-3">{{ item.title }}</td>
-            <td class="p-3"><AdminStatus :active="item.isActive" /></td>
+            <td class="p-3"><AdminStatus
+                  :active="item.isActive"
+                  :clickable="can('edit')"
+                  :busy="togglingId === item.id"
+                  @toggle="toggleActive(item)"
+                /></td>
             <td class="p-3">{{ item.sort }}</td>
             <td class="p-3">{{ formatFaDate(item.updatedAt || item.createdAt) }}</td>
             <td class="p-3">
@@ -162,11 +185,29 @@ async function remove(item: TBanner) {
           </tr>
         </tbody>
       </table>
-      <p v-if="!items.length" class="p-6 text-center text-ink-muted">موردی نیست</p>
-    </div>
+      </template>
+      <template #cards>
+        <AdminMobileCard
+          v-for="item in items"
+          :key="item.id"
+          :title="item.title"
+          :subtitle="item.subtitle || item.description || ''"
+          :thumb="item.image"
+          :active="item.isActive"
+          :can-toggle="can('edit')"
+          :toggle-busy="togglingId === item.id"
+          :can-edit="can('edit')"
+          :can-delete="can('delete')"
+          :meta="formatFaDate(item.updatedAt || item.createdAt)"
+          @toggle="toggleActive(item)"
+          @edit="openEdit(item)"
+          @delete="remove(item)"
+        />
+      </template>
+    </AdminListPanel>
 
     <AdminModal :open="modal" :title="editing ? 'ویرایش بنر' : 'بنر جدید'" @close="modal = false">
-      <form class="grid gap-3" @submit.prevent="save">
+      <form id="admin-banners-form" class="grid gap-3" @submit.prevent="save">
         <label class="text-sm">عنوان<input v-model="form.title" required class="mt-1 w-full rounded-xl border border-mist px-3 py-2"></label>
         <AdminMediaField
           v-model="form.image"
@@ -184,8 +225,11 @@ async function remove(item: TBanner) {
         </div>
         <label class="text-sm">ترتیب<input v-model.number="form.sort" type="number" class="mt-1 w-full rounded-xl border border-mist px-3 py-2"></label>
         <AdminCheckbox v-model="form.isActive" label="فعال" />
-        <button class="rounded-xl bg-green-deep py-2 text-ink disabled:opacity-60" :disabled="saving">ذخیره</button>
-      </form>
+
+        </form>
+      <template #footer>
+          <button class="w-full rounded-xl bg-green-deep py-2.5 text-sm font-semibold text-on-primary shadow-sm transition hover:brightness-110 disabled:opacity-60" type="submit" form="admin-banners-form" :disabled="saving">ذخیره</button>
+      </template>
     </AdminModal>
   </div>
 </template>

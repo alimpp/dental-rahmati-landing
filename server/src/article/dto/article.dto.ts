@@ -17,9 +17,21 @@ import {
   ValidateNested,
 } from 'class-validator';
 
+export class ArticleLinkDto {
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(200)
+  label!: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(500)
+  href!: string;
+}
+
 export class ArticleSectionDto {
-  @IsIn(['text', 'list', 'image'])
-  type!: 'text' | 'list' | 'image';
+  @IsIn(['text', 'list', 'image', 'links'])
+  type!: 'text' | 'list' | 'image' | 'links';
 
   @IsOptional()
   @IsString()
@@ -56,6 +68,15 @@ export class ArticleSectionDto {
   @IsString()
   @MaxLength(240)
   caption?: string | null;
+
+  @ValidateIf((o: ArticleSectionDto) => o.type === 'links')
+  @IsOptional()
+  @IsArray()
+  @ArrayMinSize(1)
+  @ArrayMaxSize(20)
+  @ValidateNested({ each: true })
+  @Type(() => ArticleLinkDto)
+  links?: ArticleLinkDto[] | null;
 }
 
 export class CreateArticleDto {

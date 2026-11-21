@@ -12,6 +12,7 @@ const { confirm: confirmDelete } = useAdminConfirm()
 const items = ref<TPortfolioItem[]>([])
 const error = ref('')
 const saving = ref(false)
+const togglingId = ref<string | null>(null)
 const modal = ref(false)
 const editing = ref<TPortfolioItem | null>(null)
 const form = reactive({
@@ -133,6 +134,22 @@ async function save() {
   }
 }
 
+
+async function toggleActive(item: TPortfolioItem) {
+  if (!can('edit')) return
+  togglingId.value = item.id
+  error.value = ''
+  const response = await adminModule.service.updateItem(`/portfolio/${item.id}`, {
+    isActive: !item.isActive,
+  })
+  togglingId.value = null
+  if (!response.success) {
+    error.value = response.message
+    return
+  }
+  await load()
+}
+
 async function remove(item: TPortfolioItem) {
   if (!(await confirmDelete(`کیس «${item.title}» حذف شود؟`))) return
   const response = await adminModule.service.deleteItem(`/portfolio/${item.id}`)
@@ -145,14 +162,15 @@ async function remove(item: TPortfolioItem) {
 </script>
 
 <template>
-  <div>
+  <div class="min-w-0">
     <AdminHeader title="نمونه کارها (کیس بیماران)" action-label="کیس جدید" :show-action="can('create')" @action="openCreate" />
     <p class="mb-3 text-sm text-ink-muted">
       عکس واقعی دندان/لبخند بیماران + توضیح درمان. نام کامل بیمار را وارد نکنید؛ از نام مستعار استفاده کنید.
     </p>
     <p v-if="error" class="mb-3 text-sm text-red-600">{{ error }}</p>
-    <div class="overflow-x-auto rounded-2xl border border-mist bg-white">
-      <table class="w-full min-w-[720px] text-right text-sm">
+    <AdminListPanel :count="items.length">
+      <template #table>
+        <table class="w-full text-right text-sm">
         <thead class="bg-mist/60 text-ink-muted">
           <tr>
             <th class="p-3 font-medium">بعد</th>
@@ -172,7 +190,12 @@ async function remove(item: TPortfolioItem) {
             <td class="p-3">{{ item.title }}</td>
             <td class="p-3">{{ item.treatment }}</td>
             <td class="p-3">{{ item.patientAlias || '—' }}</td>
-            <td class="p-3"><AdminStatus :active="item.isActive" /></td>
+            <td class="p-3"><AdminStatus
+                  :active="item.isActive"
+                  :clickable="can('edit')"
+                  :busy="togglingId === item.id"
+                  @toggle="toggleActive(item)"
+                /></td>
             <td class="p-3">{{ formatFaDate(item.updatedAt || item.createdAt) }}</td>
             <td class="p-3">
               <AdminRowActions
@@ -185,10 +208,28 @@ async function remove(item: TPortfolioItem) {
           </tr>
         </tbody>
       </table>
-      <p v-if="!items.length" class="p-6 text-center text-ink-muted">موردی نیست</p>
-    </div>
+      </template>
+      <template #cards>
+        <AdminMobileCard
+          v-for="item in items"
+          :key="item.id"
+          :title="item.title"
+          :subtitle="item.treatment || item.description || ''"
+          :thumb="item.afterImage || item.coverImage || item.beforeImage"
+          :active="item.isActive"
+          :can-toggle="can('edit')"
+          :toggle-busy="togglingId === item.id"
+          :can-edit="can('edit')"
+          :can-delete="can('delete')"
+          :meta="formatFaDate(item.updatedAt || item.createdAt)"
+          @toggle="toggleActive(item)"
+          @edit="openEdit(item)"
+          @delete="remove(item)"
+        />
+      </template>
+    </AdminListPanel>
     <AdminModal :open="modal" :title="editing ? 'ویرایش کیس' : 'کیس جدید بیمار'" @close="modal = false">
-      <form class="grid gap-3" @submit.prevent="save">
+      <form id="admin-portfolio-form" class="grid gap-3" @submit.prevent="save">
         <label class="text-sm">عنوان کیس<input v-model="form.title" required class="mt-1 w-full rounded-xl border border-mist px-3 py-2" placeholder="مثلاً لبخند یکدست با لمینت"></label>
         <label class="text-sm">اسلاگ<input v-model="form.slug" required class="mt-1 w-full rounded-xl border border-mist px-3 py-2"></label>
         <label class="text-sm">نوع خدمت<input v-model="form.treatment" required class="mt-1 w-full rounded-xl border border-mist px-3 py-2" placeholder="لمینت، ایمپلنت، ارتودنسی، ..."></label>
@@ -218,8 +259,11 @@ async function remove(item: TPortfolioItem) {
           </div>
         </div>
         <AdminCheckbox v-model="form.isActive" label="فعال" />
-        <button class="rounded-xl bg-green-deep py-2 text-ink" :disabled="saving">ذخیره</button>
-      </form>
+
+        </form>
+      <template #footer>
+          <button class="w-full rounded-xl bg-green-deep py-2.5 text-sm font-semibold text-on-primary shadow-sm transition hover:brightness-110 disabled:opacity-60" type="submit" form="admin-portfolio-form" :disabled="saving">ذخیره</button>
+      </template>
     </AdminModal>
   </div>
 </template>

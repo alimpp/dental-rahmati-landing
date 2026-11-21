@@ -172,23 +172,17 @@ onBeforeUnmount(() => {
                     @click="open = false"
                   >
                     <span
-                      class="inline-flex size-12 shrink-0 items-center justify-center rounded-xl transition-colors duration-100 ease-out"
-                      :class="isChildActive(item.href) ? 'bg-panel' : 'bg-mist group-hover:bg-green-soft'"
+                      class="relative size-12 shrink-0 overflow-hidden rounded-xl bg-mist ring-1 ring-mist-deep"
                       aria-hidden="true"
                     >
-                      <span
-                        class="inline-block size-7 bg-green-deep"
-                        :style="{
-                          maskImage: `url(${mediaSrc(item.icon)})`,
-                          WebkitMaskImage: `url(${mediaSrc(item.icon)})`,
-                          maskRepeat: 'no-repeat',
-                          WebkitMaskRepeat: 'no-repeat',
-                          maskPosition: 'center',
-                          WebkitMaskPosition: 'center',
-                          maskSize: 'contain',
-                          WebkitMaskSize: 'contain',
-                        }"
-                      />
+                      <img
+                        :src="mediaSrc(item.coverSrc)"
+                        :alt="item.title"
+                        class="size-full object-cover"
+                        width="48"
+                        height="48"
+                        loading="lazy"
+                      >
                     </span>
                     <span class="min-w-0">
                       <span class="block text-sm font-semibold text-ink group-hover:text-green-deep">

@@ -7,7 +7,7 @@
     <div class="absolute inset-0">
       <img
         src="/clinic/01-reception.jpg"
-        alt="فضای پذیرش کلینیک دندان پزشکی دیجیتال دکتر امیر رحمتی در کرج جهانشهر"
+        alt="فضای پذیرش کلینیک دندان پزشکی دیجیتال دکتر امیر رحمتی"
         class="size-full object-cover opacity-45"
       >
       <div class="absolute inset-0 bg-gradient-to-t from-band via-band/80 to-band/45" />
@@ -22,7 +22,7 @@
           فضای کلینیک دندان پزشکی دیجیتال در کرج
         </h2>
         <p class="mt-3 text-[15px] leading-8 text-on-band/80">
-          تور تصویری کلینیک دکتر امیر رحمتی برای ایمپلنت دیجیتال، لمینت و کامپوزیت در جهانشهر.
+          تور تصویری کلینیک دکتر امیر رحمتی برای ایمپلنت دیجیتال، لمینت و کامپوزیت.
         </p>
       </div>
       <NuxtLink

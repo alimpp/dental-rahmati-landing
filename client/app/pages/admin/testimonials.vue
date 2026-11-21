@@ -12,10 +12,12 @@ const { confirm: confirmDelete } = useAdminConfirm()
 const items = ref<TTestimonial[]>([])
 const error = ref('')
 const saving = ref(false)
+const togglingId = ref<string | null>(null)
 const modal = ref(false)
 const editing = ref<TTestimonial | null>(null)
 const form = reactive({
-  clientName: '',
+  firstName: '',
+  lastName: '',
   roleOrCompany: '',
   quote: '',
   avatarUrl: '',
@@ -24,6 +26,14 @@ const form = reactive({
   sort: 0,
   isActive: true,
 })
+
+function splitClientName(full: string) {
+  const parts = full.trim().split(/\s+/).filter(Boolean)
+  return {
+    firstName: parts[0] || '',
+    lastName: parts.slice(1).join(' '),
+  }
+}
 
 const pendingCount = computed(() => items.value.filter((item) => !item.isActive).length)
 
@@ -47,7 +57,8 @@ async function load() {
 function openCreate() {
   editing.value = null
   Object.assign(form, {
-    clientName: '',
+    firstName: '',
+    lastName: '',
     roleOrCompany: '',
     quote: '',
     avatarUrl: '',
@@ -61,8 +72,10 @@ function openCreate() {
 
 function openEdit(item: TTestimonial) {
   editing.value = item
+  const { firstName, lastName } = splitClientName(item.clientName ?? '')
   Object.assign(form, {
-    clientName: item.clientName ?? '',
+    firstName,
+    lastName,
     roleOrCompany: item.roleOrCompany ?? '',
     quote: item.quote ?? '',
     avatarUrl: item.avatarUrl ?? '',
@@ -75,8 +88,9 @@ function openEdit(item: TTestimonial) {
 }
 
 function payload() {
+  const clientName = [form.firstName.trim(), form.lastName.trim()].filter(Boolean).join(' ')
   return {
-    clientName: form.clientName,
+    clientName,
     roleOrCompany: form.roleOrCompany || null,
     quote: form.quote,
     avatarUrl: form.avatarUrl || null,
@@ -111,10 +125,31 @@ async function save() {
 
 async function approve(item: TTestimonial) {
   if (!can('edit')) return
+  togglingId.value = item.id
   const response = await adminModule.service.updateItem(`/testimonials/${item.id}`, {
     isActive: true,
     featured: true,
   })
+  togglingId.value = null
+  if (!response.success) {
+    error.value = response.message
+    return
+  }
+  await load()
+}
+
+async function toggleActive(item: TTestimonial) {
+  if (!can('edit')) return
+  if (!item.isActive) {
+    await approve(item)
+    return
+  }
+  togglingId.value = item.id
+  error.value = ''
+  const response = await adminModule.service.updateItem(`/testimonials/${item.id}`, {
+    isActive: false,
+  })
+  togglingId.value = null
   if (!response.success) {
     error.value = response.message
     return
@@ -134,74 +169,95 @@ async function remove(item: TTestimonial) {
 </script>
 
 <template>
-  <div>
+  <div class="min-w-0">
     <AdminHeader title="نظرات بیماران" action-label="نظر جدید" :show-action="can('create')" @action="openCreate" />
     <p v-if="pendingCount" class="mb-3 rounded-xl bg-gold/15 px-3 py-2 text-sm text-ink">
-      {{ pendingCount }} نظر در انتظار تایید — برای انتشار دکمه «تایید» را بزنید.
+      {{ pendingCount }} نظر در انتظار تایید — روی وضعیت یا دکمه «تایید» بزنید.
     </p>
     <p v-if="error" class="mb-3 text-sm text-red-600">{{ error }}</p>
-    <div class="overflow-x-auto rounded-2xl border border-mist bg-white">
-      <table class="w-full min-w-[720px] text-right text-sm">
-        <thead class="bg-mist/60 text-ink-muted">
-          <tr>
-            <th class="p-3 font-medium">نام</th>
-            <th class="p-3 font-medium">امتیاز</th>
-            <th class="p-3 font-medium">نظر</th>
-            <th class="p-3 font-medium">ویژه</th>
-            <th class="p-3 font-medium">وضعیت</th>
-            <th class="p-3 font-medium">عملیات</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in items" :key="item.id" class="border-t border-mist">
-            <td class="p-3">
-              <p>{{ item.clientName ?? '—' }}</p>
-              <p v-if="item.roleOrCompany" class="mt-0.5 text-xs text-ink-muted">
-                {{ item.roleOrCompany }}
-              </p>
-            </td>
-            <td class="p-3 whitespace-nowrap">
-              {{ item.rating ? `${item.rating} / ۵` : '—' }}
-            </td>
-            <td class="p-3 max-w-xs">
-              <span class="line-clamp-2">{{ item.quote }}</span>
-            </td>
-            <td class="p-3">{{ item.featured ? 'بله' : 'خیر' }}</td>
-            <td class="p-3">
-              <span
-                v-if="!item.isActive"
-                class="inline-flex rounded-full bg-amber-100 px-2.5 py-1 text-xs font-medium text-amber-800"
-              >
-                در انتظار تایید
-              </span>
-              <AdminStatus v-else :active="item.isActive" />
-            </td>
-            <td class="p-3">
-              <div class="flex flex-wrap items-center gap-2">
-                <button
-                  v-if="!item.isActive && can('edit')"
-                  type="button"
-                  class="rounded-lg bg-green-deep px-2.5 py-1.5 text-xs font-semibold text-on-primary"
-                  @click="approve(item)"
-                >
-                  تایید
-                </button>
-                <AdminRowActions
-                  :can-edit="can('edit')"
-                  :can-delete="can('delete')"
-                  @edit="openEdit(item)"
-                  @delete="remove(item)"
+    <AdminListPanel :count="items.length">
+      <template #table>
+        <table class="w-full text-right text-sm">
+          <thead class="bg-mist/60 text-ink-muted">
+            <tr>
+              <th class="p-3 font-medium">نام</th>
+              <th class="p-3 font-medium">امتیاز</th>
+              <th class="p-3 font-medium">نظر</th>
+              <th class="p-3 font-medium">ویژه</th>
+              <th class="p-3 font-medium">وضعیت</th>
+              <th class="p-3 font-medium">عملیات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in items" :key="item.id" class="border-t border-mist">
+              <td class="p-3">
+                <p>{{ item.clientName ?? '—' }}</p>
+                <p v-if="item.roleOrCompany" class="mt-0.5 text-xs text-ink-muted">
+                  {{ item.roleOrCompany }}
+                </p>
+              </td>
+              <td class="p-3 whitespace-nowrap">
+                {{ item.rating ? `${item.rating} / ۵` : '—' }}
+              </td>
+              <td class="p-3 max-w-xs">
+                <span class="line-clamp-2">{{ item.quote }}</span>
+              </td>
+              <td class="p-3">{{ item.featured ? 'بله' : 'خیر' }}</td>
+              <td class="p-3">
+                <AdminStatus
+                  :active="item.isActive"
+                  :clickable="can('edit')"
+                  :busy="togglingId === item.id"
+                  @toggle="toggleActive(item)"
                 />
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <p v-if="!items.length" class="p-6 text-center text-ink-muted">موردی نیست</p>
-    </div>
+              </td>
+              <td class="p-3">
+                <div class="flex flex-wrap items-center gap-2">
+                  <button
+                    v-if="!item.isActive && can('edit')"
+                    type="button"
+                    class="rounded-lg bg-green-deep px-2.5 py-1.5 text-xs font-semibold text-on-primary"
+                    @click="approve(item)"
+                  >
+                    تایید
+                  </button>
+                  <AdminRowActions
+                    :can-edit="can('edit')"
+                    :can-delete="can('delete')"
+                    @edit="openEdit(item)"
+                    @delete="remove(item)"
+                  />
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </template>
+      <template #cards>
+        <AdminMobileCard
+          v-for="item in items"
+          :key="item.id"
+          :title="item.clientName || '—'"
+          :subtitle="item.quote"
+          :thumb="item.avatarUrl"
+          :active="item.isActive"
+          :can-toggle="can('edit')"
+          :toggle-busy="togglingId === item.id"
+          :can-edit="can('edit')"
+          :can-delete="can('delete')"
+          :meta="item.rating ? `${item.rating} از ۵` : ''"
+          @toggle="toggleActive(item)"
+          @edit="openEdit(item)"
+          @delete="remove(item)"
+        />
+      </template>
+    </AdminListPanel>
     <AdminModal :open="modal" :title="editing ? 'ویرایش نظر' : 'نظر جدید'" @close="modal = false">
-      <form class="grid gap-3" @submit.prevent="save">
-        <label class="text-sm">نام بیمار<input v-model="form.clientName" required class="mt-1 w-full rounded-xl border border-mist px-3 py-2"></label>
+      <form id="admin-testimonials-form" class="grid gap-3" @submit.prevent="save">
+        <div class="grid gap-3 sm:grid-cols-2">
+          <label class="text-sm">نام<input v-model="form.firstName" required class="mt-1 w-full rounded-xl border border-mist px-3 py-2"></label>
+          <label class="text-sm">نام خانوادگی<input v-model="form.lastName" required class="mt-1 w-full rounded-xl border border-mist px-3 py-2"></label>
+        </div>
         <label class="text-sm">سمت / شرکت<input v-model="form.roleOrCompany" class="mt-1 w-full rounded-xl border border-mist px-3 py-2"></label>
         <label class="text-sm">متن نظر<textarea v-model="form.quote" rows="4" required class="mt-1 w-full rounded-xl border border-mist px-3 py-2" /></label>
         <AdminMediaField v-model="form.avatarUrl" label="تصویر" />
@@ -209,8 +265,11 @@ async function remove(item: TTestimonial) {
         <label class="text-sm">ترتیب<input v-model.number="form.sort" type="number" class="mt-1 w-full rounded-xl border border-mist px-3 py-2"></label>
         <AdminCheckbox v-model="form.featured" label="نمایش در صفحه اصلی" />
         <AdminCheckbox v-model="form.isActive" label="تایید شده / فعال" />
-        <button class="rounded-xl bg-green-deep py-2 text-on-primary" :disabled="saving">ذخیره</button>
-      </form>
+
+        </form>
+      <template #footer>
+          <button class="w-full rounded-xl bg-green-deep py-2.5 text-sm font-semibold text-on-primary shadow-sm transition hover:brightness-110 disabled:opacity-60" type="submit" form="admin-testimonials-form" :disabled="saving">ذخیره</button>
+      </template>
     </AdminModal>
   </div>
 </template>

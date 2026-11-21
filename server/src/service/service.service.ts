@@ -13,45 +13,17 @@ export class ServiceService implements OnModuleInit {
   ) {}
 
   async onModuleInit() {
-    await this.seedIfEmpty();
+    await this.seedMissingOnly();
   }
 
-  private async seedIfEmpty() {
-    const keepSlugs = new Set(SERVICE_SEED.map((item) => item.slug));
-
+  /** Insert missing seed rows only — never overwrite admin edits. */
+  private async seedMissingOnly() {
     for (const item of SERVICE_SEED) {
       const existing = await this.serviceRepository.findOne({
         where: { slug: item.slug },
       });
-
-      if (!existing) {
-        await this.serviceRepository.save(this.serviceRepository.create(item));
-        continue;
-      }
-
-      Object.assign(existing, {
-        title: item.title,
-        description: item.description,
-        icon: item.icon,
-        coverImage: item.coverImage ?? null,
-        sort: item.sort ?? existing.sort,
-        sections: item.sections ?? null,
-        casePathTitle: item.casePathTitle ?? null,
-        casePathDescription: item.casePathDescription ?? null,
-        requiredDocuments: item.requiredDocuments ?? null,
-        seoTitle: item.seoTitle ?? null,
-        seoDescription: item.seoDescription ?? null,
-        seoKeywords: item.seoKeywords ?? null,
-        isActive: item.isActive ?? true,
-      });
-      await this.serviceRepository.save(existing);
-    }
-
-    const outdated = await this.serviceRepository.find();
-    for (const row of outdated) {
-      if (keepSlugs.has(row.slug) || !row.isActive) continue;
-      row.isActive = false;
-      await this.serviceRepository.save(row);
+      if (existing) continue;
+      await this.serviceRepository.save(this.serviceRepository.create(item));
     }
   }
 

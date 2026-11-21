@@ -7,7 +7,12 @@ import { SERVICE_SEED } from '../src/service/service.seed'
 
 config({ path: resolve(__dirname, '../.env') })
 
+/**
+ * Default: insert missing seed services only (preserves admin edits).
+ * FORCE=1: overwrite existing seed-slug rows.
+ */
 async function main() {
+  const force = process.env.FORCE === '1'
   const ds = new DataSource({
     type: 'postgres',
     host: process.env.DB_HOST || '127.0.0.1',
@@ -31,6 +36,11 @@ async function main() {
       continue
     }
 
+    if (!force) {
+      console.log(`  = skip ${item.slug} (admin preserved; FORCE=1 to overwrite)`)
+      continue
+    }
+
     Object.assign(existing, {
       title: item.title,
       description: item.description,
@@ -51,7 +61,11 @@ async function main() {
   }
 
   await ds.destroy()
-  console.log(`Done. ${SERVICE_SEED.length} services synced.`)
+  console.log(
+    force
+      ? `Done. Forced sync of ${SERVICE_SEED.length} services.`
+      : `Done. Insert-only sync (${SERVICE_SEED.length} seed rows checked).`,
+  )
 }
 
 main().catch((error) => {

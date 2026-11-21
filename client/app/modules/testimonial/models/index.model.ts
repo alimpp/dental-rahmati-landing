@@ -39,9 +39,22 @@ export class TestimonialModel implements TTestimonial {
     this.updatedAt = data?.updatedAt ?? null
   }
 
+  get nameParts(): string[] {
+    return this.clientName.split(/\s+/).filter(Boolean)
+  }
+
+  get firstName(): string {
+    return this.nameParts[0] || this.clientName
+  }
+
+  get lastName(): string {
+    return this.nameParts.slice(1).join(' ')
+  }
+
   get initials(): string {
-    const parts = this.clientName.split(' ').filter(Boolean)
-    if (parts.length >= 2) return `${parts[0]![0]}${parts[1]![0]}`
+    if (this.nameParts.length >= 2) {
+      return `${this.nameParts[0]!.slice(0, 1)}${this.nameParts[1]!.slice(0, 1)}`
+    }
     return this.clientName.slice(0, 2)
   }
 
@@ -50,13 +63,13 @@ export class TestimonialModel implements TTestimonial {
   }
 
   get truncatedQuote(): string {
-    const limit = 140
+    const limit = 150
     const text = this.quote.trim()
     if (text.length <= limit) return text
     return `${text.slice(0, limit).trimEnd()}…`
   }
 
   get isQuoteLong(): boolean {
-    return this.quote.trim().length > 140
+    return this.quote.trim().length > 150
   }
 }

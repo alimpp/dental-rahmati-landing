@@ -125,29 +125,9 @@ useSchemaOrg([
             </SiteReveal>
 
             <SiteReveal variant="soft" delay="90ms">
-              <div class="mt-7 flex min-w-0 items-center gap-4">
-                <span
-                  class="inline-flex size-16 shrink-0 items-center justify-center rounded-2xl bg-panel shadow-sm ring-1 ring-mist-deep"
-                  aria-hidden="true"
-                >
-                  <span
-                    class="inline-block size-9 bg-ink"
-                    :style="{
-                      maskImage: `url(${mediaSrc(service.icon)})`,
-                      WebkitMaskImage: `url(${mediaSrc(service.icon)})`,
-                      maskRepeat: 'no-repeat',
-                      WebkitMaskRepeat: 'no-repeat',
-                      maskPosition: 'center',
-                      WebkitMaskPosition: 'center',
-                      maskSize: 'contain',
-                      WebkitMaskSize: 'contain',
-                    }"
-                  />
-                </span>
-                <p class="text-[11px] font-semibold tracking-[0.22em] text-gold">
-                  خدمات کلینیک دکتر امیر رحمتی
-                </p>
-              </div>
+              <p class="mt-7 text-[11px] font-semibold tracking-[0.22em] text-gold">
+                خدمات کلینیک دکتر امیر رحمتی
+              </p>
             </SiteReveal>
 
             <h1 class="mt-5 min-h-[3.5rem] text-3xl font-bold tracking-tight text-ink sm:min-h-[4.5rem] sm:text-5xl sm:leading-[1.2]">
