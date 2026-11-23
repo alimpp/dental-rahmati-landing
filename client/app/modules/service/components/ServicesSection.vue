@@ -23,7 +23,7 @@ onMounted(() => {
             خدمات دندان پزشکی دیجیتال
           </p>
           <h2 class="mt-3 text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-            ایمپلنت دیجیتال، لمینت و کامپوزیت در کرج
+            ایمپلنت دیجیتال، لمینت و کامپوزیت
           </h2>
           <p class="mt-4 max-w-2xl text-[15px] leading-8 text-ink-muted">
             خدمات دندان پزشکی دیجیتال دکتر امیر رحمتی — از ایمپلنت دیجیتال و طراحی لبخند تا لمینت و کامپوزیت،
@@ -59,21 +59,21 @@ onMounted(() => {
         <NuxtLink
           v-if="lead"
           :to="lead.href"
-          class="group relative min-h-[18rem] overflow-hidden rounded-[1.5rem] bg-band lg:col-span-5 lg:min-h-full"
+          class="group relative min-h-[22rem] overflow-hidden rounded-[1.5rem] bg-band lg:col-span-5 lg:min-h-full"
         >
           <img
             :src="mediaSrc(lead.coverSrc)"
             :alt="lead.title"
-            class="absolute inset-0 size-full object-cover transition duration-500 group-hover:scale-[1.03]"
+            class="absolute inset-0 size-full object-cover object-center transition duration-700 group-hover:scale-[1.05]"
             width="900"
             height="1100"
           >
-          <div class="absolute inset-0 bg-gradient-to-t from-band via-band/55 to-band/10" />
+          <div class="absolute inset-0 bg-gradient-to-t from-band via-band/55 to-band/15" />
           <div class="relative z-10 flex h-full flex-col justify-end p-6 sm:p-7">
             <h3 class="text-2xl font-bold text-on-band sm:text-3xl">
               {{ lead.title }}
             </h3>
-            <p class="mt-3 max-w-md text-sm leading-7 text-on-band/80">
+            <p class="mt-3 max-w-md text-sm leading-7 text-on-band/85">
               {{ lead.description }}
             </p>
             <span class="mt-6 text-sm font-semibold text-gold">جزئیات خدمت</span>
@@ -87,26 +87,25 @@ onMounted(() => {
           >
             <NuxtLink
               :to="item.href"
-              class="group flex h-full flex-col overflow-hidden rounded-[1.25rem] bg-mist ring-1 ring-mist-deep transition hover:bg-surface hover:ring-gold/35"
+              class="group relative flex min-h-[16.5rem] overflow-hidden rounded-[1.25rem] bg-band sm:min-h-[17.5rem]"
             >
-              <div class="relative aspect-[16/10] overflow-hidden bg-band">
-                <img
-                  :src="mediaSrc(item.coverSrc)"
-                  :alt="item.title"
-                  class="size-full object-cover transition duration-500 group-hover:scale-[1.04]"
-                  width="640"
-                  height="400"
-                  loading="lazy"
-                >
-                <div class="absolute inset-0 bg-gradient-to-t from-band/35 to-transparent" />
-              </div>
-              <div class="flex flex-1 flex-col p-5">
-                <h3 class="text-lg font-bold text-ink transition group-hover:text-green-deep">
+              <img
+                :src="mediaSrc(item.coverSrc)"
+                :alt="item.title"
+                class="absolute inset-0 size-full object-cover object-center transition duration-700 group-hover:scale-[1.05]"
+                width="640"
+                height="480"
+                loading="lazy"
+              >
+              <div class="absolute inset-0 bg-gradient-to-t from-band via-band/50 to-band/10" />
+              <div class="relative z-10 mt-auto flex w-full flex-col p-5 sm:p-6">
+                <h3 class="text-lg font-bold text-on-band">
                   {{ item.title }}
                 </h3>
-                <p class="mt-2 line-clamp-2 flex-1 text-sm leading-7 text-ink-muted">
+                <p class="mt-2 line-clamp-2 text-sm leading-7 text-on-band/80">
                   {{ item.description }}
                 </p>
+                <span class="mt-4 text-sm font-semibold text-gold">جزئیات خدمت</span>
               </div>
             </NuxtLink>
           </li>

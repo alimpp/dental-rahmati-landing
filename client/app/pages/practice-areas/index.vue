@@ -129,40 +129,37 @@ useSchemaOrg([
             <p class="text-sm text-ink-muted">{{ items.length }} مورد</p>
           </div>
 
-          <!-- Featured lead -->
+          <!-- Featured lead: full-bleed photo + text overlay -->
           <NuxtLink
             v-if="lead"
             :to="lead.href"
-            class="group mb-6 grid overflow-hidden rounded-[1.75rem] bg-band shadow-[0_24px_60px_rgba(6,54,55,0.16)] lg:grid-cols-12"
+            class="group relative mb-6 flex min-h-[18rem] overflow-hidden rounded-[1.75rem] bg-band shadow-[0_24px_60px_rgba(6,54,55,0.16)] sm:min-h-[20rem] lg:min-h-[22rem]"
           >
-            <div class="relative aspect-[16/11] overflow-hidden lg:col-span-5 lg:aspect-auto lg:min-h-[14rem]">
-              <img
-                :src="mediaSrc(lead.coverSrc)"
-                :alt="lead.title"
-                class="home-media-shift size-full object-cover opacity-75"
-                width="800"
-                height="560"
-              >
-              <div class="absolute inset-0 bg-gradient-to-l from-band/80 via-transparent to-transparent max-lg:hidden" />
-              <div class="absolute inset-0 bg-gradient-to-t from-band/70 via-transparent to-transparent lg:hidden" />
-            </div>
-            <div class="flex flex-col justify-center p-7 sm:p-9 lg:col-span-7">
+            <img
+              :src="mediaSrc(lead.coverSrc)"
+              :alt="lead.title"
+              class="absolute inset-0 size-full object-cover object-center transition duration-700 group-hover:scale-[1.04]"
+              width="1200"
+              height="700"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-band via-band/50 to-band/15" />
+            <div class="relative z-10 mt-auto flex w-full flex-col p-7 sm:p-9 lg:max-w-3xl">
               <p class="text-[11px] font-medium tracking-[0.16em] text-gold">خدمت ویژه</p>
               <h2 class="mt-2 text-2xl font-bold text-on-band sm:text-3xl">
                 {{ lead.title }}
               </h2>
-              <p class="mt-4 max-w-xl text-sm leading-8 text-on-band/70">
+              <p class="mt-4 max-w-xl text-sm leading-8 text-on-band/80">
                 {{ lead.description }}
               </p>
-              <span class="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-green-deep">
+              <span class="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-gold">
                 جزئیات این خدمت
-                <span class="h-px w-8 bg-green-deep transition-all group-hover:w-12" aria-hidden="true" />
+                <span class="h-px w-8 bg-gold transition-all group-hover:w-12" aria-hidden="true" />
               </span>
             </div>
           </NuxtLink>
 
-          <!-- Stacked editorial rows -->
-          <ul class="space-y-4">
+          <!-- Photo cards with text overlay -->
+          <ul class="grid gap-4 sm:grid-cols-2">
             <li
               v-for="(item, index) in rest"
               :key="item.id"
@@ -171,35 +168,32 @@ useSchemaOrg([
             >
               <NuxtLink
                 :to="item.href"
-                class="group grid overflow-hidden rounded-[1.5rem] bg-mist ring-1 ring-mist-deep transition hover:bg-panel hover:shadow-[0_22px_50px_rgba(6,54,55,0.1)] hover:ring-gold/35 md:grid-cols-12"
+                class="group relative flex min-h-[16rem] overflow-hidden rounded-[1.5rem] bg-band sm:min-h-[17.5rem]"
               >
-                <div class="relative aspect-[16/10] overflow-hidden bg-band md:col-span-4 md:aspect-auto md:min-h-[9.5rem]">
-                  <img
-                    :src="mediaSrc(item.coverSrc)"
-                    :alt="item.title"
-                    class="size-full object-cover transition duration-500 group-hover:scale-[1.03]"
-                    width="640"
-                    height="400"
-                    loading="lazy"
-                  >
-                  <div class="absolute inset-0 bg-gradient-to-l from-mist/40 to-transparent max-md:hidden" />
-                </div>
-
-                <div class="flex flex-col justify-center gap-3 p-5 sm:flex-row sm:items-center sm:justify-between md:col-span-8 md:gap-4 md:p-6">
-                  <div class="min-w-0">
-                    <span class="font-mono text-[11px] font-semibold tracking-widest text-gold">
-                      {{ String(index + 2).padStart(2, '0') }}
-                    </span>
-                    <h2 class="mt-1 text-lg font-bold text-ink transition group-hover:text-green-deep sm:text-xl">
-                      {{ item.title }}
-                    </h2>
-                    <p class="mt-2 line-clamp-3 max-w-2xl text-sm leading-7 text-ink-muted">
-                      {{ item.description }}
-                    </p>
-                  </div>
-                  <span class="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-ink">
+                <img
+                  :src="mediaSrc(item.coverSrc)"
+                  :alt="item.title"
+                  class="absolute inset-0 size-full object-cover object-center transition duration-700 group-hover:scale-[1.05]"
+                  width="800"
+                  height="560"
+                  loading="lazy"
+                >
+                <div class="absolute inset-0 bg-gradient-to-t from-band via-band/55 to-band/10" />
+                <div class="relative z-10 mt-auto flex w-full flex-col p-5 sm:p-6">
+                  <span class="font-mono text-[11px] font-semibold tracking-widest text-gold">
+                    {{ String(index + 2).padStart(2, '0') }}
+                  </span>
+                  <h2 class="mt-1 text-lg font-bold text-on-band sm:text-xl">
+                    {{ item.title }}
+                  </h2>
+                  <p class="mt-2 line-clamp-2 max-w-xl text-sm leading-7 text-on-band/80">
+                    {{ item.description }}
+                  </p>
+                  <span class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-gold">
                     مشاهده
-                    <span class="inline-flex size-10 items-center justify-center rounded-full bg-band text-xl leading-none text-on-band transition group-hover:bg-green-deep group-hover:text-on-primary">
+                    <span
+                      class="inline-flex size-9 items-center justify-center rounded-full bg-white/15 text-lg leading-none text-on-band transition group-hover:bg-green-deep group-hover:text-on-primary"
+                    >
                       ←
                     </span>
                   </span>
